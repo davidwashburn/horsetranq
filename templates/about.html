@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+	<link rel="icon" type="image/x-icon" href="/static/img/assets/ico/hors.ico">
+	<link rel="stylesheet" href="../static/css/reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="../static/css/style.css"> <!-- Main style -->
+	<link rel="stylesheet" href="../static/css/style-slides.css"> <!-- Slide specific style -->
+	<link rel="stylesheet" href="../static/css/variables.css"> <!-- Variables style -->
+	<script src="../static/js/modernizr.js"></script> <!-- Modernizr -->
+	<script src="https://cdn.auth0.com/js/auth0/9.18/auth0.min.js"></script>
+	<title>HOrstRnq</title>
+</head>
+<body>
+	<main class="cd-main-content horseplay-background is-fixed">
+		<div class="cd-tab-filter-wrapper">
+			<div class="cd-tab-filter">
+				<ul id="menu-list" class="cd-filters js-signin-modal-trigger cd-main-nav__list shadow">
+					<li class="placeholder"> 
+						<a href="#0">ABOUT</a> <!-- selected option on mobile -->
+					</li> 
+					<li><a id="horsplayBtn" href="/">GAMES</a></li>
+					<li><a id="storeBtn" href="/store">STOR</a></li> 
+					<li><a href="#0" id="aboutBtn" class="cd-filter-trigger modal-trigger selected"data-target="aboutModal">ABOUT</a></li>
+					{% if logged_in %}
+					<li><a href="#0" id="myAccountBtn" class="cd-filter-trigger modal-trigger" data-target="accountModal">{{ session.profile.name.split(' ')[0] }}</a></li>
+					{% else %}
+						<li><a href="/login" id="accountBtn" class="cd-filter-trigger" data-target="accountModal">SIGN IN</a></li>
+					{% endif %}	
+					<li><div class="label beta">BETA</li>
+				</ul>
+			</div>
+		</div>
+	</main>
+
+	<div class="cd-project-content is-visible">
+		<div>
+			<h2 class="big-bold">Horsetranq Media Group</h2>
+			<em>Onse a hors alway a hors. Liv boled, be fre.</em>
+			<div class="title-wrapper flex settings">
+					<div class="title-wrapper flex settings bg-none" style="margin-bottom: 0;">
+						<h4 class="bold color-primary-darker">Socials</h4>
+						<div class="socials flex">
+						<a href="https://discord.gg/4RVnSsRCRp" target="_blank" class="social-icon">
+							<img src="./../static/img/assets/discord.svg" alt="Discord">
+						</a>
+						<a href="https://www.patreon.com/horsetranq" target="_blank" class="social-icon">
+							<img src="./../static/img/assets/patreon.svg" alt="Patreon">
+						</a>
+						<a href="[DISCORD-URL]" target="_blank" class="social-icon">
+							<img src="./../static/img/assets/atlassian.svg" alt="Atlassian">
+						</a>	
+						<h4><a class="color-primary" href="https://support.horsetranq.com">support.horsetranq.com</a></h4>		
+					</div>
+				</div>
+			</div>
+			<p>
+				Horsetranq.com was found in 2001 durin the doctom bubble. Y2k and Gran Turismo 2 devlopers teamed up to make this websit. No body thot the site would survive wen the buble burst but we r a livin testamonial to hard perservrance n work.
+			</p>
+			<p>
+				We also hav a vary loose* parnership wit Foundation for the Hors. Its loose cus they may not kno it exits. We like to parner wit hors fundations to benefit all the hors in teh wild. Majecstic beast wit four legs n a tail n a head. Our fundang and incom goes to hors phlanthropy acros the globe (wen wer'e able to). It makes us difrent than or competitin. We are 'nt afraid of wat othrs think of horstranq.
+			</p>
+			<p>
+				<span class="bold color-primary">Horstarnq Media Grop ©2023</span> is teh parent company for Horsetranq.com. All rites resvred and all affilations afiliated. Privcy is a focus of ours nd so is ur money. Our prodacts r strong in the marketplac and we are <span class="bold";>bes of breed</span>.
+			</p>
+			<p>
+				Thanks for tuning in en being a faitful subsriber.
+			</p>
+		</div>
+	</div> <!-- .cd-project-content -->
+
+	<div id="#bg-overlay"></div>
+
+<script src="../static/js/jquery-2.1.1.js"></script>
+<script src="../static/js/slides/jquery.mobile.custom.min.js"></script>
+<script src="../static/js/slides/main-slides.js"></script> <!-- Resource jQuery -->
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+		<link rel="icon" type="image/x-icon" href="/static/img/assets/ico/hors.ico">
+		<link rel="stylesheet" href="/static/css/reset.css"> <!-- CSS reset -->
+		<link rel="stylesheet" href="/static/css/style.css"> <!-- Resource style -->
+		<link rel="stylesheet" href="/static/css/variables.css"> <!-- Variables style -->
+		<script src="/static/js/modernizr.js"></script> <!-- Modernizr -->
+		<script src="https://cdn.auth0.com/js/auth0/9.18/auth0.min.js"></script>
+		<title>HOrstRnq</title>
+	</head>
+	<body>
+		<main class="cd-main-content horseplay-background is-fixed">
+			<div class="cd-tab-filter-wrapper">
+				<div class="cd-tab-filter">
+					<ul id="menu-list" class="cd-filters js-signin-modal-trigger cd-main-nav__list shadow">
+						<li class="placeholder"> 
+							<a href="#0">STOR</a> <!-- selected option on mobile -->
+						</li> 
+						<li><a id="horsplayBtn" href="/">HORSPLAY</a></li>
+						<li><a id="storeBtn" href="/store" class="selected">STOR</a></li> 
+						<li><a href="#0" id="aboutBtn" class="cd-filter-trigger modal-trigger" data-target="aboutModal">ABOUT</a></li>
+						{% if logged_in %}
+						<li><a href="#0" id="myAccountBtn" class="cd-filter-trigger modal-trigger" data-target="accountModal">{{ session.profile.name.split(' ')[0] }}</a></li>
+						{% else %}
+							<li><a href="/login" id="accountBtn" class="cd-filter-trigger" data-target="accountModal">SIGN IN</a></li>
+						{% endif %}	
+						<li><div class="label beta">BETA</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="store-wrapper">
+				<div class="store-flex-container subscribe">
+					<div class="store-section shadow ui-container hide">
+						<h1 class="store-section-title bold">Subbies</h1>
+						<p class="bold">Join an becom a subby.</p>
+					</div>
+					<div class="flex-container">
+						<div class="ui-container product subscribe shadow">
+							<div class="subscribe-container">
+								<img src="/static/img/branding/hors-one.png">
+							</div>
+							<header class="cd-pricing-header hide">
+								<h1>$5 mo for HORS ONE</h1>
+							</header>
+							<div class="cd-pricing-body">
+								<ul class="cd-pricing-features">
+									<li><em>Genral</em> suport</li>
+									<li><em>Webcite</em> shout out</li>
+									<li><em>Digtal</em> icon pak</li>
+									<li><em>Munthee</em> newsletr</li>
+									<li><a href="https://www.patreon.com/horsetranq"><em>Read</em> moar</a></li>
+								</ul>
+							</div>
+							<footer class="cd-pricing-footer">
+								<a href="https://www.patreon.com/horsetranq" class="cd-select product-buy">Subscripe ($3 mo)</a>
+							</footer>
+						</div>
+						<div class="ui-container product subscribe shadow">
+							<div class="subscribe-container">
+								<img src="/static/img/branding/hors-plus.png">
+							</div>
+							<header class="cd-pricing-header hide">
+								<h1>$10 mo for HORS PLUS</h1>
+							</header>
+							<div class="cd-pricing-body">
+								<ul class="cd-pricing-features">
+									<li><em>All pryer</em> rewrds</li>
+									<li><em>Digtal</em> artwerk</li>
+									<li><em>Erly acess</em> fetures</li>
+									<li><em>Galop merch</em> stor acess</li>
+									<li><a href="https://www.patreon.com/horsetranq"><em>Read</em> moar</a></li>
+								</ul>
+							</div>
+							<footer class="cd-pricing-footer">
+								<a href="https://www.patreon.com/horsetranq" class="cd-select product-buy">Subscripe ($6 mo)</a>
+							</footer>
+						</div>
+						<div class="ui-container product subscribe shadow">
+							<div class="subscribe-container">
+								<img src="/static/img/branding/hors-max.png">
+							</div>
+							<header class="cd-pricing-header hide">
+								<h1>$15 mo for HORS MAX</h1>
+							</header>
+							<div class="cd-pricing-body">
+								<ul class="cd-pricing-features">
+									<li><em>All pryer</em> rewrds</li>
+									<li><em>TrankTalk</em> live Q&a</li>
+									<li><em>Horstranq AI </em> API acess</li>
+									<li><em>Makin of</em> documentry</li>
+									<li><a href="https://www.patreon.com/horsetranq"><em>Read</em> moar</a></li>
+								</ul>
+							</div>
+							<footer class="cd-pricing-footer">
+								<a href="https://www.patreon.com/horsetranq" class="cd-select product-buy">Subscripe ($10 mo)</a>
+							</footer>
+						</div>
+					</div>
+				</div>
+				<div class="store-flex-container subscribe">
+					<div class="store-section shadow ui-container hide">
+						<h1 class="store-section-title bold">MERCH (COMIN SON)</h1>
+						<p class="bold">Lern more abut our gear comin soon.</p>
+					</div>
+					<div class="flex-container">
+						<div class="ui-container product merch shadow">
+							<div class="subscribe-container coming-soon">
+								<img src="/static/img/assets/tools-1.png">
+							</div>
+							<header class="cd-pricing-header hide">
+								<h1>$5 mo for HORS ONE</h1>
+							</header>
+							<div class="cd-pricing-body">
+								<ul class="cd-pricing-features">
+									<li><em>Tee</em> shirts</li>
+								</ul>
+							</div>
+							<footer class="cd-pricing-footer">
+								<a href="" class="cd-select product-buy">BUY (COMIN SON)</a>
+							</footer>
+						</div>
+						<div class="ui-container product merch shadow">
+							<div class="subscribe-container coming-soon">
+								<img src="/static/img/assets/tools-1.png">
+							</div>
+							<header class="cd-pricing-header hide">
+								<h1>$10 mo for HORS PLUS</h1>
+							</header>
+							<div class="cd-pricing-body">
+								<ul class="cd-pricing-features">
+									<li><em>Sweatys</em> shirt</li>
+								</ul>
+							</div>
+							<footer class="cd-pricing-footer">
+								<a href="" class="cd-select product-buy">BUY (COMIN SON)</a>
+							</footer>
+						</div>
+						<div class="ui-container product merch shadow">
+							<div class="subscribe-container coming-soon">
+								<img src="/static/img/assets/tools-1.png">
+							</div>
+							<header class="cd-pricing-header hide">
+								<h1>$15 mo for HORS MAX</h1>
+							</header>
+							<div class="cd-pricing-body">
+								<ul class="cd-pricing-features">
+									<li><em>Basball</em> caps</li>
+								</ul>
+							</div>
+							<footer class="cd-pricing-footer">
+								<a href="" class="cd-select product-buy">BUY (COMIN SON)</a>
+							</footer>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- ABOUT MODAL -->
+			<div id="aboutModal" class="cd-filter shadow">
+				<div class="sticky-container">
+					<div class="modal-title-container sticky">
+						<div class="modal-title-wrapper">
+							<div class="title-wrapper">
+								<h4 class="modal-title bold color-primary-darker center">About Horsetranq</h4>
+							</div>
+							<a href="#0" class="cd-close-filter flex-right"></a>
+						</div>
+					</div>
+				</div>
+				<form>
+					<div class="cd-filter-block">
+						<div class="cd-filter-content" style="line-height: 1.2;">
+							 <div class="title-wrapper flex settings">
+								<h4 class="bold color-contrast-medium">About</h4>
+								<p class="bold color-contrast-higher" style="line-height: 1.7;">
+									Horsetranq.com was found in 2001 durin the DOCTOM bubble. Y2k and Gran Turismo 2 devlopers teamed up to make this websit. Thanks for tuning in en being a subsriber.</p>
+								</div>
+								<div class="title-wrapper flex settings">
+								<h4 class="bold color-contrast-medium">Horsplay Rules</h4>
+								<p class="bold color-contrast-higher" style="line-height: 1.7;">
+									Note: No real hors harmed in game
+									1. Hit hors with tranq
+									2. Get pts for a horstranq
+									2. Hors dont want to b tranqd..
+								</p>
+							</div>	
+						</div>
+					</div>
+					<div class="title-wrapper flex settings bg-none" style="margin-bottom: 0;">
+							<h4 class="bold color-primary-darker">Socials</h4>
+							<div class="socials flex">
+							<a href="https://discord.gg/4RVnSsRCRp" target="_blank" class="social-icon">
+								<img src="/static/img/assets/discord.svg" alt="Discord">
+							</a>
+							<a href="https://www.patreon.com/horsetranq" target="_blank" class="social-icon">
+								<img src="/static/img/assets/patreon.svg" alt="Patreon">
+							</a>
+							<a href="[DISCORD-URL]" target="_blank" class="social-icon">
+								<img src="/static/img/assets/atlassian.svg" alt="Atlassian">
+							</a>			
+						</div>
+					</div>
+
+					<div class="cd-filter-block hide">
+						<div class="title-wrapper flex">
+							<h3 class="bold color-primary">Donat to hors fundation</h3>
+						</div>
+							<span>
+								(<a href="https://www.foundationforthehorse.org/give-now/" style="font-weight:bold;">view cite</a>)
+							</span>
+						<p></p>
+						<div class="rulez">
+							<h3>Enter card info</h3>
+							<div id="valuable-trash">
+								<div id="creditCardLine">
+									<div class="input-wrapper">
+										<div class="input-icon">
+											<input type="text" id="creditCard" name="creditCard" class="contact-label" placeholder="CrEDIT CARD + ZIPs + CvS #">
+										</div>
+									</div>
+								</div>
+								<div id="contactForm">
+									<div class="input-wrapper">
+										<div class="input-icon">
+											<input type="text" id="fname" name="fname" class="contact-label" placeholder="1st NamE">
+										</div>
+									</div>
+									<div class="input-wrapper">
+										<div class="input-icon">
+											<input type="text" id="lname" name="lname" class="contact-label" placeholder="2nd NAMe">
+										</div>
+									</div>
+									<div class="input-wrapper">
+										<div class="input-icon">
+											<input type="text" id="email" name="email" class="contact-label" placeholder="EmAIL (dont care)">
+										</div>
+									</div>
+								</div>
+								<button type="button" id="submit" class="pickle shadow">Save</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		
+		{% if logged_in %}
+			<!-- ACCOUNT MODAL -->
+			<div id="accountModal" class="cd-filter shadow">
+				<div class="sticky-container">
+					<div class="modal-title-container sticky">
+						<div class="modal-title-wrapper">
+							<div class="title-wrapper">
+								<h4 class="modal-title bold color-primary-darker center">Account Profile</h4>
+								<a href="#0" class="cd-close-filter flex-right"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<form>
+					<div class="cd-filter-block">
+						<div class="cd-filter-content">
+							<div class="title-wrapper flex settings">
+								<h4 class="bold color-contrast-medium">Plan</h4>
+								<div class="label plus">PLUS</div>
+							</div>
+							<div class="title-wrapper flex settings">
+								<h4 class="bold color-contrast-medium">Name</h4>
+								<p class="bold color-contrast-higher">
+									{% if name %}
+										{{ name }}
+									{% else %}
+										Guest
+									{% endif %}
+								</p>
+							</div>
+							<div class="title-wrapper flex settings">
+								<h4 class="bold color-contrast-medium">Email</h4>
+								<p class="bold color-contrast-higher">
+									{% if logged_in %}
+										{{ email }}
+									{% else %}
+										Unknown
+									{% endif %}
+								</p>
+							</div>
+							<div class="title-wrapper flex settings">
+								<h4 class="bold color-contrast-medium">Avatar</h4>
+								{% if logged_in %}
+									<div class="profile-image">
+										<img src="{{ picture }}" alt="Profile Picture" width="100" height="100">
+									</div>
+								{% else %}
+									<div class="profile-image">
+										<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/480px-Default_pfp.svg.png" alt="Profile Picture" width="100" height="100">
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+					<div class="cd-filter-block">
+						<div id="accountTools" class="title-wrapper flex settings bg-none">
+							<button type="button" id="accountSaveBtn" class="pickle shadow hide">Save</button>
+							<button type="button" id="accountSignOutBtn" class="pickle shadow">Sign Out</button>
+							<button type="button" id="accountDeleteBtn" class="pickle shadow hide">Delet Accnt</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		{% else %}
+		{% endif %}	
+		</main> <!-- cd-main-content -->
+	<script src="/static/js/jquery-2.1.1.js"></script>
+	<script src="/static/js/jquery.mixitup.min.js"></script>
+	<script src="/static/js/main.js"></script> <!-- Resource jQuery -->
+	<script src="/static/js/jquery.min.js"></script> <!-- Added for the draggable UI -->
+	<script src="/static/js/jquery-ui.js"></script> <!-- Added for the draggable UI -->
+	<script src="/static/js/jquery.ui.touch-punch.min.js"></script>
+			
+	<script>
+		$(function() {
+		$( "#draggable01,#draggable02,#draggable03,#draggable04,#draggable05,#draggable06,#draggable07,#draggable08,#draggable09,#draggable10,#draggable11,#draggable12,#draggable13,#draggable14" ).draggable();
+		});
+	</script>
+
+	</body>
+</html>
