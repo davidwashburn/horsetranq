@@ -11,8 +11,35 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+
+// When Free Play is selected disable all Ranked Play settings
+var freePlayBtn = document.getElementById('freePlayBtn');
+if (freePlayBtn) {
+    freePlayBtn.addEventListener('click', function() {
+        document.querySelectorAll('#rankedPlaySettings .optn-select').forEach(function(element) {
+            element.classList.add('disabled');
+        });
+    });
+}
+// When Ranked Play is selected disable all Free Play settings
+var rankedPlayBtn = document.getElementById('rankedPlayBtn');
+if (rankedPlayBtn) {
+    rankedPlayBtn.addEventListener('click', function() {
+        document.querySelectorAll('#freePlaySettings .optn-select').forEach(function(element) {
+            element.classList.add('disabled');
+        });
+    });
+}
+
+
 window.onload = function() {
 
+	// Remove the loading screen after the DOM finishes loading
+	setTimeout(function() {
+        document.getElementById('loadingScreen').style.display = 'none';
+    }, 3000); // delay of 3000 milliseconds, or 3 seconds
+
+	// Function for custom settings dropdowns //
 	document.querySelectorAll('.custom-select').forEach(select => {
 		select.querySelector('.optn-select').addEventListener('click', () => {
 			select.classList.toggle('open');
@@ -34,9 +61,12 @@ window.onload = function() {
         '/static/img/assets/hors-3.png',
     ];
 
-    var horseSpeed = 2; // Initialize horse speed
+	// Initialize horse speed
+	var horseSpeed = 2; // Initialize horse speed
 
-    function setHorseSpeed() {
+	// Calculate horse speed based on settings input //
+	function setHorseSpeed(speed) {
+        horseSpeed = parseFloat(speed);
         var horseElements = document.getElementsByClassName('horse-logo-3x');
         for (var i = 0; i < horseElements.length; i++) {
             var animationDuration = (Math.random() * 3 + 3) / horseSpeed;
@@ -44,8 +74,15 @@ window.onload = function() {
         }
     }
 	
-    $('#speed-selector').on('change', function() {
-        horseSpeed = parseFloat($(this).val());
+	// Start moving the horses at page load
+    setHorseSpeed(horseSpeed);
+
+	// Set horse speed from dropdown value (change on save handled under #settingsSaveBtn function) //
+    document.querySelectorAll('#speed-selector .option').forEach(option => {
+        option.addEventListener('click', () => {
+            selectedHorseSpeed = parseFloat(option.dataset.value);
+			console.log('Selected speed:', selectedHorseSpeed);
+        });
     });
 
 	// Function to pick a random image
@@ -102,17 +139,12 @@ window.onload = function() {
             horseContainer.appendChild(horseDiv);
         }
         // Apply horse speed to new elements.
-        setHorseSpeed();
+        setHorseSpeed(horseSpeed);
     }
     adjustHorseIntensity(); // Adjust horse intensity at page load
 
 
 	$('#settingsSaveBtn').on('click', function() {
-		// THEME SELECTOR SETTINGS
-		/* var bgSelector = $('#bg-selector')[0]; 
-		var selectedOption = bgSelector.options[bgSelector.selectedIndex];
-		var selectedImage = selectedOption.value;
-		*/
 
 		// THEME SELECTOR SETTINGS
 		var bgSelector = document.querySelector('#bg-selector');
@@ -129,11 +161,10 @@ window.onload = function() {
 			element.style.backgroundImage = 'url(./static/img/' + selectedImage + ')';
 		}
 
-	
 		// HORSE SPEED SETTINGS
-		var horseSpeed = parseFloat($('#speed-selector').val());
-		setHorseSpeed(); // Update horse speed when the selector changes
-	
+		var selectedSpeed = parseFloat(document.querySelector('#speed-selector').dataset.value);
+		setHorseSpeed(selectedSpeed); // Update horse speed when the Save button is clicked
+
 		// HORSE INTENSITY SETTINGS
 		adjustHorseIntensity(); // Adjust horse intensity when the settings are saved
 	
@@ -142,76 +173,58 @@ window.onload = function() {
 		$('.horse-logo-3x img').css('transform', 'scale(' + size + ')');
 	
 		// HORSE TYPE SETTINGS
-		var value = $('#selectThis').val();
+		var typeSelector = document.querySelector('#type-selector');
+		var value = typeSelector.dataset.value;
 	
-		if (value === '.option3') {
-			// Replace horse images with dog images
-			var dogImages = ['static/img/assets/dog-1.png', 'static/img/assets/dog-2.png', 'static/img/assets/dog-3.png'];
-			changeImage(dogImages);
-		} else if (value === '.option1') {
-			// Reset back to horse images
+		if (value === 'image-hors') {
 			var horseImages = [
-				'static/img/assets/hors-1.png',
-				'static/img/assets/hors-2.png',
-				'static/img/assets/hors-3.png',
+				'/static/img/assets/hors-1.png',
+				'/static/img/assets/hors-2.png',
+				'/static/img/assets/hors-3.png',
 			];
 			changeImage(horseImages);
-		} else if (value === '.option2') {
-			// Replace horse images with person images
+		} else if (value === 'image-people') {
 			var personImages = [
-				'static/img/assets/person-1.png',
-				'static/img/assets/person-2.png',
-				'static/img/assets/person-3.png',
-				'static/img/assets/person-4.png',
+				'/static/img/assets/person-1.png',
+				'/static/img/assets/person-2.png',
+				'/static/img/assets/person-3.png',
+				'/static/img/assets/person-4.png',
 			];
 			changeImage(personImages);
-		} else if (value === '.option4') {
-			// Replace horse images with idiot horse images
+		} else if (value === 'image-dog') {
+			var dogImages = [
+				'/static/img/assets/dog-1.png',
+				'/static/img/assets/dog-2.png',
+				'/static/img/assets/dog-3.png',
+			];
+			changeImage(dogImages);
+		} else if (value === 'image-idiot-hors') {
 			var idiotHorseImages = [
-				'static/img/assets/hors-idiot.png',
-				'static/img/assets/hors-tranq.png',
+				'/static/img/assets/hors-idiot.png',
+				'/static/img/assets/hors-tranq.png',
 			];
 			changeImage(idiotHorseImages);
-		} else if (value === '.option5') {
-			// Replace horse images with raven images
+		} else if (value === 'image-raven') {
 			var ravenImages = [
-				'static/img/assets/ravn-1.png',
-				'static/img/assets/ravn-2.png',
-				'static/img/assets/ravn-3.png',
-				'static/img/assets/ravn-tranq.png',
+				'/static/img/assets/ravn-1.png',
+				'/static/img/assets/ravn-2.png',
+				'/static/img/assets/ravn-3.png',
+				'/static/img/assets/ravn-tranq.png',
 			];
 			changeImage(ravenImages);
-		} else if (value === '.option6') {
-			// Replace horse images with goose images
+		} else if (value === 'image-goose') {
 			var gooseImages = [
-				'static/img/assets/goose-1.png',
+				'/static/img/assets/goose-1.png',
 			];
 			changeImage(gooseImages);
 		}
+
 		$('#settingsModal').removeClass('filter-is-visible');  // This will hide the settingsModal.
 	});	
 	
     // Call updateScore once initially to set the initial score.
     updateScore();
 }
-
-// Enable custom settings if checkbox is checked
-$('#rankedCheckboxBtn').on('change', function() {
-	if ($(this).is(':checked')) {
-		// Checkbox is checked, enable the options and disable difficulty selector
-		$('#speed-selector').prop('disabled', false);
-		$('#intensity-selector').prop('disabled', false);
-		$('#size-selector').prop('disabled', false);
-		$('#difficulty-selector').prop('disabled', true);
-	} else {
-		// Checkbox is not checked, disable the options and enable difficulty selector
-		$('#speed-selector').prop('disabled', true);
-		$('#intensity-selector').prop('disabled', true);
-		$('#size-selector').prop('disabled', true);
-		$('#difficulty-selector').prop('disabled', false);
-	}
-});
-
 
 // Initialize score
 var score = 0;

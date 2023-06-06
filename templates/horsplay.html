@@ -16,6 +16,11 @@
 		<title>HOrstRnq</title>
 	</head>
 	<body>
+		<div id="loadingScreen" style="position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: #ffffff; z-index: 10000;">
+			<div id="loading-img-container">
+				<img src="/static/img/loading/hors-load-3.gif" alt="Loading..." />
+			</div>
+		</div>		
 		<main class="cd-main-content horseplay-background is-fixed">
 			<div class="cd-tab-filter-wrapper">
 				<div class="cd-tab-filter">
@@ -203,23 +208,45 @@
 		{% else %}
 		{% endif %}	
 
-			<!-- SETTINGS MODAL -->
-			<div id="settingsModal" class="cd-filter shadow">
-				<div class="sticky-container">
-					<div class="modal-title-container sticky">
-						<div class="modal-title-wrapper">
-							<div class="title-wrapper">
-								<h4 class="modal-title big-bold color-primary-darker center">Game Settings</h4>
-								<a href="#0" class="cd-close-filter flex-right"></a>
+		
+		<!-- SETTINGS MODAL -->
+		<div id="settingsModal" class="cd-filter shadow">
+			<div class="sticky-container">
+				<div class="modal-title-container sticky">
+					<div class="modal-title-wrapper">
+						<div class="title-wrapper">
+							<h4 class="modal-title big-bold color-primary-darker center">Game Settings</h4>
+							<a href="#0" class="cd-close-filter flex-right"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<form>
+				<div class="title-wrapper flex" style="padding-top:0;">
+					<h4 class="big-big-bold color-primary">RANKED OPTIONS</h4>
+				</div>
+				
+				<div id="rankedPlaySettings" class="cd-filter-block">
+					<div class="custom-select">
+						<div id="difficulty-selector" class="optn-select" data-value="easyDifficulty">Difficulty</div>
+						<div class="options">
+							<div class="option" data-value="easyDifficulty">Easy</div>
+							<div class="option" data-value="mediumDifficulty">Medium</div>
+							<div class="option" data-value="hardDifficulty">Hard</div>
+							<div class="option-flex">
+								<div class="option disabled" data-value="Unpossible">Unpossible</div>
+								<div class="label beta">NOPE</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<form>
-					<div class="title-wrapper flex" style="padding-top:0;">
-						<h4 class="big-big-bold color-contrast-medium">Defalt options</h4>
-					</div>
-					  
+				
+				<div class="title-wrapper flex">
+					<h4 class="big-bold color-primary float-left">FREE PLAY OPTIONS</h4>
+				</div>
+
+				<div id="freePlaySettings">
+					<!-- Background theme selector -->
 					<div class="cd-filter-block">
 						<div class="custom-select">
 							<div id="bg-selector" class="optn-select" data-value="default.jpg">Theme</div>
@@ -249,96 +276,114 @@
 						</div>
 					</div>					
 
+					<!-- Horse type selector -->
 					<div class="cd-filter-block">
-						<div class="cd-filter-content">
-							<div class="cd-select cd-filters">
-								<select id="selectThis" class="filter settingsOptn" name="selectThis">
-									<option selected disabled value=".option1">Hors Type</option>
-									<option value=".option1">HORS (Hors)</option>
-									<option value=".option2">NOT HORS (People)</option>
-									<option value=".option3">MEBE HORS? (Dog)</option>
-									<option value=".option4">IDI0T HORS (Hors?)</option>
-									<option value=".option5">RAV3N (Bird)</option>
-									<option value=".option6">GOOSE HORSE (Bird?)</option>
-								</select>
-							</div>
-						</div> 
-					</div>
-					<div class="cd-filter-block">
-						<div class="cd-filter-content">
-							<div class="cd-select cd-filters">
-								<select id="difficulty-selector" class="settingsOptn" disabled>
-									<option selected disabled value="easyDifficulty">Difficulty (Ranked)</option>
-									<option value="easyDifficulty">Easy</option>
-									<option value="mediumDifficulty">Medium</option>
-									<option value="hardDifficulty">Hard</option>
-								</select>
-							</div>
-						</div>
-					</div>
-					
-					<div class="title-wrapper flex">
-						<h4 class="big-bold color-contrast-medium float-left">Custom settings</h4>
-						<ul id="rankedCheckbox" class="cd-filter-content cd-filters list float-right color-contrast-higher" style="display: block;">
-							<li>
-								<input class="filter" type="checkbox" id="rankedCheckboxBtn" disabled>
-								<label class="checkbox-label bold color-error-light" for="enableCustomSettings">Ranked mode (soon)</label>
-							</li>
-						</ul>
-					</div>
-					<div class="alertBanner shadow hide">
-						<h3>
-							High scor will not be saved using custom setings
-						</h3>
-					</div>
-					<div class="cd-filter-block">
-						<div class="cd-filter-content">
-							<div class="cd-select cd-filters">
-								<select id="speed-selector" class="settingsOptn">
-									<option selected disabled value="1">Hors Sped</option>
-									<option value="0.125">Ded (Molassus)</option>
-									<option value="1">Walk (1x)</option>
-									<option value="2">Trott  (2x)</option>
-									<option value="4">Canter (4x)</option>
-									<option value="10">Gallop (10x)</option>
-								</select>
+						<div class="custom-select">
+							<div id="type-selector" class="optn-select" name="selectThis" data-value="image-hors">Hors type</div>
+							<div class="options">
+								<div class="option" data-value="image-hors">Hors (Hors)</div>
+								{% if logged_in %}
+									<div class="option" data-value="image-people">Not hors (People)</div>
+									<div class="option" data-value="image-dog">Mebbe hors? (Dog)</div>
+									<div class="option" data-value="image-idiot-hors">Idi0t hors (Hors?)</div>
+									<div class="option" data-value="image-raven">Rav3n (Raven)</div>
+									<div class="option" data-value="image-goose">Goose hors (Goose)</div>
+								{% else %}
+									<div class="option-flex">
+										<div class="option disabled" data-value="image-people">Not hors (People)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="image-dog">Mebbe hors? (Dog)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="image-idiot-hors">Idi0t hors (Hors?)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="image-raven">Rav3n (Raven)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="image-goose">Goose hors (Goose)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+								{% endif %}	
 							</div>
 						</div>
 					</div>
+
+					<!-- Horse speed selector -->
 					<div class="cd-filter-block">
-						<div class="cd-filter-content">
-							<div class="cd-select cd-filters">
-								<select id="intensity-selector" class="settingsOptn">
-									<option selected disabled value="50">Hors Intencity</option>
-									<option value="50">Normanl (50 hors)</option>
-									<option value="100">Tuff (100 hors)</option>
-									<option value="250">Big Tuff (250 hors)</option>
-									<option value="500">Mega (500 hors)</option>
-									<option value="1500">DONOT CLIK! (1500 hors)</option>
-								</select>
+						<div class="custom-select">
+							<div id="speed-selector" class="optn-select" data-value="1">Hors speed</div>
+							<div class="options">
+								<div class="option" data-value="0.125">Ded (Molassus)</div>
+								<div class="option" data-value="1">Walk (1x)</div>
+								<div class="option" data-value="3">Trott  (3x)</div>
+								{% if logged_in %}
+									<div class="option" data-value="5">Canter (5x)</div>
+									<div class="option" data-value="10">Gallop (10x)</div>
+									<div class="option" data-value="50">U stupid (50x)</div>
+								{% else %}
+									<div class="option-flex">
+										<div class="option disabled" data-value="5">Canter (5x)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="10">Gallop (10x)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="50">U stupid (50x)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+								{% endif %}	
 							</div>
 						</div>
 					</div>
-					<div class="cd-filter-block">
-						<div class="cd-filter-content">
-							<div class="cd-select cd-filters">
-								<select id="size-selector" class="settingsOptn">
-									<option selected disabled value="1">Hors Size</option>
-									<option value="1">Normanl (1x)</option>
-									<option value="0.25">Shutland Pony (0.25x)</option>
-									<option value="0.50">Reglr Pony (0.5x)</option>
-									<option value="2">Big Hors (2x)</option>
-									<option value="3">Trojin Hors (3x)</option>
-								</select>
-							</div>
+
+				</div>
+				
+
+				
+				
+				<div class="cd-filter-block">
+					<div class="cd-filter-content">
+						<div class="cd-select cd-filters">
+							<select id="intensity-selector" class="settingsOptn">
+								<option selected disabled value="50">Hors Power</option>
+								<option value="50">Normanl (50 hors)</option>
+								<option value="100">Tuff (100 hors)</option>
+								<option value="250">Big Tuff (250 hors)</option>
+								<option value="500">Mega (500 hors)</option>
+								<option value="1500">DONOT CLIK! (1500 hors)</option>
+							</select>
 						</div>
 					</div>
-					<div id="settingsSaveContainer" class="flex">
-						<button type="button" id="settingsSaveBtn" class="pickle shadow">Save</button>
+				</div>
+				<div class="cd-filter-block">
+					<div class="cd-filter-content">
+						<div class="cd-select cd-filters">
+							<select id="size-selector" class="settingsOptn">
+								<option selected disabled value="1">Hors Size</option>
+								<option value="1">Normanl (1x)</option>
+								<option value="0.25">Shutland Pony (0.25x)</option>
+								<option value="0.50">Reglr Pony (0.5x)</option>
+								<option value="2">Big Hors (2x)</option>
+								<option value="3">Trojin Hors (3x)</option>
+							</select>
+						</div>
 					</div>
-				</form>
-			</div>
-		</main> <!-- cd-main-content -->
+				</div>
+				<div id="settingsSaveContainer" class="flex">
+					<button type="button" id="settingsSaveBtn" class="pickle shadow">Save</button>
+				</div>
+			</form>
+		</div>
+
+	</main> <!-- cd-main-content -->
 
 	<script src="/static/js/jquery-2.1.1.js"></script>
 	<script src="/static/js/main.js"></script> <!-- Resource jQuery -->

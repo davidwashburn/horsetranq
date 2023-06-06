@@ -1022,12 +1022,6 @@ label {
 .modal-title-wrapper .title-wrapper {
   line-height: 22px;
 }
-#rankedCheckbox {
-  margin-top: 2px;
-}
-#rankedCheckboxBtn li input {
-
-}
 .ui-container {
   background: var(--color-white);
   border-radius: var(--radius-base);
@@ -1534,6 +1528,7 @@ xfilter
 }
 .label a {
   color: inherit;
+  font-weight: 800;
 }
 .settings .label {
   padding: 4px 10px;
@@ -2639,7 +2634,7 @@ Usage: codyhouse.co/license
 
 .custom-select .options {
   display: none;
-  /* other styles */
+  position: relative;
 }
 
 .custom-select.open .options {
@@ -2749,3 +2744,24 @@ Usage: codyhouse.co/license
 .option.optn-select {
   background-color: #ddd;
 }
+
+/* Loading screen */
+#loadingScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  background: url(../../static/img/peaceful-alt.png);
+}
+
+#loading-img-container img {
+  width: 350px;
+  height: auto; /* maintain aspect ratio */
+}
+
