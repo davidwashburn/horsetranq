@@ -130,8 +130,6 @@ Projects Slider
   width: 100%;
   height: 100%;
   visibility: hidden;
-  /*background-color: #0f1926;*/
-  background-color: #197cd6;
   -webkit-transition: visibility 0s 0.5s;
   -moz-transition: visibility 0s 0.5s;
   transition: visibility 0s 0.5s;
@@ -189,6 +187,7 @@ Projects Slider
   -moz-animation: cd-translate 0.5s;
   animation: cd-translate 0.5s;
   border-radius: var(--radius-lg);
+  user-select: none;
 }
 .cd-slider a {
   display: block;
@@ -204,6 +203,10 @@ Projects Slider
 .cd-slider .project-info {
   padding: 1em 1.6em;
   border-radius: 0 0 .25em .25em;
+  overflow: visible;
+  text-wrap: wrap;
+  white-space: normal;
+  word-wrap: break-word;
 }
 .cd-slider .title-slide .project-info {
   padding: 0;
@@ -216,7 +219,7 @@ Projects Slider
   font-weight: 800;
 }
 .cd-slider p {
-  font-size: 1.4rem;
+  font-size: var(--font-size-xl); /* was 1.4em */
   opacity: .6;
   padding: .4em 0;
   /* truncate text with ellipsis if too long */
@@ -224,10 +227,11 @@ Projects Slider
   text-overflow: ellipsis;
   white-space: nowrap;
   color: var(--color-primary-darker);
+
 }
 
 .cd-slider h2, .cd-slider p {
-  font-weight: 800;
+  /*font-weight: 800;*/
   line-height: 1.4;
   padding: 0;
 }

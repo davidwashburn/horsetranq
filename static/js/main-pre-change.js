@@ -367,77 +367,57 @@ $("#accountDeleteBtn").click(function() {
 // STUFF I DON'T CARE ABOUT MUCH //
 jQuery(document).ready(function($){
 
-	// Check if the current page is horsplay.html
-	if (window.location.pathname.endsWith('horsplay.html')) {
-		// Your page-specific JavaScript code for horsplay.html goes here
-	
-
-	}
-	// Remove overlay when ranked or free play is selected
-	$('#rankedPlayBtn, #freePlayBtn, #myAccountBtn').on('click', function() {
-		$('#gameSelectOverlay').removeClass('overlay');
-	});
-
-	var target = 'gameSelectModal';
-	triggerFilter(target, true);
-
 	var settingsModal = $('#settingsModal');
-	var gameSelectModal = $('#gameSelectModal');
-	var accountModal = $('#accountModal');
+    var aboutModal = $('#aboutModal');
+    var accountModal = $('#accountModal');
 
-	$('.modal-trigger').on('click', function() {
-		var target = $(this).data('target');
+    $('.modal-trigger').on('click', function() {
+        var target = $(this).data('target');
 
-		if (target == 'settingsModal') {
-			gameSelectModal.removeClass('filter-is-visible');
-			accountModal.removeClass('filter-is-visible');
-		} else if (target == 'gameSelectModal') {
-			settingsModal.removeClass('filter-is-visible');
-			accountModal.removeClass('filter-is-visible');
-		} else if (target == 'accountModal') {
-			settingsModal.removeClass('filter-is-visible');
-			gameSelectModal.removeClass('filter-is-visible');
-		}
+        if (target == 'settingsModal') {
+            aboutModal.removeClass('filter-is-visible');
+            accountModal.removeClass('filter-is-visible');
+        } else if (target == 'aboutModal') {
+            settingsModal.removeClass('filter-is-visible');
+            accountModal.removeClass('filter-is-visible');
+        } else if (target == 'accountModal') {
+            settingsModal.removeClass('filter-is-visible');
+            aboutModal.removeClass('filter-is-visible');
+        }
 
-		$('#' + target).toggleClass('filter-is-visible');
-		triggerFilter(target, true);
-	});
+        $('#' + target).toggleClass('filter-is-visible');
+        triggerFilter(target, true);
+    });
 
-	$('.cd-filter .cd-custom-close-modal').on('click', function() {
-		var parentModal = $(this).closest('.cd-filter').attr('id');
-		triggerFilter(parentModal, false);
-	});
+    $('.cd-filter .cd-close-filter').on('click', function() {
+        var parentModal = $(this).closest('.cd-filter').attr('id');
+        triggerFilter(parentModal, false);
+    });
 
-	$('.cd-close-filter').on('click', function() {
-		var parentModal = $(this).closest('.cd-filter').attr('id');
-		triggerFilter(parentModal, false);
-	});
+    function triggerFilter(target, $bool) {
+        var elementsToTrigger = $([$('#' + target), $('.cd-tab-filter'), $('.cd-gallery')]);
+        elementsToTrigger.each(function() {
+            $(this).toggleClass('filter-is-visible', $bool);
+        });
+    }
 
-	function triggerFilter(target, $bool) {
-		var elementsToTrigger = $([$('#' + target), $('.cd-tab-filter'), $('.cd-gallery')]);
-		elementsToTrigger.each(function() {
-			$(this).toggleClass('filter-is-visible', $bool);
-		});
-	}
-
-	// open/close lateral filter
-	$('.modal-trigger').on('click', function() {
+	//open/close lateral filter
+	$('.modal-trigger').on('click', function(){
 		var target = $(this).data('target');
 		triggerFilter(target, true);
 	});
-
-	$('.cd-filter .cd-close-filter').on('click', function() {
+	
+	$('.cd-filter .cd-close-filter').on('click', function(){
 		var parentModal = $(this).closest('.cd-filter').attr('id');
 		triggerFilter(parentModal, false);
 	});
-
+	
 	function triggerFilter(target, $bool) {
-		var elementsToTrigger = $([$('#' + target), $('.cd-tab-filter'), $('.cd-gallery')]);
-		elementsToTrigger.each(function() {
+		var elementsToTrigger = $([$('#'+target), $('.cd-tab-filter'), $('.cd-gallery')]);
+		elementsToTrigger.each(function(){
 			$(this).toggleClass('filter-is-visible', $bool);
 		});
-	}
-
+	}	
 
 	// mobile version - detect click event on filters tab
 	var filter_tab_placeholder = $('.cd-tab-filter .placeholder a'),
@@ -471,6 +451,10 @@ jQuery(document).ready(function($){
 		$('.cd-tab-filter .selected').removeClass('selected');
 		$(event.target).addClass('selected');
 	}
+
+	// Output console messages
+	console.log('Button clicked!');
+	console.log('Selected filter:', selected_filter);
 	});
 
 });

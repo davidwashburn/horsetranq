@@ -47,6 +47,7 @@ jQuery(document).ready(function(){
 		}
 	});
 
+	/*
 	//select a single project - open project-content panel
 	projectsContainer.on('click', '.cd-slider a', function(event) {
 		var mq = checkMQ();
@@ -65,6 +66,7 @@ jQuery(document).ready(function(){
 		event.preventDefault();
 		singleProjectContent.removeClass('is-visible');
 	});
+	*/
 
 	//go to next/pre slide - clicking on the next/prev arrow
 	sliderNav.on('click', '.next', function(){

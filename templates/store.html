@@ -15,16 +15,16 @@
 		<title>HOrstRnq</title>
 	</head>
 	<body>
-		<main class="cd-main-content horseplay-background is-fixed">
+		<main class="cd-main-content scroll static-bg horseplay-background is-fixed">
 			<div class="cd-tab-filter-wrapper">
 				<div class="cd-tab-filter">
 					<ul id="menu-list" class="cd-filters js-signin-modal-trigger cd-main-nav__list shadow">
 						<li class="placeholder"> 
 							<a href="#0">STOR</a> <!-- selected option on mobile -->
 						</li> 
-						<li><a id="horsplayBtn" href="/">HORSPLAY</a></li>
+						<li><a id="horsplayBtn" href="/">STABLE</a></li>
 						<li><a id="storeBtn" href="/store" class="selected">STOR</a></li> 
-						<li><a href="#0" id="aboutBtn" class="cd-filter-trigger modal-trigger" data-target="aboutModal">ABOUT</a></li>
+						<li><a href="/about" id="aboutBtn" class="cd-filter-trigger modal-trigger" data-target="aboutModal">ABOUT</a></li>
 						{% if logged_in %}
 						<li><a href="#0" id="myAccountBtn" class="cd-filter-trigger modal-trigger" data-target="accountModal">{{ session.profile.name.split(' ')[0] }}</a></li>
 						{% else %}
@@ -168,7 +168,7 @@
 					<div class="modal-title-container sticky">
 						<div class="modal-title-wrapper">
 							<div class="title-wrapper">
-								<h4 class="modal-title bold color-primary-darker center">About Horsetranq</h4>
+								<h4 class="modal-title big-bold color-primary-darker center">About Horsetranq</h4>
 							</div>
 							<a href="#0" class="cd-close-filter flex-right"></a>
 						</div>
@@ -257,7 +257,7 @@
 					<div class="modal-title-container sticky">
 						<div class="modal-title-wrapper">
 							<div class="title-wrapper">
-								<h4 class="modal-title bold color-primary-darker center">Account Profile</h4>
+								<h4 class="modal-title big-bold color-primary-darker center">Account Profile</h4>
 								<a href="#0" class="cd-close-filter flex-right"></a>
 							</div>
 						</div>
