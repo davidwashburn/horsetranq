@@ -228,7 +228,7 @@
 				
 				<div id="rankedPlaySettings" class="cd-filter-block">
 					<div class="custom-select">
-						<div id="difficulty-selector" class="optn-select" data-value="easyDifficulty">Difficulty</div>
+						<div id="difficulty-selector" class="optn-select no-highlight" data-value="easyDifficulty">Difficulty</div>
 						<div class="options">
 							<div class="option" data-value="easyDifficulty">Easy</div>
 							<div class="option" data-value="mediumDifficulty">Medium</div>
@@ -249,7 +249,7 @@
 					<!-- Background theme selector -->
 					<div class="cd-filter-block">
 						<div class="custom-select">
-							<div id="bg-selector" class="optn-select" data-value="default.jpg">Theme</div>
+							<div id="bg-selector" class="optn-select no-highlight" data-value="default.jpg">Theme</div>
 							<div class="options">
 								<div class="option" data-value="farm-bg-day.jpg">Day</div>
 								<div class="option" data-value="farm-bg-day-alt.jpg">Day Alt</div>
@@ -279,7 +279,7 @@
 					<!-- Horse type selector -->
 					<div class="cd-filter-block">
 						<div class="custom-select">
-							<div id="type-selector" class="optn-select" name="selectThis" data-value="image-hors">Hors type</div>
+							<div id="type-selector" class="optn-select no-highlight" name="selectThis" data-value="image-hors">Hors type</div>
 							<div class="options">
 								<div class="option" data-value="image-hors">Hors (Hors)</div>
 								{% if logged_in %}
@@ -317,7 +317,7 @@
 					<!-- Horse speed selector -->
 					<div class="cd-filter-block">
 						<div class="custom-select">
-							<div id="speed-selector" class="optn-select" data-value="1">Hors speed</div>
+							<div id="speed-selector" class="optn-select no-highlight" data-value="1">Hors speed</div>
 							<div class="options">
 								<div class="option" data-value="0.125">Ded (Molassus)</div>
 								<div class="option" data-value="1">Walk (1x)</div>
@@ -344,39 +344,72 @@
 						</div>
 					</div>
 
-				</div>
-				
+					<!-- Horse power selector -->
+					<div class="cd-filter-block">
+						<div class="custom-select">
+							<div id="power-selector" class="optn-select no-highlight" data-value="50">Hors power</div>
+							<div class="options">
+								<div class="option" data-value="50">Normanl (50 hors)</div>
+								<div class="option" data-value="100">Tuff (100 hors)</div>
+								{% if logged_in %}
+									<div class="option" data-value="250">Big tuff (250 hors)</div>
+									<div class="option" data-value="500">Canter (5x)</div>
+									<div class="option" data-value="1500">Donot clik (1500 hors)</div>
+									<div class="option" data-value="5000">U stupid (5000 hors)</div>
+								{% else %}
+									<div class="option-flex">
+										<div class="option disabled" data-value="250">Big tuff (250 hors)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="500">Mega tuff (500x)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="1500">Donot clik (1500 hors)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="5000">U stupid (5000 hors)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+								{% endif %}	
+							</div>
+						</div>
+					</div>
 
-				
-				
-				<div class="cd-filter-block">
-					<div class="cd-filter-content">
-						<div class="cd-select cd-filters">
-							<select id="intensity-selector" class="settingsOptn">
-								<option selected disabled value="50">Hors Power</option>
-								<option value="50">Normanl (50 hors)</option>
-								<option value="100">Tuff (100 hors)</option>
-								<option value="250">Big Tuff (250 hors)</option>
-								<option value="500">Mega (500 hors)</option>
-								<option value="1500">DONOT CLIK! (1500 hors)</option>
-							</select>
+					<!-- Horse size selector -->
+					<div class="cd-filter-block">
+						<div class="custom-select">
+							<div id="size-selector" class="optn-select no-highlight" data-value="1">Hors size</div>
+							<div class="options">
+								{% if logged_in %}
+									<div class="option" data-value="0.25">Shutland Pony (0.25x)</div>
+									<div class="option" data-value="0.50">Regulr Pony (0.50x)</div>
+									<div class="option" data-value="1">Normanl (1x)</div>
+									<div class="option" data-value="2">Big hors (2x)</div>
+									<div class="option" data-value="3">Trojin hors (3x)</div>
+								{% else %}
+								<div class="option" data-value="1">Normanl (1x)</div>
+								<div class="option" data-value="2">Big hors (2x)</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="0.25">Shutland Pony (0.25x)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="0.50">Regulr Pony (0.50x)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="3">Trojin hors (3x)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+								{% endif %}	
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="cd-filter-block">
-					<div class="cd-filter-content">
-						<div class="cd-select cd-filters">
-							<select id="size-selector" class="settingsOptn">
-								<option selected disabled value="1">Hors Size</option>
-								<option value="1">Normanl (1x)</option>
-								<option value="0.25">Shutland Pony (0.25x)</option>
-								<option value="0.50">Reglr Pony (0.5x)</option>
-								<option value="2">Big Hors (2x)</option>
-								<option value="3">Trojin Hors (3x)</option>
-							</select>
-						</div>
-					</div>
-				</div>
+				</div> <!-- freePlaySettings-->
+				
 				<div id="settingsSaveContainer" class="flex">
 					<button type="button" id="settingsSaveBtn" class="pickle shadow">Save</button>
 				</div>

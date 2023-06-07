@@ -110,11 +110,12 @@ window.onload = function() {
 	// Initialize with random background on page load
 	setBackgroundImage(getRandomImage());
 
-    // Initialize horse intensity
-    var intensitySelector = document.getElementById('intensity-selector');
+    
+	// Initialize horse intensity
+	var powerSelector = document.getElementById('power-selector');
     function adjustHorseIntensity() {
-        var intensity = intensitySelector.value || 1;
-        var horseContainer = document.getElementById('hors-container');
+		var intensity = powerSelector.dataset.value;
+		var horseContainer = document.getElementById('hors-container');
 
         // Remove all existing horse elements.
         while (horseContainer.firstChild) {
@@ -169,8 +170,12 @@ window.onload = function() {
 		adjustHorseIntensity(); // Adjust horse intensity when the settings are saved
 	
 		// HORSE SIZE SETTINGS
-		var size = $('#size-selector').val();
-		$('.horse-logo-3x img').css('transform', 'scale(' + size + ')');
+		var sizeSelector = document.getElementById('size-selector');
+		var size = sizeSelector.dataset.value;
+		
+		// Update horse size based on the captured value
+		var scale = parseFloat(size);
+		$('.horse-logo-3x img').css('transform', 'scale(' + scale + ')');		
 	
 		// HORSE TYPE SETTINGS
 		var typeSelector = document.querySelector('#type-selector');
@@ -331,6 +336,27 @@ function changeImage(imagesArray){
     }
 }
 
+// When opening custom settings dropdown close other dropdowns //
+document.addEventListener('click', function(event) {
+	var target = event.target;
+  
+	// Check if the clicked element is within a custom dropdown
+	if (!target.closest('.custom-select')) {
+	  // If not, close all custom dropdowns
+	  document.querySelectorAll('.custom-select').forEach(function(select) {
+		select.classList.remove('open');
+	  });
+	} else {
+	  // If it is, close other custom dropdowns except the one that was clicked
+	  var clickedDropdown = target.closest('.custom-select');
+	  document.querySelectorAll('.custom-select').forEach(function(select) {
+		if (select !== clickedDropdown) {
+		  select.classList.remove('open');
+		}
+	  });
+	}
+  });
+  
 
 // Reset game (reloads the page) //
 $(function() {
