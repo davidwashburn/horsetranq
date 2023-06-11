@@ -130,8 +130,6 @@ Projects Slider
   width: 100%;
   height: 100%;
   visibility: hidden;
-  /*background-color: #0f1926;*/
-  background-color: #197cd6;
   -webkit-transition: visibility 0s 0.5s;
   -moz-transition: visibility 0s 0.5s;
   transition: visibility 0s 0.5s;
@@ -155,10 +153,9 @@ Projects Slider
 }
 
 .cd-slider {
-  /* height: 100%;
+  /*padding-top: 10vh;*/
+  height: 100%;
   overflow-y: auto;
-  */
-  position: relative;
 }
 .projects-visible .cd-slider {
   /* smooth scrolling on iOS */
@@ -190,10 +187,11 @@ Projects Slider
   -moz-animation: cd-translate 0.5s;
   animation: cd-translate 0.5s;
   border-radius: var(--radius-lg);
+  user-select: none;
 }
 .cd-slider a {
   display: block;
-  height: 100%;
+  height: auto;
   width: 100%;
 }
 .cd-slider img {
@@ -204,7 +202,14 @@ Projects Slider
 }
 .cd-slider .project-info {
   padding: 1em 1.6em;
-  /*background-color: #ebebeb;*/
+  border-radius: 0 0 .25em .25em;
+  overflow: visible;
+  text-wrap: wrap;
+  white-space: normal;
+  word-wrap: break-word;
+}
+.cd-slider .title-slide .project-info {
+  padding: 0;
   border-radius: 0 0 .25em .25em;
 }
 .cd-slider h2 {
@@ -214,7 +219,7 @@ Projects Slider
   font-weight: 800;
 }
 .cd-slider p {
-  font-size: 1.4rem;
+  font-size: var(--font-size-xl); /* was 1.4em */
   opacity: .6;
   padding: .4em 0;
   /* truncate text with ellipsis if too long */
@@ -222,24 +227,26 @@ Projects Slider
   text-overflow: ellipsis;
   white-space: nowrap;
   color: var(--color-primary-darker);
+
 }
 
 .cd-slider h2, .cd-slider p {
-  font-weight: 800;
-  /*
-  line-height: 1.2;
-  color: #0f1926;
-  */
+  /*font-weight: 800;*/
+  line-height: 1.4;
+  padding: 0;
 }
 .cd-slider h2 {
  color: var(--color-primary);
 }
 
 @media only screen and (min-width: 900px) {
+  .cd-slider .title-slide .project-info {
+    padding: 1em 1.6em;
+    border-radius: 0 0 .25em .25em;
+  }
   .cd-slider {
     padding: 0;
     overflow: hidden;
-    height: max-content;
     -webkit-transition: -webkit-transform 0.5s;
     -moz-transition: -moz-transform 0.5s;
     transition: transform 0.5s;
@@ -261,7 +268,8 @@ Projects Slider
     position: relative;
     float: left;
     width: 26vw;
-    margin: 0 0 0 2vw;
+    max-width: 340px;
+    margin: 0 0 0 3em;
     top: 50%;
     -webkit-transform: translateX(400%) translateY(-50%) rotate(-10deg);
     -moz-transform: translateX(400%) translateY(-50%) rotate(-10deg);
@@ -739,6 +747,9 @@ Project content panel
   right: 10px;
   background: url(../../static/img/cd-close-dark.svg) no-repeat center center;
 }
+.projects-visible .cd-slider {
+  padding-top: calc(2em + 50px);
+}
 @media only screen and (min-width: 900px) {
   .cd-project-content h2 {
     font-size: 6rem;
@@ -752,6 +763,22 @@ Project content panel
   .cd-project-content .close {
     top: 30px;
     right: 5%;
+  }
+  #games-title-slide {
+    position: absolute;
+    margin-top: 9%;
+    margin-left: 3em;
+  }
+  
+  #news-title-slide {
+    position: relative;
+    margin-top: 9%;
+    margin-left: 3em;
+    margin-right: calc(-3em - 340px);
+  }
+
+  .cd-projects-wrapper.projects-visible {
+    padding-top: inherit;
   }
 }
 
@@ -850,10 +877,10 @@ Keyframes
   filter: none; /* Remove the blur effect on hover */
 }
 
-.cd-projects-wrapper.projects-visible {
-  display: inline-flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  padding-top: calc(2em + 50px);
-  overflow-y: scroll;
+.project-info .flex {
+  display: flex;
+  align-items: center;
+}
+.project-info .flex .label {
+  display: inline;
 }

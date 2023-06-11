@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	  elements.forEach(function(element) {
 		element.classList.add("slides-in");
 	  });
-	}, 3500); // Delay in milliseconds (0.5 seconds in this example)
+	}, 500); // Delay in milliseconds (0.5 seconds in this example)
   });
 
 jQuery(document).ready(function(){
@@ -115,7 +115,6 @@ jQuery(document).ready(function(){
 	function setSliderContainer() {
 		var mq = checkMQ();
 		if(mq == 'desktop') {
-		/*
 			var	slides = projectsSlider.children('li'),
 				slideWidth = slides.eq(0).width(),
 				marginLeft = Number(projectsSlider.children('li').eq(1).css('margin-left').replace('px', '')),
@@ -123,7 +122,6 @@ jQuery(document).ready(function(){
 				slideCurrentIndex = projectsSlider.children('li.current').index();
 			projectsSlider.css('width', sliderWidth);
 			( slideCurrentIndex != 0 ) && setTranslateValue(projectsSlider, (  slideCurrentIndex * (slideWidth + marginLeft) + 'px'));
-		*/
 		} else {
 			projectsSlider.css('width', '');
 			setTranslateValue(projectsSlider, 0);
