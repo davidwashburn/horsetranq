@@ -1,213 +1,144 @@
-document.addEventListener("DOMContentLoaded", function() {
-	const elements = document.querySelectorAll(".ui-container");
-	
-	setTimeout(function() {
-	  elements.forEach(function(element) {
-		element.classList.add("slides-in");
-	  });
-	}, 3500); // Delay in milliseconds (0.5 seconds in this example)
-  });
+
 
 jQuery(document).ready(function(){
 
-	var intro = $('.cd-intro-block'),
-		projectsContainer = $('.cd-projects-wrapper'),
-		projectsSlider = projectsContainer.children('.cd-slider'),
-		singleProjectContent = $('.cd-project-content'),
-		sliderNav = $('.cd-slider-navigation');
-
-	var resizing = false;
+	// File stacking card JS //
+	(function() {
+		var StackCards = function(element) {
+		this.element = element;
+		this.items = this.element.getElementsByClassName('js-stack-cards__item');
+		this.scrollingFn = false;
+		this.scrolling = false;
+		initStackCardsEffect(this); 
+		initStackCardsResize(this); 
+		};
 	
-	//if on desktop - set a width for the projectsSlider element
-	setSliderContainer();
-	$(window).on('resize', function(){
-		//on resize - update projectsSlider width and translate value
-		if( !resizing ) {
-			(!window.requestAnimationFrame) ? setSliderContainer() : window.requestAnimationFrame(setSliderContainer);
-			resizing = true;
-		}
-	});
-
-	//show the projects slider if user clicks the show-projects button
-	intro.on('click', 'a[data-action="show-projects"]', function(event) {
-		event.preventDefault();
-		intro.addClass('projects-visible');
-		projectsContainer.addClass('projects-visible');
-		//animate single project - entrance animation
-		setTimeout(function(){
-			showProjectPreview(projectsSlider.children('li').eq(0));
-		}, 200);
-	});
-
-	intro.on('click', function(event) {
-		//projects slider is visible - hide slider and show the intro panel
-		if( intro.hasClass('projects-visible') && !$(event.target).is('a[data-action="show-projects"]') ) {
-			intro.removeClass('projects-visible');
-			projectsContainer.removeClass('projects-visible');
-		}
-	});
-
-	/*
-	//select a single project - open project-content panel
-	projectsContainer.on('click', '.cd-slider a', function(event) {
-		var mq = checkMQ();
-		event.preventDefault();
-		if( $(this).parent('li').next('li').is('.current') && (mq == 'desktop') ) {
-			prevSides(projectsSlider);
-		} else if ( $(this).parent('li').prev('li').prev('li').prev('li').is('.current')  && (mq == 'desktop') ) {
-			nextSides(projectsSlider);
-		} else {
-			singleProjectContent.addClass('is-visible');
-		}
-	});
-
-	//close single project content
-	singleProjectContent.on('click', '.close', function(event){
-		event.preventDefault();
-		singleProjectContent.removeClass('is-visible');
-	});
-	*/
-
-	//go to next/pre slide - clicking on the next/prev arrow
-	sliderNav.on('click', '.next', function(){
-		nextSides(projectsSlider);
-	});
-	sliderNav.on('click', '.prev', function(){
-		prevSides(projectsSlider);
-	});
-
-	//go to next/pre slide - keyboard navigation
-	$(document).keyup(function(event){
-		var mq = checkMQ();
-		if(event.which=='37' &&  intro.hasClass('projects-visible') && !(sliderNav.find('.prev').hasClass('inactive')) && (mq == 'desktop') ) {
-			prevSides(projectsSlider);
-		} else if( event.which=='39' &&  intro.hasClass('projects-visible') && !(sliderNav.find('.next').hasClass('inactive')) && (mq == 'desktop') ) {
-			nextSides(projectsSlider);
-		} else if(event.which=='27' && singleProjectContent.hasClass('is-visible')) {
-			singleProjectContent.removeClass('is-visible');
-		}
-	});
-
-	projectsSlider.on('swipeleft', function(){
-		var mq = checkMQ();
-		if( !(sliderNav.find('.next').hasClass('inactive')) && (mq == 'desktop') ) nextSides(projectsSlider);
-	});
-
-	projectsSlider.on('swiperight', function(){
-		var mq = checkMQ();
-		if ( !(sliderNav.find('.prev').hasClass('inactive')) && (mq == 'desktop') ) prevSides(projectsSlider);
-	});
-
-	function showProjectPreview(project) {
-		if(project.length > 0 ) {
-			setTimeout(function(){
-				project.addClass('slides-in');
-				showProjectPreview(project.next());
-			}, 50);
-		}
-	}
-
-	function checkMQ() {
-		//check if mobile or desktop device
-		return window.getComputedStyle(document.querySelector('.cd-projects-wrapper'), '::before').getPropertyValue('content').replace(/'/g, "").replace(/"/g, "");
-	}
-
-	function setSliderContainer() {
-		var mq = checkMQ();
-		if(mq == 'desktop') {
-		/*
-			var	slides = projectsSlider.children('li'),
-				slideWidth = slides.eq(0).width(),
-				marginLeft = Number(projectsSlider.children('li').eq(1).css('margin-left').replace('px', '')),
-				sliderWidth = ( slideWidth + marginLeft )*( slides.length + 1 ) + 'px',
-				slideCurrentIndex = projectsSlider.children('li.current').index();
-			projectsSlider.css('width', sliderWidth);
-			( slideCurrentIndex != 0 ) && setTranslateValue(projectsSlider, (  slideCurrentIndex * (slideWidth + marginLeft) + 'px'));
-		*/
-		} else {
-			projectsSlider.css('width', '');
-			setTranslateValue(projectsSlider, 0);
-		}
-		resizing = false;
-	}
-
-	function nextSides(slider) {
-		var actual = slider.children('.current'),
-			index = actual.index(),
-			following = actual.nextAll('li').length,
-			width = actual.width(),
-			marginLeft = Number(slider.children('li').eq(1).css('margin-left').replace('px', ''));
-
-		index = (following > 4 ) ? index + 3 : index + following - 2;
-		//calculate the translate value of the slider container
-		translate = index * (width + marginLeft) + 'px';
-
-		slider.addClass('next');
-		setTranslateValue(slider, translate);
-		slider.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
-			updateSlider('next', actual, slider, following);
+		function initStackCardsEffect(element) { // use Intersection Observer to trigger animation
+		setStackCards(element); // store cards CSS properties
+			var observer = new IntersectionObserver(stackCardsCallback.bind(element), { threshold: [0, 1] });
+			observer.observe(element.element);
+		};
+	
+		function initStackCardsResize(element) { // detect resize to reset gallery
+		element.element.addEventListener('resize-stack-cards', function(){
+			setStackCards(element);
+			animateStackCards.bind(element);
 		});
-
-		if( $('.no-csstransitions').length > 0 ) updateSlider('next', actual, slider, following);
-	}
-
-	function prevSides(slider) {
-		var actual = slider.children('.previous'),
-			index = actual.index(),
-			width = actual.width(),
-			marginLeft = Number(slider.children('li').eq(1).css('margin-left').replace('px', ''));
-
-		translate = index * (width + marginLeft) + 'px';
-
-		slider.addClass('prev');
-		setTranslateValue(slider, translate);
-		slider.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
-			updateSlider('prev', actual, slider);
-		});
-
-		if( $('.no-csstransitions').length > 0 ) updateSlider('prev', actual, slider);
-	}
-
-	function updateSlider(direction, actual, slider, numerFollowing) {
-		if( direction == 'next' ) {
-			
-			slider.removeClass('next').find('.previous').removeClass('previous');
-			actual.removeClass('current');
-			if( numerFollowing > 4 ) {
-				actual.addClass('previous').next('li').next('li').next('li').addClass('current');
-			} else if ( numerFollowing == 4 ) {
-				actual.next('li').next('li').addClass('current').prev('li').prev('li').addClass('previous');
-			} else {
-				actual.next('li').addClass('current').end().addClass('previous');
-			}
+		};
+		
+		function stackCardsCallback(entries) { // Intersection Observer callback
+		if(entries[0].isIntersecting) {
+			if(this.scrollingFn) return; // listener for scroll event already added
+			stackCardsInitEvent(this);
 		} else {
-			
-			slider.removeClass('prev').find('.current').removeClass('current');
-			actual.removeClass('previous').addClass('current');
-			if(actual.prevAll('li').length > 2 ) {
-				actual.prev('li').prev('li').prev('li').addClass('previous');
+			if(!this.scrollingFn) return; // listener for scroll event already removed
+			window.removeEventListener('scroll', this.scrollingFn);
+			this.scrollingFn = false;
+		}
+		};
+		
+		function stackCardsInitEvent(element) {
+		element.scrollingFn = stackCardsScrolling.bind(element);
+		window.addEventListener('scroll', element.scrollingFn);
+		};
+	
+		function stackCardsScrolling() {
+		if(this.scrolling) return;
+		this.scrolling = true;
+		window.requestAnimationFrame(animateStackCards.bind(this));
+		};
+	
+		function setStackCards(element) {
+		// store wrapper properties
+		element.marginY = getComputedStyle(element.element).getPropertyValue('--stack-cards-gap');
+		getIntegerFromProperty(element); // convert element.marginY to integer (px value)
+		element.elementHeight = element.element.offsetHeight;
+	
+		// store card properties
+		var cardStyle = getComputedStyle(element.items[0]);
+		element.cardTop = Math.floor(parseFloat(cardStyle.getPropertyValue('top')));
+		element.cardHeight = Math.floor(parseFloat(cardStyle.getPropertyValue('height')));
+	
+		// store window property
+		element.windowHeight = window.innerHeight;
+	
+		// reset margin + translate values
+		if(isNaN(element.marginY)) {
+			element.element.style.paddingBottom = '0px';
+		} else {
+			element.element.style.paddingBottom = (element.marginY*(element.items.length - 1))+'px';
+		}
+	
+		for(var i = 0; i < element.items.length; i++) {
+			if(isNaN(element.marginY)) {
+			element.items[i].style.transform = 'none;';
 			} else {
-				( !slider.children('li').eq(0).hasClass('current') ) && slider.children('li').eq(0).addClass('previous');
+			element.items[i].style.transform = 'translateY('+element.marginY*i+'px)';
 			}
+		}
+		};
+	
+		function getIntegerFromProperty(element) {
+		var node = document.createElement('div');
+		node.setAttribute('style', 'opacity:0; visbility: hidden;position: absolute; height:'+element.marginY);
+		element.element.appendChild(node);
+		element.marginY = parseInt(getComputedStyle(node).getPropertyValue('height'));
+		element.element.removeChild(node);
+		};
+	
+		function animateStackCards() {
+		if(isNaN(this.marginY)) { // --stack-cards-gap not defined - do not trigger the effect
+			this.scrolling = false;
+			return; 
+		}
+	
+		var top = this.element.getBoundingClientRect().top;
+	
+		if( this.cardTop - top + this.element.windowHeight - this.elementHeight - this.cardHeight + this.marginY + this.marginY*this.items.length > 0) { 
+			this.scrolling = false;
+			return;
+		}
+	
+		for(var i = 0; i < this.items.length; i++) { // use only scale
+			var scrolling = this.cardTop - top - i*(this.cardHeight+this.marginY);
+			if(scrolling > 0) {  
+			var scaling = i == this.items.length - 1 ? 1 : (this.cardHeight - scrolling*0.25)/this.cardHeight;
+			this.items[i].style.transform = 'translateY('+this.marginY*i+'px) scale('+scaling+')';
+			} else {
+			this.items[i].style.transform = 'translateY('+this.marginY*i+'px)';
+			}
+		}
+	
+		this.scrolling = false;
+		};
+	
+		// initialize StackCards object
+		var stackCards = document.getElementsByClassName('js-stack-cards'),
+		intersectionObserverSupported = ('IntersectionObserver' in window && 'IntersectionObserverEntry' in window && 'intersectionRatio' in window.IntersectionObserverEntry.prototype),
+		reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		
+		if(stackCards.length > 0 && intersectionObserverSupported && !reducedMotion) { 
+		var stackCardsArray = [];
+			for(var i = 0; i < stackCards.length; i++) {
+				(function(i){
+			stackCardsArray.push(new StackCards(stackCards[i]));
+			})(i);
 		}
 		
-		updateNavigation();
-	}
-
-	function updateNavigation() {
-		//update visibility of next/prev buttons according to the visible slides
-		var current = projectsContainer.find('li.current');
-		(current.is(':first-child')) ? sliderNav.find('.prev').addClass('inactive') : sliderNav.find('.prev').removeClass('inactive');
-		(current.nextAll('li').length < 3 ) ? sliderNav.find('.next').addClass('inactive') : sliderNav.find('.next').removeClass('inactive');
-	}
-
-	function setTranslateValue(item, translate) {
-		item.css({
-		    '-moz-transform': 'translateX(-' + translate + ')',
-		    '-webkit-transform': 'translateX(-' + translate + ')',
-			'-ms-transform': 'translateX(-' + translate + ')',
-			'-o-transform': 'translateX(-' + translate + ')',
-			'transform': 'translateX(-' + translate + ')',
+		var resizingId = false,
+			customEvent = new CustomEvent('resize-stack-cards');
+		
+		window.addEventListener('resize', function() {
+			clearTimeout(resizingId);
+			resizingId = setTimeout(doneResizing, 500);
 		});
-	}
+	
+		function doneResizing() {
+			for( var i = 0; i < stackCardsArray.length; i++) {
+			(function(i){stackCardsArray[i].element.dispatchEvent(customEvent)})(i);
+			};
+		};
+		}
+	}());
+	
 });

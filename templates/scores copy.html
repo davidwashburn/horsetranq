@@ -16,6 +16,11 @@
 		<title>HOrstRnq</title>
 	</head>
 	<body>
+		<div id="loadingScreen">
+			<div id="loading-img-container">
+				<img src="/static/img/loading/hors-load-3.gif" alt="Loading..." />
+			</div>
+		</div>	
 		<main class="cd-main-content scoll static-bg horseplay-background is-fixed">
 			<div class="cd-tab-filter-wrapper">
 				<div class="cd-tab-filter">
@@ -99,111 +104,113 @@
 				</form>
 			</div>
 		{% else %}
-		{% endif %}	
-		</main>
+		{% endif %}
 
+			<div class="cd-projects-wrapper projects-visible">
+				<ul class="cd-slider">
 
-		<div class="cd-projects-wrapper projects-visible">
-			<div class="cd-slider" style="display: flex; flex-wrap: wrap;">
-				
-				<div style="display:flex;">
-					<div id="games-title-slide" class="ui-container shadow title-slide slides-in current">
-						<div class="project-info">
-						<h2 class="big-bold">GAMES</h2>
-						<p>Intractiv hors vido gams</p>
-						</div>
-					</div>
-				</div>
-		
-				<div style="display:flex;">
-					<div class="ui-container shadow slides-in current previous">
-						<a href="/horsplay">
-							<img src="../static/img/branding/game-horsetranq.png" alt="project image">
+					<ul class="stack-cards js-stack-cards">
+						<li class="stack-cards__item bg radius-lg shadow-md overflow-hidden js-stack-cards__item">
+						  <img src="../static/img/branding/game-horsetranq.png" alt="Image description">
+						</li>
+					  
+						<li class="stack-cards__item bg radius-lg shadow-md overflow-hidden js-stack-cards__item">
+						  <img src="../static/img/branding/game-trottank-alt.png" alt="Image description">
+						</li>
+					  
+						<li class="stack-cards__item bg radius-lg shadow-md overflow-hidden js-stack-cards__item">
+						  <img src="../static/img/branding/game-gallopgun.png" alt="Image description">
+						</li>
+					  </ul>
+					
+					<div class="slide flex">
+						<li id="games-title-slide" class="ui-container shadow title-slide slides">
+							<div class="project-info">
+							<h2 class="big-bold">GAMES</h2>
+							<p>Intractiv hors vido gams</p>
+							</div>
+						</li>
+
+						<li class="ui-container shadow slide">
+							<a href="/horsplay">
+								<img src="../static/img/branding/game-horsetranq.png" alt="project image">
+								<div class="project-info">
+									<div class="flex">
+										<h2>Hors Play</h2>
+										<div class="label free">FREE</div>
+									</div>
+									<p>Ur typicl fast paste hors tranq'in gam</p>
+								</div>
+							</a>
+						</li>
+						<li class="ui-container shadow slide-coming-soon slides">
+							<img src="../static/img/branding/game-trottank-alt.png" alt="project image">
 							<div class="project-info">
 								<div class="flex">
-									<h2>Hors Play</h2>
-									<div class="label free">FREE</div>
+									<h2>Trot Tank</h2>
+									<div class="label one">ONE</div>
 								</div>
-								<p>Ur typicl fast paste hors tranq'in gam</p>
+								<p>Turnt bas tank game wit math skils</p>
 							</div>
-						</a>
-					</div>
-		
-					<div class="ui-container shadow slide-coming-soon slides-in">
-						<img src="../static/img/branding/game-trottank-alt.png" alt="project image">
-						<div class="project-info">
-							<div class="flex">
-								<h2>Trot Tank</h2>
-								<div class="label one">ONE</div>
+						</li>
+				
+						<li class="ui-container shadow slide-coming-soon slides">
+							<img src="../static/img/branding/game-gallopgun.png" alt="project image">
+							<div class="project-info">
+								<div class="flex">
+									<h2>Gallop Gun</h2>
+									<div class="label plus">PLUS</div>
+								</div>
+							<p>Three-d interactiv FHS gaem</p>
 							</div>
-							<p>Turnt bas tank game wit math skils</p>
-						</div>
+						</li>
 					</div>
-			
-					<div class="ui-container shadow slide-coming-soon slides-in">
-						<img src="../static/img/branding/game-gallopgun.png" alt="project image">
-						<div class="project-info">
-							<div class="flex">
-								<h2>Gallop Gun</h2>
-								<div class="label plus">PLUS</div>
-							</div>
-						<p>Three-d interactiv FHS gaem</p>
-						</div>
-					</div>
-				</div>
 
 				
-				<div style="display:flex;">
-					<div id="news-title-slide" class="ui-container shadow title-slide slides-in current">
-						<div class="project-info">
-						<h2 class="big-bold">NEWS</h2>
-						<p>Latast gratest hors news for ur life</p>
-						</div>
-					</div>
-				</div>
-			
-				<div style="display:flex;">
-					<div class="ui-container shadow slides-in">
-						<a href="#0">
-						<img src="../static/img/branding/season-1-alt.png" alt="project image">
-						<div class="project-info">
-							<h2>Season One</h2>
-							<p>Release soon get rady for tranq</p>
-						</div>
-						</a>
-					</div>
-				
-					<div class="ui-container shadow slide-coming-soon slides-in">
-						<img src="../static/img/branding/season-2.png" alt="project image">
-						<div class="project-info">
-						<h2>Seson two</h2>
-						<p>New skinz an batlepass contant</p>
-						</div>
-					</div>
-				
-					<div class="ui-container shadow slides-in">
-						<img src="../static/img/assets/tranq.png" alt="project image">
-						<div class="project-info">
+					<div class="slide flex">
+						<li id="news-title-slide" class="ui-container shadow title-slide slides">
+							<div class="project-info">
+							<h2 class="big-bold">NEWS</h2>
+							<p>Latast gratest hors news for ur life</p>
+							</div>
+						</li>
+
+						<li class="ui-container shadow slides">
+							<a href="#0">
+							<img src="../static/img/branding/season-1-alt.png" alt="project image">
+							<div class="project-info">
+								<h2>Season One</h2>
+								<p>Release soon get rady for tranq</p>
+							</div>
+							</a>
+						</li>
+					
+						<li class="ui-container shadow slide-coming-soon slides">
+							<img src="../static/img/branding/season-2.png" alt="project image">
+							<div class="project-info">
+							<h2>Seson two</h2>
+							<p>New skinz an batlepass contant</p>
+							</div>
+						</li>
+					
+						<li class="ui-container shadow slides">
+							<img src="../static/img/assets/tranq.png" alt="project image">
+							<div class="project-info">
 							<h2>Horsplay live Jun 1!</h2>
 							<p style="overflow: visible!important; white-space: wrap!important; white-space: normal;word-wrap: break-word;">
 								Teh crazy gaem were u tranq hors, ppl, dogs or watver. The trank is up for you to decide.
 							</p>
-						</div>
+							</div>
+						</li>
 					</div>
-				</div>
+				</ul>
+
 			</div>
-
-			<ul class="cd-slider-navigation cd-img-replace">
-				<li><a href="#0" class="prev inactive">Prev</a></li>
-				<li><a href="#0" class="next">Next</a></li>
-			</ul> <!-- .cd-slider-navigation -->
-		</div>
-
+		</main>
 
 		<script src="/static/js/jquery-2.1.1.js"></script>
 		<script src="/static/js/main.js"></script> <!-- Resource jQuery -->
 		<script src="../static/js/slides/main-slides.js"></script> <!-- Resource jQuery -->
-		<script src="../static/js/slides/jquery.mobile.custom.min.js"></script>
 		<script src="/static/js/jquery.min.js"></script> <!-- Added for the draggable UI -->
 		<script src="/static/js/jquery-ui.js"></script> <!-- Added for the draggable UI -->
 		<script src="/static/js/jquery.ui.touch-punch.min.js"></script> 

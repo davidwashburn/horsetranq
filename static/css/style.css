@@ -2761,6 +2761,7 @@ Usage: codyhouse.co/license
   align-items: center;
   z-index: 10000;
   background: url(../../static/img/peaceful-alt.png);
+  background-size: cover;
 }
 
 #loading-img-container img {
