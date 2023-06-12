@@ -1030,6 +1030,9 @@ label {
   width: auto;
   z-index: var(--z-index-fixed-element);
 }
+.ui-container.transparent {
+  background: hsla(var(--sz3-color-contrast-lower-hsl), 0.3);
+}
 .text-ui-container {
   border: 2px solid #c2cdd9;
   height: 50px;

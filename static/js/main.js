@@ -37,7 +37,7 @@ window.onload = function() {
 	// Remove the loading screen after the DOM finishes loading
 	setTimeout(function() {
         document.getElementById('loadingScreen').style.display = 'none';
-    }, 3000); // delay of 3000 milliseconds, or 3 seconds
+    }, 1750); // delay of 3000 milliseconds equals 3 seconds
 
 	// Function for custom settings dropdowns //
 	document.querySelectorAll('.custom-select').forEach(select => {
