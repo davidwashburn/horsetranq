@@ -3,15 +3,27 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "C:/Users/david/Documents/GitHub/examples-master/platformer/data/map/map1.tmx",
     "expandedProjectPaths": [
     ],
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "": {
             "scaleInDock": 1.981
         },
         "#Tileset": {
             "scaleInDock": 2.7836
+        },
+        "C:/Users/david/Documents/GitHub/examples-master/platformer/data/map/map1.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 1623.3333333333333,
+                "y": 755.6666666666665
+            }
+        },
+        "C:/Users/david/Documents/GitHub/examples-master/platformer/data/map/tileset.tsx": {
+            "scaleInDock": 1
         },
         "gallopgun/assets/Maps/level-1.tmx": {
             "scale": 2.9708,
@@ -46,9 +58,11 @@
     "map.tileWidth": 16,
     "map.width": 60,
     "openFiles": [
+        "C:/Users/david/Documents/GitHub/examples-master/platformer/data/map/map1.tmx"
     ],
     "project": "gallopgun.tiled-project",
     "recentFiles": [
+        "C:/Users/david/Documents/GitHub/examples-master/platformer/data/map/map1.tmx",
         "gallopgun/assets/Maps/level-1.tmx"
     ],
     "tileset.embedInMap": true,
