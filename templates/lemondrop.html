@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+		<link rel="icon" type="image/x-icon" href="/static/img/assets/ico/hors.ico">
+		<link rel="stylesheet" href="../static/css/reset.css"> <!-- CSS reset -->
+		<link rel="stylesheet" href="../static/css/style.css"> <!-- Resource style -->
+		<link rel="stylesheet" href="../static/css/variables.css"> <!-- Variables style -->
+		<script src="/static/js/modernizr.js"></script> <!-- Modernizr -->
+		<script src="https://cdn.auth0.com/js/auth0/9.18/auth0.min.js"></script>
+		<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+		<title>HOrstRnq</title>
+	</head>
+	<body>		
+		<main class="cd-main-content static-bg is-fixed">
+			<div class="cd-tab-filter-wrapper">
+				<div class="cd-tab-filter">
+					<ul id="menu-list" class="cd-filters js-signin-modal-trigger cd-main-nav__list shadow">
+						<li class="placeholder"> 
+							<a href="#0">BEAR BUDDY</a> <!-- selected option on mobile -->
+						</li> 
+						<li><a id="horsplayBtn" href="/">STABLE</a></li>
+						<li><a href="/store" id="storeBtn">STOR</a></li> 
+						<li><a href="/about" id="aboutBtn" class="cd-filter-trigger modal-trigger">ABOUT</a></li>
+						<li><div class="label beta">BETA</div></li>
+					</ul>
+				</div>
+			</div>
+			<div class="tools-wrapper">
+				<div id="reset-container" class="ui-container shadow">
+					<div id="resetBtn">Reset</div>
+				</div>
+				<div id="settings-container" class="ui-container shadow modal-trigger hide" data-target="settingsModal">
+					<div id="settingsBtn">Setings</div>
+				</div>
+				<div id="score-container" class="ui-container shadow">
+					<div id="scoreBtn"></div>
+				</div>
+			</div>
+
+			<div class="lemon-flex-container subscribe">
+				<div class="title-container lemon">
+					<h2 class="big-bold">LEMIN DROP</h2>
+					<p>Watch out for bare</p>
+				</div>
+			</div>
+			<div id="lemon-game-container" class="container">
+				<img id="lemon" src="../static/img/games/lemondrop/assets/lemon.png"></img>
+				<img id="bear" src="../static/img/games/lemondrop/assets/bear.png"></img>
+				<div id="message"></div>
+			</div>
+		</div>
+
+		</main> <!-- cd-main-content -->
+
+		<script src="../static/js/jquery-2.1.1.js"></script>
+		<script src="../static/js/main.js"></script> <!-- Resource jQuery -->
+		<script src="../static/js/secondary/lemondrop.js"></script> <!-- Resource jQuery -->
+		<script src="../static/js/jquery.min.js"></script> <!-- Added for the draggable UI -->
+		<script src="../static/js/jquery-ui.js"></script> <!-- Added for the draggable UI -->
+		<script src="../static/js/jquery.ui.touch-punch.min.js"></script> 
+	</body>
+</html>
