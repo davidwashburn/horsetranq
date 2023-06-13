@@ -1031,7 +1031,13 @@ label {
   z-index: var(--z-index-fixed-element);
 }
 .ui-container.transparent {
-  background: hsla(var(--sz3-color-contrast-lower-hsl), 0.3);
+  /*background: hsla(var(--sz3-color-contrast-lower-hsl), 0.3);*/
+  background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 .text-ui-container {
   border: 2px solid #c2cdd9;
@@ -1042,6 +1048,29 @@ label {
 #accountTools {
   justify-content: center;
   margin-bottom: 0;
+}
+.title-container {
+  text-align: center;
+  margin: 2em 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.title-container h2 {
+  font-size: var(--font-size-4xl);
+  width: max-content;
+  background: white;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+}
+.title-container p {
+  margin: var(--space-xs);
+  padding: 6px;
+  color: white;
+  border-radius: var(--radius-sm);
+  box-shadow: none;
+  font-size: var(--font-size-xl);
+  font-weight: 800;
 }
 .tools-wrapper .ui-container {
   cursor: pointer;
@@ -1073,22 +1102,28 @@ label {
 .subscribe .product.ui-container {
   position: relative;
   margin: var(--space-md);
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  border: 3px solid #4a759d;
+  transition: .15s ease-in-out;
+  border-radius: 10px;
 }
 .subscribe .product.ui-container.merch {
   min-width: 320px;
 }
+.subscribe .product.ui-container.subscribe li {
+  color: var(--color-white);
+}
 .subscribe .product.ui-container.subscribe:nth-child(1) {
   background: #030329;
 }
-.subscribe .product.ui-container.subscribe:nth-child(1) li {
-  color: var(--color-white);
+.subscribe .product.ui-container.subscribe:nth-child(2) {
+  background: var(--color-white);
+}
+.subscribe .product.ui-container.subscribe:nth-child(2) li {
+  color: var(--color-primary);
 }
 .subscribe .product.ui-container.subscribe:nth-child(3) {
   background: #360074;
-}
-.subscribe .product.ui-container.subscribe:nth-child(3) li {
-  color: var(--color-white);
 }
 .subscribe-container img {
   border-radius: var(--radius-lg);
@@ -1097,13 +1132,6 @@ label {
   position: absolute;
   margin-top: 2em;
   width: 100%;
-}
-.store-section-title {
-  margin: 0 auto;
-  color: var(--color-black);
-  font-size: var(--font-size-3xl);
-  font-family: system-ui;
-  text-align: center;
 }
 .flex-container {
   display: inherit;
@@ -1127,10 +1155,15 @@ label {
   display: inherit;
   justify-content: space-around;
   max-width: max-content;
-  margin: 2em auto;
+  margin: 6em auto;
   padding-bottom: 2em;
   flex-wrap: wrap;
   overflow: scroll;
+}
+@media only screen and (max-width: 800px) {
+  .store-flex-container {
+    margin: 2em auto;
+  }
 }
 .subscribe-container {
   padding: 1em;
@@ -2295,7 +2328,7 @@ Pricing table and plans
   width: 20px;
   background: url(/static/img/cd-icon-small-arrow.svg);
 }
-.store-flex-container .ui-container:nth-child(2) .cd-pricing-footer::after {
+.store-flex-container .ui-container:nth-child(2):hover .cd-pricing-footer::after {
   background: url(/static/img/cd-icon-small-arrow-dark.svg);
 }
 .product.merch .cd-pricing-footer::after {
@@ -2345,8 +2378,8 @@ Pricing table and plans
 .cd-pricing-features li {
   width: 100px;
   float: left;
-  padding: 1.6em 1em;
-  font-size: var(--font-size-lg);
+  padding: 1.2em 1em;
+  font-size: var(--font-size-xl);
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
@@ -2355,7 +2388,10 @@ Pricing table and plans
 .cd-pricing-features em {
   display: block;
   margin-bottom: 5px;
-  font-weight: 600;
+}
+#stor-title {
+  margin: 0 0 2em 0;
+  width: 100%;
 }
 @media only screen and (min-width: 768px) {
   .cd-pricing-features {
@@ -2413,12 +2449,6 @@ Pricing table and plans
   }
   .cd-secondary-theme .cd-pricing-header {
     color: #FFFFFF;
-  }
-  .store-section {
-    color: var(--color-black);
-    text-align: center;
-    width: 50%;
-    padding: 1em;
   }
 }
 /** CD-SELECT **/

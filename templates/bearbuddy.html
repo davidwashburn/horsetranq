@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+		<link rel="icon" type="image/x-icon" href="/static/img/assets/ico/hors.ico">
+		<link rel="stylesheet" href="/static/css/reset.css"> <!-- CSS reset -->
+		<link rel="stylesheet" href="/static/css/style.css"> <!-- Resource style -->
+		<link rel="stylesheet" href="/static/css/variables.css"> <!-- Variables style -->
+		<script src="/static/js/modernizr.js"></script> <!-- Modernizr -->
+		<script src="https://cdn.auth0.com/js/auth0/9.18/auth0.min.js"></script>
+		<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+		<title>HOrstRnq</title>
+	</head>
+	<body>
+		<div id="loadingScreen" style="position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: #ffffff; z-index: 10000;">
+			<div id="loading-img-container">
+				<img src="/static/img/loading/hors-load-3.gif" alt="Loading..." />
+			</div>
+		</div>		
+		<main class="cd-main-content horseplay-background is-fixed">
+			<div class="cd-tab-filter-wrapper">
+				<div class="cd-tab-filter">
+					<ul id="menu-list" class="cd-filters js-signin-modal-trigger cd-main-nav__list shadow">
+						<li class="placeholder"> 
+							<a href="#0">BEAR BUDDY</a> <!-- selected option on mobile -->
+						</li> 
+						<li><a id="horsplayBtn" href="/">STABLE</a></li>
+						<li><a href="/store" id="storeBtn">STOR</a></li> 
+						<li><a href="/about" id="aboutBtn" class="cd-filter-trigger modal-trigger">ABOUT</a></li>
+						{% if logged_in %}
+						<li><a href="#0" id="myAccountBtn" class="cd-filter-trigger modal-trigger" data-target="accountModal">{{ session.profile.name.split(' ')[0] }}</a></li>
+						{% else %}
+							<li><a href="/login" id="accountBtn" class="cd-filter-trigger" data-target="accountModal">SIGN IN</a></li>
+						{% endif %}	
+						<li><div class="label beta">BETA</div></li>
+					</ul>
+				</div>
+			</div>
+			<div class="tools-wrapper">
+				<div id="reset-container" class="ui-container shadow">
+					<div id="resetBtn">Reset</div>
+				</div>
+				<div id="settings-container" class="ui-container shadow modal-trigger" data-target="settingsModal">
+					<div id="settingsBtn">Setings</div>
+				</div>
+				<div id="score-container" class="ui-container shadow">
+					<div id="scoreBtn"></div>
+				</div>
+			</div>
+
+			<div id="game-container" class="container">
+				<div id="hors-container"></div>
+				<div id="goose-container"></div>
+				<div id="tranq-container">
+					<div class="tranq">
+						<img id="draggable13" src="static/img/assets/tranq.png">
+					</div>
+				</div>
+			</div>
+
+			<!-- Game Select MODAL -->
+			<div id="gameSelectOverlay" class="overlay">
+				<div id="gameSelectModal" class="cd-filter shadow">
+					<div class="sticky-container">
+						<div class="modal-title-container sticky">
+							<div class="modal-title-wrapper">
+								<div class="title-wrapper">
+									<h4 class="modal-title big-bold color-primary-darker center">Select Game Mode</h4>
+								</div>
+								<a href="#0" class="cd-close-filter flex-right"></a>
+							</div>
+						</div>
+					</div>
+					<form>
+						<div class="cd-filter-block">
+							<div class="cd-filter-content" style="line-height: 1.2;">
+								<div id="freePlayBtn" class="title-wrapper flex settings shadow cd-custom-close-modal">
+									<h2 class="big big-bold color-primary">Free Play</h2>
+									<p class="bold color-contrast-higher" style="line-height: 1.7;">
+										Were scor don't matter an you can customiz ur setings to maskimize enjoiment.
+									</p>
+								</div>
+								{% if logged_in %}
+								<div id="rankedPlayBtn" class="title-wrapper flex settings shadow cd-custom-close-modal">
+									<h2 class="big big-bold color-error-darker">Ranked</h2>
+									<p class="bold color-contrast-higher" style="line-height: 1.7;">
+										All ur enjoymant is suked out of teh game an ur gole is scor mor pts than others.
+									</p>
+								</div>	
+								{% else %}
+									<div class="login-notice">
+										<h2 class="big big-bold color-error-darker">Log in for ranked moad</h2>
+									</div>
+								{% endif %}
+							</div>
+						</div>
+
+						<div class="cd-filter-block hide">
+							<div class="title-wrapper flex">
+								<h3 class="bold color-primary">Donat to hors fundation</h3>
+							</div>
+								<span>
+									(<a href="https://www.foundationforthehorse.org/give-now/" style="font-weight:bold;">view cite</a>)
+								</span>
+							<p></p>
+							<div class="rulez">
+								<h3>Enter card info</h3>
+								<div id="valuable-trash">
+									<div id="creditCardLine">
+										<div class="input-wrapper">
+											<div class="input-icon">
+												<input type="text" id="creditCard" name="creditCard" class="contact-label" placeholder="CrEDIT CARD + ZIPs + CvS #">
+											</div>
+										</div>
+									</div>
+									<div id="contactForm">
+										<div class="input-wrapper">
+											<div class="input-icon">
+												<input type="text" id="fname" name="fname" class="contact-label" placeholder="1st NamE">
+											</div>
+										</div>
+										<div class="input-wrapper">
+											<div class="input-icon">
+												<input type="text" id="lname" name="lname" class="contact-label" placeholder="2nd NAMe">
+											</div>
+										</div>
+										<div class="input-wrapper">
+											<div class="input-icon">
+												<input type="text" id="email" name="email" class="contact-label" placeholder="EmAIL (dont care)">
+											</div>
+										</div>
+									</div>
+									<button type="button" id="submit" class="pickle shadow">Save</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		
+		{% if logged_in %}
+			<!-- ACCOUNT MODAL -->
+			<div id="accountModal" class="cd-filter shadow">
+				<div class="sticky-container">
+					<div class="modal-title-container sticky">
+						<div class="modal-title-wrapper">
+							<div class="title-wrapper">
+								<h4 class="modal-title big-bold color-primary-darker center">Account Profile</h4>
+								<a href="#0" class="cd-close-filter flex-right"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<form>
+					<div class="cd-filter-block">
+						<div class="cd-filter-content">
+							<div class="title-wrapper flex settings">
+								<h4 class="big-bold color-contrast-medium">Plan</h4>
+								<div class="label plus">PLUS</div>
+							</div>
+							<div class="title-wrapper flex settings">
+								<h4 class="big-bold color-contrast-medium">Name</h4>
+								<p class="bold color-contrast-higher">
+									{% if name %}
+										{{ name }}
+									{% else %}
+										Guest
+									{% endif %}
+								</p>
+							</div>
+							<div class="title-wrapper flex settings">
+								<h4 class="big-bold color-contrast-medium">Email</h4>
+								<p class="bold color-contrast-higher">
+									{% if logged_in %}
+										{{ email }}
+									{% else %}
+										Unknown
+									{% endif %}
+								</p>
+							</div>
+							<div class="title-wrapper flex settings">
+								<h4 class="big-bold color-contrast-medium">Avatar</h4>
+								{% if logged_in %}
+									<div class="profile-image">
+										<img src="{{ picture }}" alt="Profile Picture" width="100" height="100">
+									</div>
+								{% else %}
+									<div class="profile-image">
+										<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/480px-Default_pfp.svg.png" alt="Profile Picture" width="100" height="100">
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+					<div class="cd-filter-block">
+						<div id="accountTools" class="title-wrapper flex settings bg-none">
+							<button type="button" id="accountSaveBtn" class="pickle shadow hide">Save</button>
+							<button type="button" id="accountSignOutBtn" class="pickle shadow">Sign Out</button>
+							<button type="button" id="accountDeleteBtn" class="pickle shadow hide">Delet Accnt</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		{% else %}
+		{% endif %}	
+
+		
+		<!-- SETTINGS MODAL -->
+		<div id="settingsModal" class="cd-filter shadow">
+			<div class="sticky-container">
+				<div class="modal-title-container sticky">
+					<div class="modal-title-wrapper">
+						<div class="title-wrapper">
+							<h4 class="modal-title big-bold color-primary-darker center">Game Settings</h4>
+							<a href="#0" class="cd-close-filter flex-right"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<form>
+				<div class="title-wrapper flex" style="padding-top:0;">
+					<h4 class="big-big-bold color-primary">RANKED OPTIONS</h4>
+				</div>
+				
+				<div id="rankedPlaySettings" class="cd-filter-block">
+					<div class="custom-select">
+						<div id="difficulty-selector" class="optn-select no-highlight" data-value="easyDifficulty">Difficulty</div>
+						<div class="options">
+							<div class="option" data-value="easyDifficulty">Easy</div>
+							<div class="option" data-value="mediumDifficulty">Medium</div>
+							<div class="option" data-value="hardDifficulty">Hard</div>
+							<div class="option-flex">
+								<div class="option disabled" data-value="Unpossible">Unpossible</div>
+								<div class="label beta">NOPE</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="title-wrapper flex">
+					<h4 class="big-bold color-primary float-left">FREE PLAY OPTIONS</h4>
+				</div>
+
+				<div id="freePlaySettings">
+					<!-- Background theme selector -->
+					<div class="cd-filter-block">
+						<div class="custom-select">
+							<div id="bg-selector" class="optn-select no-highlight" data-value="default.jpg">Theme</div>
+							<div class="options">
+								<div class="option" data-value="farm-bg-day.jpg">Day</div>
+								<div class="option" data-value="farm-bg-day-alt.jpg">Day Alt</div>
+								<div class="option" data-value="farm-bg-night.jpg">Night</div>
+								{% if logged_in %}
+									<div class="option" data-value="farm-bg-dusk.jpg">Dusk</div>
+									<div class="option" data-value="farm-bg-overcast.jpg">Overcast</div>
+									<div class="option" data-value="farm-bg-peaceful.jpg">Peaceful</div>
+								{% else %}
+									<div class="option-flex">
+										<div class="option disabled" data-value="farm-bg-dusk.jpg">Dusk</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="farm-bg-overcast.jpg">Overcast</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="farm-bg-peaceful.jpg">Peaceful</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+								{% endif %}	
+							</div>
+						</div>
+					</div>					
+
+					<!-- Horse type selector -->
+					<div class="cd-filter-block">
+						<div class="custom-select">
+							<div id="type-selector" class="optn-select no-highlight" name="selectThis" data-value="image-hors">Hors type</div>
+							<div class="options">
+								<div class="option" data-value="image-hors">Hors (Hors)</div>
+								{% if logged_in %}
+									<div class="option" data-value="image-people">Not hors (People)</div>
+									<div class="option" data-value="image-dog">Mebbe hors? (Dog)</div>
+									<div class="option" data-value="image-idiot-hors">Idi0t hors (Hors?)</div>
+									<div class="option" data-value="image-raven">Rav3n (Raven)</div>
+									<div class="option" data-value="image-goose">Goose hors (Goose)</div>
+								{% else %}
+									<div class="option-flex">
+										<div class="option disabled" data-value="image-people">Not hors (People)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="image-dog">Mebbe hors? (Dog)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="image-idiot-hors">Idi0t hors (Hors?)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="image-raven">Rav3n (Raven)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="image-goose">Goose hors (Goose)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+								{% endif %}	
+							</div>
+						</div>
+					</div>
+
+					<!-- Horse speed selector -->
+					<div class="cd-filter-block">
+						<div class="custom-select">
+							<div id="speed-selector" class="optn-select no-highlight" data-value="1">Hors speed</div>
+							<div class="options">
+								<div class="option" data-value="0.125">Ded (Molassus)</div>
+								<div class="option" data-value="1">Walk (1x)</div>
+								<div class="option" data-value="3">Trott  (3x)</div>
+								{% if logged_in %}
+									<div class="option" data-value="5">Canter (5x)</div>
+									<div class="option" data-value="10">Gallop (10x)</div>
+									<div class="option" data-value="50">U stupid (50x)</div>
+								{% else %}
+									<div class="option-flex">
+										<div class="option disabled" data-value="5">Canter (5x)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="10">Gallop (10x)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="50">U stupid (50x)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+								{% endif %}	
+							</div>
+						</div>
+					</div>
+
+					<!-- Horse power selector -->
+					<div class="cd-filter-block">
+						<div class="custom-select">
+							<div id="power-selector" class="optn-select no-highlight" data-value="50">Hors power</div>
+							<div class="options">
+								<div class="option" data-value="50">Normanl (50 hors)</div>
+								<div class="option" data-value="100">Tuff (100 hors)</div>
+								{% if logged_in %}
+									<div class="option" data-value="250">Big tuff (250 hors)</div>
+									<div class="option" data-value="500">Canter (5x)</div>
+									<div class="option" data-value="1500">Donot clik (1500 hors)</div>
+									<div class="option" data-value="5000">U stupid (5000 hors)</div>
+								{% else %}
+									<div class="option-flex">
+										<div class="option disabled" data-value="250">Big tuff (250 hors)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="500">Mega tuff (500x)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="1500">Donot clik (1500 hors)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="5000">U stupid (5000 hors)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+								{% endif %}	
+							</div>
+						</div>
+					</div>
+
+					<!-- Horse size selector -->
+					<div class="cd-filter-block">
+						<div class="custom-select">
+							<div id="size-selector" class="optn-select no-highlight" data-value="1">Hors size</div>
+							<div class="options">
+								{% if logged_in %}
+									<div class="option" data-value="0.25">Shutland Pony (0.25x)</div>
+									<div class="option" data-value="0.50">Regulr Pony (0.50x)</div>
+									<div class="option" data-value="1">Normanl (1x)</div>
+									<div class="option" data-value="2">Big hors (2x)</div>
+									<div class="option" data-value="3">Trojin hors (3x)</div>
+								{% else %}
+								<div class="option" data-value="1">Normanl (1x)</div>
+								<div class="option" data-value="2">Big hors (2x)</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="0.25">Shutland Pony (0.25x)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="0.50">Regulr Pony (0.50x)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="3">Trojin hors (3x)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+								{% endif %}	
+							</div>
+						</div>
+					</div>
+				</div> <!-- freePlaySettings-->
+				
+				<div id="settingsSaveContainer" class="flex">
+					<button type="button" id="settingsSaveBtn" class="pickle shadow">Save</button>
+				</div>
+			</form>
+		</div>
+
+	</main> <!-- cd-main-content -->
+
+	<script src="/static/js/jquery-2.1.1.js"></script>
+	<script src="/static/js/main.js"></script> <!-- Resource jQuery -->
+	<script src="/static/js/jquery.min.js"></script> <!-- Added for the draggable UI -->
+	<script src="/static/js/jquery-ui.js"></script> <!-- Added for the draggable UI -->
+	<script src="/static/js/jquery.ui.touch-punch.min.js"></script> 
+	</body>
+</html>

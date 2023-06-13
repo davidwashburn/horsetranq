@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "C:/Users/david/Documents/GitHub/examples-master/platformer/data/map/map1.tmx",
+    "activeFile": "Assets/Maps/level-1.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -13,6 +13,32 @@
         },
         "#Tileset": {
             "scaleInDock": 2.7836
+        },
+        "Assets/Maps/level-1.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": -484,
+                "y": -226
+            }
+        },
+        "Assets/Maps/level-1.tmx#Buildings": {
+            "scaleInDock": 1
+        },
+        "Assets/Maps/level-1.tmx#Hive": {
+            "scaleInDock": 1
+        },
+        "Assets/Maps/level-1.tmx#Interior-01": {
+            "scaleInDock": 1
+        },
+        "Assets/Maps/level-1.tmx#Props-Rocks": {
+            "scaleInDock": 1
+        },
+        "Assets/Maps/level-1.tmx#Tiles": {
+            "scaleInDock": 1
+        },
+        "Assets/Maps/level-1.tmx#Tree-Assets": {
+            "scaleInDock": 1
         },
         "C:/Users/david/Documents/GitHub/examples-master/platformer/data/map/map1.tmx": {
             "scale": 1.5,
@@ -58,10 +84,11 @@
     "map.tileWidth": 16,
     "map.width": 60,
     "openFiles": [
-        "C:/Users/david/Documents/GitHub/examples-master/platformer/data/map/map1.tmx"
+        "Assets/Maps/level-1.tmx"
     ],
     "project": "gallopgun.tiled-project",
     "recentFiles": [
+        "Assets/Maps/level-1.tmx",
         "C:/Users/david/Documents/GitHub/examples-master/platformer/data/map/map1.tmx",
         "gallopgun/assets/Maps/level-1.tmx"
     ],
