@@ -7,25 +7,35 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 		<link rel="icon" type="image/x-icon" href="/static/img/assets/ico/hors.ico">
-		<link rel="stylesheet" href="../static/css/reset.css"> <!-- CSS reset -->
-		<link rel="stylesheet" href="../static/css/style.css"> <!-- Resource style -->
-		<link rel="stylesheet" href="../static/css/variables.css"> <!-- Variables style -->
+		<link rel="stylesheet" href="/static/css/reset.css"> <!-- CSS reset -->
+		<link rel="stylesheet" href="/static/css/style.css"> <!-- Resource style -->
+		<link rel="stylesheet" href="/static/css/variables.css"> <!-- Variables style -->
 		<script src="/static/js/modernizr.js"></script> <!-- Modernizr -->
 		<script src="https://cdn.auth0.com/js/auth0/9.18/auth0.min.js"></script>
 		<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
 		<title>HOrstRnq</title>
 	</head>
-	<body>		
+	<body>
+		<div id="loadingScreen" style="position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: #ffffff; z-index: 10000;">
+			<div id="loading-img-container">
+				<img src="/static/img/loading/hors-load-3.gif" alt="Loading..." />
+			</div>
+		</div>		
 		<main class="cd-main-content static-bg is-fixed">
 			<div class="cd-tab-filter-wrapper">
 				<div class="cd-tab-filter">
 					<ul id="menu-list" class="cd-filters js-signin-modal-trigger cd-main-nav__list shadow">
 						<li class="placeholder"> 
-							<a href="#0">BEAR BUDDY</a> <!-- selected option on mobile -->
+							<a href="#0">LEMON DROP</a> <!-- selected option on mobile -->
 						</li> 
 						<li><a id="horsplayBtn" href="/">STABLE</a></li>
 						<li><a href="/store" id="storeBtn">STOR</a></li> 
 						<li><a href="/about" id="aboutBtn" class="cd-filter-trigger modal-trigger">ABOUT</a></li>
+						{% if logged_in %}
+						<li><a href="#0" id="myAccountBtn" class="cd-filter-trigger modal-trigger" data-target="accountModal">{{ session.profile.name.split(' ')[0] }}</a></li>
+						{% else %}
+							<li><a href="/login" id="accountBtn" class="cd-filter-trigger" data-target="accountModal">SIGN IN</a></li>
+						{% endif %}	
 						<li><div class="label beta">BETA</div></li>
 					</ul>
 				</div>
@@ -49,19 +59,100 @@
 				</div>
 			</div>
 			<div id="lemon-game-container" class="container">
-				<img id="lemon" src="../static/img/games/lemondrop/assets/lemon.png"></img>
-				<img id="bear" src="../static/img/games/lemondrop/assets/bear.png"></img>
+				<img id="lemon" src="/static/img/games/lemondrop/assets/lemon.png"></img>
+				<img id="bear" src="/static/img/games/lemondrop/assets/bear.png"></img>
 				<div id="message"></div>
 			</div>
 		</div>
+		
+		{% if logged_in %}
+			<!-- ACCOUNT MODAL -->
+			<div id="accountModal" class="cd-filter shadow">
+				<div class="sticky-container">
+					<div class="modal-title-container sticky">
+						<div class="modal-title-wrapper">
+							<div class="title-wrapper">
+								<h4 class="modal-title big-bold color-primary-darker center">Account Profile</h4>
+								<a href="#0" class="cd-close-filter flex-right"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<form>
+					<div class="cd-filter-block">
+						<div class="cd-filter-content">
+							<div class="title-wrapper flex settings">
+								<h4 class="big-bold color-contrast-medium">Plan</h4>
+								<div class="label plus">PLUS</div>
+							</div>
+							<div class="title-wrapper flex settings">
+								<h4 class="big-bold color-contrast-medium">Name</h4>
+								<p class="bold color-contrast-higher">
+									{% if name %}
+										{{ name }}
+									{% else %}
+										Guest
+									{% endif %}
+								</p>
+							</div>
+							<div class="title-wrapper flex settings">
+								<h4 class="big-bold color-contrast-medium">Email</h4>
+								<p class="bold color-contrast-higher">
+									{% if logged_in %}
+										{{ email }}
+									{% else %}
+										Unknown
+									{% endif %}
+								</p>
+							</div>
+							<div class="title-wrapper flex settings">
+								<h4 class="big-bold color-contrast-medium">Avatar</h4>
+								{% if logged_in %}
+									<div class="profile-image">
+										<img src="{{ picture }}" alt="Profile Picture" width="100" height="100">
+									</div>
+								{% else %}
+									<div class="profile-image">
+										<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/480px-Default_pfp.svg.png" alt="Profile Picture" width="100" height="100">
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+					<div class="cd-filter-block">
+						<div id="accountTools" class="title-wrapper flex settings bg-none">
+							<button type="button" id="accountSaveBtn" class="pickle shadow hide">Save</button>
+							<button type="button" id="accountSignOutBtn" class="pickle shadow">Sign Out</button>
+							<button type="button" id="accountDeleteBtn" class="pickle shadow hide">Delet Accnt</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		{% else %}
+		{% endif %}	
 
-		</main> <!-- cd-main-content -->
+		<!-- SETTINGS MODAL -->
+		<div id="settingsModal" class="cd-filter shadow">
+			<div class="sticky-container">
+				<div class="modal-title-container sticky">
+					<div class="modal-title-wrapper">
+						<div class="title-wrapper">
+							<h4 class="modal-title big-bold color-primary-darker center">Game Settings</h4>
+							<a href="#0" class="cd-close-filter flex-right"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
 
-		<script src="../static/js/jquery-2.1.1.js"></script>
-		<script src="../static/js/main.js"></script> <!-- Resource jQuery -->
-		<script src="../static/js/secondary/lemondrop.js"></script> <!-- Resource jQuery -->
-		<script src="../static/js/jquery.min.js"></script> <!-- Added for the draggable UI -->
-		<script src="../static/js/jquery-ui.js"></script> <!-- Added for the draggable UI -->
-		<script src="../static/js/jquery.ui.touch-punch.min.js"></script> 
+	</main> <!-- cd-main-content -->
+
+	<script src="/static/js/jquery-2.1.1.js"></script>
+	<script src="/static/js/main.js"></script> <!-- Resource jQuery -->
+	<script src="/static/js/secondary/lemondrop.js"></script> <!-- Resource jQuery -->
+	<script src="/static/js/jquery.min.js"></script> <!-- Added for the draggable UI -->
+	<script src="/static/js/jquery-ui.js"></script> <!-- Added for the draggable UI -->
+	<script src="/static/js/jquery.ui.touch-punch.min.js"></script> 
 	</body>
 </html>
