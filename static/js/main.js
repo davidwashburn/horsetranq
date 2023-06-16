@@ -366,17 +366,6 @@ $(function() {
 	});
 });
 
-// CONTACT FORM - add class to make inputs disappear and make ::after icons visible. //
-$("#submit").on("click", function(e) {
-    // Add the .visible class to all .input-wrapper elements immediately when the button is clicked
-    $(".input-wrapper").addClass("visible");
-
-    // Fade out all the #contactForm children, except for #creditCardLine, after a few seconds (e.g., 2 seconds)
-    setTimeout(function() {
-        $("#contactForm").children().not("#creditCardLine").fadeOut();
-    }, 2000);
-});
-
 // account delete from database option //
 $("#accountDeleteBtn").click(function() {
     var result = confirm("Are you sure you want to delete your account?");

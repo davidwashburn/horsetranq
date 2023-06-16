@@ -40,6 +40,8 @@ jQuery(document).ready(function(){
 		function stackCardsInitEvent(element) {
 		element.scrollingFn = stackCardsScrolling.bind(element);
 		window.addEventListener('scroll', element.scrollingFn);
+		// Add touchmove event listener for mobile devices
+		window.addEventListener('touchmove', element.scrollingFn, { passive: true });
 		};
 	
 		function stackCardsScrolling() {

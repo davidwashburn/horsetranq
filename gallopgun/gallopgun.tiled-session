@@ -15,11 +15,11 @@
             "scaleInDock": 2.7836
         },
         "Assets/Maps/level-1.tmx": {
-            "scale": 0.25,
+            "scale": 1.8803,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": -484,
-                "y": -226
+                "x": 341.1689623996171,
+                "y": 173.64250385576767
             }
         },
         "Assets/Maps/level-1.tmx#Buildings": {
