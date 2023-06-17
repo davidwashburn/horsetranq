@@ -38,9 +38,9 @@ window.onload = function() {
 
 	// background and game mechanics //
     var horseImages = [
-        '/static/img/assets/hors-1.png',
-        '/static/img/assets/hors-2.png',
-        '/static/img/assets/hors-3.png',
+        '/static/img/games/horsplay/assets/hors-1.png',
+        '/static/img/games/horsplay/assets/hors-2.png',
+        '/static/img/games/horsplay/assets/hors-3.png',
     ];
 
 	// Initialize horse speed
@@ -76,7 +76,13 @@ window.onload = function() {
 			'farm-bg-night.jpg',
 			'farm-bg-day.jpg',
 			'farm-bg-day-alt.jpg',
-			'farm-bg-peaceful.jpg'
+			'farm-bg-peaceful.jpg',
+			'mood-bg-1.png',
+			'mood-bg-2.png',
+			'mood-bg-3.png',
+			'mood-bg-4.png',
+			'mood-bg-5.png',
+			'mood-bg-6.png'
 		];
 		return images[Math.floor(Math.random() * images.length)];
 	}
@@ -85,7 +91,7 @@ window.onload = function() {
 	function setBackgroundImage(imageName) {
 		var element = document.getElementsByClassName('horseplay-background')[0];
 		if (element) {
-			element.style.backgroundImage = 'url(./static/img/' + imageName + ')';
+			element.style.backgroundImage = 'url(./static/img/games/horsplay/backgrounds/' + imageName + ')';
 		}
 	}
 
@@ -141,7 +147,7 @@ window.onload = function() {
 		var element = document.getElementsByClassName('horseplay-background')[0];
 
 		if (element) {
-			element.style.backgroundImage = 'url(./static/img/' + selectedImage + ')';
+			element.style.backgroundImage = 'url(./static/img/games/horsplay/backgrounds/' + selectedImage + ')';
 		}
 
 		// HORSE SPEED SETTINGS
@@ -165,43 +171,43 @@ window.onload = function() {
 	
 		if (value === 'image-hors') {
 			var horseImages = [
-				'/static/img/assets/hors-1.png',
-				'/static/img/assets/hors-2.png',
-				'/static/img/assets/hors-3.png',
+				'/static/img/games/horsplay/assets/hors-1.png',
+				'/static/img/games/horsplay/assets/hors-2.png',
+				'/static/img/games/horsplay/assets/hors-3.png',
 			];
 			changeImage(horseImages);
 		} else if (value === 'image-people') {
 			var personImages = [
-				'/static/img/assets/person-1.png',
-				'/static/img/assets/person-2.png',
-				'/static/img/assets/person-3.png',
-				'/static/img/assets/person-4.png',
+				'/static/img/games/horsplay/assets/person-1.png',
+				'/static/img/games/horsplay/assets/person-2.png',
+				'/static/img/games/horsplay/assets/person-3.png',
+				'/static/img/games/horsplay/assets/person-4.png',
 			];
 			changeImage(personImages);
 		} else if (value === 'image-dog') {
 			var dogImages = [
-				'/static/img/assets/dog-1.png',
-				'/static/img/assets/dog-2.png',
-				'/static/img/assets/dog-3.png',
+				'/static/img/games/horsplay/assets/dog-1.png',
+				'/static/img/games/horsplay/assets/dog-2.png',
+				'/static/img/games/horsplay/assets/dog-3.png',
 			];
 			changeImage(dogImages);
 		} else if (value === 'image-idiot-hors') {
 			var idiotHorseImages = [
-				'/static/img/assets/hors-idiot.png',
-				'/static/img/assets/hors-tranq.png',
+				'/static/img/games/horsplay/assets/hors-idiot.png',
+				'/static/img/games/horsplay/assets/hors-tranq.png',
 			];
 			changeImage(idiotHorseImages);
 		} else if (value === 'image-raven') {
 			var ravenImages = [
-				'/static/img/assets/ravn-1.png',
-				'/static/img/assets/ravn-2.png',
-				'/static/img/assets/ravn-3.png',
-				'/static/img/assets/ravn-tranq.png',
+				'/static/img/games/horsplay/assets/ravn-1.png',
+				'/static/img/games/horsplay/assets/ravn-2.png',
+				'/static/img/games/horsplay/assets/ravn-3.png',
+				'/static/img/games/horsplay/assets/ravn-tranq.png',
 			];
 			changeImage(ravenImages);
 		} else if (value === 'image-goose') {
 			var gooseImages = [
-				'/static/img/assets/goose-1.png',
+				'/static/img/games/horsplay/assets/goose-1.png',
 			];
 			changeImage(gooseImages);
 		}

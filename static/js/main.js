@@ -1,4 +1,41 @@
 // ACCOUNT FUNCTIONS AND AUTH0 IMPLEMENTATION //
+import { auth, getUserDataRef } from './firebase.js';
+import { onValue } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js';
+
+// Get the user's Auth0 ID (from Flask session) and make sure to replace 'user_id' with the appropriate variable.
+var auth0UserId = '{{ user_id }}';
+console.log('Auth0 user ID:', auth0UserId);
+
+// Get a reference to the user's data in Realtime Database.
+var userRef = getUserDataRef(auth0UserId);
+console.log('User ref:', userRef);
+
+// Listen for data changes and update the UI accordingly.
+onValue(userRef, (snapshot) => {
+	var userData = snapshot.val();
+	var userDataDiv = document.getElementById('user-data');
+  
+	if (userData) {
+	  console.log('User data:', userData);
+	  // You can now access and use userData.name, userData.email, and userData.picture in your frontend application.
+  
+	  // Display user data in the HTML page
+	  var userDataHTML = `
+		<p>Name: ${userData.name}</p>
+		<p>Email: ${userData.email}</p>
+		<img src="${userData.picture}" alt="User profile picture" width="100" height="100">
+	  `;
+	  userDataDiv.innerHTML = userDataHTML;
+	} else {
+	  console.warn('No user data found in Realtime Database for user:', auth0UserId);
+	  userDataDiv.innerHTML = '<p>No user data found</p>';
+	}
+  });
+
+
+
+
+
 
 // Auth0 logout function
 document.addEventListener("DOMContentLoaded", function() {

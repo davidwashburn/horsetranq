@@ -14,6 +14,9 @@
 		<script src="/static/js/resources/modernizr.js"></script> <!-- Modernizr -->
 		<script src="https://cdn.auth0.com/js/auth0/9.18/auth0.min.js"></script>
 		<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
 		<title>HOrstRnq</title>
 	</head>
 	<body>
@@ -43,6 +46,9 @@
 			</div>
 
 			<div class="stable-wrapper">
+
+				<div id="user-data"></div>
+
 				<ul class="cd-slider">
 					<ul class="stack-cards js-stack-cards">
 						<div id="games-title" class="title-container">
@@ -149,7 +155,7 @@
 							<li class="stories__story ui-container transparent">
 								<a href="/horsplay" class="stories__img-wrapper">
 								<figure>
-									<img src="../static/img/assets/tranq.png" alt="Image description">
+									<img src="../static/img/games/horsplay/assets/tranq.png" alt="Image description">
 								</figure>
 								</a>
 						
@@ -336,11 +342,11 @@
 		</main> <!-- cd-main-content -->
 	<script src="/static/js/resources/jquery-2.1.1.js"></script>
 	<script src="/static/js/resources/jquery.mixitup.min.js"></script>
-	<script src="/static/js/main.js"></script> <!-- Resource jQuery -->
+	<script type="module" src="/static/js/main.js"></script> <!-- Resource jQuery -->
+	<script type="module" src="/static/js/firebase.js"></script>
 	<script src="/static/js/secondary/main-slides.js"></script> <!-- Resource jQuery -->
 	<script src="/static/js/resources/jquery.min.js"></script> <!-- Added for the draggable UI -->
 	<script src="/static/js/resources/jquery-ui.js"></script> <!-- Added for the draggable UI -->
 	<script src="/static/js/resources/jquery.ui.touch-punch.min.js"></script>
-
 	</body>
 </html>

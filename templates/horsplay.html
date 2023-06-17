@@ -57,7 +57,7 @@
 				<div id="goose-container"></div>
 				<div id="tranq-container">
 					<div class="tranq">
-						<img id="draggable13" src="static/img/assets/tranq.png">
+						<img id="draggable13" src="static/img/games/horsplay/assets/tranq.png">
 					</div>
 				</div>
 			</div>
@@ -258,6 +258,30 @@
 									<div class="option" data-value="farm-bg-dusk.jpg">Dusk</div>
 									<div class="option" data-value="farm-bg-overcast.jpg">Overcast</div>
 									<div class="option" data-value="farm-bg-peaceful.jpg">Peaceful</div>
+									<div class="option-flex">
+										<div class="option" data-value="mood-bg-1.png">Moody Day</div>
+										<div class="label one">HIGH REZ</div>
+									</div>
+									<div class="option-flex">
+										<div class="option" data-value="mood-bg-2.png">Moody Clouds</div>
+										<div class="label one">HIGH REZ</div>
+									</div>
+									<div class="option-flex">
+										<div class="option" data-value="mood-bg-3.png">Moody Moon</div>
+										<div class="label one">HIGH REZ</div>
+									</div>
+									<div class="option-flex">
+										<div class="option" data-value="mood-bg-4.png">Moody Dusk</div>
+										<div class="label one">HIGH REZ</div>
+									</div>
+									<div class="option-flex">
+										<div class="option" data-value="mood-bg-5.png">Moody Scifi</div>
+										<div class="label one">HIGH REZ</div>
+									</div>
+									<div class="option-flex">
+										<div class="option" data-value="mood-bg-6.png">Moody Scifi Alt</div>
+										<div class="label one">HIGH REZ</div>
+									</div>
 								{% else %}
 									<div class="option-flex">
 										<div class="option disabled" data-value="farm-bg-dusk.jpg">Dusk</div>
@@ -269,6 +293,31 @@
 									</div>
 									<div class="option-flex">
 										<div class="option disabled" data-value="farm-bg-peaceful.jpg">Peaceful</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+
+									<div class="option-flex">
+										<div class="option disabled" data-value="moody-bg-1.png">Moody Day</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="moody-bg-2.png">Moody Clouds</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="moody-bg-3.png">Moody Moon</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="moody-bg-4.png">Moody Dusk</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="moody-bg-5.png">Moody Scifi</div>
+										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option disabled" data-value="moody-bg-6.png">Moody Scifi Alt</div>
 										<div class="label free"><a href="https://horsetranq.com/login">MEMBERS</a></div>
 									</div>
 								{% endif %}	
@@ -419,7 +468,9 @@
 	</main> <!-- cd-main-content -->
 
 	<script src="/static/js/resources/jquery-2.1.1.js"></script>
-	<script src="/static/js/main.js"></script> <!-- Resource jQuery -->
+	<script src="/static/js/resources/jquery.mixitup.min.js"></script>
+	<script type="module" src="/static/js/main.js"></script> <!-- Resource jQuery -->
+	<script type="module" src="/static/js/firebase.js"></script>
 	<script src="/static/js/secondary/horsplay.js"></script> <!-- Horsplay JS -->
 	<script src="/static/js/resources/jquery.min.js"></script> <!-- Added for the draggable UI -->
 	<script src="/static/js/resources/jquery-ui.js"></script> <!-- Added for the draggable UI -->

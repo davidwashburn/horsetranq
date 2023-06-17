@@ -160,7 +160,7 @@ body {
 }
 
 .static-bg {
-  background-image: url("../../static/img/peaceful-alt.png")!important;
+  background-image: url("../../static/img/games/horsplay/backgrounds/peaceful-alt.png")!important;
 }
 
 a {
@@ -2739,7 +2739,9 @@ Usage: codyhouse.co/license
   position: absolute;
   right: 0;
 }
-
+.custom-select .option-flex .option {
+  width: 100%;
+}
 .option:hover {
   background-color: var(--color-bg-darker);
 }
@@ -2760,7 +2762,7 @@ Usage: codyhouse.co/license
   justify-content: center;
   align-items: center;
   z-index: 10000;
-  background: url(../../static/img/peaceful-alt.png);
+  background: url(../../static/img/games/horsplay/backgrounds/peaceful-alt.png);
   background-size: cover;
 }
 
