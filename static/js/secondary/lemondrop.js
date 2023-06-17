@@ -112,3 +112,20 @@ adjustBearAnimation();
 
 // Adjust the bear animation whenever the window is resized
 window.addEventListener("resize", adjustBearAnimation);
+
+
+// Reset score on clear //
+$('#resetBtn').click(function() {
+    // Reset score
+    score = 0;
+    // Update the score display
+    updateScore();
+});
+
+// Reset game (reloads the page) //
+$(function() {
+	$("#reset-container").click(function() {
+		console.log('Button clicked'); // add this line
+		window.location.reload(true);
+	});
+});
