@@ -2311,6 +2311,8 @@ Pricing table and plans
 }
 .cd-pricing-features.merch img {
   width: 140px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
 }
 .cd-pricing-features.merch li {
   display: flex;
@@ -2345,7 +2347,7 @@ Pricing table and plans
   justify-content: center;
 }
 #stor-title {
-  margin: 0 0 2em 0;
+  margin: 0;
   width: 100%;
 }
 @media only screen and (min-width: 768px) {
