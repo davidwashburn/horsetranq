@@ -1533,9 +1533,10 @@ xfilter
 .settings .label {
   padding: 4px 10px;
   height: 24px;
-  line-height: 16px;
+  line-height: 18px;
   display: inline;
   margin: 0;
+  box-shadow: var(--shadow-base);
 }
 .label.beta {
   color: var(--color-white);

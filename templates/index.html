@@ -290,7 +290,16 @@
 						<div class="cd-filter-content">
 							<div class="title-wrapper flex settings">
 								<h4 class="bold color-contrast-medium">Plan</h4>
-								<div class="label plus">PLUS</div>
+								{% if subscription_type == 'free' %}
+									<div class="label free big-bold">FREE MEMBER</div>
+								{% elif subscription_type == 'one' %}
+									<div class="label one big-bold">ONE</div>
+								{% elif subscription_type == 'plus' %}
+									<div class="label plus big-bold">PLUS</div>
+								{% elif subscription_type == 'max' %}
+									<div class="label max big-bold">MAX</div>
+								{% else %}
+								{% endif %}
 							</div>
 							<div class="title-wrapper flex settings">
 								<h4 class="bold color-contrast-medium">Name</h4>
