@@ -1,4 +1,5 @@
 // ACCOUNT FUNCTIONS AND AUTH0 IMPLEMENTATION //
+import { set } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js';
 import { auth, getUserDataRef } from './firebase.js';
 import { onValue } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js';
 
@@ -27,11 +28,25 @@ onValue(userRef, (snapshot) => {
 	  `;
 	  userDataDiv.innerHTML = userDataHTML;
 	} else {
-	  console.warn('No user data found in Realtime Database for user:', auth0UserId);
-	  userDataDiv.innerHTML = '<p>No user data found</p>';
+		console.warn('No user data found in Realtime Database for user:', auth0UserId);
+		userDataDiv.innerHTML = '<p>No user data found</p>';
+	
+		// Create new user data
+		var newUserData = {
+		  name: 'John Doe',  // replace with actual user name
+		  email: 'john.doe@example.com',  // replace with actual user email
+		  picture: 'https://example.com/profile-pic.jpg'  // replace with actual user profile picture URL
+		};
+		set(userRef, newUserData).then(() => {
+		  console.log('New user data has been written to the database.');
+		}).catch((error) => {
+		  console.error('Failed to write new user data to the database:', error);
+		});
 	}
   });
 
+  // Log the firebase token for the web client
+  console.log('Web Client Firebase token:', window.firebaseToken);
 
 // Auth0 logout function
 document.addEventListener("DOMContentLoaded", function() {

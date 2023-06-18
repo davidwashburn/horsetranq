@@ -254,6 +254,13 @@
 		{% else %}
 		{% endif %}	
 		</main> <!-- cd-main-content -->
+	<script>
+		window.auth0UserId = '{{ user_id }}';
+	</script>
+	<script>
+		window.auth0UserId = '{{ user_id }}';
+		window.firebaseToken = '{{ firebase_token }}';
+	</script>
 	<script src="/static/js/resources/jquery-2.1.1.js"></script>
 	<script src="/static/js/resources/jquery.mixitup.min.js"></script>
 	<script type="module" src="/static/js/main.js"></script> <!-- Resource jQuery -->

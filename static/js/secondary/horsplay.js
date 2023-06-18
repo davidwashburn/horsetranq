@@ -298,6 +298,30 @@ $(function() {
 			// Update the score display
 			updateScore();
 		});
+		
+		// Fetch the user id from wherever it is stored after login.
+		// For example, if it is stored in sessionStorage you would do:
+		var userId = sessionStorage.getItem('userId');
+
+		// Score data to be saved
+		var scoreData = {
+			'user_id': userId,
+			'score': score,
+			'date': new Date().toISOString()  // Current timestamp
+		};
+
+		// Send score data to the database
+		$.ajax({
+			url: "https://horsetranq-default-rtdb.firebaseio.com/scores.json", 
+			type: "POST",
+			data: JSON.stringify(scoreData),
+			success: function(response) {
+				console.log("Score saved successfully: ", response);
+			},
+			error: function(error) {
+				console.log("Error saving score: ", error);
+			}
+		});
 	}
 });
 

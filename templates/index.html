@@ -47,8 +47,6 @@
 
 			<div class="stable-wrapper">
 
-				<div id="user-data"></div>
-
 				<ul class="cd-slider">
 					<ul class="stack-cards js-stack-cards">
 						<div id="games-title" class="title-container">
@@ -342,6 +340,10 @@
 		</main> <!-- cd-main-content -->
 	<script>
 		window.auth0UserId = '{{ user_id }}';
+	</script>
+	<script>
+		window.auth0UserId = '{{ user_id }}';
+		window.firebaseToken = '{{ firebase_token }}';
 	</script>
 	<script src="/static/js/resources/jquery-2.1.1.js"></script>
 	<script src="/static/js/resources/jquery.mixitup.min.js"></script>
