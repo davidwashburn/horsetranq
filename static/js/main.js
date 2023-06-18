@@ -2,8 +2,8 @@
 import { auth, getUserDataRef } from './firebase.js';
 import { onValue } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js';
 
-// Get the user's Auth0 ID (from Flask session) and make sure to replace 'user_id' with the appropriate variable.
-var auth0UserId = '{{ user_id }}';
+// Get the user's Auth0 ID (from window object)
+var auth0UserId = window.auth0UserId;
 console.log('Auth0 user ID:', auth0UserId);
 
 // Get a reference to the user's data in Realtime Database.
@@ -33,10 +33,6 @@ onValue(userRef, (snapshot) => {
   });
 
 
-
-
-
-
 // Auth0 logout function
 document.addEventListener("DOMContentLoaded", function() {
     const logoutBtn = document.getElementById('accountSignOutBtn');
@@ -50,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+/*
 // account delete from database option //
 $("#accountDeleteBtn").click(function() {
     var result = confirm("Are you sure you want to delete your account?");
@@ -71,7 +68,7 @@ $("#accountDeleteBtn").click(function() {
         });
     }
 });
-
+*/
 
 // DOCUMENT READY FUNCTIONS AND ONLOAD SCRIPTS //
 jQuery(document).ready(function($){
