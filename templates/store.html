@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="/static/css/reset.css"> <!-- CSS reset -->
 		<link rel="stylesheet" href="/static/css/style.css"> <!-- Resource style -->
 		<link rel="stylesheet" href="/static/css/variables.css"> <!-- Variables style -->
+		<link rel="stylesheet" href="/static/css/swipe-content.css"> <!-- Swipe content style -->
 		<script src="/static/js/resources/modernizr.js"></script> <!-- Modernizr -->
 		<script src="https://cdn.auth0.com/js/auth0/9.18/auth0.min.js"></script>
 		<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
@@ -131,6 +132,27 @@
 							<h2 class="big-bold">DIGTAL</h2>
 							<p>founder ppls pak</p>
 						</div>
+
+
+						<div class="compare-slider js-compare-slider" aria-hidden="true">
+							<figure class="compare-slider__img compare-slider__img--original">
+								<img src="../static/img/branding/background-low-rez.png" alt="Original Image">
+								<figcaption class="compare-slider__caption js-compare-slider__caption">Lo Rez</figcaption>
+							  </figure>
+							  
+							<figure class="compare-slider__img compare-slider__img--modified js-compare-slider__img--modified">
+								<img src="../static/img/branding/background-hi-rez.png" alt="Modified Image">
+								<figcaption class="compare-slider__caption js-compare-slider__caption">Hi Rez</figcaption>
+							  </figure>
+
+							<input class="compare-slider__input-handle js-compare-slider__input-handle" type="range" min="0" max="100" step="1" value="50">
+							
+							<span class="compare-slider__handle js-compare-slider__handle">
+							  <svg class="iy2-icon iy2-icon--sm" viewBox="0 0 24 24"><path d="M7.7,5.042a.5.5,0,0,0-.54.092l-7,6.5a.5.5,0,0,0,0,.732l7,6.5A.5.5,0,0,0,7.5,19a.5.5,0,0,0,.5-.5V5.5A.5.5,0,0,0,7.7,5.042Z"/><path d="M23.84,11.634l-7-6.5A.5.5,0,0,0,16,5.5v13a.5.5,0,0,0,.84.366l7-6.5a.5.5,0,0,0,0-.732Z"/></svg>
+							</span>
+						</div>
+
+
 						<div class="ui-container product merch shadow">
 							<div class="cd-pricing-body">
 								<ul class="cd-pricing-features merch big-bold" style="display: flex;flex-direction: row;flex-wrap: wrap;justify-content: center;">									
@@ -280,6 +302,7 @@
 	<script src="/static/js/resources/jquery.mixitup.min.js"></script>
 	<script type="module" src="/static/js/main.js"></script> <!-- Resource jQuery -->
 	<script type="module" src="/static/js/firebase.js"></script>
+	<script src="/static/js/resources/swipe-content.js"></script> <!-- Swipe content JS -->
 	<script src="/static/js/resources/jquery.min.js"></script> <!-- Added for the draggable UI -->
 	<script src="/static/js/resources/jquery-ui.js"></script> <!-- Added for the draggable UI -->
 	<script src="/static/js/resources/jquery.ui.touch-punch.min.js"></script>
