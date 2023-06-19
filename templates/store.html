@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="/static/css/style.css"> <!-- Resource style -->
 		<link rel="stylesheet" href="/static/css/variables.css"> <!-- Variables style -->
 		<link rel="stylesheet" href="/static/css/swipe-content.css"> <!-- Swipe content style -->
+		<link rel="stylesheet" href="/static/css/tabs.css"> <!-- Tabs content style -->
 		<script src="/static/js/resources/modernizr.js"></script> <!-- Modernizr -->
 		<script src="https://cdn.auth0.com/js/auth0/9.18/auth0.min.js"></script>
 		<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
@@ -112,106 +113,148 @@
 					</div>
 				</div>
 				<div class="store-flex-container subscribe section">
-					<div id="stor-title" class="title-container">
+					<div id="digtal-title" class="title-container">
 						<h2 class="big-bold">DIGTAL</h2>
-						<p>hors contant pak</p>
+						<p>hors contant paks</p>
 					</div>
-					<div class="flex-container">
-						<div class="ui-container product merch shadow">
-							<div class="cd-pricing-body">
-								<ul class="cd-pricing-features merch big-bold" style="display: flex;flex-direction: row;flex-wrap: wrap;justify-content: center;">									
-									<li><em>Hors 1</em><img src="/static/img/gif/hors-1.gif" alt=""></li>
-									<li><em>Hors 2</em><img src="/static/img/gif/hors-2.gif" alt=""></li>
-									<li><em>Hors 3</em><img src="/static/img/gif/hors-3.gif" alt=""></li>
-									<li><em>Mony Hors</em><img src="/static/img/gif/hors-money.gif" alt=""></li>
-									<li><em>Suport Hors</em><img src="/static/img/gif/hors-support.gif" alt=""></li>
-								</ul>
-							</div>
-						</div>
-						<div id="stor-title" class="title-container">
-							<h2 class="big-bold">DIGTAL</h2>
-							<p>founder ppls pak</p>
-						</div>
+					<div id="digtal-flex" class="flex-container">
 
-
-						<div class="compare-slider js-compare-slider" aria-hidden="true">
-							<figure class="compare-slider__img compare-slider__img--original">
-								<img src="../static/img/branding/background-low-rez.png" alt="Original Image">
-								<figcaption class="compare-slider__caption js-compare-slider__caption">Lo Rez</figcaption>
-							  </figure>
-							  
-							<figure class="compare-slider__img compare-slider__img--modified js-compare-slider__img--modified">
-								<img src="../static/img/branding/background-hi-rez.png" alt="Modified Image">
-								<figcaption class="compare-slider__caption js-compare-slider__caption">Hi Rez</figcaption>
-							  </figure>
-
-							<input class="compare-slider__input-handle js-compare-slider__input-handle" type="range" min="0" max="100" step="1" value="50">
-							
-							<span class="compare-slider__handle js-compare-slider__handle">
-							  <svg class="iy2-icon iy2-icon--sm" viewBox="0 0 24 24"><path d="M7.7,5.042a.5.5,0,0,0-.54.092l-7,6.5a.5.5,0,0,0,0,.732l7,6.5A.5.5,0,0,0,7.5,19a.5.5,0,0,0,.5-.5V5.5A.5.5,0,0,0,7.7,5.042Z"/><path d="M23.84,11.634l-7-6.5A.5.5,0,0,0,16,5.5v13a.5.5,0,0,0,.84.366l7-6.5a.5.5,0,0,0,0-.732Z"/></svg>
-							</span>
-						</div>
-
-
-						<div class="ui-container product merch shadow">
-							<div class="cd-pricing-body">
-								<ul class="cd-pricing-features merch big-bold" style="display: flex;flex-direction: row;flex-wrap: wrap;justify-content: center;">									
-									<li><em>Bare</em><img src="/static/img/gif/bear.gif" alt=""></li>
-									<li><em>Lemin</em><img src="/static/img/gif/lemon-1.gif" alt=""></li>
-									<li><em>Ravin</em><img src="/static/img/gif/raven.gif" alt=""></li>
-									<li><em>Goos</em><img src="/static/img/gif/goose.gif" alt=""></li>
-									<li><em>Moody Day BG</em><img src="/static/img/games/horsplay/backgrounds/mood-bg-1.png" alt=""></li>
-									<li><em>Moody Clouds BG</em><img src="/static/img/games/horsplay/backgrounds/mood-bg-2.png" alt=""></li>
-									<li><em>Moody Moon BG</em><img src="/static/img/games/horsplay/backgrounds/mood-bg-3.png" alt=""></li>
-									<li><em>Moody Dusk BG</em><img src="/static/img/games/horsplay/backgrounds/mood-bg-4.png" alt=""></li>
-									<li><em>Moody Scifi BG</em><img src="/static/img/games/horsplay/backgrounds/mood-bg-5.png" alt=""></li>
-									<li><em>Moody Scifi-Alt BG</em><img src="/static/img/games/horsplay/backgrounds/mood-bg-6.png" alt=""></li>
-								</ul>
+						<div class="tab-features-v2 js-tabs" data-show-panel-class="tab-features-v2__panel--display" data-hide-panel-class="tab-features-v2__panel--hide">
+							<ul class="tab-features-v2__controls-list js-tabs__controls" aria-label="Tabs navigation">
+							  <li>
+								<a href="#tab-features-1" class="tab-features-v2__control" aria-selected="true">
+									<div class="title-container slider">
+										<h2 id="tab-one" class="big-bold shadow">ONE TIER</h2>
+										<p>one subscribar pak</p>
+									</div>
+								</a>
+							  </li>
+						  
+							  <li>
+								<a href="#tab-features-2" class="tab-features-v2__control">
+									<div class="title-container slider">
+										<h2 id="tab-plus" class="big-bold shadow">PLUS TIER</h2>
+										<p>plus subscribar pak</p>
+									</div>
+								</a>
+							  </li>
+						  
+							  <li>
+								<a href="#tab-features-3" class="tab-features-v2__control">
+									<div class="title-container slider">
+										<h2 id="tab-max" class="big-bold shadow">MAX TIER</h2>
+										<p>max subscribar pak</p>
+									</div>
+								</a>
+							  </li>
+						  
+							  <li>
+								<a href="#tab-features-4" class="tab-features-v2__control">
+									<div class="title-container slider">
+										<h2 class="big-bold shadow">FOUNDR</h2>
+										<p>add-on digtal pak</p>
+									</div>
+								</a>
+							  </li>
+						  
+							  <li class="tab-features-v2__text-crop-gradient" aria-hidden="true"></li>
+							</ul>
+						  
+							<div class="tab-features-v2__panels js-tabs__panels">
+								<section id="tab-features-1" class="tab-features-v2__panel js-tabs__panel">
+									<div class="compare-slider js-compare-slider" aria-hidden="true">
+										<figure class="compare-slider__img compare-slider__img--original">
+											<img src="../static/img/branding/background-low-rez.png" alt="Original Image">
+											<figcaption class="compare-slider__caption js-compare-slider__caption">Lo Rez</figcaption>
+											</figure>
+											
+										<figure class="compare-slider__img compare-slider__img--modified js-compare-slider__img--modified">
+											<img src="../static/img/branding/background-hi-rez.png" alt="Modified Image">
+											<figcaption class="compare-slider__caption js-compare-slider__caption">Hi Rez</figcaption>
+											</figure>
+			
+										<input class="compare-slider__input-handle js-compare-slider__input-handle" type="range" min="0" max="100" step="1" value="50">
+										
+										<span class="compare-slider__handle js-compare-slider__handle">
+											<svg class="iy2-icon iy2-icon--sm" viewBox="0 0 24 24"><path d="M7.7,5.042a.5.5,0,0,0-.54.092l-7,6.5a.5.5,0,0,0,0,.732l7,6.5A.5.5,0,0,0,7.5,19a.5.5,0,0,0,.5-.5V5.5A.5.5,0,0,0,7.7,5.042Z"/><path d="M23.84,11.634l-7-6.5A.5.5,0,0,0,16,5.5v13a.5.5,0,0,0,.84.366l7-6.5a.5.5,0,0,0,0-.732Z"/></svg>
+										</span>
+									</div>
+								</section>
+						  
+								<section id="tab-features-2" class="tab-features-v2__panel js-tabs__panel">
+									<div class="ui-container product merch shadow">
+										<div class="cd-pricing-body">
+											<ul class="cd-pricing-features merch nowrap big-bold">									
+												<li><em>Hors 1</em><img src="/static/img/gif/hors-1.gif" alt=""></li>
+												<li><em>Hors 2</em><img src="/static/img/gif/hors-2.gif" alt=""></li>
+												<li><em>Hors 3</em><img src="/static/img/gif/hors-3.gif" alt=""></li>
+												<li><em>Mony Hors</em><img src="/static/img/gif/hors-money.gif" alt=""></li>
+												<li><em>Suport Hors</em><img src="/static/img/gif/hors-support.gif" alt=""></li>
+											</ul>
+										</div>
+									</div>
+									<div class="ui-container product merch shadow">
+										<div class="cd-pricing-body">
+											<ul class="cd-pricing-features merch nowrap big-bold">									
+												<li><em>Dog 1</em><img src="/static/img/gif/dog-1.gif" alt=""></li>
+												<li><em>Dog 2</em><img src="/static/img/gif/dog-2.gif" alt=""></li>
+												<li><em>Dog 3</em><img src="/static/img/gif/dog-3.gif" alt=""></li>
+												<li><em>Persin 1</em><img src="/static/img/gif/person-1.gif" alt=""></li>
+												<li><em>Persin 2</em><img src="/static/img/gif/person-2.gif" alt=""></li>
+											</ul>
+										</div>
+									</div>
+								</section>
+						  
+								<section id="tab-features-3" class="tab-features-v2__panel js-tabs__panel">
+									<div class="ui-container product merch shadow">
+										<div class="cd-pricing-body">
+											<ul class="cd-pricing-features merch nowrap big-bold">									
+												<li><em>Glok</em><img src="/static/img/gif/glock.gif" alt=""></li>
+												<li><em>Helmat</em><img src="/static/img/gif/helmet.gif" alt=""></li>
+												<li><em>Tools 1</em><img src="/static/img/gif/tool-1.gif" alt=""></li>
+												<li><em>Trools 2</em><img src="/static/img/gif/tool-2.gif" alt=""></li>
+											</ul>
+										</div>
+									</div>
+									<div class="ui-container product merch shadow">
+										<div class="cd-pricing-body">
+											<ul class="cd-pricing-features merch nowrap big-bold">									
+												<li><em>Tranq 1</em><img src="/static/img/gif/tranq-1.gif" alt=""></li>
+												<li><em>Tranq 2</em><img src="/static/img/gif/tranq-2.gif" alt=""></li>
+												<li><em>Person 3</em><img src="/static/img/gif/person-3.gif" alt=""></li>
+												<li><em>HorsGoos</em><img src="/static/img/loading/hors-load-3.gif" alt=""></li>
+											</ul>
+										</div>
+									</div>
+								</section>
+						  
+								<section id="tab-features-4" class="tab-features-v2__panel js-tabs__panel">
+									<div class="ui-container product merch shadow">
+										<div class="cd-pricing-body">
+											<ul class="cd-pricing-features merch nowrap big-bold">									
+												<li><em>Bare</em><img src="/static/img/gif/bear.gif" alt=""></li>
+												<li><em>Lemin</em><img src="/static/img/gif/lemon-1.gif" alt=""></li>
+												<li><em>Ravin</em><img src="/static/img/gif/raven.gif" alt=""></li>
+												<li><em>Goos</em><img src="/static/img/gif/goose.gif" alt=""></li>
+											</ul>
+										</div>
+									</div>
+									<div class="ui-container product merch shadow">
+										<div class="cd-pricing-body">
+											<ul class="cd-pricing-features merch nowrap big-bold">									
+												<li><em>Moody Day</em><img src="/static/img/games/horsplay/backgrounds/mood-bg-1.png" alt=""></li>
+												<li><em>Moody Cloud</em><img src="/static/img/games/horsplay/backgrounds/mood-bg-2.png" alt=""></li>
+												<li><em>Moody Moon</em><img src="/static/img/games/horsplay/backgrounds/mood-bg-3.png" alt=""></li>
+												<li><em>Moody Dusk</em><img src="/static/img/games/horsplay/backgrounds/mood-bg-4.png" alt=""></li>
+												<li><em>Moody Scifi</em><img src="/static/img/games/horsplay/backgrounds/mood-bg-5.png" alt=""></li>
+												<li><em>Moody Scifi2</em><img src="/static/img/games/horsplay/backgrounds/mood-bg-6.png" alt=""></li>
+											</ul>
+										</div>
+									</div>	
+								</section>
 							</div>
-						</div>
-						<div id="stor-title" class="title-container">
-							<h2 class="big-bold">DIGTAL</h2>
-							<p>manz bes fren pak</p>
-						</div>
-						<div class="ui-container product merch shadow">
-							<div class="cd-pricing-body">
-								<ul class="cd-pricing-features merch big-bold" style="display: flex;flex-direction: row;flex-wrap: wrap;justify-content: center;">									
-									<li><em>Dog 1</em><img src="/static/img/gif/dog-1.gif" alt=""></li>
-									<li><em>Dog 2</em><img src="/static/img/gif/dog-2.gif" alt=""></li>
-									<li><em>Dog 3</em><img src="/static/img/gif/dog-3.gif" alt=""></li>
-									<li><em>Persin 1</em><img src="/static/img/gif/person-1.gif" alt=""></li>
-									<li><em>Persin 2</em><img src="/static/img/gif/person-2.gif" alt=""></li>
-								</ul>
-							</div>
-						</div>
-						<div id="stor-title" class="title-container">
-							<h2 class="big-bold">DIGTAL</h2>
-							<p>helpfil tools pak</p>
-						</div>
-						<div class="ui-container product merch shadow">
-							<div class="cd-pricing-body">
-								<ul class="cd-pricing-features merch big-bold" style="display: flex;flex-direction: row;flex-wrap: wrap;justify-content: center;">									
-									<li><em>Glok</em><img src="/static/img/gif/glock.gif" alt=""></li>
-									<li><em>Helmat</em><img src="/static/img/gif/helmet.gif" alt=""></li>
-									<li><em>Tools 1</em><img src="/static/img/gif/tool-1.gif" alt=""></li>
-									<li><em>Trools 2</em><img src="/static/img/gif/tool-2.gif" alt=""></li>
-								</ul>
-							</div>
-						</div>
-						<div id="stor-title" class="title-container">
-							<h2 class="big-bold">DIGTAL</h2>
-							<p>weerd stuf pak</p>
-						</div>
-						<div class="ui-container product merch shadow">
-							<div class="cd-pricing-body">
-								<ul class="cd-pricing-features merch big-bold" style="display: flex;flex-direction: row;flex-wrap: wrap;justify-content: center;">									
-									<li><em>Tranq 1</em><img src="/static/img/gif/tranq-1.gif" alt=""></li>
-									<li><em>Tranq 2</em><img src="/static/img/gif/tranq-2.gif" alt=""></li>
-									<li><em>Person 3</em><img src="/static/img/gif/person-3.gif" alt=""></li>
-									<li><em>HorsGoos</em><img src="/static/img/loading/hors-load-3.gif" alt=""></li>
-								</ul>
-							</div>
-						</div>
+						  </div>
 					</div>
 				</div>
 			</div>
@@ -303,6 +346,7 @@
 	<script type="module" src="/static/js/main.js"></script> <!-- Resource jQuery -->
 	<script type="module" src="/static/js/firebase.js"></script>
 	<script src="/static/js/resources/swipe-content.js"></script> <!-- Swipe content JS -->
+	<script src="/static/js/resources/tabs.js"></script> <!-- Swipe content JS -->
 	<script src="/static/js/resources/jquery.min.js"></script> <!-- Added for the draggable UI -->
 	<script src="/static/js/resources/jquery-ui.js"></script> <!-- Added for the draggable UI -->
 	<script src="/static/js/resources/jquery.ui.touch-punch.min.js"></script>
