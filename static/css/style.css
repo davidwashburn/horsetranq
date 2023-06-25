@@ -1126,7 +1126,6 @@ label {
 .subscribe .product.ui-container {
   position: relative;
   margin: var(--space-md);
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
   border: 3px solid #4a759d;
   transition: .15s ease-in-out;
   border-radius: 10px;
@@ -2348,7 +2347,6 @@ Pricing table and plans
 .cd-pricing-features.merch img {
   width: 140px;
   border-radius: 20px;
-  box-shadow: var(--shadow-sm);
 }
 .cd-pricing-features.merch li {
   display: flex;
