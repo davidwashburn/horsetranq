@@ -2389,6 +2389,13 @@ Pricing table and plans
   margin: 0;
   width: 100%;
 }
+.description-text {
+  padding: 1em;
+  line-height: 1.4;
+  font-weight: bold;
+  color: white;
+  font-size: var(--font-size-xl);
+}
 @media only screen and (min-width: 768px) {
   .cd-pricing-features {
     width: auto;
