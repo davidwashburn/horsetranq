@@ -391,7 +391,9 @@
     .tab-features-v2 {
       display: grid;
       align-items: center;
-      grid-template-columns: repeat(2, 1fr);
+      /*grid-template-columns: repeat(2, 1fr);*/
+      grid-template-columns: max-content max-content;
+      min-height: 500px;
     }
     .tab-features-v2__panels {
       display: flex;
