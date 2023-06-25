@@ -285,13 +285,6 @@
     border-color: hsla(var(--tz9-color-contrast-higher-hsl), 0.5);
   }
   
-  .tab-features-v2__control[aria-selected=true] {
-    border-radius: var(--radius-sm);
-    background: rgba(255,255,255,0.4);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-  }
-  
   .tab-features-v2__control[aria-selected=true] .tab-features-v2__control-title {
     color: var(--color-primary);
   }

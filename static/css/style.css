@@ -1068,16 +1068,30 @@ label {
   color: var(--color-primary);
 }
 #tab-one {
+  /*
   background: linear-gradient(to right, #34a853, #1c5e2d);
   color: #f0f0f0;
+  */
 }
 #tab-plus {
+  /*
   color: var(--color-white);
   background: linear-gradient(to top, #0275e0, #194875);
+  */
 }
 #tab-max {
+  /*
   color: var(--color-white);
   background: linear-gradient(to right, #a904f6, #2f4b99);
+  */
+}
+
+.tab-features-v2__control:hover, .tab-features-v2__control[aria-selected=true] .title-container h2 {
+  color: var(--color-primary);
+}
+
+.title-container h2.digtal {
+  color: var(--color-contrast-medium);
 }
 
 .title-container h2 {
@@ -1202,6 +1216,7 @@ label {
   }
   .title-container.slider h2 {
     font-size: var(--font-size-xl);
+    margin: 0;
   }
   .title-container.slider {
     flex-direction: column;
@@ -2305,7 +2320,7 @@ Pricing table and plans
   width: 20px;
   background: url(/static/img/cd-icon-small-arrow.svg);
 }
-.store-flex-container .ui-container:nth-child(2):hover .cd-pricing-footer::after {
+.store-flex-container .ui-container:nth-child(2) .cd-pricing-footer::after {
   background: url(/static/img/cd-icon-small-arrow-dark.svg);
 }
 .product.merch .cd-pricing-footer::after {
@@ -2913,5 +2928,3 @@ Usage: codyhouse.co/license
   0% { transform: scale(1); } /* Start at normal size */
   100% { transform: scale(3); } /* Grow to 3x the size */
 }
-
-
