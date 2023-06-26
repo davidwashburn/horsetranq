@@ -161,6 +161,7 @@ body {
 
 .static-bg {
   background-image: url("../../static/img/games/horsplay/backgrounds/peaceful-alt.png")!important;
+  background-size: cover;
 }
 
 a {

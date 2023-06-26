@@ -79,7 +79,7 @@
 							<div>
 								<h2 id="basics" class="toc-header text-xl margin-bottom-xs">Basics</h2>
 					
-								<ul class="accordion-v2 flex flex-column gap-3xs js-accordion" data-animation="on" data-multi-items="on" data-version="v2">
+								<ul class="accordion-v2 flex flex-column gap-xs js-accordion" data-animation="on" data-multi-items="on" data-version="v2">
 					
 								<li class="accordion-v2__item  js-accordion__item">
 									<button class=" accordion-v2__header padding-y-md padding-x-md " type="button">
@@ -182,7 +182,7 @@
 							<div>
 								<h2 id="account" class="toc-header text-xl margin-bottom-xs">Account</h2>
 					
-								<ul class="accordion-v2 flex flex-column gap-3xs js-accordion" data-animation="on" data-multi-items="on" data-version="v2">
+								<ul class="accordion-v2 flex flex-column gap-xs js-accordion" data-animation="on" data-multi-items="on" data-version="v2">
 					
 								<li class="accordion-v2__item  js-accordion__item">
 									<button class=" accordion-v2__header padding-y-md padding-x-md " type="button">
@@ -268,7 +268,7 @@
 							<div>
 								<h2 id="payments" class="toc-header text-xl margin-bottom-xs">Payments</h2>
 					
-								<ul class="accordion-v2 flex flex-column gap-3xs js-accordion" data-animation="on" data-multi-items="on" data-version="v2">
+								<ul class="accordion-v2 flex flex-column gap-xs js-accordion" data-animation="on" data-multi-items="on" data-version="v2">
 					
 								<li class="accordion-v2__item  js-accordion__item">
 									<button class=" accordion-v2__header padding-y-md padding-x-md " type="button">
@@ -334,7 +334,7 @@
 							<div>
 								<h2 id="privacy" class="toc-header text-xl margin-bottom-xs">Privacy</h2>
 					
-								<ul class="accordion-v2 flex flex-column gap-3xs js-accordion" data-animation="on" data-multi-items="on" data-version="v2">
+								<ul class="accordion-v2 flex flex-column gap-xs js-accordion" data-animation="on" data-multi-items="on" data-version="v2">
 					
 								<li class="accordion-v2__item  js-accordion__item">
 									<button class=" accordion-v2__header padding-y-md padding-x-md " type="button">
@@ -420,50 +420,8 @@
 						</div>
 					</div>
 				</section>
-
-				<div class="store-flex-container subscribe section">
-					<div id="digtal-flex" class="flex-container">
-						<div class="cd-project-content is-visible">
-							<div>
-								<h2 class="big-bold">Horsetranq Media Group</h2>
-								<em>Onse a hors alway a hors. Liv boled, be fre.</em>
-								<div class="title-wrapper flex settings">
-										<div class="title-wrapper flex settings bg-none" style="margin-bottom: 0;">
-											<h4 class="bold color-primary-darker">Socials</h4>
-											<div class="socials flex">
-											<a href="https://discord.gg/4RVnSsRCRp" target="_blank" class="social-icon">
-												<img src="./../static/img/assets/discord.svg" alt="Discord">
-											</a>
-											<a href="https://www.patreon.com/horsetranq" target="_blank" class="social-icon">
-												<img src="./../static/img/assets/patreon.svg" alt="Patreon">
-											</a>
-											<a href="[DISCORD-URL]" target="_blank" class="social-icon">
-												<img src="./../static/img/assets/atlassian.svg" alt="Atlassian">
-											</a>	
-											<h4><a class="color-primary" href="https://support.horsetranq.com">support.horsetranq.com</a></h4>		
-										</div>
-									</div>
-								</div>
-								<p>
-									Horsetranq.com was found in 2001 durin the doctom bubble. Y2k and Gran Turismo 2 devlopers teamed up to make this websit. No body thot the site would survive wen the buble burst but we r a livin testamonial to hard perservrance n work.
-								</p>
-								<p>
-									We also hav a vary loose* parnership wit Foundation for the Hors. Its loose cus they may not kno it exits. We like to parner wit hors fundations to benefit all the hors in teh wild. Majecstic beast wit four legs n a tail n a head. Our fundang and incom goes to hors phlanthropy acros the globe (wen wer'e able to). It makes us difrent than or competitin. We are 'nt afraid of wat othrs think of horstranq.
-								</p>
-								<p>
-									<span class="bold color-primary">Horstarnq Media Grop ©2023</span> is teh parent company for Horsetranq.com. All rites resvred and all affilations afiliated. Privcy is a focus of ours nd so is ur money. Our prodacts r strong in the marketplac and we are <span class="bold";>bes of breed</span>.
-								</p>
-								<p>
-									Thanks for tuning in en being a faitful subsriber.
-								</p>
-							</div>
-						</div> <!-- .cd-project-content -->
-					</div>
-				</div>
 			</div>
-		</main>
-
-		{% if logged_in %}
+			{% if logged_in %}
 			<!-- ACCOUNT MODAL -->
 			<div id="accountModal" class="cd-filter shadow">
 				<div class="sticky-container">
@@ -537,6 +495,7 @@
 			</div>
 		{% else %}
 		{% endif %}	
+		</main>
 	<script>
 		window.auth0UserId = '{{ user_id }}';
 	</script>
