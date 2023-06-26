@@ -1100,6 +1100,7 @@ label {
   background: white;
   padding: 10px;
   border-radius: var(--radius-sm);
+  color: var(--color-primary);
 }
 .title-container p {
   margin: var(--space-xs);
