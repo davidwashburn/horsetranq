@@ -136,10 +136,10 @@ nav.toc__nav {
 }
 
 .toc__link--selected {
-  color: hsl(var(--tb9-color-primary-hsl));
+  color: var(--color-white)!important;
 }
 .toc__link--selected:hover {
-  color: hsl(var(--tb9-color-primary-hsl));
+  color: var(--color-white);
 }
 
 .toc__label {
@@ -289,7 +289,7 @@ nav.toc__nav {
   display: inline-flex;
   font-size: var(--text-lg);
   font-weight: 800;
-  color: var(--color-white);
+  color: var(--color-contrast-lower);
 }
 /*
 .toc--static .toc__link--selected::before {
