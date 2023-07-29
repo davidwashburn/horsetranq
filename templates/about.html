@@ -461,9 +461,7 @@
 					</div>
 				</div>
 			</div>
-		</main>
-
-		{% if logged_in %}
+			{% if logged_in %}
 			<!-- ACCOUNT MODAL -->
 			<div id="accountModal" class="cd-filter shadow">
 				<div class="sticky-container">
@@ -537,6 +535,7 @@
 			</div>
 		{% else %}
 		{% endif %}	
+		</main>
 	<script>
 		window.auth0UserId = '{{ user_id }}';
 	</script>
