@@ -71,6 +71,11 @@ body {
   }
 }
 
+nav.toc__nav {
+  margin-top: 4em;
+  box-shadow: inset var(--toc-border-width) 0 0 hsl(var(--tb9-color-contrast-lower-hsl));
+}
+
 /* icons */
 .tb9-icon {
   height: var(--tb9-size, 1em);
@@ -131,10 +136,10 @@ body {
 }
 
 .toc__link--selected {
-  color: hsl(var(--tb9-color-primary-hsl));
+  color: var(--color-white)!important;
 }
 .toc__link--selected:hover {
-  color: hsl(var(--tb9-color-primary-hsl));
+  color: var(--color-white);
 }
 
 .toc__label {
@@ -265,8 +270,7 @@ body {
 /* #endregion */
 /* #region (static version only - desktop 👇) */
 .toc--static {
-  box-shadow: inset var(--toc-border-width) 0 0 hsl(var(--tb9-color-contrast-lower-hsl));
-  /* left border */
+  /*box-shadow: inset var(--toc-border-width) 0 0 hsl(var(--tb9-color-contrast-lower-hsl));*/
 }
 .toc--static[class*=position-sticky] {
   top: var(--tb9-space-md);
@@ -285,7 +289,7 @@ body {
   display: inline-flex;
   font-size: var(--text-lg);
   font-weight: 800;
-  color: var(--color-white);
+  color: var(--color-contrast-lower);
 }
 /*
 .toc--static .toc__link--selected::before {
@@ -1133,8 +1137,9 @@ img, video, svg {
 .accordion-v2__item {
   background-color: hsl(var(--ap9-color-bg-light-hsl));
   box-shadow: inset 0 1px 0.5px hsla(0, 0%, 100%, 0.075), 0 0.3px 0.4px rgba(0, 0, 0, 0.025),0 0.9px 1.5px rgba(0, 0, 0, 0.05), 0 3.5px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 0.25em;
+  border-radius: var(--radius-md);
   transition: 0.3s;
+  border: 2px solid rgba(255,255,255,0.2);
 }
 .accordion-v2__item:hover {
   box-shadow: inset 0 1px 0.5px hsla(0, 0%, 100%, 0.075), 0 0.9px 1.5px rgba(0, 0, 0, 0.03),0 3.1px 5.5px rgba(0, 0, 0, 0.08),0 14px 25px rgba(0, 0, 0, 0.12);
@@ -1202,9 +1207,6 @@ img, video, svg {
 }
 .accordion-v2__item--is-open > .accordion-v2__panel {
   display: block;
-}
-.toc.toc--static\@md.position-sticky\@md.js-toc.toc--static {
-  margin-top: 4em;
 }
 .accordion-v2[data-animation=on] .accordion-v2__item--is-open .accordion-v2__panel > * {
   -webkit-animation: accordion-v2-entry-animation 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -3238,7 +3240,7 @@ img, video, svg {
 }
 
 .text-lg {
-  font-size: var(--text-lg)
+  font-size: var(--text-lg);
 }
 
 .text-xl {
