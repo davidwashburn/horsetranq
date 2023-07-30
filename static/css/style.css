@@ -453,7 +453,6 @@ Modules - reusable parts of our design
 }
 .shadow {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  /* box-shadow: 0 1px 1px rgba(9,30,66,0.25), 0 0 1px rgba(9,30,66,0.31);*/
 }
 
 /* -------------------------------- 
@@ -1050,14 +1049,27 @@ label {
 }
 .ui-container.game {
   position: relative;
-  margin: var(--space-md);
-  border: 3px solid #4a759d;
+  margin: var(--space-sm);
+  border: 4px solid #4a759d;
   transition: .15s ease-in-out;
   border-radius: 10px;
   background: #030329;
-  max-width: 332px;
-  max-height: 286px;
+  max-width: 380px;
+  max-height: 216px;
+  overflow: hidden;
   padding: 0;
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+}
+.ui-container.game:hover {
+  box-shadow: var(--shadow-xl);
+}
+.game-hero-container .project-info {
+  position: absolute;
+  top: 0;
+}
+.game-hero-container img {
+  border-radius: 6px;
+  box-shadow: var(--shadow-base);
 }
 #accountTools {
   justify-content: center;
@@ -2512,10 +2524,7 @@ Pricing table and plans
   color: transparent;
   box-shadow: none;
 }
-#digtal-flex {
-  width: 100vw;
-}
-.store-flex-container.section {
+.flex-container.section {
   margin: 0;
   padding: 0 0 6em;
   border-top: 2px solid rgba(255,255,255,0.2);
@@ -2525,6 +2534,9 @@ Pricing table and plans
   overflow: hidden;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+}
+.flex-container.wrapper {
+  width: 100vw;
 }
 @media only screen and (min-width: 768px) {
   .store-flex-container {
