@@ -62,7 +62,7 @@ function handleClick(event) {
 function checkCollision() {
 	var lemonRect = lemon.getBoundingClientRect();
 	var bearRect = bear.getBoundingClientRect();
-	var message = document.getElementById("message");
+	var message = document.getElementById("game-over");
   
 	if (
 	  lemonRect.right >= bearRect.left &&
@@ -129,3 +129,49 @@ $(function() {
 		window.location.reload(true);
 	});
 });
+
+
+// Function to handle click events
+function handleClick(event) {
+	if (event.button === 0) {
+	  event.stopPropagation();
+	  if (gameState === "not started" || gameState === "game over") {
+		// Reset the game
+		gameState = "running";
+		counter = 0;
+		document.getElementById("scoreBtn").innerHTML = 0;
+		bear.style.animation = "bear 1.5s infinite linear";
+		lemon.style.animation = ""; // Remove the 'grow' animation
+		
+		var gameOverDisplay = document.querySelector('#game-over');
+		gameOverDisplay.style.display = "none";
+  
+		if (checkDead === null) {
+		  // Start collision checks after 5 seconds
+		  setTimeout(function() {
+			checkDead = setInterval(checkCollision, 10);
+		  }, 5000);
+		}
+		
+		// Display countdown
+		var countdown = 3;
+		var countdownDisplay = document.querySelector('#countdown');
+		countdownDisplay.textContent = countdown; // Set initial countdown display
+		countdownDisplay.style.display = "block";
+		var countdownInterval = setInterval(function() {
+		  countdown--;
+		  countdownDisplay.textContent = countdown > 0 ? countdown : "JUMP!";
+		  if (countdown <= 0) {
+			clearInterval(countdownInterval);
+			// Hide the countdown display after "JUMP!" is displayed
+			setTimeout(function() {
+			  countdownDisplay.style.display = "none";
+			}, 1000);
+		  }
+		}, 1000);
+	  } else if (gameState === "running") {
+		jump();
+	  }
+	}
+  }
+  
