@@ -1055,9 +1055,14 @@ label {
   transition: .15s ease-in-out;
   border-radius: 10px;
   background: #030329;
-  max-width: 332px;
-  max-height: 286px;
+  max-width: 360px;
+  max-height: 205px;
+  overflow: hidden;
   padding: 0;
+}
+.game-hero-container {
+  border-radius: 6px;
+  overflow: hidden;
 }
 #accountTools {
   justify-content: center;
