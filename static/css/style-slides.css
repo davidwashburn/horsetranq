@@ -6,45 +6,6 @@ Descr: Cards stack effect on vertical scrolling
 Usage: codyhouse.co/license
 
 -------------------------------- */
-a {
-  color: inherit;
-}
-
-.stack-cards {
-  --stack-cards-gap: var(--space-sm);
-  --stack-cards-item-ratio: 2/1;
-  min-width: 340px;
-}
-
-.stack-cards__item {
-  position: relative;
-  position: sticky;
-  top: var(--space-md);
-  height: 0;
-  padding-bottom: calc(100% / (var(--stack-cards-item-ratio)));
-  transform-origin: center top;
-  /* Glassmorphism */
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-  backdrop-filter: blur( 4px );
-  -webkit-backdrop-filter: blur( 4px );
-  border-radius: 10px;
-  border: 4px solid rgba( 255, 255, 255, 0.18 );
-}
-.stack-cards__item > * {
-  font-weight: 800;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-
-.stack-cards__item img {
-  border-radius: 6px;
-  box-shadow: var(--shadow-base);
-}
 
 .cd-projects-wrapper.projects-visible {
   margin: calc(22px + 9rem) auto;
@@ -59,25 +20,45 @@ body {
   position: relative!important;
   overscroll-behavior-y: none;
 }
+a {
+  color: inherit;
+}
 .stable-wrapper {
+<<<<<<< HEAD
   margin: 6em auto;
   width: 76%;
+=======
+  margin: 6em auto 0;
+}
+#stable-flex {
+  margin-top: 4em;
+}
+#games-wrapper {
+  width: 70%;
+  margin: 0 auto 6em;
+}
+#news-title {
+  margin-bottom: 4em;
+>>>>>>> 4b1a2fe9b9fa9a87bfcabe00a49273bdf710f2ce
 }
 @media only screen and (max-width: 800px) {
   .stable-wrapper {
     position: absolute;
-    margin: 4em 5% 10em 5%;
-    width: 90%;
+    margin: 4em auto 10em auto;
   }
   .project-info .flex .label {
     display: block;
   }
-}
-
-.cd-slider {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-evenly;
+  #games-wrapper {
+    width: 90%;
+    margin: 0 auto 4em;
+  }
+  #stable-flex {
+    margin-top: 2em;
+  }
+  #news-title {
+    margin-bottom: 2em;
+  }
 }
 
 .project-info .flex h2 {
@@ -124,10 +105,6 @@ body {
   #games-title {
     margin-top: 0;
   }
-  .cd-slider {
-    flex-direction: column;
-    align-items: center;
-  }
 }
 
 
@@ -153,10 +130,6 @@ Usage: codyhouse.co/license
   border: 0;
 }
 
-ol, ul, menu {
-  list-style: none;
-}
-
 button, input, textarea, select {
   background-color: transparent;
   border-radius: 0;
@@ -169,10 +142,6 @@ textarea {
   resize: vertical;
   overflow: auto;
   vertical-align: top;
-}
-
-a {
-  color: var(--color-primary-darker);
 }
 
 table {
@@ -226,13 +195,14 @@ img, video, svg {
 
 /* component */
 .stories {
-  /*background-color: hsla(var(--sz3-color-contrast-lower-hsl), 0.3);*/
   border-radius: 0.5em;
-  margin-bottom: 4em;
+  margin: 0 5%;
+  width: 90%;
 }
 @media (min-width: 64rem) {
   .stories {
     padding: 0 4rem 4rem 4rem;
+    width: 70%;
   }
   .stories__story .stories__img-wrapper {
     width: 14rem;
