@@ -24,10 +24,6 @@ a {
   color: inherit;
 }
 .stable-wrapper {
-<<<<<<< HEAD
-  margin: 6em auto;
-  width: 76%;
-=======
   margin: 6em auto 0;
 }
 #stable-flex {
@@ -39,7 +35,6 @@ a {
 }
 #news-title {
   margin-bottom: 4em;
->>>>>>> 4b1a2fe9b9fa9a87bfcabe00a49273bdf710f2ce
 }
 @media only screen and (max-width: 800px) {
   .stable-wrapper {

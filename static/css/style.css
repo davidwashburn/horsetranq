@@ -1054,13 +1054,8 @@ label {
   transition: .15s ease-in-out;
   border-radius: 10px;
   background: #030329;
-<<<<<<< HEAD
-  max-width: 360px;
-  max-height: 205px;
-=======
   max-width: 380px;
   max-height: 216px;
->>>>>>> 4b1a2fe9b9fa9a87bfcabe00a49273bdf710f2ce
   overflow: hidden;
   padding: 0;
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
@@ -1075,10 +1070,6 @@ label {
 .game-hero-container img {
   border-radius: 6px;
   box-shadow: var(--shadow-base);
-}
-.game-hero-container {
-  border-radius: 6px;
-  overflow: hidden;
 }
 #accountTools {
   justify-content: center;
