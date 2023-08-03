@@ -197,17 +197,17 @@ img, video, svg {
 @media (min-width: 64rem) {
   .stories {
     padding: 0 4rem 4rem 4rem;
+    max-width: 860px;
     width: 70%;
   }
   .stories__story .stories__img-wrapper {
-    width: 14rem;
+    width: 10rem;
   }
   .stories__list .stories__story {
-    min-height: 140px;
     padding: 0 2em;
   }
   .stories__text .stories__headline {
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-xl);
   }
   .stories__story.ui-container {
     padding: 2.4em;
@@ -228,6 +228,7 @@ img, video, svg {
 }
 .stories__story.ui-container {
   padding: 1.4em;
+  box-shadow: var(--shadow-sm);
 }
 .stories__story.ui-container:hover {
   background: rgb(255 255 255 / 80%);
