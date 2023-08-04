@@ -107,13 +107,12 @@
 						</div>
 					</div>
 				</div>
-
-				<div id="news-title" class="title-container">
-					<h2 class="big-bold">NEWS</h2>
-					<p>Latast hors news for ur life</p>
-				</div>
 	
 				<div class="flex-container subscribe section">
+					<div id="news-title" class="title-container">
+						<h2 class="big-bold">NEWS</h2>
+						<p>Latast hors news for ur life</p>
+					</div>
 					<div id="stable-flex" class="flex-container wrapper">
 						<div class="stories">
 							<h3 class="stories__legend hide">Popular stories</h3>
@@ -268,6 +267,7 @@
 			</div>
 		{% else %}
 		{% endif %}	
+
 		</main> <!-- cd-main-content -->
 	<script>
 		window.auth0UserId = '{{ user_id }}';
