@@ -192,7 +192,6 @@
 				</div>
 
 			</div>
-		
 		{% if logged_in %}
 			<!-- ACCOUNT MODAL -->
 			<div id="accountModal" class="cd-filter shadow">
@@ -267,7 +266,6 @@
 			</div>
 		{% else %}
 		{% endif %}	
-
 		</main> <!-- cd-main-content -->
 	<script>
 		window.auth0UserId = '{{ user_id }}';
@@ -276,6 +274,7 @@
 		window.auth0UserId = '{{ user_id }}';
 		window.firebaseToken = '{{ firebase_token }}';
 	</script>
+	<script src="https://uptime.betterstack.com/widgets/announcement.js" data-id="165972" async="async" type="text/javascript"></script>
 	<script src="/static/js/resources/jquery-2.1.1.js"></script>
 	<script src="/static/js/resources/jquery.mixitup.min.js"></script>
 	<script type="module" src="/static/js/main.js"></script> <!-- Resource jQuery -->

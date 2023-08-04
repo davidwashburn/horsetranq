@@ -335,6 +335,7 @@ ol.stories__list {
 
 .sz3-text-component :where(ul, ol, p, blockquote, .sz3-text-component__block) {
   margin-bottom: calc(var(--sz3-space-sm) * var(--sz3-space-multiplier, 1));
+  color: #6586ae;
 }
 
 .sz3-text-component :where(ul, ol) {
