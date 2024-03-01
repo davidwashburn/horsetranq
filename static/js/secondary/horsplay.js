@@ -70,13 +70,14 @@ window.onload = function() {
 	// Function to pick a random image
 	function getRandomImage() {
 		var images = [
-			'farm-bg-day.jpg',
-			'farm-bg-overcast.jpg',
-			'farm-bg-dusk.jpg',
-			'farm-bg-night.jpg',
-			'farm-bg-day.jpg',
-			'farm-bg-day-alt.jpg',
-			'farm-bg-peaceful.jpg',
+			// Retro images removed from rotation
+			//'farm-bg-day.jpg',
+			//'farm-bg-overcast.jpg',
+			//'farm-bg-dusk.jpg',
+			//'farm-bg-night.jpg',
+			//'farm-bg-day.jpg',
+			//'farm-bg-day-alt.jpg',
+			//'farm-bg-peaceful.jpg',
 			'mood-bg-1.png',
 			'mood-bg-2.png',
 			'mood-bg-3.png',
