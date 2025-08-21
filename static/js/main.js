@@ -88,10 +88,84 @@ $("#accountDeleteBtn").click(function() {
 // DOCUMENT READY FUNCTIONS AND ONLOAD SCRIPTS //
 jQuery(document).ready(function($){
 
-	// Remove the loading screen after the DOM finishes loading
+	// OPTIMIZED LOADING SCREEN PERFORMANCE
+	
+	// Preload critical resources for smoother experience
+	function preloadCriticalResources() {
+		const criticalImages = [
+			'/static/img/branding/game-horsetranq-alt-large.png',
+			'/static/img/games/lemondrop/promo/lemondrop-alt.png',
+			// Preload the loading screen background for instant display
+			'/static/img/games/horsplay/backgrounds/peaceful-alt.png'
+		];
+		
+		criticalImages.forEach(src => {
+			const img = new Image();
+			img.src = src;
+		});
+	}
+	
+	// Start preloading immediately
+	preloadCriticalResources();
+	
+	// Function to use lightweight CSS spinner instead of heavy GIF
+	function useLightweightLoader() {
+		const container = document.getElementById('loading-img-container');
+		if (container) {
+			// Replace GIF with CSS spinner - natural background visibility
+			container.innerHTML = '<div class="horse-spinner"></div>';
+		}
+	}
+	
+	// Function to use optimized GIF loader
+	function useOptimizedGifLoader() {
+		const container = document.getElementById('loading-img-container');
+		if (container && container.querySelector('img')) {
+			const img = container.querySelector('img');
+			// Use the smallest GIF and lazy load
+			img.src = '/static/img/loading/hors-load-3.gif'; // 386KB - smallest one
+			img.loading = 'eager';
+			img.style.width = '150px'; // Even smaller for better performance
+			// Natural background - no white box
+		}
+	}
+	
+	// Auto-detect performance and choose best loading method
+	function autoOptimizeLoader() {
+		// Check connection speed or device performance
+		if ('connection' in navigator) {
+			const connection = navigator.connection;
+			if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
+				useLightweightLoader();
+				return;
+			}
+		}
+		
+		// Check if user prefers reduced motion
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+			useLightweightLoader();
+			return;
+		}
+		
+		// Default to optimized GIF
+		useOptimizedGifLoader();
+	}
+	
+	// Apply optimization
+	autoOptimizeLoader();
+	
+	// Remove the loading screen after DOM and initial resources load
+	// Reduced time for better UX
 	setTimeout(function() {
-        document.getElementById('loadingScreen').style.display = 'none';
-    }, 1750); // delay of 3000 milliseconds equals 3 seconds
+        const loadingScreen = document.getElementById('loadingScreen');
+        if (loadingScreen) {
+            loadingScreen.style.opacity = '0';
+            loadingScreen.style.transition = 'opacity 0.3s ease-out';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 300);
+        }
+    }, 1200); // Reduced from 1750ms to 1200ms
 
 
 	// Remove overlay when ranked or free play is selected

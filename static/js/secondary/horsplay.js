@@ -244,15 +244,48 @@ $(function() {
 		transform: "translate(-50%, -50%)",
 	});
 
-	$("#draggable13").draggable({
-		drag: function(event, ui) {
-			$(".horse-logo-3x img").each(function() {
-				if (isCollision(ui.helper, $(this))) {
-					// Collision detected, handle the horse
-					handleHorse($(this));
-				}
-			});
+	// Make tranq follow mouse cursor AND touch for mobile support
+	$("#game-container").css('cursor', 'none'); // Hide cursor over game area
+	
+	// Function to update tranq position and check collisions
+	function updateTranqPosition(clientX, clientY) {
+		$("#draggable13").css({
+			position: "fixed",
+			left: clientX - ($("#draggable13").width() / 2),
+			top: clientY - ($("#draggable13").height() / 2),
+			transform: "none", // Remove the center transform since we're positioning manually
+			zIndex: 9999, // Ensure tranq stays on top
+			pointerEvents: 'none' // Allow clicks to pass through tranq
+		});
+		
+		// Check for collisions with horses
+		$(".horse-logo-3x img").each(function() {
+			if (isCollision($("#draggable13"), $(this))) {
+				// Collision detected, handle the horse
+				handleHorse($(this));
+			}
+		});
+	}
+	
+	// Desktop mouse support
+	$(document).on('mousemove', function(event) {
+		updateTranqPosition(event.clientX, event.clientY);
+	});
+	
+	// Mobile touch support
+	$(document).on('touchstart touchmove', function(event) {
+		event.preventDefault(); // Prevent scrolling and other default behaviors
+		
+		if (event.originalEvent.touches && event.originalEvent.touches.length > 0) {
+			var touch = event.originalEvent.touches[0];
+			updateTranqPosition(touch.clientX, touch.clientY);
 		}
+	});
+	
+	// Handle touch end (when finger lifts off screen)
+	$(document).on('touchend', function(event) {
+		// Keep tranq at last position when finger lifts
+		// Could add special behavior here if needed
 	});
 
 	function isCollision($div1, $div2) {

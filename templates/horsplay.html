@@ -18,7 +18,7 @@
 	<body>
 		<div id="loadingScreen" style="position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: #ffffff; z-index: 10000;">
 			<div id="loading-img-container">
-				<img src="/static/img/loading/hors-load-3.gif" alt="Loading..." />
+				<img src="/static/img/loading/hors-load-3.gif" alt="Loading..." loading="eager" style="width: 150px; height: auto;" />
 			</div>
 		</div>		
 		<main class="cd-main-content horseplay-background is-fixed">
@@ -28,7 +28,8 @@
 						<li class="placeholder"> 
 							<a href="#0">HORSPLAY</a> <!-- selected option on mobile -->
 						</li> 
-						<li><a id="horsplayBtn" href="/">STABLE</a></li>
+						<li><a href="/" id="horsplayBtn">STABLE</a></li>
+						<li><a href="/horsplay" id="horsplayBtn" class="selected">HORSPLAY</a></li>
 						<li><a href="/store" id="storeBtn">STOR</a></li> 
 						<li><a href="/" id="missionBtn" class="cd-filter-trigger modal-trigger" data-target="missionModal">MISHON</a></li>
 						<li><a href="/about" id="aboutBtn" class="cd-filter-trigger modal-trigger">ABOUT</a></li>

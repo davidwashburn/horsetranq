@@ -18,7 +18,7 @@
 	<body>
 		<div id="loadingScreen" style="position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: #ffffff; z-index: 10000;">
 			<div id="loading-img-container">
-				<img src="/static/img/loading/hors-load-3.gif" alt="Loading..." />
+				<img src="/static/img/loading/hors-load-3.gif" alt="Loading..." loading="eager" style="width: 150px; height: auto;" />
 			</div>
 		</div>		
 		<main class="cd-main-content static-bg is-fixed">
@@ -28,7 +28,9 @@
 						<li class="placeholder"> 
 							<a href="#0">LEMON DROP</a> <!-- selected option on mobile -->
 						</li> 
-						<li><a id="horsplayBtn" href="/">STABLE</a></li>
+						<li><a href="/">STABLE</a></li>
+						<li><a href="/horsplay">HORSPLAY</a></li>
+						<li><a id="lemondropBtn" href="/lemondrop" class="selected">LEMON DROP</a></li>
 						<li><a href="/store" id="storeBtn">STOR</a></li> 
 						<li><a href="/" id="missionBtn" class="cd-filter-trigger modal-trigger" data-target="missionModal">MISHON</a></li>
 						<li><a href="/about" id="aboutBtn" class="cd-filter-trigger modal-trigger">ABOUT</a></li>
@@ -45,7 +47,7 @@
 				<div id="reset-container" class="ui-container shadow">
 					<div id="resetBtn">Reset</div>
 				</div>
-				<div id="settings-container" class="ui-container shadow modal-trigger hide" data-target="settingsModal">
+				<div id="settings-container" class="ui-container shadow modal-trigger" data-target="settingsModal">
 					<div id="settingsBtn">Setings</div>
 				</div>
 				<div id="score-container" class="ui-container shadow">
@@ -154,7 +156,47 @@
 					</div>
 				</div>
 			</div>
-			
+			<form>
+				<div class="title-wrapper flex">
+					<h4 class="big-bold color-primary float-left">BEAR SETTINGS</h4>
+				</div>
+
+				<div id="bearSettings">
+					<!-- Bear speed selector -->
+					<div class="cd-filter-block">
+						<div class="custom-select">
+							<div id="bear-speed-selector" class="optn-select no-highlight" data-value="1.5">Bear speed</div>
+							<div class="options">
+								<div class="option" data-value="3">Sloth (3s)</div>
+								<div class="option" data-value="2">Slow (2s)</div>
+								<div class="option" data-value="1.5">Normal (1.5s)</div>
+								<div class="option" data-value="1">Fast (1s)</div>
+								<div class="option" data-value="0.5">Sonic (0.5s)</div>
+								<div class="option" data-value="0.25">Ludicrous (0.25s)</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Bear size selector -->
+					<div class="cd-filter-block">
+						<div class="custom-select">
+							<div id="bear-size-selector" class="optn-select no-highlight" data-value="1">Bear size</div>
+							<div class="options">
+								<div class="option" data-value="0.5">Tiny bear (0.5x)</div>
+								<div class="option" data-value="0.75">Small bear (0.75x)</div>
+								<div class="option" data-value="1">Normal bear (1x)</div>
+								<div class="option" data-value="1.25">Big bear (1.25x)</div>
+								<div class="option" data-value="1.5">Huge bear (1.5x)</div>
+								<div class="option" data-value="2">Giant bear (2x)</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div id="settingsSaveContainer" class="flex">
+					<button type="button" id="settingsSaveBtn" class="pickle shadow">Save</button>
+				</div>
+			</form>
 		</div>
 
 	</main> <!-- cd-main-content -->

@@ -46,7 +46,7 @@ function handleClick(event) {
 		gameState = "running";
 		counter = 0;
 		document.getElementById("scoreBtn").innerHTML = 0;
-		bear.style.animation = "bear 1.5s infinite linear";
+		bear.style.animation = "bear " + bearSpeed + "s infinite linear";
 		lemon.style.animation = ""; // Remove the 'grow' animation
 		message.style.display = "none";
 		if (checkDead === null) {
@@ -77,7 +77,7 @@ function checkCollision() {
 	  message.style.display = "block";  // Show the popup
 	  message.textContent = "Gam ovar ur score: " + Math.floor(counter / 100);
 	  counter = 0;
-	  bear.style.animation = "bear 1.5s infinite linear";
+	  bear.style.animation = "bear " + bearSpeed + "s infinite linear";
 	  checkDead = null;
 	} else {
 	  counter++;
@@ -110,6 +110,10 @@ function adjustBearAnimation() {
 // Adjust the bear animation when the page loads
 adjustBearAnimation();
 
+// Initialize bear settings on page load
+setBearSpeed(bearSpeed);
+setBearSize(bearSize);
+
 // Adjust the bear animation whenever the window is resized
 window.addEventListener("resize", adjustBearAnimation);
 
@@ -130,6 +134,89 @@ $(function() {
 	});
 });
 
+// SETTINGS FUNCTIONALITY (copied from horsplay) //
+
+// Function for custom settings dropdowns //
+document.querySelectorAll('.custom-select').forEach(select => {
+	select.querySelector('.optn-select').addEventListener('click', () => {
+		select.classList.toggle('open');
+	});
+
+	select.querySelectorAll('.option').forEach(option => {
+		option.addEventListener('click', () => {
+			select.querySelector('.optn-select').textContent = option.textContent;
+			select.querySelector('.optn-select').dataset.value = option.dataset.value;
+			select.classList.remove('open');
+		});
+	});
+});
+
+// Initialize bear settings variables
+var bearSpeed = 1.5; // Default bear speed (seconds)
+var bearSize = 1; // Default bear size (scale)
+
+// Function to set bear speed
+function setBearSpeed(speed) {
+	bearSpeed = parseFloat(speed);
+	bear.style.animationDuration = bearSpeed + "s";
+	console.log('Bear speed set to:', bearSpeed + "s");
+}
+
+// Function to set bear size  
+function setBearSize(size) {
+	bearSize = parseFloat(size);
+	bear.style.transform = 'scale(' + bearSize + ')';
+	console.log('Bear size set to:', bearSize + "x");
+}
+
+// Settings save button functionality
+$('#settingsSaveBtn').on('click', function() {
+	// BEAR SPEED SETTINGS
+	var selectedSpeed = parseFloat(document.querySelector('#bear-speed-selector').dataset.value);
+	setBearSpeed(selectedSpeed);
+
+	// BEAR SIZE SETTINGS  
+	var selectedSize = parseFloat(document.querySelector('#bear-size-selector').dataset.value);
+	setBearSize(selectedSize);
+
+	// Close the settings modal
+	$('#settingsModal').removeClass('filter-is-visible');
+	
+	console.log('Settings saved - Speed:', selectedSpeed + 's', 'Size:', selectedSize + 'x');
+});
+
+// When opening custom settings dropdown close other dropdowns //
+document.addEventListener('click', function(event) {
+	var target = event.target;
+  
+	// Check if the clicked element is within a custom dropdown
+	if (!target.closest('.custom-select')) {
+	  // If not, close all custom dropdowns
+	  document.querySelectorAll('.custom-select').forEach(function(select) {
+		select.classList.remove('open');
+	  });
+	} else {
+	  // If it is, close other custom dropdowns except the one that was clicked
+	  var clickedDropdown = target.closest('.custom-select');
+	  document.querySelectorAll('.custom-select').forEach(function(select) {
+		if (select !== clickedDropdown) {
+		  select.classList.remove('open');
+		}
+	  });
+	}
+});
+
+// Modal trigger functionality (copied from main.js pattern)
+$('.modal-trigger').on('click', function() {
+	var target = $(this).data('target');
+	$('#' + target).toggleClass('filter-is-visible');
+});
+
+$('.cd-close-filter').on('click', function() {
+	var parentModal = $(this).closest('.cd-filter').attr('id');
+	$('#' + parentModal).removeClass('filter-is-visible');
+});
+
 
 // Function to handle click events
 function handleClick(event) {
@@ -140,7 +227,7 @@ function handleClick(event) {
 		gameState = "running";
 		counter = 0;
 		document.getElementById("scoreBtn").innerHTML = 0;
-		bear.style.animation = "bear 1.5s infinite linear";
+		bear.style.animation = "bear " + bearSpeed + "s infinite linear";
 		lemon.style.animation = ""; // Remove the 'grow' animation
 		
 		var gameOverDisplay = document.querySelector('#game-over');
