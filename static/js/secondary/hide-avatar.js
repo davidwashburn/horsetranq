@@ -27,10 +27,31 @@ document.addEventListener('DOMContentLoaded', function() {
             const defaultAvatarUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/480px-Default_pfp.svg.png';
             myAccountBtn.style.setProperty('--avatar-url', `url('${defaultAvatarUrl}')`);
         } else {
-            // Use user's avatar
-            const profileImage = document.querySelector('.profile-image img');
-            const avatarUrl = profileImage ? profileImage.src : 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/480px-Default_pfp.svg.png';
-            myAccountBtn.style.setProperty('--avatar-url', `url('${avatarUrl}')`);
+            // Use selected avatar from the avatar selector
+            const avatarSelector = document.getElementById('avatar-selector');
+            if (avatarSelector) {
+                const avatarType = avatarSelector.getAttribute('data-value');
+                let avatarUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/480px-Default_pfp.svg.png';
+                
+                switch (avatarType) {
+                    case 'google-profile':
+                        // Get the Google profile image from the avatar selector
+                        const googleImage = avatarSelector.querySelector('.avatar-option-image');
+                        avatarUrl = googleImage ? googleImage.src : avatarUrl;
+                        break;
+                    case 'default-avatar':
+                        avatarUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/480px-Default_pfp.svg.png';
+                        break;
+                    case 'hors-foundation':
+                    case 'hors-season-1':
+                        avatarUrl = '/static/img/branding/season-1.png';
+                        break;
+                    case 'hors-season-2':
+                        avatarUrl = '/static/img/branding/season-2.png';
+                        break;
+                }
+                myAccountBtn.style.setProperty('--avatar-url', `url('${avatarUrl}')`);
+            }
         }
         
         // Update CSS rule

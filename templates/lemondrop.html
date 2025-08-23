@@ -22,25 +22,7 @@
 			</div>
 		</div>		
 		<main class="cd-main-content static-bg is-fixed">
-			<div class="cd-tab-filter-wrapper">
-				<div class="cd-tab-filter">
-					<ul id="menu-list" class="cd-filters js-signin-modal-trigger cd-main-nav__list shadow">
-						<li class="placeholder"> 
-							<a href="#0">LEMON DROP</a> <!-- selected option on mobile -->
-						</li> 
-						<li><a href="/" id="horsplayBtn">STABLE</a></li>
-						<li><a href="/store" id="storeBtn">STOR</a></li> 
-						<li><a href="/" id="missionBtn" class="cd-filter-trigger modal-trigger" data-target="missionModal">MISHON</a></li>
-						<li><a href="/about" id="aboutBtn" class="cd-filter-trigger modal-trigger">ABOUT</a></li>
-						{% if logged_in %}
-						<li><a href="#0" id="myAccountBtn" class="cd-filter-trigger modal-trigger" data-target="accountModal">{{ username }}</a></li>
-						{% else %}
-							<li><a href="/login" id="accountBtn" class="cd-filter-trigger" data-target="accountModal">SIGN IN</a></li>
-						{% endif %}	
-						<li><div class="label beta">BETA</div></li>
-					</ul>
-				</div>
-			</div>
+			{% include 'partials/navigation_menu.html' %}
 			<div class="tools-wrapper">
 				<div id="reset-container" class="ui-container shadow">
 					<div id="resetBtn">Reset</div>
@@ -67,117 +49,7 @@
 			</div>
 		</div>
 		
-		{% if logged_in %}
-			<!-- ACCOUNT MODAL -->
-			<div id="accountModal" class="cd-filter shadow">
-				<div class="sticky-container">
-					<div class="modal-title-container sticky">
-						<div class="modal-title-wrapper">
-							<div class="title-wrapper">
-								<h4 class="modal-title big-bold color-primary-darker center">Account Profile</h4>
-								<a href="#0" class="cd-close-filter flex-right"></a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<form>
-					<div class="cd-filter-block">
-						<div class="cd-filter-content">
-							<div class="title-wrapper flex settings">
-								<h4 class="big-bold color-contrast-medium">Plan</h4>
-								{% if subscription_type == 'free' %}
-									<div class="label free big-bold">FREE MEMBER</div>
-								{% elif subscription_type == 'one' %}
-									<div class="label one big-bold">ONE</div>
-								{% elif subscription_type == 'plus' %}
-									<div class="label plus big-bold">PLUS</div>
-								{% elif subscription_type == 'max' %}
-									<div class="label max big-bold">MAX</div>
-								{% else %}
-								{% endif %}
-							</div>
-							<div class="title-wrapper flex settings">
-								<h4 class="big-bold color-contrast-medium">Name</h4>
-								<p class="bold color-contrast-higher">
-									{% if name %}
-										{{ name }}
-									{% else %}
-										Guest
-									{% endif %}
-								</p>
-							</div>
-							<div class="title-wrapper flex settings">
-								<h4 class="big-bold color-contrast-medium">Email</h4>
-								<p class="bold color-contrast-higher">
-									{% if logged_in %}
-										{{ email }}
-									{% else %}
-										Unknown
-									{% endif %}
-								</p>
-							</div>
-							<div class="title-wrapper flex settings">
-								<h4 class="big-bold color-contrast-medium">Username</h4>
-								<div class="username-editable">
-									<p class="bold color-contrast-higher username-display" id="usernameDisplay">
-										{% if username %}
-											{{ username }}
-										{% else %}
-											Not assigned
-										{% endif %}
-									</p>
-									<div class="username-edit-controls" style="display: none;">
-										<input type="text" id="usernameInput" class="username-input" value="{{ username }}" maxlength="20">
-										<button type="button" id="usernameSaveBtn" class="btn-small shadow">Save</button>
-										<button type="button" id="usernameCancelBtn" class="btn-small shadow">Cancel</button>
-									</div>
-									<button type="button" id="usernameEditBtn" class="btn-small edit-btn shadow">Change</button>
-								</div>
-							</div>
-							<div class="title-wrapper flex settings">
-								<h4 class="big-bold color-contrast-medium">User ID</h4>
-								<p class="bold color-contrast-higher">
-									{% if unique_user_id %}
-										{{ unique_user_id }}
-									{% else %}
-										Not assigned
-									{% endif %}
-								</p>
-							</div>
-							<div class="title-wrapper flex settings">
-								<h4 class="big-bold color-contrast-medium">Avatar</h4>
-								<div class="avatar-container">
-									{% if logged_in %}
-										<div class="profile-image">
-											<img src="{{ picture }}" alt="Profile Picture" width="100" height="100">
-										</div>
-									{% else %}
-										<div class="profile-image">
-											<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/480px-Default_pfp.svg.png" alt="Profile Picture" width="100" height="100">
-										</div>
-									{% endif %}
-									<div class="hide-avatar-checkbox">
-										<label class="checkbox-label">
-											<input type="checkbox" id="hideAvatarCheckbox" {% if hide_avatar == 'Yes' %}checked{% endif %}>
-											<span class="checkmark"></span>
-											Hide avatar
-										</label>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="cd-filter-block">
-						<div id="accountTools" class="title-wrapper flex settings bg-none">
-							<button type="button" id="accountSaveBtn" class="pickle shadow hide">Save</button>
-							<button type="button" id="accountSignOutBtn" class="pickle shadow">Sign Out</button>
-							<button type="button" id="accountDeleteBtn" class="pickle shadow hide">Delet Accnt</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		{% else %}
-		{% endif %}	
+		{% include 'partials/account_modal.html' %}	
 
 		<!-- SETTINGS MODAL -->
 		<div id="settingsModal" class="cd-filter shadow">

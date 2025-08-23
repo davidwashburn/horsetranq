@@ -44,15 +44,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function updateProfileImage(avatarType) {
-        const profileImage = document.querySelector('.profile-image img');
-        if (!profileImage) return;
-        
         let newImageSrc = '';
         
         switch (avatarType) {
             case 'google-profile':
-                // Keep the current Google profile image
-                newImageSrc = profileImage.src;
+                // Get the Google profile image from the avatar selector
+                const avatarSelector = document.getElementById('avatar-selector');
+                const googleImage = avatarSelector ? avatarSelector.querySelector('.avatar-option-image') : null;
+                newImageSrc = googleImage ? googleImage.src : 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/480px-Default_pfp.svg.png';
                 break;
             case 'default-avatar':
                 newImageSrc = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/480px-Default_pfp.svg.png';
@@ -69,8 +68,6 @@ document.addEventListener('DOMContentLoaded', function() {
             default:
                 return;
         }
-        
-        profileImage.src = newImageSrc;
         
         // Update the account button avatar if not hidden
         const hideAvatarCheckbox = document.getElementById('hideAvatarCheckbox');

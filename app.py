@@ -14,7 +14,7 @@ def generate_mock_username():
     random_numbers = ''.join(random.choices(string.digits, k=6))
     return f"Horsey-{random_numbers}"
 
-# Mock data for development
+# Mock data for development - this would typically come from a database
 mock_user_data = {
     'logged_in': True,  # Change to True to test logged-in state
     'user_id': 'test_user_123',
@@ -29,29 +29,45 @@ mock_user_data = {
     'avatar_type': 'google-profile'
 }
 
+def get_account_context():
+    """Get the context data needed for account-related templates"""
+    return mock_user_data.copy()
+
 @app.route('/')
 def index():
-    return render_template('index.html', **mock_user_data)
+    context = get_account_context()
+    context['current_page'] = 'STABLE'
+    return render_template('index.html', **context)
 
 @app.route('/store')
 def store():
-    return render_template('store.html', **mock_user_data)
+    context = get_account_context()
+    context['current_page'] = 'STOR'
+    return render_template('store.html', **context)
 
 @app.route('/horsplay')
 def horsplay():
-    return render_template('horsplay.html', **mock_user_data)
+    context = get_account_context()
+    context['current_page'] = 'HORSPLAY'
+    return render_template('horsplay.html', **context)
 
 @app.route('/lemondrop')
 def lemondrop():
-    return render_template('lemondrop.html', **mock_user_data)
+    context = get_account_context()
+    context['current_page'] = 'LEMON DROP'
+    return render_template('lemondrop.html', **context)
 
 @app.route('/about')
 def about():
-    return render_template('about.html', **mock_user_data)
+    context = get_account_context()
+    context['current_page'] = 'ABOUT'
+    return render_template('about.html', **context)
 
 @app.route('/scores')
 def scores():
-    return render_template('scores.html', **mock_user_data)
+    context = get_account_context()
+    context['current_page'] = 'STABLE'
+    return render_template('scores.html', **context)
 
 @app.route('/login')
 def login():
@@ -63,13 +79,15 @@ def logout():
     # Mock logout - just redirect back to home
     return redirect(url_for('index'))
 
+# API endpoints for local testing
 @app.route('/api/refresh-session', methods=['POST'])
 def refresh_session():
     """Mock refresh session endpoint for local testing"""
+    user_data = get_account_context()
     return jsonify({
         'success': True,
         'message': 'Session refreshed successfully (mock)',
-        'data': mock_user_data
+        'data': user_data
     })
 
 @app.route('/api/update-hide-avatar', methods=['POST'])
@@ -78,7 +96,7 @@ def update_hide_avatar():
     data = request.get_json()
     hide_avatar = data.get('hide_avatar', False)
     
-    # Update mock data
+    # Update user data
     mock_user_data['hide_avatar'] = 'Yes' if hide_avatar else 'No'
     
     return jsonify({
@@ -93,7 +111,7 @@ def update_avatar_selection():
     data = request.get_json()
     avatar_type = data.get('avatar_type', 'google-profile')
     
-    # Update mock data
+    # Update user data
     mock_user_data['avatar_type'] = avatar_type
     
     return jsonify({
@@ -101,6 +119,27 @@ def update_avatar_selection():
         'avatar_type': avatar_type,
         'message': 'Avatar selection updated successfully (mock)'
     })
+
+@app.route('/api/update-username', methods=['POST'])
+def update_username():
+    """Mock update username endpoint for local testing"""
+    data = request.get_json()
+    username = data.get('username', '')
+    
+    if username and len(username) <= 20:
+        # Update user data
+        mock_user_data['username'] = username
+        
+        return jsonify({
+            'success': True,
+            'username': username,
+            'message': 'Username updated successfully (mock)'
+        })
+    else:
+        return jsonify({
+            'success': False,
+            'message': 'Invalid username (mock)'
+        }), 400
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
