@@ -32,7 +32,7 @@
 						<li><a id="storeBtn" href="/store">STOR</a></li> 
 						<li><a href="/about" id="aboutBtn" class="cd-filter-trigger modal-trigger" data-target="aboutModal">ABOUT</a></li>
 						{% if logged_in %}
-						<li><a href="#0" id="myAccountBtn" class="cd-filter-trigger modal-trigger" data-target="accountModal">{{ session.profile.name.split(' ')[0] }}</a></li>
+						<li><a href="#0" id="myAccountBtn" class="cd-filter-trigger modal-trigger" data-target="accountModal">{{ username }}</a></li>
 						{% else %}
 							<li><a href="/login" id="accountBtn" class="cd-filter-trigger" data-target="accountModal">SIGN IN</a></li>
 						{% endif %}	
@@ -286,6 +286,24 @@
 								</p>
 							</div>
 							<div class="title-wrapper flex settings">
+								<h4 class="bold color-contrast-medium">Username</h4>
+								<div class="username-editable">
+									<p class="bold color-contrast-higher username-display" id="usernameDisplay">
+										{% if username %}
+											{{ username }}
+										{% else %}
+											Not assigned
+										{% endif %}
+									</p>
+									<div class="username-edit-controls" style="display: none;">
+										<input type="text" id="usernameInput" class="username-input" value="{{ username }}" maxlength="20">
+										<button type="button" id="usernameSaveBtn" class="btn-small">Save</button>
+										<button type="button" id="usernameCancelBtn" class="btn-small">Cancel</button>
+									</div>
+									<button type="button" id="usernameEditBtn" class="btn-small edit-btn">Edit</button>
+								</div>
+							</div>
+							<div class="title-wrapper flex settings">
 								<h4 class="bold color-contrast-medium">Avatar</h4>
 								{% if logged_in %}
 									<div class="profile-image">
@@ -314,6 +332,12 @@
 	<script src="/static/js/jquery-2.1.1.js"></script>
 	<script src="/static/js/jquery.mixitup.min.js"></script>
 	<script src="/static/js/main.js"></script> <!-- Resource jQuery -->
+	<script>
+		// Make logged in status available to JavaScript
+		window.loggedIn = {{ 'true' if logged_in else 'false' }};
+	</script>
+	<script src="/static/js/secondary/username-editor.js"></script> <!-- Username editing functionality -->
+	<script src="/static/js/secondary/account-button.js"></script> <!-- Account button avatar functionality -->
 	<script src="../static/js/slides/main-slides.js"></script> <!-- Resource jQuery -->
 	<script src="/static/js/jquery.min.js"></script> <!-- Added for the draggable UI -->
 	<script src="/static/js/jquery-ui.js"></script> <!-- Added for the draggable UI -->
