@@ -29,7 +29,6 @@
 							<a href="#0">HORSPLAY</a> <!-- selected option on mobile -->
 						</li> 
 						<li><a href="/" id="horsplayBtn">STABLE</a></li>
-						<li><a href="/horsplay" id="horsplayBtn" class="selected">HORSPLAY</a></li>
 						<li><a href="/store" id="storeBtn">STOR</a></li> 
 						<li><a href="/" id="missionBtn" class="cd-filter-trigger modal-trigger" data-target="missionModal">MISHON</a></li>
 						<li><a href="/about" id="aboutBtn" class="cd-filter-trigger modal-trigger">ABOUT</a></li>
@@ -143,6 +142,42 @@
 					</form>
 				</div>
 			</div>
+
+		<!-- Settings Overlay -->
+		<div id="settingsOverlay" class="overlay" style="display: none; background-color: rgba(0,0,0,0.5); z-index: 1000;"></div>
+
+		<!-- Success MODAL -->
+		<div id="successOverlay" class="overlay" style="display: none;">
+			<div id="successModal" class="cd-filter shadow">
+				<div class="sticky-container">
+					<div class="modal-title-container sticky">
+						<div class="modal-title-wrapper">
+							<div class="title-wrapper">
+								<h4 class="modal-title big-bold color-primary-darker center">Gradulation!</h4>
+							</div>
+							<a href="#0" class="cd-close-filter flex-right" onclick="closeSuccessModal()"></a>
+						</div>
+					</div>
+				</div>
+				<form>
+					<div class="cd-filter-block">
+						<div class="cd-filter-content" style="line-height: 1.2; text-align: center;">
+							<div class="title-wrapper flex settings shadow" style="justify-content: center;">
+								<div>
+									<h2 class="big big-bold color-primary" id="successMessage">U pop all teh itams!</h2>
+									<p class="bold color-contrast-higher" style="line-height: 1.7;" id="successTime">
+										Time: Loading...
+									</p>
+								</div>
+							</div>
+							<div class="flex settings" style="justify-content: center; margin-top: 1em;">
+								<button type="button" class="pickle shadow" onclick="closeSuccessModal()">Play Again</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
 		
 		{% if logged_in %}
 			<!-- ACCOUNT MODAL -->
@@ -491,7 +526,21 @@
 	<script src="/static/js/resources/jquery.mixitup.min.js"></script>
 	<script type="module" src="/static/js/main.js"></script> <!-- Resource jQuery -->
 	<script type="module" src="/static/js/firebase.js"></script>
-	<script src="/static/js/secondary/horsplay.js"></script> <!-- Horsplay JS -->
+	<script src="/static/js/secondary/horsplay.js"></script>
+	{% if logged_in %}
+	<script>
+		// Pass user data to JavaScript for score tracking
+		window.currentUser = {
+			id: {{ session.profile.user_id|tojson }},
+			name: {{ session.profile.name|tojson }},
+			email: {{ email|tojson }}
+		};
+	</script>
+	{% else %}
+	<script>
+		window.currentUser = null;
+	</script>
+	{% endif %} <!-- Horsplay JS -->
 	<script src="/static/js/resources/jquery.min.js"></script> <!-- Added for the draggable UI -->
 	<script src="/static/js/resources/jquery-ui.js"></script> <!-- Added for the draggable UI -->
 	<script src="/static/js/resources/jquery.ui.touch-punch.min.js"></script> 

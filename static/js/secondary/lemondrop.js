@@ -17,7 +17,7 @@ function jump() {
   }
   setTimeout(function () {
     lemon.classList.remove("animate");
-  }, 500);
+  }, 750);
 }
 
 // Event listener for keydown events to detect spacebar, up arrow, or W key press
