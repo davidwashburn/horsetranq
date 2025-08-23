@@ -24,7 +24,9 @@ mock_user_data = {
     'subscription_type': 'free',
     'firebase_token': 'mock_token',
     'unique_user_id': generate_mock_unique_user_id(),
-    'username': generate_mock_username()
+    'username': generate_mock_username(),
+    'hide_avatar': 'No',
+    'avatar_type': 'google-profile'
 }
 
 @app.route('/')
@@ -68,6 +70,36 @@ def refresh_session():
         'success': True,
         'message': 'Session refreshed successfully (mock)',
         'data': mock_user_data
+    })
+
+@app.route('/api/update-hide-avatar', methods=['POST'])
+def update_hide_avatar():
+    """Mock update hide avatar endpoint for local testing"""
+    data = request.get_json()
+    hide_avatar = data.get('hide_avatar', False)
+    
+    # Update mock data
+    mock_user_data['hide_avatar'] = 'Yes' if hide_avatar else 'No'
+    
+    return jsonify({
+        'success': True,
+        'hide_avatar': mock_user_data['hide_avatar'],
+        'message': 'Avatar visibility updated successfully (mock)'
+    })
+
+@app.route('/api/update-avatar-selection', methods=['POST'])
+def update_avatar_selection():
+    """Mock update avatar selection endpoint for local testing"""
+    data = request.get_json()
+    avatar_type = data.get('avatar_type', 'google-profile')
+    
+    # Update mock data
+    mock_user_data['avatar_type'] = avatar_type
+    
+    return jsonify({
+        'success': True,
+        'avatar_type': avatar_type,
+        'message': 'Avatar selection updated successfully (mock)'
     })
 
 if __name__ == '__main__':

@@ -3,11 +3,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const myAccountBtn = document.getElementById('myAccountBtn');
     
     if (myAccountBtn) {
+        // Check if hide avatar is enabled
+        const hideAvatarCheckbox = document.getElementById('hideAvatarCheckbox');
+        const hideAvatar = hideAvatarCheckbox ? hideAvatarCheckbox.checked : false;
+        
         // Get the user's avatar URL from the page data
         // The avatar URL is available in the session data passed to the template
         // We can get it from the profile image in the account modal
         const profileImage = document.querySelector('.profile-image img');
-        const avatarUrl = profileImage ? profileImage.src : 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/480px-Default_pfp.svg.png';
+        const defaultAvatarUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/480px-Default_pfp.svg.png';
+        const avatarUrl = hideAvatar ? defaultAvatarUrl : (profileImage ? profileImage.src : defaultAvatarUrl);
         
         // Set the background image for the ::before pseudo-element
         // We need to use CSS custom properties since we can't directly access ::before
