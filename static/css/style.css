@@ -29,6 +29,36 @@ p {
   margin: var(--space-xs);
   font-weight: 800;
 }
+
+.margin-xs {
+  margin: var(--space-xs);
+}
+
+.margin-sm {
+  margin: var(--space-sm);
+}
+
+.margin-md {
+  margin: var(--space-md);
+}
+
+.margin-lg {
+  margin: var(--space-lg);
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.width-50 {
+  width: 50%;
+}
+
+
+.width-25 {
+  width: 25%;
+}
+
 /* Color class options */
 .bg-none {
   background: none!important;
@@ -989,6 +1019,9 @@ label {
   align-items: center;
   align-content: flex-start;
   flex-wrap: wrap;
+}
+.title-wrapper.flex.settings.transparent {
+  background: transparent;
 }
 .title-wrapper.settings h4 {
   color: var(--color-contrast-high);
@@ -2520,10 +2553,12 @@ Usage: codyhouse.co/license
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-direction: row-reverse;
+  gap: 10px;
 }
 
 #avatar-selector-wrapper {
-  min-width: 220px;
+  width: 100%;
 }
 
 #avatar-selector-wrapper .option {
@@ -2531,10 +2566,6 @@ Usage: codyhouse.co/license
   flex-wrap: nowrap;
   flex-direction: row;
   align-items: center;
-}
-
-#avatar-selector .avatar-option-image {
-  margin-left: var(--space-sm);
 }
 
 /* Loading screen */

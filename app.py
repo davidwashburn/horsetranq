@@ -26,7 +26,8 @@ mock_user_data = {
     'unique_user_id': generate_mock_unique_user_id(),
     'username': generate_mock_username(),
     'hide_avatar': 'No',
-    'avatar_type': 'google-profile'
+    'avatar_type': 'google-profile',
+    'account_creation_date': '2024-02-24T11:08:55.902491'
 }
 
 def get_account_context():
