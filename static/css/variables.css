@@ -420,3 +420,28 @@
     --color-contrast-higher-hsl: 0, 0%, 20%;
     
 }
+
+/* === Base palette (raw hex) === */
+:root {
+    --c84630: #C84630; /* burnt red-orange */
+    --d4a0a7: #D4A0A7; /* dusty pink */
+    --e3e3e3: #E3E3E3; /* light gray */
+    --898989: #898989; /* medium gray */
+    --5da271: #5DA271; /* green */
+    --ffffff: #FFFFFF; /* white */
+    --000000: #000000; /* black */
+  }
+  
+  /* === Semantic tokens (versioned) === */
+  :root {
+    --v3-color-primary: var(--5da271);   /* green - main brand / CTAs */
+    --v3-color-secondary: var(--c84630); /* red-orange - secondary actions */
+    --v3-color-accent: var(--d4a0a7);    /* dusty pink - subtle accent */
+  
+    --v3-color-white: var(--ffffff);        /* main background */
+    --v3-color-grey-light: var(--e3e3e3);   /* cards, panels, UI surfaces */
+  
+    --v3-color-black: var(--000000);      /* main text */
+    --v3-color-grey: var(--898989);/* secondary text */
+  }
+  
