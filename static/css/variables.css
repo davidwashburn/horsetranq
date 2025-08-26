@@ -67,20 +67,6 @@
     --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
     --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-
-:root, * {
-    --space-4xs: clamp(0.125rem, calc(0.125rem + 0vw), 0.125rem);
-    --space-3xs: clamp(0.25rem, calc(0.25rem + 0vw), 0.25rem);
-    --space-2xs: clamp(0.5rem, calc(0.5rem + 0vw), 0.5rem);
-    --space-xs: clamp(0.75rem, calc(0.75rem + 0vw), 0.75rem);
-    --space-sm: clamp(1rem, calc(1rem + 0vw), 1rem);
-    --space-md: clamp(1.5rem, calc(1.125rem + 0.78125vw), 1.75rem);
-    --space-lg: clamp(2.25rem, calc(1.125rem + 2.34375vw), 3rem);
-    --space-xl: clamp(3.5rem, calc(1.25rem + 4.6875vw), 5rem);
-    --space-2xl: clamp(5.75rem, calc(2.375rem + 7.03125vw), 8rem);
-    --space-3xl: clamp(9.25rem, calc(4.75rem + 9.375vw), 12.25rem);
-    --space-4xl: clamp(15rem, calc(7.5rem + 15.625vw), 20rem);
-}
 :root, [data-theme=default] {
     --color-primary-darker-h: 250;
     --color-primary-darker-s: 84%;
@@ -420,28 +406,3 @@
     --color-contrast-higher-hsl: 0, 0%, 20%;
     
 }
-
-/* === Base palette (raw hex) === */
-:root {
-    --c84630: #C84630; /* burnt red-orange */
-    --d4a0a7: #D4A0A7; /* dusty pink */
-    --e3e3e3: #E3E3E3; /* light gray */
-    --898989: #898989; /* medium gray */
-    --5da271: #5DA271; /* green */
-    --ffffff: #FFFFFF; /* white */
-    --000000: #000000; /* black */
-  }
-  
-  /* === Semantic tokens (versioned) === */
-  :root {
-    --v3-color-primary: var(--5da271);   /* green - main brand / CTAs */
-    --v3-color-secondary: var(--c84630); /* red-orange - secondary actions */
-    --v3-color-accent: var(--d4a0a7);    /* dusty pink - subtle accent */
-  
-    --v3-color-white: var(--ffffff);        /* main background */
-    --v3-color-grey-light: var(--e3e3e3);   /* cards, panels, UI surfaces */
-  
-    --v3-color-black: var(--000000);      /* main text */
-    --v3-color-grey: var(--898989);/* secondary text */
-  }
-  

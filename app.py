@@ -32,7 +32,21 @@ mock_user_data = {
 
 def get_account_context():
     """Get the context data needed for account-related templates"""
-    return mock_user_data.copy()
+    context = mock_user_data.copy()
+    
+    # Add mock session structure for compatibility with templates
+    if context.get('logged_in'):
+        context['session'] = {
+            'profile': {
+                'user_id': context.get('user_id'),
+                'name': context.get('name'),
+                'email': context.get('email')
+            }
+        }
+    else:
+        context['session'] = {}
+    
+    return context
 
 @app.route('/')
 def index():

@@ -1,0 +1,474 @@
+/* ===== base font sizes and step scales ===== */
+:root {
+  /* base size */
+  --v3-font-base: 1.25rem; /* 20px */
+
+  /* 5-tier modular scale (start at 1.3 and step ~1.15–1.18) */
+  --v3-scale-sm:   1.300; /* smallest unit */
+  --v3-scale-base: 1.500; /* sm * ~1.15 */
+  --v3-scale-md:   1.725; /* base * ~1.15 */
+  --v3-scale-lg:   1.985; /* md * ~1.15 */
+  --v3-scale-xl:   2.285; /* lg * ~1.15 */
+
+  /* desktop scale (100%) */
+  --type-scale: 1; /* global multiplier */
+}
+
+/* ===== derived sizes (use in components) ===== */
+:root {
+  /* order: sm / base / md / lg / xl */
+  --v3-font-size-sm:   calc(var(--v3-font-base) * var(--v3-scale-sm)   * var(--type-scale));  /* sm */
+  --v3-font-size-base: calc(var(--v3-font-base) * var(--v3-scale-base) * var(--type-scale));  /* base */
+  --v3-font-size-md:   calc(var(--v3-font-base) * var(--v3-scale-md)   * var(--type-scale));  /* md */
+  --v3-font-size-lg:   calc(var(--v3-font-base) * var(--v3-scale-lg)   * var(--type-scale));  /* lg */
+  --v3-font-size-xl:   calc(var(--v3-font-base) * var(--v3-scale-xl)   * var(--type-scale));  /* xl */
+}
+
+
+/* ===== Breakpoints ===== */
+@media (max-width: 599px) {
+  /* phones: shrink everything ~12% */
+  :root { --type-scale: 0.88; }
+}
+
+@media (min-width: 600px) and (max-width: 1023px) {
+  /* tablets: slight shrink */
+  :root { --type-scale: 0.95; }
+}
+
+@media (min-width: 1024px) {
+  /* desktop font scale set to 100% */
+  :root { --type-scale: 1; }
+}
+
+
+/* base color palette variables */
+:root {
+  /* Primary (Green) */
+  --v3-color-primary: #147B64;
+  --v3-color-primary-light: #7db0a2;
+
+  /* Secondary (Blue) */
+  --v3-color-secondary: #184672;
+  --v3-color-secondary-light: #0276E3;
+
+  /* Accents */
+  --v3-color-accent-gold: #E3BA02;
+  --v3-color-accent-grey-light: #eff0f2;   /* container backgrounds, offwhites */
+  --v3-color-accent-grey-mid: #d0d6e2;     /* cool mid grey */
+  --v3-color-accent-grey-mid-alt: #bbbbbb; /* neutral mid grey (optional) */
+  --v3-color-accent-grey-dark: #37383f;    /* text on light backgrounds */
+  --v3-color-accent-black: #000000;
+  --v3-color-accent-white: #ffffff;
+
+  /* Feedback / Status */
+  --v3-color-error-dark: #d54e4d;
+  --v3-color-error-light: #eccacb;
+  --v3-color-success-dark: #39ad63;
+  --v3-color-success-light: #b4dcbe;
+}
+
+/* semantic tokens used in the components */
+:root {
+  /* Surfaces */
+  --v3-surface-page: var(--color-accent-white);           /* overall page */
+  --v3-surface-card: var(--color-accent-grey-light);      /* cards/containers */
+  --v3-surface-elevated: var(--color-accent-white);       /* modals/menus */
+
+  /* Text */
+  --v3-text-body: var(--color-accent-grey-dark);
+  --v3-text-muted: var(--color-accent-grey-mid);
+  --v3-text-inverse: var(--color-accent-white);
+  --v3-text-on-accent: var(--color-accent-white);         /* on strong fills */
+
+  /* Links */
+  --v3-link: var(--color-secondary-light);
+  --v3-link-hover: var(--color-secondary);
+
+  /* Borders / Dividers */
+  --v3-border: var(--color-accent-grey-mid);
+  --v3-border-strong: var(--color-accent-grey-dark);
+  --v3-divider: var(--color-accent-grey-mid);
+
+  /* Buttons */
+  --v3-btn-primary-bg: var(--color-primary);
+  --v3-btn-primary-text: var(--color-accent-white);
+  --v3-btn-primary-bg-hover: var(--color-primary-light);
+
+  --v3-btn-secondary-bg: var(--color-secondary);
+  --v3-btn-secondary-text: var(--color-accent-white);
+  --v3-btn-secondary-bg-hover: var(--color-secondary-light);
+
+  --v3-btn-ghost-text: var(--color-secondary);
+  --v3-btn-ghost-text-hover: var(--color-secondary-light);
+
+  /* Inputs */
+  --v3-input-bg: var(--color-accent-white);
+  --v3-input-text: var(--color-accent-grey-dark);
+  --v3-input-border: var(--color-accent-grey-mid);
+  --v3-input-border-hover: var(--color-accent-grey-mid-alt);
+  --v3-input-border-focus: var(--color-secondary-light);
+  --v3-input-placeholder: var(--color-accent-grey-mid);
+
+  /* Status (Alerts/Badges) */
+  --v3-success-bg: var(--color-success-light);
+  --v3-success-border: var(--color-success-dark);
+  --v3-success-text: var(--color-primary);
+
+  --v3-error-bg: var(--color-error-light);
+  --v3-error-border: var(--color-error-dark);
+  --v3-error-text: var(--color-error-dark);
+
+  --v3-info-bg: color-mix(in oklab, var(--color-secondary-light) 12%, white);
+  --v3-info-border: var(--color-secondary-light);
+  --v3-info-text: var(--color-secondary);
+
+  /* Accents / Specials */
+  --v3-accent-gold: var(--color-accent-gold);             /* e.g., highlights */
+  --v3-focus-ring: #0276E366;                             /* ~40% alpha */
+  --v3-shadow-color: rgba(0,0,0,0.12);
+}
+
+
+
+
+
+/* flexbox justify content */
+.flex-justify-center {
+  justify-content: center;
+}
+.flex-justify-start {
+  justify-content: flex-start;
+}
+.flex-justify-end {
+  justify-content: flex-end;
+}
+.flex-justify-space-between {
+  justify-content: space-between;
+}
+.flex-justify-space-around {
+  justify-content: space-around;
+}
+.flex-justify-space-evenly {
+  justify-content: space-evenly;
+}
+
+
+/* flexbox align items */
+.flex-align-items-center {
+  align-items: center;
+}
+.flex-align-items-start {
+  align-items: flex-start;
+}
+.flex-align-items-end {
+  align-items: flex-end;
+}
+.flex-align-items-baseline {
+  align-items: baseline;
+}
+.flex-align-items-stretch {
+  align-items: stretch;
+}
+
+/* flexbox align content */
+.flex-align-content-center {
+  align-content: center;
+}
+.flex-align-content-start {
+  align-content: flex-start;
+}
+.flex-align-content-end {
+  align-content: flex-end;
+}
+.flex-align-content-between {
+  align-content: space-between;
+}
+.flex-align-content-around {
+  align-content: space-around;
+}
+.flex-align-content-evenly {
+  align-content: space-evenly;
+}
+.flex-align-content-stretch {
+  align-content: stretch;
+}
+
+/* flexbox align self */
+.flex-align-self-auto {
+  align-self: auto;
+}
+.flex-align-self-start {
+  align-self: flex-start;
+}
+
+/* Desktop / large screens (1024px+) */
+@media (min-width: 1024px) {
+  .flex-row-desktop {
+    display: flex;
+    flex-direction: row;
+  }
+  .flex-column-desktop {
+    display: flex;
+    flex-direction: column;
+  }
+  /* Legacy support - deprecated, use flex-row-desktop instead */
+  .flex-row-lg {
+    display: flex;
+    flex-direction: row;
+  }
+  .flex-column-lg {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Tablets / iPads (600px - 1023px) */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .flex-row-tablet {
+    display: flex;
+    flex-direction: row;
+  }
+  .flex-column-tablet {
+    display: flex;
+    flex-direction: column;
+  }
+  /* Legacy support - deprecated, use flex-row-tablet instead */
+  .flex-row-md {
+    display: flex;
+    flex-direction: row;
+  }
+  .flex-column-md {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Phones / small screens (max 599px) */
+@media (max-width: 599px) {
+  .flex-row-phone {
+    display: flex;
+    flex-direction: row;
+  }
+  .flex-column-phone {
+    display: flex;
+    flex-direction: column;
+  }
+  /* Legacy support - deprecated, use flex-row-phone instead */
+  .flex-row-sm {
+    display: flex;
+    flex-direction: row;
+  }
+  .flex-column-sm {
+    display: flex;
+    flex-direction: column;
+  }
+  #index-hero-square {
+    width: 80%;
+  }
+}
+
+/* Desktop-specific width utilities (1024px+) */
+@media (min-width: 1024px) {
+  .width-sm-desktop {
+    width: 25%;
+  }
+  .width-md-desktop {
+    width: 50%;
+  }
+  .width-lg-desktop {
+    width: 75%;
+  }
+  .width-xl-desktop {
+    width: 90%;
+  }
+  .width-full-desktop {
+    width: 100%;
+  }
+}
+
+/* Tablet-specific width utilities (600px - 1023px) */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .width-sm-tablet {
+    width: 25%;
+  }
+  .width-md-tablet {
+    width: 50%;
+  }
+  .width-lg-tablet {
+    width: 75%;
+  }
+  .width-xl-tablet {
+    width: 90%;
+  }
+  .width-full-tablet {
+    width: 100%;
+  }
+}
+
+/* Phone-specific width utilities (max 599px) */
+@media (max-width: 599px) {
+  .width-sm-phone {
+    width: 25%;
+  }
+  .width-md-phone {
+    width: 50%;
+  }
+  .width-lg-phone {
+    width: 75%;
+  }
+  .width-xl-phone {
+    width: 90%;
+  }
+  .width-full-phone {
+    width: 100%;
+  }
+}
+
+/* margin utilities - responsive margin system */
+/* Margin size variables for easy maintenance */
+:root {
+  --margin-sm: 0.5rem;  /* 8px */
+  --margin-md: 1rem;    /* 16px */
+  --margin-lg: 1.5rem;  /* 24px */
+  --margin-xl: 3rem;    /* 48px */
+}
+
+/* Desktop-specific margin utilities (1024px+) */
+@media (min-width: 1024px) {
+  .margin-auto-desktop { margin: auto; }
+  .margin-x-auto-desktop { margin-left: auto; margin-right: auto; }
+  .margin-y-auto-desktop { margin-top: auto; margin-bottom: auto; }
+  .margin-sm-desktop { margin: var(--margin-sm); }
+  .margin-md-desktop { margin: var(--margin-md); }
+  .margin-lg-desktop { margin: var(--margin-lg); }
+  .margin-xl-desktop { margin: var(--margin-xl); }
+  .margin-none-desktop { margin: 0; }
+}
+
+/* Tablet-specific margin utilities (600px - 1023px) */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .margin-auto-tablet { margin: auto; }
+  .margin-x-auto-tablet { margin-left: auto; margin-right: auto; }
+  .margin-y-auto-tablet { margin-top: auto; margin-bottom: auto; }
+  .margin-sm-tablet { margin: var(--margin-sm); }
+  .margin-md-tablet { margin: var(--margin-md); }
+  .margin-lg-tablet { margin: var(--margin-lg); }
+  .margin-xl-tablet { margin: var(--margin-xl); }
+  .margin-none-tablet { margin: 0; }
+}
+
+/* Phone-specific margin utilities (max 599px) */
+@media (max-width: 599px) {
+  .margin-auto-phone { margin: auto; }
+  .margin-x-auto-phone { margin-left: auto; margin-right: auto; }
+  .margin-y-auto-phone { margin-top: auto; margin-bottom: auto; }
+  .margin-sm-phone { margin: var(--margin-sm); }
+  .margin-md-phone { margin: var(--margin-md); }
+  .margin-lg-phone { margin: var(--margin-lg); }
+  .margin-xl-phone { margin: var(--margin-xl); }
+  .margin-none-phone { margin: 0; }
+}
+
+/* Directional margin utilities - responsive */
+/* Desktop directional margins (1024px+) */
+@media (min-width: 1024px) {
+  .margin-top-sm-desktop { margin-top: var(--margin-sm); }
+  .margin-top-md-desktop { margin-top: var(--margin-md); }
+  .margin-top-lg-desktop { margin-top: var(--margin-lg); }
+  .margin-top-xl-desktop { margin-top: var(--margin-xl); }
+  .margin-bottom-sm-desktop { margin-bottom: var(--margin-sm); }
+  .margin-bottom-md-desktop { margin-bottom: var(--margin-md); }
+  .margin-bottom-lg-desktop { margin-bottom: var(--margin-lg); }
+  .margin-bottom-xl-desktop { margin-bottom: var(--margin-xl); }
+  .margin-left-sm-desktop { margin-left: var(--margin-sm); }
+  .margin-left-md-desktop { margin-left: var(--margin-md); }
+  .margin-left-lg-desktop { margin-left: var(--margin-lg); }
+  .margin-left-xl-desktop { margin-left: var(--margin-xl); }
+  .margin-right-sm-desktop { margin-right: var(--margin-sm); }
+  .margin-right-md-desktop { margin-right: var(--margin-md); }
+  .margin-right-lg-desktop { margin-right: var(--margin-lg); }
+  .margin-right-xl-desktop { margin-right: var(--margin-xl); }
+}
+
+/* Tablet directional margins (600px - 1023px) */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .margin-top-sm-tablet { margin-top: var(--margin-sm); }
+  .margin-top-md-tablet { margin-top: var(--margin-md); }
+  .margin-top-lg-tablet { margin-top: var(--margin-lg); }
+  .margin-top-xl-tablet { margin-top: var(--margin-xl); }
+  .margin-bottom-sm-tablet { margin-bottom: var(--margin-sm); }
+  .margin-bottom-md-tablet { margin-bottom: var(--margin-md); }
+  .margin-bottom-lg-tablet { margin-bottom: var(--margin-lg); }
+  .margin-bottom-xl-tablet { margin-bottom: var(--margin-xl); }
+  .margin-left-sm-tablet { margin-left: var(--margin-sm); }
+  .margin-left-md-tablet { margin-left: var(--margin-md); }
+  .margin-left-lg-tablet { margin-left: var(--margin-lg); }
+  .margin-left-xl-tablet { margin-left: var(--margin-xl); }
+  .margin-right-sm-tablet { margin-right: var(--margin-sm); }
+  .margin-right-md-tablet { margin-right: var(--margin-md); }
+  .margin-right-lg-tablet { margin-right: var(--margin-lg); }
+  .margin-right-xl-tablet { margin-right: var(--margin-xl); }
+}
+
+/* Phone directional margins (max 599px) */
+@media (max-width: 599px) {
+  .margin-top-sm-phone { margin-top: var(--margin-sm); }
+  .margin-top-md-phone { margin-top: var(--margin-md); }
+  .margin-top-lg-phone { margin-top: var(--margin-lg); }
+  .margin-top-xl-phone { margin-top: var(--margin-xl); }
+  .margin-bottom-sm-phone { margin-bottom: var(--margin-sm); }
+  .margin-bottom-md-phone { margin-bottom: var(--margin-md); }
+  .margin-bottom-lg-phone { margin-bottom: var(--margin-lg); }
+  .margin-bottom-xl-phone { margin-bottom: var(--margin-xl); }
+  .margin-left-sm-phone { margin-left: var(--margin-sm); }
+  .margin-left-md-phone { margin-left: var(--margin-md); }
+  .margin-left-lg-phone { margin-left: var(--margin-lg); }
+  .margin-left-xl-phone { margin-left: var(--margin-xl); }
+  .margin-right-sm-phone { margin-right: var(--margin-sm); }
+  .margin-right-md-phone { margin-right: var(--margin-md); }
+  .margin-right-lg-phone { margin-right: var(--margin-lg); }
+  .margin-right-xl-phone { margin-right: var(--margin-xl); }
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.shadow {
+  --d: 12px;
+  padding: 12px 24px;
+  box-sizing: border-box;
+  border: solid #0000;
+  border-width: 0 var(--d) var(--d) 0;
+  clip-path: polygon(0 0, calc(100% - var(--d)) 0, 100% var(--d), 100% 100%, var(--d) 100%, 0 calc(100% - var(--d)));
+  background: conic-gradient(at calc(100% - var(--d)) calc(100% - var(--d)), #ddd 37.5%, /* light grey bevel */ #ccc 0 75%, /* mid grey bevel */ #fff 0) border-box #fff;
+}
+
+#index {
+  background-color: var(--v3-color-primary);
+}
+
+#index-hero-square {
+  --d: 40px;
+  padding: 10px;
+  aspect-ratio: 1;
+  box-sizing: border-box;
+  border: solid #0000;
+  border-width: 0 var(--d) var(--d) 0;
+  clip-path: polygon(0 0, calc(100% - var(--d)) 0, 100% var(--d), 100% 100%, var(--d) 100%, 0 calc(100% - var(--d)));
+  background: conic-gradient(at calc(100% - var(--d)) calc(100% - var(--d)), #0004 37.5%, #0008 0 75%, #0000 0) border-box #106552;
+}
+
+
+.main-content {
+  overflow-y: scroll;
+}

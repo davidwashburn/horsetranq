@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="/static/css/style.css"> <!-- Resource style -->
 		<link rel="stylesheet" href="../static/css/style-slides.css"> <!-- Slide specific style -->
 		<link rel="stylesheet" href="/static/css/variables.css"> <!-- Variables style -->
+		<link rel="stylesheet" href="/static/css/style-v3.css"> <!-- New v3 style -->
 		<script src="/static/js/resources/modernizr.js"></script> <!-- Modernizr -->
 		<script src="https://cdn.auth0.com/js/auth0/9.18/auth0.min.js"></script>
 		<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
@@ -25,11 +26,28 @@
 				<img src="/static/img/loading/hors-load-3.gif" alt="Loading..." loading="eager" style="width: 150px; height: auto;" />
 			</div>
 		</div>	
-		<main class="cd-main-content scroll static-bg horseplay-background is-fixed">
+		<main id="index" class="main-content">
 			{% include 'partials/navigation_menu.html' %}
 
-			<div class="stable-wrapper">
-				<div id="games-wrapper" class="stable-flex-container subscribe">
+			<div class="main-wrapper margin-auto-desktop width-lg-desktop width-xl-phone">
+				<div>
+					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center">
+						<div id="games-title" class="title-container flex-column-desktop flex-column-phone flex-align-items-start width-md-desktop">
+							<div class="flex-row-desktop flex-row-phone flex-justify-start flex-align-items-center">
+								<h2 class="big-bold shadow">SEASIN 2</h2>
+								<p>Teh hoorse is loorse</p>
+							</div>
+							<div class="flex-row-desktop flex-align-items-start text-left">
+								<p>Donut b a sqare. Come play teh orignal hors tranqlizer game. Earn rwards an unlok ur dremes. Or at lest some hors memrobelia.</p>
+							</div>
+						</div>
+						<div id="index-hero-square">
+							<img id="index-hero-img" src="/static/img/branding/horsetranq-v3.png" alt="Horsetranq" />
+						</div>
+					</div>
+				</div>
+
+				<div>
 					<div id="games-title" class="title-container">
 						<h2 class="big-bold">GAMES</h2>
 						<p>Intractiv hors vido gams</p>
@@ -96,105 +114,7 @@
 						<p>Latast hors news for ur life</p>
 					</div>
 					<div id="stable-flex" class="flex-container wrapper">
-						<div class="stories">
-							<h3 class="stories__legend hide">Popular stories</h3>
-							<ol class="stories__list">
-	
-								<li class="stories__story ui-container">
-									<a href="#0" class="stories__img-wrapper">
-										<figure>
-										<img src="../static/img/games/lemondrop/promo/lemondrop-alt.png" alt="Image description">
-										</figure>
-									</a>
-								
-									<div class="stories__text sz3-text-component sz3-line-height-md sz3-text-gap-2xs">
-											<h4 class="stories__headline">Lemun drop beta out now</h4>
-											<p class="stories__metadata"><time datetime="2020-05-10">Jun 13, 2023</time> <span class="stories__separator" role="separator"></span>GAME RELEAS</p>
-									</div>
-								</li>
-
-								<li class="stories__story ui-container">
-									<a href="/horsplay" class="stories__img-wrapper">
-									<figure>
-										<img src="../static/img/branding/game-horsetranq-alt-large.png" alt="Image description">
-									</figure>
-									</a>
-							
-									<div class="stories__text sz3-text-component sz3-line-height-md sz3-text-gap-2xs">
-										<a href="/horsplay">
-											<h4 class="stories__headline">Hors Play beta out now</h4>
-											<p class="stories__metadata"><time datetime="2020-05-10">May 26, 2023</time> <span class="stories__separator" role="separator"></span>Game Releas</p>
-										</a>
-									</div>
-								</li>
-	
-								<li class="stories__story ui-container">
-									<a href="#0" class="stories__img-wrapper">
-										<figure>
-										<img src="../static/img/branding/season-1-alt.png" alt="Image description">
-										</figure>
-									</a>
-								
-									<div class="stories__text sz3-text-component sz3-line-height-md sz3-text-gap-2xs">
-											<h4 class="stories__headline">Seson 1 release soon get rady for tranq</h4>
-											<p class="stories__metadata"><time datetime="2020-05-10">Comin Q3</time> <span class="stories__separator" role="separator"></span>Seson Updats</p>
-									</div>
-								</li>
-							
-								<li class="stories__story ui-container">
-									<a href="#0" class="stories__img-wrapper">
-									<figure>
-										<img src="../static/img/branding/season-2.png" alt="Image description">
-									</figure>
-									</a>
-							
-									<div class="stories__text sz3-text-component sz3-line-height-md sz3-text-gap-2xs">
-										<h4 class="stories__headline">Seson 2 conqur ur fears wit horspowar</h4>
-										<p class="stories__metadata"><time datetime="2020-05-10">Comin Q4</time> <span class="stories__separator" role="separator"></span>Seson Updats</p>
-									</div>
-								</li>
-							
-								<li class="stories__story ui-container">
-									<a href="/store" class="stories__img-wrapper">
-									<figure>
-										<img src="../static/img/branding/hors-plus-px.png" alt="Image description">
-									</figure>
-									</a>
-							
-									<div class="stories__text sz3-text-component sz3-line-height-md sz3-text-gap-2xs">
-										<a href="/store">
-											<h4 class="stories__headline">New suscripys availble to suport Hors</h4>
-											<p class="stories__metadata"><time datetime="2020-05-10">May 23, 2023</time> <span class="stories__separator" role="separator"></span>Stor Updats</p>
-										</a>
-									</div>
-								</li>
-							</ol>
-						</div>
-					</div>
-				</div>
-
-				<div id="footer-wrapper" class="stable-flex-container subscribe">
-					<div class="footer-container">
-						<footer class="footer-v3 mv0-padding-y-lg">
-							<div class="footer-v3__container mv0-container mv0-max-width-lg">
-							  <nav class="footer-v3__nav">
-								<ul class="footer-v3__nav-list">
-								  <li class="footer-v3__nav-item"><a href="/store">Store</a></li>
-								  <li class="footer-v3__nav-item"><a href="/">Mishun</a></li>
-								  <li class="footer-v3__nav-item"><a href="https://suport.horsetranq.com">Help centaur</a></li>
-								  <li class="footer-v3__nav-item"><a href="/about">About</a></li>
-								</ul>
-							  </nav>
-							</div>
-							<div class="footer-legal">
-								<div class="footer-legal-container">
-									<div class="footer-legal-container">
-										<p>©2023 Horstranq Media Grop, LLC, a Horsetranq company.</p>
-										<p>All rites reservation. Varous tradmarks held by respective ownars.</p>
-									</div>
-								</div>
-							</div>
-						</footer>
+						<!-- NEWS CONTENT-->
 					</div>
 				</div>
 			</div>
