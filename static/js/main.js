@@ -324,3 +324,44 @@ jQuery(document).ready(function($){
 	}
   }());
   
+  // Index hero image hover effect - timed sequence
+  $('.button a[href="/horsplay"]').hover(
+    function() {
+      var originalSrc = $('#index-hero-img').attr('src');
+      // Instantly go to image 1
+      $('#index-hero-img').attr('src', '/static/img/branding/horsetranq-v3-intensity-1.gif');
+      
+      var timer2 = setTimeout(function() {
+        $('#index-hero-img').attr('src', '/static/img/branding/horsetranq-v3-intensity-2.gif');
+      }, 3000);
+      var timer3 = setTimeout(function() {
+        $('#index-hero-img').attr('src', '/static/img/branding/horsetranq-v3-intensity-3.gif');
+      }, 6000);
+      var timer4 = setTimeout(function() {
+        $('#index-hero-img').attr('src', '/static/img/branding/horsetranq-v3-intensity-4.gif');
+      }, 9000);
+      var timer5 = setTimeout(function() {
+        $('#index-hero-img').attr('src', '/static/img/branding/horsetranq-v3-intensity-5.gif');
+      }, 12000);
+      var timer6 = setTimeout(function() {
+        $('#index-hero-img').attr('src', originalSrc);
+      }, 15000);
+      
+      // Store timers and original src on the element for cleanup
+      $(this).data('timers', [timer2, timer3, timer4, timer5, timer6]);
+      $(this).data('originalSrc', originalSrc);
+    },
+    function() {
+      // Clear all timers and restore original image
+      var timers = $(this).data('timers');
+      if (timers) {
+        timers.forEach(function(timer) {
+          clearTimeout(timer);
+        });
+      }
+      var originalSrc = $(this).data('originalSrc');
+      if (originalSrc) {
+        $('#index-hero-img').attr('src', originalSrc);
+      }
+    }
+  );

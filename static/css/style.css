@@ -489,7 +489,6 @@ Main components
     width: 80px;
   }
   body {
-    position: fixed!important;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
@@ -1086,7 +1085,6 @@ label {
 }
 .title-container {
   text-align: center;
-  margin: 2em 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1117,8 +1115,6 @@ label {
   color: var(--color-primary);
 }
 .title-container p {
-  margin: var(--space-xs);
-  padding: 6px;
   color: white;
   border-radius: var(--radius-sm);
   box-shadow: none;

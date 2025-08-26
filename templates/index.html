@@ -29,8 +29,8 @@
 		<main id="index" class="main-content">
 			{% include 'partials/navigation_menu.html' %}
 
-			<div class="main-wrapper margin-auto-desktop width-lg-desktop width-xl-phone">
-				<div>
+			<div class="main-wrapper margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-xl-phone">
+				<div class="main-section">
 					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center">
 						<div id="games-title" class="title-container flex-column-desktop flex-column-phone flex-align-items-start width-md-desktop">
 							<div class="flex-row-desktop flex-row-phone flex-justify-start flex-align-items-center">
@@ -38,10 +38,37 @@
 								<p>Teh hoorse is loorse</p>
 							</div>
 							<div class="flex-row-desktop flex-align-items-start text-left">
-								<p>Donut b a sqare. Come play teh orignal hors tranqlizer game. Earn rwards an unlok ur dremes. Or at lest some hors memrobelia.</p>
+								<p class="margin-lg-desktop margin-lg-phone margin-lg-tablet">Donut b a sqare. Come play teh orignal hors tranqlizer game. Earn rwards an unlok ur dremes. Or at lest some hors memrobelia.</p>
+							</div>
+							<div class="button shadow bold font-weight-xl font-size-xl margin-lg-desktop margin-lg-phone margin-lg-tablet">
+								<a href="/horsplay" class="color-accent-gold">
+									PLAY NOW
+								</a>
 							</div>
 						</div>
-						<div id="index-hero-square">
+						<div id="index-hero-square" class="width-full-phone margin-auto-phone">
+							<img id="index-hero-img" src="/static/img/branding/horsetranq-v3.png" alt="Horsetranq" />
+						</div>
+					</div>
+				</div>
+
+				<div class="main-section">
+					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center">
+						<div id="games-title" class="title-container flex-column-desktop flex-column-phone flex-align-items-start width-md-desktop">
+							<div class="flex-row-desktop flex-row-phone flex-justify-start flex-align-items-center">
+								<h2 class="big-bold shadow">SEASIN 2</h2>
+								<p>Teh hoorse is loorse</p>
+							</div>
+							<div class="flex-row-desktop flex-align-items-start text-left">
+								<p class="margin-lg-desktop margin-lg-phone margin-lg-tablet">Donut b a sqare. Come play teh orignal hors tranqlizer game. Earn rwards an unlok ur dremes. Or at lest some hors memrobelia.</p>
+							</div>
+							<div class="button shadow bold font-weight-xl font-size-xl margin-lg-desktop margin-lg-phone margin-lg-tablet">
+								<a href="/horsplay" class="color-accent-gold">
+									PLAY NOW
+								</a>
+							</div>
+						</div>
+						<div id="index-hero-square" class="width-full-phone margin-auto-phone">
 							<img id="index-hero-img" src="/static/img/branding/horsetranq-v3.png" alt="Horsetranq" />
 						</div>
 					</div>
