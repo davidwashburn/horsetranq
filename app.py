@@ -81,8 +81,8 @@ def about():
 @app.route('/scores')
 def scores():
     context = get_account_context()
-    context['current_page'] = 'STABLE'
-    return render_template('scores.html', **context)
+    context['current_page'] = 'STATS'
+    return render_template('in-progres/scores.html', **context)
 
 @app.route('/login')
 def login():

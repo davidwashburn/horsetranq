@@ -1,19 +1,21 @@
-<div class="cd-tab-filter-wrapper">
-	<div class="cd-tab-filter">
-		<ul id="menu-list" class="cd-filters js-signin-modal-trigger cd-main-nav__list">
-			<li class="placeholder"> 
-				<a href="#0">{{ current_page|default('STABLE') }}</a> <!-- selected option on mobile -->
-			</li> 
-			<li><a id="horsplayBtn" href="/" {% if current_page == 'STABLE' %}class="selected"{% endif %}>STABLE</a></li>
-			<li><a id="storeBtn" href="/store" {% if current_page == 'STOR' %}class="selected"{% endif %}>STOR</a></li>
-			<li><a href="/" id="missionBtn" class="cd-filter-trigger modal-trigger" data-target="missionModal">MISHON</a></li>
-			<li><a href="/about" id="aboutBtn" class="cd-filter-trigger modal-trigger" data-target="aboutModal">ABOUT</a></li>
-			{% if logged_in %}
-			<li><a href="#0" id="myAccountBtn" class="cd-filter-trigger modal-trigger" data-target="accountModal">{{ username }}</a></li>
-			{% else %}
-				<li><a href="/login" id="accountBtn" class="cd-filter-trigger" data-target="accountModal">SIGN IN</a></li>
-			{% endif %}	
-			<li><div class="label beta">BETA</div></li>
-		</ul>
+<nav class="nav-menu">
+	<div class="nav-menu-item font-size-base font-weight-xl {% if current_page == 'STABLE' %}active{% endif %}">
+		<a href="/">STABLE</a>
 	</div>
-</div>
+	<div class="nav-menu-item font-size-base font-weight-xl {% if current_page == 'STOR' %}active{% endif %}">
+		<a href="/store">STOR</a>
+	</div>
+	<div class="nav-menu-item font-size-base font-weight-xl {% if current_page == 'ABOUT' %}active{% endif %}">
+		<a href="/about">ABOUT</a>
+	</div>
+	<div class="nav-menu-item font-size-base font-weight-xl {% if current_page == 'STATS' %}active{% endif %}">
+		<a href="/scores">STATS</a>
+	</div>
+	<div class="nav-menu-item {% if logged_in %}{% if current_page == 'PROFILE' %}active{% endif %}{% endif %}">
+		{% if logged_in %}
+			<a href="#0" class="modal-trigger font-size-sm font-weight-xl" data-target="accountModal">{{ username }}</a>
+		{% else %}
+			<a href="/login">SIGN IN</a>
+		{% endif %}
+	</div>
+</nav>

@@ -158,43 +158,6 @@ p {
 End primary style
 -------------------------------- */
 
-::-webkit-scrollbar {
-  display: none;
-}
-
-*, *::after, *::before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 62.5%;
-}
-
-html * {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  font-size: var(--font-size-md);
-  font-family: 'Nunito', "Open Sans", sans-serif;
-  color: var(--color-primary);
-  background-color: #e7e7e7;
-  position: relative;
-  overscroll-behavior-y: none;
-}
-
-.static-bg {
-  background-image: url("../../static/img/games/horsplay/backgrounds/peaceful-alt.png")!important;
-  background-size: cover;
-}
-
-a {
-  color: #41307c;
-  text-decoration: none;
-}
 
 .hide {
   display:none!important;
@@ -1082,30 +1045,6 @@ label {
 #accountTools {
   justify-content: center;
   margin-bottom: 0;
-}
-.title-container {
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.title-container.slider {
-  margin: 0;
-  justify-content: left;
-}
-.title-container.slider h2 {
-  font-size: var(--font-size-2xl);
-}
-.title-container.slider p {
-  color: var(--color-primary);
-}
-
-.tab-features-v2__control:hover, .tab-features-v2__control[aria-selected=true] .title-container h2 {
-  color: var(--color-primary);
-}
-
-.title-container h2.digtal {
-  color: var(--color-contrast-medium);
 }
 
 .title-container h2 {

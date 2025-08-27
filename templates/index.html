@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="en" class="no-js bg-primary">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -30,105 +30,151 @@
 			{% include 'partials/navigation_menu.html' %}
 
 			<div class="main-wrapper">
-				<div class="main-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-xl-phone">
-					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center">
-						<div id="games-title" class="title-container flex-column-desktop flex-column-phone flex-align-items-start width-md-desktop">
-							<div class="flex-row-desktop flex-row-phone flex-justify-start flex-align-items-center">
-								<h2 class="big-bold shadow">SEASIN 2</h2>
-								<p>Teh hoorse is loorse</p>
+				<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-xl-phone">
+					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center gap-xl">
+						<div class=" flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop">
+							<div class="title flex-row-desktop flex-row-phone flex-justify-start flex-align-items-center margin-lg-desktop margin-sm-phone margin-lg-tablet shadow-white">
+								<h2 class="font-weight-xl font-size-lg margin-none-desktop margin-none-phone margin-none-tablet color-secondary-light">SEASIN 2</h2>
 							</div>
 							<div class="flex-row-desktop flex-align-items-start text-left">
-								<p class="margin-lg-desktop margin-lg-phone margin-lg-tablet">Donut b a sqare. Come play teh orignal hors tranqlizer game. Earn rwards an unlok ur dremes. Or at lest some hors memrobelia.</p>
+								<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-md font-weight-xl color-accent-white">Donot be a sqare. Come play teh orignal hors tranqlizer game. Earn rwards an unlok ur dremes thru teh HorsPass.</p>
 							</div>
-							<div class="button shadow bold font-weight-xl font-size-xl margin-lg-desktop margin-lg-phone margin-lg-tablet">
+							<div id="index-hero-button" class="button shadow-white font-weight-xl font-size-xl margin-lg-desktop margin-sm-phone margin-lg-tablet">
 								<a href="/horsplay" class="color-accent-gold">
 									PLAY NOW
 								</a>
 							</div>
 						</div>
-						<div id="index-hero-square" class="width-full-phone margin-auto-phone">
+						<div id="index-hero-square" class="width-lg-phone margin-auto-phone">
 							<img id="index-hero-img" src="/static/img/branding/horsetranq-v3.png" alt="Horsetranq" />
 						</div>
 					</div>
 				</div>
 
-				<div class="main-section main-section-alt bg-primary-dark">
-					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-xl-phone">
-						<div id="games-title" class="title-container flex-column-desktop flex-column-phone flex-align-items-start width-md-desktop">
-							<div class="flex-row-desktop flex-row-phone flex-justify-start flex-align-items-center">
-								<h2 class="big-bold shadow">
-									SEASIN 2
-									<p class="width-full-desktop color-accent-grey-dark">Teh hoorse is loorse</p>
-								</h2>
+				<div class="main-section bg-primary-dark">
+					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-xl-phone gap-xl">
+						<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop">
+							<div class="flex-column-desktop flex-align-items-start text-left">
+								<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-md font-weight-xl color-accent-white">
+									Clik here if u want to kno <span class="color-accent-gold">more bout how Horsetranq works</span> and how teh HorsPass and unlok systems functin
+								</p>
 							</div>
-							<div class="flex-row-desktop flex-align-items-start text-left">
-								<p class="margin-lg-desktop margin-lg-phone margin-lg-tablet">Donut b a sqare. Come play teh orignal hors tranqlizer game. Earn rwards an unlok ur dremes. Or at lest some hors memrobelia.</p>
+							<!-- Accordion Toggle Button -->
+							<div id="accordion-toggle">
+								<button id="accordionToggle" class="button button-alt accordion-button shadow-green-alt font-weight-xl font-size-md margin-lg-desktop margin-sm-phone margin-lg-tablet color-accent-grey-dark">
+									TELL ME MOAR
+								</button>
 							</div>
-							<div class="button shadow bold font-weight-xl font-size-xl margin-lg-desktop margin-lg-phone margin-lg-tablet">
-								<a href="/horsplay" class="color-accent-gold">
-									PLAY NOW
-								</a>
-							</div>
-						</div>
-						<div id="index-hero-square" class="width-full-phone margin-auto-phone">
-							<img id="index-hero-img" src="/static/img/branding/horsetranq-v3.png" alt="Horsetranq" />
 						</div>
 					</div>
 				</div>
+
+				<!-- Accordion Sections Container -->
+				<div class="accordion-sections" id="accordionSections">
+					<div class="main-section bg-primary-dark-alt">
+						<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-xl-phone gap-xl">
+							<div class="width-sm-desktop width-lg-phone margin-auto-phone shadow-gold">
+								<img src="/static/img/branding/horsetranq-v3.png" alt="Horsetranq" />
+							</div>
+							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop">
+								<div class="flex-column-desktop flex-align-items-start text-left">
+									<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-md font-weight-xl color-accent-white">
+										Our HorsPass S2</span> offer unmatch contant and rewards. Acess <span class="color-accent-gold">10 uniq unlokable itams</span> by playin Horsplay an tranq as many horse as possable. Score based on total horsas tranqted.
+									</p>
+								</div>
+								<div class="button shadow-white font-weight-xl font-size-lg margin-lg-desktop margin-sm-phone margin-lg-tablet">
+									<a href="/horsplay" class="color-accent-gold">
+										VIEW HORSPASS
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="main-section bg-primary-dark-alt">
+						<div class="flex-row-reverse-desktop flex-column-phone flex-align-center flex-justify-center margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-xl-phone gap-xl">
+							<div class="width-sm-desktop width-lg-phone margin-auto-phone shadow-gold">
+								<img src="/static/img/branding/horsetranq-v3.png" alt="Horsetranq" />
+							</div>
+							<div class=" flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop">
+								<div class="title flex-row-desktop flex-row-phone flex-justify-start flex-align-items-center margin-lg-desktop margin-sm-phone margin-lg-tablet shadow-white">
+									<h2 class="font-weight-xl font-size-lg margin-none-desktop margin-none-phone margin-none-tablet color-secondary-light">
+										RANKED MOAD
+									</h2>
+								</div>
+								<div class="flex-row-desktop flex-align-items-start text-left">
+									<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-md font-weight-xl color-accent-white">See how ur tranqing skil stak up against other playars. Compeet for a spot on teh top 100 hundred list.</p>
+								</div>
+								<div class="button shadow-white font-weight-xl font-size-lg margin-lg-desktop margin-sm-phone margin-lg-tablet">
+									<a href="/horsplay" class="color-accent-gold">
+										VIEW TOP 100
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="main-section bg-primary-dark-alt">
+						<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-xl-phone gap-xl">
+							<div class="width-sm-desktop width-lg-phone margin-auto-phone shadow-gold">
+								<img src="/static/img/branding/horsetranq-v3.png" alt="Horsetranq" />
+							</div>
+							<div class=" flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop">
+								<div class="title flex-row-desktop flex-row-phone flex-justify-start flex-align-items-center margin-lg-desktop margin-sm-phone margin-lg-tablet shadow-white">
+									<h2 class="font-weight-xl font-size-lg margin-none-desktop margin-none-phone margin-none-tablet color-secondary-light">
+										HORSPASS
+									</h2>
+								</div>
+								<div class="flex-row-desktop flex-align-items-start text-left">
+									<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-md font-weight-xl color-accent-white">Donut b a sqare. Come play teh orignal hors tranqlizer game. Earn rwards an unlok ur dremes. Or at lest some hors memrobelia.</p>
+								</div>
+								<div class="button shadow-white font-weight-xl font-size-lg margin-lg-desktop margin-sm-phone margin-lg-tablet">
+									<a href="/horsplay" class="color-accent-gold">
+										VIEW PASS
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> <!-- End Accordion Sections Container -->
 
 				<div>
-					<div id="games-title" class="title-container">
-						<h2 class="big-bold">GAMES</h2>
-						<p>Intractiv hors vido gams</p>
-					</div>
 					<div class="flex-container">
-						<div class="ui-container game shadow">
+						<div class="ui-container game shadow-white">
 							<a href="/horsplay">
 								<div class="game-hero-container" style="/* transform: translateY(0px); */">
 									<img src="../static/img/branding/game-horsetranq-alt-large.png" alt="Image description">
 									<div class="project-info">
 										<div class="flex">
-											<h2 class="big-bold color-primary-darker">Hors Play</h2>
-											<div class="label max big-bold">PLAY NOW</div>
+											<h2 class="font-weight-xl color-primary-darker">Hors Play</h2>
+											<div class="label max font-weight-xl">PLAY NOW</div>
 										</div>
 									</div>
 								</div>	
 							</a>						
 						</div>
-						<div class="ui-container game shadow">
+						<div class="ui-container game shadow-white">
 							<a href="/lemondrop">
 								<div class="game-hero-container" style="/* transform: translateY(0px); */">
 									<img src="../static/img/games/lemondrop/promo/lemondrop-alt.png" alt="Image description">
 									<div class="project-info">
 										<div class="flex">
-											<h2 class="big-bold color-primary-darker">Lemon Drop</h2>
-											<div class="label max big-bold">PLAY NOW</div>
+											<h2 class="font-weight-xl color-primary-darker">Lemon Drop</h2>
+											<div class="label max font-weight-xl">PLAY NOW</div>
 										</div>
 									</div>
 								</div>	
 							</a>						
 						</div>
-						<div class="ui-container game shadow">
-							<a href="#">
-								<div class="game-hero-container" style="/* transform: translateY(0px); */">
-									<img src="../static/img/branding/game-trottank-alt.png" alt="Image description">
-									<div class="project-info coming-soon">
-										<div class="flex">
-											<h2 class="big-bold color-primary-darker">Trot Tank</h2>
-											<div class="label beta big-bold">COMING SOON</div>
-										</div>
-									</div>
-								</div>	
-							</a>						
-						</div>
-						<div class="ui-container game shadow">
+						
+						<div class="ui-container game shadow-white">
 							<a href="#">
 								<div class="game-hero-container" style="/* transform: translateY(0px); */">
 									<img src="../static/img/branding/game-gallopgun.png" alt="Image description">
 									<div class="project-info coming-soon">
 										<div class="flex">
-											<h2 class="big-bold color-primary-darker">Gallop Gun</h2>
-											<div class="label beta big-bold">COMING SOON</div>
+											<h2 class="font-weight-xl color-primary-darker">Gallop Gun</h2>
+											<div class="label beta font-weight-xl">COMING SOON</div>
 										</div>
 									</div>
 								</div>	
@@ -136,17 +182,6 @@
 						</div>
 					</div>
 				</div>
-	
-				<div class="flex-container subscribe section">
-					<div id="news-title" class="title-container">
-						<h2 class="big-bold">NEWS</h2>
-						<p>Latast hors news for ur life</p>
-					</div>
-					<div id="stable-flex" class="flex-container wrapper">
-						<!-- NEWS CONTENT-->
-					</div>
-				</div>
-			</div>
 
 		{% include 'partials/account_modal.html' %}	
 		</main> <!-- cd-main-content -->
