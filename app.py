@@ -21,7 +21,7 @@ mock_user_data = {
     'name': 'Test User',
     'email': 'test@example.com',
     'picture': 'https://via.placeholder.com/100',
-    'subscription_type': 'free',
+    'subscription_type': 'one',
     'firebase_token': 'mock_token',
     'unique_user_id': generate_mock_unique_user_id(),
     'username': generate_mock_username(),
@@ -77,6 +77,12 @@ def about():
     context = get_account_context()
     context['current_page'] = 'ABOUT'
     return render_template('about.html', **context)
+
+@app.route('/profile')
+def profile():
+    context = get_account_context()
+    context['current_page'] = 'PROFILE'
+    return render_template('profile.html', **context)
 
 @app.route('/scores')
 def scores():

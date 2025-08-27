@@ -1,5 +1,5 @@
 <nav class="nav-menu">
-	<div class="nav-menu-item font-size-base font-weight-xl {% if current_page == 'STABLE' %}active{% endif %}">
+	<div class="nav-menu-item nav-dropdown font-size-base font-weight-xl {% if current_page == 'STABLE' %}active{% endif %}" id="stable-nav-item">
 		<a href="/">STABLE</a>
 	</div>
 	<div class="nav-menu-item font-size-base font-weight-xl {% if current_page == 'STOR' %}active{% endif %}">
@@ -11,11 +11,116 @@
 	<div class="nav-menu-item font-size-base font-weight-xl {% if current_page == 'STATS' %}active{% endif %}">
 		<a href="/scores">STATS</a>
 	</div>
-	<div class="nav-menu-item {% if logged_in %}{% if current_page == 'PROFILE' %}active{% endif %}{% endif %}">
+	<div class="nav-menu-item font-size-base font-weight-xl  {% if logged_in %}{% if current_page == 'PROFILE' %}active{% endif %}{% endif %}" id="profile-nav-item">
 		{% if logged_in %}
-			<a href="#0" class="modal-trigger font-size-sm font-weight-xl" data-target="accountModal">{{ username }}</a>
+			<a href="/profile" class="modal-trigger font-size-sm font-weight-xl" data-target="accountModal">{{ username }}</a>
 		{% else %}
 			<a href="/login">SIGN IN</a>
 		{% endif %}
 	</div>
 </nav>
+
+<!-- Dropdown positioned outside nav structure -->
+{% if logged_in %}
+<div class="nav-dropdown-menu" id="profile-dropdown">
+	<div class="nav-menu-item nav-dropdown-item button shadow-white-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet">
+		<a href="/profile" class="color-accent-gold">VIEW PROFIL</a>
+	</div>
+	<div class="nav-menu-item nav-dropdown-item button shadow-red-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet">
+		<a href="/logout" class="color-accent-white">SIGN OUT</a>
+	</div>
+</div>
+
+<!-- STABLE Dropdown positioned outside nav structure -->
+<div class="nav-dropdown-menu" id="stable-dropdown">
+	<div class="nav-menu-item nav-dropdown-item button shadow-green-alt-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet">
+		<a href="/horsplay" class="color-accent-grey-dark">PLAY HORSPLAY</a>
+	</div>
+	<div class="nav-menu-item nav-dropdown-item button shadow-gold-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet">
+		<a href="/lemondrop" class="color-accent-grey-dark">PLAY LEMONDROP</a>
+	</div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const profileNavItem = document.getElementById('profile-nav-item');
+    const profileDropdown = document.getElementById('profile-dropdown');
+    
+    if (profileNavItem && profileDropdown) {
+        let hoverTimeout;
+        
+        function showDropdown() {
+            const rect = profileNavItem.getBoundingClientRect();
+            profileDropdown.style.top = (rect.bottom + 4) + 'px';
+            profileDropdown.style.left = rect.left + 'px';
+            profileDropdown.classList.add('show');
+        }
+        
+        function hideDropdown() {
+            profileDropdown.classList.remove('show');
+        }
+        
+        // Show dropdown on hover
+        profileNavItem.addEventListener('mouseenter', function() {
+            clearTimeout(hoverTimeout);
+            showDropdown();
+        });
+        
+        // Hide dropdown when leaving nav item
+        profileNavItem.addEventListener('mouseleave', function() {
+            hoverTimeout = setTimeout(hideDropdown, 100);
+        });
+        
+        // Keep dropdown open when hovering over it
+        profileDropdown.addEventListener('mouseenter', function() {
+            clearTimeout(hoverTimeout);
+        });
+        
+        // Hide dropdown when leaving dropdown
+        profileDropdown.addEventListener('mouseleave', function() {
+            hideDropdown();
+        });
+    }
+    
+    // STABLE dropdown logic
+    const stableNavItem = document.getElementById('stable-nav-item');
+    const stableDropdown = document.getElementById('stable-dropdown');
+    
+    if (stableNavItem && stableDropdown) {
+        let stableHoverTimeout;
+        
+        function showStableDropdown() {
+            const rect = stableNavItem.getBoundingClientRect();
+            stableDropdown.style.top = (rect.bottom + 4) + 'px';
+            stableDropdown.style.left = rect.left + 'px';
+            stableDropdown.classList.add('show');
+        }
+        
+        function hideStableDropdown() {
+            stableDropdown.classList.remove('show');
+        }
+        
+        // Show dropdown on hover
+        stableNavItem.addEventListener('mouseenter', function() {
+            clearTimeout(stableHoverTimeout);
+            showStableDropdown();
+        });
+        
+        // Hide dropdown when leaving nav item
+        stableNavItem.addEventListener('mouseleave', function() {
+            stableHoverTimeout = setTimeout(hideStableDropdown, 100);
+        });
+        
+        // Keep dropdown open when hovering over it
+        stableDropdown.addEventListener('mouseenter', function() {
+            clearTimeout(stableHoverTimeout);
+        });
+        
+        // Hide dropdown when leaving dropdown
+        stableDropdown.addEventListener('mouseleave', function() {
+            hideStableDropdown();
+        });
+    }
+});
+</script>
+{% endif %}

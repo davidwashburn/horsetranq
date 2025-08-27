@@ -70,6 +70,7 @@
   --v3-color-accent-grey-dark: #37383f;    /* text on light backgrounds */
   --v3-color-accent-black: #000000;
   --v3-color-accent-white: #ffffff;
+  --v3-background-overlay: rgba(255,255,255,0.05); /* semi-transparent overlay */
 
   /* Feedback / Status */
   --v3-color-error-dark: #d54e4d;
@@ -115,6 +116,7 @@
 .bg-error-light { background-color: var(--v3-color-error-light); }
 .bg-success-dark { background-color: var(--v3-color-success-dark); }
 .bg-success-light { background-color: var(--v3-color-success-light); }
+.bg-overlay { background-color: var(--v3-background-overlay); }
 
 /* Flex utilities */
 .flex-justify-center { justify-content: center; }
@@ -196,6 +198,7 @@
   --margin-md: 1rem;    /* 16px */
   --margin-lg: 1.5rem;  /* 24px */
   --margin-xl: 3rem;    /* 48px */
+  --margin-xxl: 6rem;   /* 96px */
 }
 
 /* Desktop-specific margin utilities (1024px+) */
@@ -207,6 +210,7 @@
   .margin-md-desktop { margin: var(--margin-md); }
   .margin-lg-desktop { margin: var(--margin-lg); }
   .margin-xl-desktop { margin: var(--margin-xl); }
+  .margin-xxl-desktop { margin: var(--margin-xxl); }
   .margin-none-desktop { margin: 0!important; }
 }
 
@@ -219,6 +223,7 @@
   .margin-md-tablet { margin: var(--margin-md); }
   .margin-lg-tablet { margin: var(--margin-lg); }
   .margin-xl-tablet { margin: var(--margin-xl); }
+  .margin-xxl-tablet { margin: var(--margin-xxl); }
   .margin-none-tablet { margin: 0; }
 }
 
@@ -231,6 +236,7 @@
   .margin-md-phone { margin: var(--margin-md); }
   .margin-lg-phone { margin: var(--margin-lg); }
   .margin-xl-phone { margin: var(--margin-xl); }
+  .margin-xxl-phone { margin: var(--margin-xxl); }
   .margin-none-phone { margin: 0; }
 }
 
@@ -239,6 +245,7 @@
 .gap-md { gap: var(--margin-md); }
 .gap-lg { gap: var(--margin-lg); }
 .gap-xl { gap: var(--margin-xl); }
+.gap-xxl { gap: var(--margin-xxl); }
 
 /* Text utilities */
 .text-left {text-align: left;}
@@ -407,6 +414,15 @@ a {
 .card {
   padding: 0 0 1em;
 }
+
+/* Stat/Detail item containers */
+.stat-item {
+  padding: var(--margin-md);
+  background: var(--v3-background-overlay);
+  border-radius: var(--radius-base);
+  margin-bottom: var(--margin-md);
+  width: 100%;
+}
 #index-hors-one {
   --d: 20px;
   aspect-ratio: 1;
@@ -456,7 +472,12 @@ a {
   justify-content: center;
   margin: 2rem auto;
   width: fit-content;
+  overflow: visible;
+  position: relative;
+  z-index: 100;
 }
+
+
 .nav-menu-item {
   --d: 12px;
   position: relative;
@@ -496,6 +517,53 @@ a {
 .nav-menu-item.active {background: conic-gradient(at calc(100% - var(--d)) calc(100% - var(--d)), #E3BA02 37.5%, #A78B01 0 75%, #F4D633 0) border-box #E3BA02;}
 .nav-menu-item.active a {color: var(--v3-color-accent-grey-dark);}
 
+/* Nav dropdown styles - positioned outside nav structure */
+.nav-dropdown {
+  position: relative;
+}
+
+#profile-dropdown {
+  position: fixed;
+  display: none;
+    flex-direction: column;
+  background: transparent;
+  min-width: 150px;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+}
+
+#profile-dropdown.show {
+  display: flex;
+}
+
+#stable-dropdown {
+  position: fixed;
+  display: none;
+    flex-direction: column;
+  background: transparent;
+  min-width: 150px;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+}
+
+#stable-dropdown.show {
+  display: flex;
+}
+
+.nav-dropdown-item {
+  margin-left: 0 !important;
+  margin-bottom: 2px;
+  z-index: 10001;
+  position: relative;
+}
+
+.nav-dropdown-item:hover {
+  transform: translate(2px, 2px);
+  z-index: 10002;
+}
+
 
 
 /* Mobile responsiveness */
@@ -512,8 +580,8 @@ a {
   
   .nav-menu-item a {
     font-size: var(--v3-font-size-sm);
-    text-align: center;
-  }
+  text-align: center;
+}
 }
 
 @media (min-width: 600px) and (max-width: 1023px) {
@@ -529,7 +597,7 @@ a {
 /* Index page styles */
 #index {background-color: var(--v3-color-primary);}
 
-#index-hero-square {
+#hero-square {
   --d: 20px;
   padding: 10px;
   aspect-ratio: 1;
@@ -545,8 +613,6 @@ a {
 
 .main-label {
   position: absolute;
-  top: 15px;
-  right: 15px;
   padding: 8px 12px;
   font-size: var(--v3-font-size-lg);
   font-weight: var(--v3-font-weight-xl);
@@ -555,13 +621,31 @@ a {
   z-index: 10;
   box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
+.main-label.main-label-top-right {
+  top: 15px;
+  right: 15px;
+}
+.main-label.main-label-top-left {
+  top: 15px;
+  left: 15px;
+}
+.main-label.main-label-bottom-left {
+  bottom: 15px;
+  left: 15px;
+}
+.main-label.main-label-bottom-right {
+  bottom: 15px;
+  right: 15px;
+}
 
 /* Hero section styles */
 #index .hero-section {margin: 10em auto;}
+#profile .hero-section {margin: 10em auto;}
 
 /* Mobile responsiveness for hero section */
 @media (max-width: 599px) {
   #index .hero-section {margin: 2em auto 4em;}
+  #profile .hero-section {margin: 2em auto 4em;}
 }
 
 /* Horsetranq game image */
@@ -605,4 +689,7 @@ a {
   border-radius: 24px;
 }
 
-.main-content {overflow-y: scroll;}
+.main-content {
+  overflow-y: scroll;
+  overflow-x: visible;
+}
