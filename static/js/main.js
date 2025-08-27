@@ -377,6 +377,6 @@ jQuery(document).ready(function($){
     if (sections.hasClass('open')) {
       button.text('SAY LESS FAM');
     } else {
-      button.text('TELL ME MORE');
+      button.text('TELL ME MOAR, HOSS');
     }
   });
