@@ -35,36 +35,35 @@
 					<div class="flex-row-reverse-desktop flex-column-reverse-phone flex-align-center flex-justify-center gap-xxl">
 						<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop">
 							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-all">
-								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">PERSONAL STATS</h3>
+								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">RANKED STATS</h3>
 								
-								<!-- Horses popped -->
+								<!-- Horses tranquilized -->
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Horses popped</h4>
-									<p class="font-size-md font-weight-md color-accent-white">1,396</p>
+									<h4 class="font-size-md font-weight-xl color-accent-white">Horses tranquilized</h4>
+									<p class="font-size-md font-weight-md color-accent-white">
+										{% if user_stats.ranked.total_horses_popped %}{{ user_stats.ranked.total_horses_popped }}{% else %}0{% endif %}
+									</p>
 								</div>
 
-								<!-- Time spent in game -->
+								<!-- Time spent tranqing -->
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Time spent in gaem</h4>
-									<p class="font-size-md font-weight-md color-accent-white">843 seconds</p>
+									<h4 class="font-size-md font-weight-xl color-accent-white">Time spent tranqing</h4>
+									<p class="font-size-md font-weight-md color-accent-white">
+										{% if user_stats.ranked.total_time_played %}{{ user_stats.ranked.total_time_played }}{% else %}0{% endif %} seconds
+									</p>
 								</div>
 
 								<!-- Overall rank -->
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Ovrall rank</h4>
-									<p class="font-size-md font-weight-md color-accent-white">33rd</p>
+									<h4 class="font-size-md font-weight-xl color-accent-white">Overall rank</h4>
+									<p class="font-size-md font-weight-md color-accent-white">N/A</p>
 								</div>
 
-								<!-- Member since [account created]-->
+								<!-- Best time -->
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-sm font-weight-xl color-accent-white">Membar sinc</h4>
+									<h4 class="font-size-md font-weight-xl color-accent-white">Best time</h4>
 									<p class="font-size-md font-weight-md color-accent-white">
-										{% if account_creation_date %}
-											{% set date_parts = account_creation_date.split('T')[0].split('-') %}
-											<span>{{ date_parts[1] }}</span>/<span>{{ date_parts[2] }}</span>/<span>{{ date_parts[0] }}</span>
-										{% else %}
-											02/24/2024
-										{% endif %}
+										{% if user_stats.ranked.best_time and user_stats.ranked.best_time != 'inf' %}{{ user_stats.ranked.best_time }}{% else %}N/A{% endif %}
 									</p>
 								</div>
 							</div>
@@ -132,11 +131,114 @@
 						</div>
 					</div>
 				</div>
-				<div class="margin-auto-desktop margin-auto-phone margin-auto-tablet width-full-desktop width-full-tablet width-full-phone bg-primary-dark">
+
+				<!-- FREE PLAY STATS Section -->
+				<div class="main-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-full-desktop width-full-tablet width-full-phone bg-primary-dark">
+					<div class="flex-column-desktop flex-column-phone flex-align-center flex-justify-center width-lg-desktop margin-auto-desktop margin-auto-phone margin-auto-tablet gap-xl">
+						<div class="flex-row-desktop flex-column-phone flex-align-items-start flex-justify-center gap-xl width-full-desktop">
+							<!-- ADVANCED RANKED STATS Column -->
+							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop width-full-phone width-md-tablet">
+								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">ADVANCED RANKED STATS</h3>
+								
+								<!-- Games played -->
+								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<h4 class="font-size-md font-weight-xl color-accent-white">Games played</h4>
+									<p class="font-size-md font-weight-md color-accent-white">
+										{% if user_stats.ranked.total_games %}{{ user_stats.ranked.total_games }}{% else %}0{% endif %}
+									</p>
+								</div>
+
+								<!-- Difficulty played -->
+								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<h4 class="font-size-md font-weight-xl color-accent-white">Difficulty played</h4>
+									<p class="font-size-md font-weight-md color-accent-white">
+										{% if user_stats.ranked.difficulty_breakdown %}
+											{{ user_stats.ranked.difficulty_breakdown.easyDifficulty|default(0) }} (E) / 
+											{{ user_stats.ranked.difficulty_breakdown.mediumDifficulty|default(0) }} (M) / 
+											{{ user_stats.ranked.difficulty_breakdown.hardDifficulty|default(0) }} (H)
+										{% else %}
+											0 (E) / 0 (M) / 0 (H)
+										{% endif %}
+									</p>
+								</div>
+
+								<!-- Favorite enemy -->
+								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<h4 class="font-size-md font-weight-xl color-accent-white">Favorite enemy</h4>
+									<p class="font-size-md font-weight-md color-accent-white">
+										{% if user_stats.ranked.favorite_enemy and user_stats.ranked.favorite_enemy != 'N/A' %}{{ user_stats.ranked.favorite_enemy }}{% else %}N/A{% endif %}
+									</p>
+								</div>
+
+								<!-- Favorite difficulty -->
+								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<h4 class="font-size-md font-weight-xl color-accent-white">Favorite difficulty</h4>
+									<p class="font-size-md font-weight-md color-accent-white">N/A</p>
+								</div>
+
+								<!-- Favorite background -->
+								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<h4 class="font-size-md font-weight-xl color-accent-white">Favorite background</h4>
+									<p class="font-size-md font-weight-md color-accent-white">
+										{% if user_stats.ranked.favorite_background and user_stats.ranked.favorite_background != 'N/A' %}{{ user_stats.ranked.favorite_background }}{% else %}N/A{% endif %}
+									</p>
+								</div>
+							</div>
+
+							<!-- FREE PLAY STATS Column -->
+							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop width-full-phone width-md-tablet">
+								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">FREE PLAY STATS</h3>
+								
+								<!-- Games played -->
+								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<h4 class="font-size-md font-weight-xl color-accent-white">Games played</h4>
+									<p class="font-size-md font-weight-md color-accent-white">
+										{% if user_stats.freeplay.total_games %}{{ user_stats.freeplay.total_games }}{% else %}0{% endif %}
+									</p>
+								</div>
+
+								<!-- Difficulty played -->
+								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<h4 class="font-size-md font-weight-xl color-accent-white">Difficulty played</h4>
+									<p class="font-size-md font-weight-md color-accent-white">
+										{% if user_stats.freeplay.difficulty_breakdown %}
+											{{ user_stats.freeplay.difficulty_breakdown.easyDifficulty|default(0) }} (E) / 
+											{{ user_stats.freeplay.difficulty_breakdown.mediumDifficulty|default(0) }} (M) / 
+											{{ user_stats.freeplay.difficulty_breakdown.hardDifficulty|default(0) }} (H)
+										{% else %}
+											0 (E) / 0 (M) / 0 (H)
+										{% endif %}
+									</p>
+								</div>
+
+								<!-- Favorite enemy -->
+								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<h4 class="font-size-md font-weight-xl color-accent-white">Favorite enemy</h4>
+									<p class="font-size-md font-weight-md color-accent-white">
+										{% if user_stats.freeplay.favorite_enemy and user_stats.freeplay.favorite_enemy != 'N/A' %}{{ user_stats.freeplay.favorite_enemy }}{% else %}N/A{% endif %}
+									</p>
+								</div>
+
+								<!-- Favorite difficulty -->
+								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<h4 class="font-size-md font-weight-xl color-accent-white">Favorite difficulty</h4>
+									<p class="font-size-md font-weight-md color-accent-white">N/A</p>
+								</div>
+
+								<!-- Favorite background -->
+								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<h4 class="font-size-md font-weight-xl color-accent-white">Favorite background</h4>
+									<p class="font-size-md font-weight-md color-accent-white">
+										{% if user_stats.freeplay.favorite_background and user_stats.freeplay.favorite_background != 'N/A' %}{{ user_stats.freeplay.favorite_background }}{% else %}N/A{% endif %}
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class="flex-column-desktop flex-column-phone flex-align-center flex-justify-center width-lg-desktop margin-auto-desktop margin-auto-phone margin-auto-tablet gap-xl">
 
 						<!-- Account Details & Settings Grid -->
-						<div class="flex-column-desktop flex-column-phone flex-align-items-start flex-justify-center gap-xl width-full-desktop margin-xl-desktop margin-lg-phone margin-xl-tablet">
+						<div class="flex-column-desktop flex-column-phone flex-align-items-center flex-justify-center gap-xl width-full-desktop margin-xl-desktop margin-lg-phone margin-lg-tablet">
 
 							<!-- Account Details Column -->
 							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop width-full-phone width-md-tablet">
@@ -148,7 +250,7 @@
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Name</h4>
 									<p class="font-size-md font-weight-md color-accent-white">
-										Test User
+										{% if logged_in and name %}{{ name }}{% else %}Not logged in{% endif %}
 									</p>
 								</div>
 
@@ -156,7 +258,7 @@
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Email</h4>
 									<p class="font-size-md font-weight-md color-accent-white">
-										test@example.com
+										{% if logged_in and email %}{{ email }}{% else %}Not logged in{% endif %}
 									</p>
 								</div>
 
@@ -164,13 +266,34 @@
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Username</h4>
 									<p class="font-size-md font-weight-md color-accent-white">
-										THIS-IS-A-STICKUP
+										{% if logged_in and username %}{{ username }}{% else %}THIS-IS-A-STICKUP{% endif %}
+									</p>
+								</div>
+
+								<!-- Account ID -->
+								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<h4 class="font-size-md font-weight-xl color-accent-white">Account ID</h4>
+									<p class="font-size-md font-weight-md color-accent-white">
+										{% if logged_in and user_id %}{{ user_id }}{% else %}Not logged in{% endif %}
+									</p>
+								</div>
+
+								<!-- Member since -->
+								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<h4 class="font-size-md font-weight-xl color-accent-white">Member since</h4>
+									<p class="font-size-md font-weight-md color-accent-white">
+										{% if account_creation_date %}
+											{% set date_parts = account_creation_date.split('T')[0].split('-') %}
+											<span>{{ date_parts[1] }}</span>/<span>{{ date_parts[2] }}</span>/<span>{{ date_parts[0] }}</span>
+										{% else %}
+											02/24/2024
+										{% endif %}
 									</p>
 								</div>
 							</div>
 
 							<div class="flex-column-desktop flex-align-items-center gap-md">
-								<button type="button" id="deleteAccountBtn" class="button shadow-red-md font-weight-xl font-size-md margin-md-desktop margin-sm-phone margin-md-tablet color-accent-white">DELET ACCOUNT</button
+								<button type="button" id="deleteAccountBtn" class="button shadow-red-md font-weight-xl font-size-md margin-md-desktop margin-sm-phone margin-md-tablet color-accent-white">DELET ACCOUNT</button>
 							</div>
 						</div>
 					</div>
@@ -204,8 +327,6 @@
 		});
 	</script>
 	<script src="/static/js/secondary/account-button.js"></script>
-	<script src="/static/js/secondary/hide-avatar.js"></script>
-	<script src="/static/js/secondary/avatar-selector.js"></script>
 	<script src="/static/js/resources/jquery.min.js"></script>
 	<script src="/static/js/resources/jquery-ui.js"></script>
 	<script src="/static/js/resources/jquery.ui.touch-punch.min.js"></script>

@@ -16,6 +16,10 @@ if (freePlayBtn) {
         gameModeSelected = true;
         gameStarted = true;
         currentGameMode = 'freeplay'; // Set game mode for score tracking
+        // Start game tracker
+        if (window.gameTracker) {
+            window.gameTracker.startGame('freeplay');
+        }
         // Start timer now that game mode is selected
         startTimer();
     });
@@ -30,6 +34,10 @@ if (rankedPlayBtn) {
         gameModeSelected = true;
         gameStarted = true;
         currentGameMode = 'ranked'; // Set game mode for score tracking
+        // Start game tracker
+        if (window.gameTracker) {
+            window.gameTracker.startGame('ranked');
+        }
         // Start timer now that game mode is selected
         startTimer();
     });
@@ -398,6 +406,10 @@ $(function() {
 
 			// Increment the score when a horse is removed
 			score++;
+			// Increment game tracker
+			if (window.gameTracker) {
+				window.gameTracker.incrementHorsesPopped();
+			}
 			// Update the score display
 			updateScore();
 			
@@ -423,6 +435,12 @@ $('#resetBtn').click(function() {
     gameStarted = false;
     gamePaused = false;
     currentGameMode = 'freeplay'; // Reset to freeplay
+    // Reset game tracker
+    if (window.gameTracker) {
+        window.gameTracker.gameActive = false;
+        window.gameTracker.gameStartTime = null;
+        window.gameTracker.horsesPopped = 0;
+    }
 });
 
 
@@ -599,10 +617,10 @@ function saveGameScore(finalScore, completionTime) {
         game_mode: gameMode,
         timestamp: new Date().toISOString(),
         game_settings: {
-            horse_speed: horseSpeed,
+            horse_speed: document.getElementById('speed-selector').dataset.value,
             horse_count: document.getElementById('power-selector').dataset.value,
-            background: document.getElementById('image-selector').dataset.value,
-            target_type: document.getElementById('target-selector').dataset.value
+            background: document.getElementById('bg-selector').dataset.value,
+            target_type: document.getElementById('type-selector').dataset.value
         }
     };
     
@@ -738,8 +756,13 @@ function showSuccessModal(displayTime) {
     document.getElementById('successModal').classList.add('filter-is-visible');
     document.body.style.overflow = 'hidden'; // Prevent scrolling
     
-    // Save final score to database
-    saveGameScore(score, displayTime);
+    // End game tracker (this handles saving game data via our new API)
+    if (window.gameTracker) {
+        window.gameTracker.endGame();
+    }
+    
+    // Note: Game data is now saved via the game tracker's endGame() method
+    // which calls our /api/save-game endpoint instead of direct Firebase calls
 }
 
 function closeSuccessModal() {

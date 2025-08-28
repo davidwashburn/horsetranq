@@ -124,3 +124,20 @@ dmypy.json
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Firebase and API Keys
+*.json
+!package.json
+!package-lock.json
+!tsconfig.json
+!jsconfig.json
+firebase-admin-key.json
+firebase-key.json
+service-account-key.json
+google-services.json
+GoogleService-Info.plist
+.env.local
+.env.production
+.env.staging
+secrets/
+keys/

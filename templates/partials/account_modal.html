@@ -32,70 +32,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="cd-filter-block">
-				<div class="cd-filter-content">
-					<div class="title-wrapper flex" style="padding-top:0;">
-						<h4 class="big-big-bold color-primary">PROFIL ICON OPTIONS</h4>
-					</div>
-					<div class="title-wrapper flex settings">
-						<h4 class="bold color-contrast-medium">Selec profil icon</h4>
-						<div id="avatar-selector-wrapper" class="custom-select no-margin">
-							<div id="avatar-selector" class="optn-select no-highlight" data-value="{{ avatar_type }}">
-								{% if avatar_type == 'google-profile' %}
-									<span class="avatar-option-text">Google Profile</span>
-									<img src="{{ picture }}" alt="Google Profile" class="avatar-option-image" width="30" height="30">
-								{% elif avatar_type == 'default-avatar' %}
-									<span class="avatar-option-text">Hors membar</span>
-									<img src="/static/img/branding/season-1.png" alt="Default Avatar" class="avatar-option-image" width="30" height="30">
-								{% elif avatar_type == 'hors-foundation' %}
-									<span class="avatar-option-text">Hors Foundation</span>
-									<img src="/static/img/branding/season-1.png" alt="Hors Foundation" class="avatar-option-image" width="30" height="30">
-								{% elif avatar_type == 'hors-season-1' %}
-									<span class="avatar-option-text">Hors Season 1 Member</span>
-									<img src="/static/img/branding/season-1.png" alt="Hors Season 1" class="avatar-option-image" width="30" height="30">
-								{% elif avatar_type == 'hors-season-2' %}
-									<span class="avatar-option-text">Hors Season 2 Member</span>
-									<img src="/static/img/branding/season-2.png" alt="Hors Season 2" class="avatar-option-image" width="30" height="30">
-								{% else %}
-									<span class="avatar-option-text">Google Profile</span>
-									<img src="{{ picture }}" alt="Google Profile" class="avatar-option-image" width="30" height="30">
-								{% endif %}
-							</div>
-							<div class="options">
-								<div class="option" data-value="default-avatar">
-									<span class="avatar-option-text">Hors membar</span>
-									<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/480px-Default_pfp.svg.png" alt="Default Avatar" class="avatar-option-image" width="30" height="30">
-								</div>
-								<div class="option" data-value="google-profile">
-									<span class="avatar-option-text">Googl profil icon</span>
-									<img src="{{ picture }}" alt="Google Profile" class="avatar-option-image" width="30" height="30">
-								</div>
-								<div class="option" data-value="hors-foundation">
-									<span class="avatar-option-text">Hors foundar</span>
-									<img src="/static/img/branding/season-1.png" alt="Hors Foundation" class="avatar-option-image" width="30" height="30">
-								</div>
-								<div class="option" data-value="hors-season-1">
-									<span class="avatar-option-text">Hors Season 1 Member</span>
-									<img src="/static/img/branding/season-1.png" alt="Hors Season 1" class="avatar-option-image" width="30" height="30">
-								</div>
-								<div class="option" data-value="hors-season-2">
-									<span class="avatar-option-text">Hors Season 2 Member</span>
-									<img src="/static/img/branding/season-2.png" alt="Hors Season 2" class="avatar-option-image" width="30" height="30">
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="title-wrapper flex settings">
-						<h4 class="bold color-contrast-medium">Hide profile icon</h4>
-						<div class="hide-avatar-checkbox">
-							<label class="checkbox-label">
-								<input type="checkbox" id="hideAvatarCheckbox" {% if hide_avatar == 'Yes' %}checked{% endif %}>
-								<span class="checkmark"></span>
-							</label>
-						</div>
-					</div>
-				</div>
-			</div>
+
 			<div class="title-wrapper flex" style="padding-top:0;">
 				<h4 class="big-big-bold color-primary">ACOUNT DE-TAILS</h4>
 			</div>
