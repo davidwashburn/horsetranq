@@ -32,33 +32,33 @@
 			<!-- Profile Main Section -->
 			<div id="profile" class="main-wrapper">
 				<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-md-tablet width-xl-phone">
-					<div class="flex-row-reverse-desktop flex-column-phone flex-align-center flex-justify-center gap-xxl">
+					<div class="flex-row-reverse-desktop flex-column-reverse-phone flex-align-center flex-justify-center gap-xxl">
 						<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop">
-							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-desktop">
+							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-all">
 								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">PERSONAL STATS</h3>
 								
 								<!-- Horses popped -->
-								<div class="stat-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-sm font-weight-xl color-accent-white">Horses popped</h4>
-									<p class="font-size-sm font-weight-md color-accent-white">1,396</p>
+								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<h4 class="font-size-md font-weight-xl color-accent-white">Horses popped</h4>
+									<p class="font-size-md font-weight-md color-accent-white">1,396</p>
 								</div>
 
 								<!-- Time spent in game -->
-								<div class="stat-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-sm font-weight-xl color-accent-white">Time spent in gaem</h4>
-									<p class="font-size-sm font-weight-md color-accent-white">843 seconds</p>
+								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<h4 class="font-size-md font-weight-xl color-accent-white">Time spent in gaem</h4>
+									<p class="font-size-md font-weight-md color-accent-white">843 seconds</p>
 								</div>
 
 								<!-- Overall rank -->
-								<div class="stat-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-sm font-weight-xl color-accent-white">Ovrall rank</h4>
-									<p class="font-size-sm font-weight-md color-accent-white">33rd</p>
+								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<h4 class="font-size-md font-weight-xl color-accent-white">Ovrall rank</h4>
+									<p class="font-size-md font-weight-md color-accent-white">33rd</p>
 								</div>
 
 								<!-- Member since [account created]-->
-								<div class="stat-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-sm font-weight-xl color-accent-white">Membar sinc</h4>
-									<p class="font-size-sm font-weight-md color-accent-white">
+									<p class="font-size-md font-weight-md color-accent-white">
 										{% if account_creation_date %}
 											{% set date_parts = account_creation_date.split('T')[0].split('-') %}
 											<span>{{ date_parts[1] }}</span>/<span>{{ date_parts[2] }}</span>/<span>{{ date_parts[0] }}</span>
@@ -72,15 +72,13 @@
 							<!-- Action buttons -->
 							<div class="flex-row-desktop flex-align-items-center gap-md">
 								{% if logged_in %}
-									<div class="button shadow-white-md font-weight-xl font-size-lg margin-lg-desktop margin-sm-phone margin-lg-tablet">
-										<a href="/horsplay" class="color-accent-gold">CUSTOMIZ</a>
-									</div>
+										<button type="button" id="changeNameBtn" class="button shadow-white-md font-weight-xl font-size-md margin-lg-desktop margin-sm-phone margin-lg-tablet color-accent-gold">CHANGE NAME</button>
 									{% if subscription_type == 'free' %}
-										<div class="button shadow-white-md font-weight-xl font-size-lg margin-md-desktop margin-sm-phone margin-md-tablet">
+										<div class="button shadow-white-md font-weight-xl font-size-md margin-md-desktop margin-sm-phone margin-md-tablet">
 											<a href="/store" class="color-accent-gold">UPGRAD PLAN</a>
 										</div>
 									{% else %}
-										<div class="button shadow-white-md font-weight-xl font-size-lg margin-md-desktop margin-sm-phone margin-md-tablet">
+										<div class="button shadow-white-md font-weight-xl font-size-md margin-md-desktop margin-sm-phone margin-md-tablet">
 											<a href="/store" class="color-accent-gold">MANAG PLAN</a>
 										</div>
 									{% endif %}
@@ -92,21 +90,41 @@
 							</div>
 						</div>
 						<div id="hero-square" class="width-lg-phone width-md-tablet margin-auto-phone margin-auto-tablet border-radius border-radius" style="position: relative;">
+							<!-- Username label wrapper to maintain top-right positioning -->
 							<div class="main-label main-label-top-right bg-accent-gold color-accent-grey-dark">
-								{% if logged_in %}
-									{%- if username -%}{{ username | upper }}{%- elif name -%}{{ name | upper }}{%- else -%}HORS MEMBAR{%- endif -%}
-								{% else %}
-									SIGN IN, HOSS
-								{% endif %}
+								<div id="profile-username">
+									<span id="usernameDisplay">
+										{% if logged_in %}
+											{%- if username -%}{{ username | upper }}{%- elif name -%}{{ name | upper }}{%- else -%}HORS MEMBAR{%- endif -%}
+										{% else %}
+											SIGN IN, HOSS
+										{% endif %}
+									</span>
+									<input type="text" id="usernameInput" style="display: none; background: transparent; border: none; color: inherit; font: inherit; text-align: center; width: 100%;" maxlength="20" value="{{ username }}">
+								</div>
+								<!-- Username edit controls - positioned directly below the username label -->
+								<div id="usernameEditControls" class="flex-column-all flex-align-items-center width-xl-all" style="display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 4px; z-index: 1000;">
+									<!-- Buttons container -->
+									<div id="usernameButtons" class="flex-row-all gap-sm">
+										<button type="button" id="usernameSaveBtn" class="button shadow-white-sm font-weight-xl font-size-sm" style="padding: 4px 8px; min-width: 60px;">
+											<span class="color-accent-gold">SAVE</span>
+										</button>
+										<button type="button" id="usernameCancelBtn" class="button shadow-red-sm font-weight-xl font-size-sm" style="padding: 4px 8px; min-width: 60px;">
+											<span class="color-accent-white">CANCEL</span>
+										</button>
+									</div>
+									<!-- Messages container -->
+									<div id="usernameMessages" class="width-full-all shadow-green-alt-none margin-sm-desktop margin-sm-phone margin-sm-tablet text-center"></div>
+								</div>
 							</div>
 							{% if subscription_type == 'free' %}
 								<div class="main-label main-label-bottom-left bg-accent-grey-mid-alt color-accent-grey-dark">DEFALT</div>
 							{% elif subscription_type == 'one' %}
-								<div class="main-label main-label-bottom-left bg-success-dark color-accent-white">HORS ONE</div>
+								<div class="main-label main-label-bottom-left main-label-one color-accent-white">HORS ONE</div>
 							{% elif subscription_type == 'plus' %}
-								<div class="main-label main-label-bottom-left bg-accent-gold color-accent-grey-dark">HORS PLUS</div>
+								<div class="main-label main-label-bottom-left main-label-plus color-accent-white">HORS PLUS</div>
 							{% elif subscription_type == 'max' %}
-								<div class="main-label main-label-bottom-left bg-error-dark color-accent-white">HORS MAX</div>
+								<div class="main-label main-label-bottom-left main-label-max color-accent-white">HORS MAX</div>
 							{% else %}
 								<div class="main-label main-label-bottom-left bg-accent-grey-mid-alt color-accent-grey-dark">DEFALT</div>
 							{% endif %}
@@ -114,131 +132,45 @@
 						</div>
 					</div>
 				</div>
-				<div class="main-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-full-desktop width-md-tablet width-xl-phone bg-primary-dark">
+				<div class="margin-auto-desktop margin-auto-phone margin-auto-tablet width-full-desktop width-full-tablet width-full-phone bg-primary-dark">
 					<div class="flex-column-desktop flex-column-phone flex-align-center flex-justify-center width-lg-desktop margin-auto-desktop margin-auto-phone margin-auto-tablet gap-xl">
 
 						<!-- Account Details & Settings Grid -->
-						<div class="flex-row-desktop flex-column-phone flex-align-items-start flex-justify-center gap-xl width-full-desktop margin-xl-desktop margin-lg-phone margin-xl-tablet">
-							
+						<div class="flex-column-desktop flex-column-phone flex-align-items-start flex-justify-center gap-xl width-full-desktop margin-xl-desktop margin-lg-phone margin-xl-tablet">
+
 							<!-- Account Details Column -->
-							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop">
+							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop width-full-phone width-md-tablet">
 								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">
 									ACOUNT DETALES
 								</h3>
-								
+
 								<!-- Name -->
-								<div class="detail-row flex-row-desktop flex-row-phone width-full-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet" style="padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 0.5rem; margin-bottom: 1rem; width: 100%;">
-									<h4 class="font-size-sm font-weight-xl color-accent-white">Name</h4>
-									<p class="font-size-sm font-weight-md color-accent-white">
-										{% if name %}
-											{{ name }}
-										{% else %}
-											Guest
-										{% endif %}
+								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<h4 class="font-size-md font-weight-xl color-accent-white">Name</h4>
+									<p class="font-size-md font-weight-md color-accent-white">
+										Test User
 									</p>
 								</div>
 
 								<!-- Email -->
-								<div class="detail-row flex-row-desktop flex-row-phone width-full-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet" style="padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 0.5rem; margin-bottom: 1rem; width: 100%;">
-									<h4 class="font-size-sm font-weight-xl color-accent-white">Email</h4>
-									<p class="font-size-sm font-weight-md color-accent-white">
-										{% if logged_in %}
-											{{ email }}
-										{% else %}
-											Unknown
-										{% endif %}
+								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<h4 class="font-size-md font-weight-xl color-accent-white">Email</h4>
+									<p class="font-size-md font-weight-md color-accent-white">
+										test@example.com
 									</p>
 								</div>
 
 								<!-- Username -->
-								<div class="detail-row flex-row-desktop flex-row-phone width-full-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet" style="padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 0.5rem; margin-bottom: 1rem; width: 100%;">
-									<h4 class="font-size-sm font-weight-xl color-accent-white">Username</h4>
-									<div class="username-editable">
-										<p class="font-size-sm font-weight-md color-accent-white username-display" id="usernameDisplay">
-											{% if username %}
-												{{ username }}
-											{% else %}
-												Not assigned
-											{% endif %}
-										</p>
-										<div class="username-edit-controls" style="display: none;">
-											<input type="text" id="usernameInput" class="username-input" value="{{ username }}" maxlength="20">
-											<button type="button" id="usernameSaveBtn" class="btn-small">Save</button>
-											<button type="button" id="usernameCancelBtn" class="btn-small">Cancel</button>
-										</div>
-										<button type="button" id="usernameEditBtn" class="btn-small edit-btn">Change</button>
-									</div>
+								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<h4 class="font-size-md font-weight-xl color-accent-white">Username</h4>
+									<p class="font-size-md font-weight-md color-accent-white">
+										THIS-IS-A-STICKUP
+									</p>
 								</div>
 							</div>
 
-							<!-- Profile Settings Column -->
-							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop">
-								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">
-									PROFIL SETINGS
-								</h3>
-								
-								<!-- Avatar Selector -->
-								<div class="profile-setting margin-sm-desktop margin-sm-phone margin-sm-tablet" style="padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 0.5rem; width: 100%; margin-bottom: 1rem;">
-									<h4 class="font-size-sm font-weight-xl color-accent-white margin-sm-desktop margin-sm-phone margin-sm-tablet">Selec profil icon</h4>
-									<div id="avatar-selector-wrapper" class="custom-select">
-										<div id="avatar-selector" class="optn-select" data-value="{{ avatar_type }}">
-											{% if avatar_type == 'google-profile' %}
-												<span class="avatar-option-text">Google Profile</span>
-												<img src="{{ picture }}" alt="Google Profile" class="avatar-option-image" width="30" height="30">
-											{% elif avatar_type == 'default-avatar' %}
-												<span class="avatar-option-text">Hors membar</span>
-												<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/480px-Default_pfp.svg.png" alt="Default Avatar" class="avatar-option-image" width="30" height="30">
-											{% elif avatar_type == 'hors-foundation' %}
-												<span class="avatar-option-text">Hors Foundation</span>
-												<img src="/static/img/branding/season-1.png" alt="Hors Foundation" class="avatar-option-image" width="30" height="30">
-											{% elif avatar_type == 'hors-season-1' %}
-												<span class="avatar-option-text">Hors Season 1 Member</span>
-												<img src="/static/img/branding/season-1.png" alt="Hors Season 1" class="avatar-option-image" width="30" height="30">
-											{% elif avatar_type == 'hors-season-2' %}
-												<span class="avatar-option-text">Hors Season 2 Member</span>
-												<img src="/static/img/branding/season-2.png" alt="Hors Season 2" class="avatar-option-image" width="30" height="30">
-											{% else %}
-												<span class="avatar-option-text">Google Profile</span>
-												<img src="{{ picture }}" alt="Google Profile" class="avatar-option-image" width="30" height="30">
-											{% endif %}
-										</div>
-										<div class="options">
-											<div class="option" data-value="default-avatar">
-												<span class="avatar-option-text">Hors membar</span>
-												<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/480px-Default_pfp.svg.png" alt="Default Avatar" class="avatar-option-image" width="30" height="30">
-											</div>
-											<div class="option" data-value="google-profile">
-												<span class="avatar-option-text">Googl profil icon</span>
-												<img src="{{ picture }}" alt="Google Profile" class="avatar-option-image" width="30" height="30">
-											</div>
-											<div class="option" data-value="hors-foundation">
-												<span class="avatar-option-text">Hors foundar</span>
-												<img src="/static/img/branding/season-1.png" alt="Hors Foundation" class="avatar-option-image" width="30" height="30">
-											</div>
-											<div class="option" data-value="hors-season-1">
-												<span class="avatar-option-text">Hors Season 1 Member</span>
-												<img src="/static/img/branding/season-1.png" alt="Hors Season 1" class="avatar-option-image" width="30" height="30">
-											</div>
-											<div class="option" data-value="hors-season-2">
-												<span class="avatar-option-text">Hors Season 2 Member</span>
-												<img src="/static/img/branding/season-2.png" alt="Hors Season 2" class="avatar-option-image" width="30" height="30">
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<!-- Hide Avatar Option -->
-								<div class="profile-setting margin-sm-desktop margin-sm-phone margin-sm-tablet" style="padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 0.5rem; width: 100%; margin-bottom: 1rem;">
-									<div class="flex-row-desktop flex-column-phone flex-justify-space-between flex-align-items-center">
-										<h4 class="font-size-sm font-weight-xl color-accent-white">Hide profile icon</h4>
-										<div class="hide-avatar-checkbox">
-											<label class="checkbox-label">
-												<input type="checkbox" id="hideAvatarCheckbox" {% if hide_avatar == 'Yes' %}checked{% endif %}>
-												<span class="checkmark"></span>
-											</label>
-										</div>
-									</div>
-								</div>
+							<div class="flex-column-desktop flex-align-items-center gap-md">
+								<button type="button" id="deleteAccountBtn" class="button shadow-red-md font-weight-xl font-size-md margin-md-desktop margin-sm-phone margin-md-tablet color-accent-white">DELET ACCOUNT</button
 							</div>
 						</div>
 					</div>
@@ -260,6 +192,17 @@
 		window.loggedIn = {{ 'true' if logged_in else 'false' }};
 	</script>
 	<script src="/static/js/secondary/username-editor.js"></script>
+	<script>
+		// Delete account functionality
+		document.addEventListener('DOMContentLoaded', function() {
+			const deleteAccountBtn = document.getElementById('deleteAccountBtn');
+			if (deleteAccountBtn) {
+				deleteAccountBtn.addEventListener('click', function() {
+					alert('UR ACOUNT HAS BEN SUPER DALETED - YAY DADA PRIVACY');
+				});
+			}
+		});
+	</script>
 	<script src="/static/js/secondary/account-button.js"></script>
 	<script src="/static/js/secondary/hide-avatar.js"></script>
 	<script src="/static/js/secondary/avatar-selector.js"></script>

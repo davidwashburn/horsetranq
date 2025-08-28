@@ -2800,43 +2800,6 @@ Usage: codyhouse.co/license
   white-space: nowrap;
 }
 
-#usernameSaveBtn {
-  background: var(--color-primary);
-  color: var(--color-white);
-}
-
-#usernameSaveBtn:hover {
-  background: var(--color-primary-darker);
-}
-
-#usernameCancelBtn {
-  background: var(--color-contrast-lower);
-  color: var(--color-contrast-higher);
-}
-
-#usernameCancelBtn:hover {
-  background: var(--color-contrast-low);
-}
-
-#usernameEditBtn {
-  background: #0476e2;
-  color: hsl(0deg 0% 100%);
-}
-
-.username-error {
-  color: var(--color-error);
-  font-size: var(--font-size-sm);
-  margin-top: var(--space-xs);
-  display: none;
-}
-
-.username-success {
-  color: var(--color-success);
-  font-size: var(--font-size-sm);
-  margin-top: var(--space-xs);
-  display: none;
-}
-
 /* Avatar Container and Hide Avatar Checkbox Styles */
 .avatar-container {
   display: flex;

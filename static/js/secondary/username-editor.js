@@ -1,23 +1,32 @@
 // Username Editor functionality
 document.addEventListener('DOMContentLoaded', function() {
-    const usernameDisplay = document.getElementById('usernameDisplay');
-    const usernameEditBtn = document.getElementById('usernameEditBtn');
-    const usernameInput = document.getElementById('usernameInput');
+    // New elements for inline editing in profile username label
+    const changeNameBtn = document.getElementById('changeNameBtn');
+    const profileUsernameLabel = document.getElementById('profile-username');
+    const usernameDisplay = profileUsernameLabel ? profileUsernameLabel.querySelector('#usernameDisplay') : null;
+    const usernameInput = profileUsernameLabel ? profileUsernameLabel.querySelector('#usernameInput') : null;
+    const usernameEditControls = document.getElementById('usernameEditControls');
+    const usernameMessages = document.getElementById('usernameMessages');
     const usernameSaveBtn = document.getElementById('usernameSaveBtn');
     const usernameCancelBtn = document.getElementById('usernameCancelBtn');
-    const usernameEditControls = document.querySelector('.username-edit-controls');
     
     let originalUsername = '';
     let isEditing = false;
     
     // Show edit mode
     function showEditMode() {
-        if (!usernameDisplay || !usernameEditControls) return;
+        if (!usernameDisplay || !usernameEditControls || !usernameInput) return;
         
-        originalUsername = usernameInput.value;
+        // Get current username text and set as original
+        originalUsername = usernameDisplay.textContent.trim();
+        usernameInput.value = originalUsername;
+        
+        // Hide display, show input and controls
         usernameDisplay.style.display = 'none';
-        usernameEditBtn.style.display = 'none';
+        usernameInput.style.display = 'block';
         usernameEditControls.style.display = 'flex';
+        
+        // Focus and select the input text
         usernameInput.focus();
         usernameInput.select();
         isEditing = true;
@@ -28,10 +37,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Show display mode
     function showDisplayMode() {
-        if (!usernameDisplay || !usernameEditControls) return;
+        if (!usernameDisplay || !usernameEditControls || !usernameInput) return;
         
         usernameDisplay.style.display = 'block';
-        usernameEditBtn.style.display = 'inline-block';
+        usernameInput.style.display = 'none';
         usernameEditControls.style.display = 'none';
         isEditing = false;
         
@@ -42,26 +51,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // Show error message
     function showError(message) {
         hideMessages();
+        if (!usernameMessages) return;
         const errorDiv = document.createElement('div');
-        errorDiv.className = 'username-error';
+        errorDiv.className = 'username-error color-primary-darkest font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet';
         errorDiv.textContent = message;
-        errorDiv.style.display = 'block';
-        usernameEditControls.appendChild(errorDiv);
+        errorDiv.style.cssText = 'display: block;';
+        usernameMessages.appendChild(errorDiv);
     }
     
     // Show success message
     function showSuccess(message) {
         hideMessages();
+        if (!usernameMessages) return;
         const successDiv = document.createElement('div');
-        successDiv.className = 'username-success';
+        successDiv.className = 'username-success color-primary-darkest font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet';
         successDiv.textContent = message;
-        successDiv.style.display = 'block';
-        usernameEditControls.appendChild(successDiv);
+        successDiv.style.cssText = 'display: block;';
+        usernameMessages.appendChild(successDiv);
     }
     
     // Hide all messages
     function hideMessages() {
-        const messages = usernameEditControls.querySelectorAll('.username-error, .username-success');
+        if (!usernameMessages) return;
+        const messages = usernameMessages.querySelectorAll('.username-error, .username-success');
         messages.forEach(msg => msg.remove());
     }
     
@@ -104,7 +116,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Show loading state
-        usernameSaveBtn.textContent = 'Saving...';
+        const saveSpan = usernameSaveBtn.querySelector('span');
+        if (saveSpan) saveSpan.textContent = 'SAVING...';
         usernameSaveBtn.disabled = true;
         
         try {
@@ -119,13 +132,34 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = await response.json();
             
                                if (response.ok) {
-                       // Update the display
-                       usernameDisplay.textContent = newUsername;
+                       // Update the profile username display (uppercase for the label)
+                       usernameDisplay.textContent = newUsername.toUpperCase();
                        showSuccess(data.message || 'Username updated successfully!');
                        
                        // Update the input value for future edits
                        usernameInput.value = newUsername;
                        originalUsername = newUsername;
+                       
+                       // Update any other username displays on the page
+                       const usernameDataItems = document.querySelectorAll('.data-item');
+                       usernameDataItems.forEach(item => {
+                           const label = item.querySelector('h4');
+                           if (label && label.textContent.includes('Username')) {
+                               const valueElement = item.querySelector('p');
+                               if (valueElement && valueElement.textContent.trim() !== 'Not logged in') {
+                                   valueElement.textContent = newUsername;
+                               }
+                           }
+                       });
+                       
+                       // Update the navigation username immediately
+                       const profileNavItem = document.getElementById('profile-nav-item');
+                       if (profileNavItem) {
+                           const navUsernameSpan = profileNavItem.querySelector('.nav-toggle-trigger');
+                           if (navUsernameSpan) {
+                               navUsernameSpan.textContent = newUsername;
+                           }
+                       }
                        
                        // Refresh session data from Firebase
                        try {
@@ -138,11 +172,6 @@ document.addEventListener('DOMContentLoaded', function() {
                            
                            if (refreshResponse.ok) {
                                console.log('Session refreshed successfully');
-                               // Update the account button text if it exists
-                               const myAccountBtn = document.getElementById('myAccountBtn');
-                               if (myAccountBtn) {
-                                   myAccountBtn.textContent = newUsername;
-                               }
                            }
                        } catch (refreshError) {
                            console.error('Error refreshing session:', refreshError);
@@ -160,7 +189,8 @@ document.addEventListener('DOMContentLoaded', function() {
             showError('Network error. Please try again.');
         } finally {
             // Reset button state
-            usernameSaveBtn.textContent = 'Save';
+            const saveSpan = usernameSaveBtn.querySelector('span');
+            if (saveSpan) saveSpan.textContent = 'SAVE';
             usernameSaveBtn.disabled = false;
         }
     }
@@ -168,12 +198,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cancel editing
     function cancelEdit() {
         usernameInput.value = originalUsername;
+        // Restore original username display (uppercase for the label)
+        if (usernameDisplay) {
+            usernameDisplay.textContent = originalUsername.toUpperCase();
+        }
         showDisplayMode();
     }
     
     // Event listeners
-    if (usernameEditBtn) {
-        usernameEditBtn.addEventListener('click', showEditMode);
+    if (changeNameBtn) {
+        changeNameBtn.addEventListener('click', showEditMode);
     }
     
     if (usernameSaveBtn) {
