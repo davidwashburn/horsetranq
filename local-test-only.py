@@ -172,18 +172,10 @@ def profile():
 @app.route('/scores')
 def scores():
     context = get_account_context()
-    context['current_page'] = 'STATS'
-    return render_template('in-progres/scores.html', **context)
+    context['current_page'] = 'SCORES'
+    return render_template('scores.html', **context)
 
-@app.route('/login')
-def login():
-    # Mock login - just redirect back to home
-    return redirect(url_for('index'))
-
-@app.route('/logout')
-def logout():
-    # Mock logout - just redirect back to home
-    return redirect(url_for('index'))
+# Login/logout routes moved to app/auth.py blueprint
 
 # API endpoints for local testing
 @app.route('/api/refresh-session', methods=['POST'])

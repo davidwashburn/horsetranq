@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="/static/css/style.css"> <!-- Resource style -->
 		<link rel="stylesheet" href="/static/css/variables.css"> <!-- Variables style -->
 		<link rel="stylesheet" href="/static/css/style-v3.css"> <!-- New v3 style -->
+		<link rel="stylesheet" href="/static/css/horse-movement.css"> <!-- Horse movement animations -->
 		<script src="/static/js/resources/modernizr.js"></script> <!-- Modernizr -->
 		<script src="https://cdn.auth0.com/js/auth0/9.18/auth0.min.js"></script>
 		<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
@@ -409,6 +410,35 @@
 									</div>
 									<div class="option-flex">
 										<div class="option" data-value="3">Trojin hors (3x)</div>
+										<div class="label free"><a href="https://horsetranq.com/login">FREE WEKEND</a></div>
+									</div>
+								{% endif %}	
+							</div>
+						</div>
+					</div>
+
+					<!-- Horse movement style selector -->
+					<div class="cd-filter-block">
+						<div class="custom-select">
+							<div id="movement-selector" class="optn-select no-highlight" data-value="mixed">Hors movement</div>
+							<div class="options">
+								<div class="option" data-value="mixed">Mixed (Random bouncing)</div>
+								<div class="option" data-value="straight">Straight (No bouncing)</div>
+								{% if logged_in %}
+									<div class="option" data-value="bob">Light Bob</div>
+									<div class="option" data-value="float">Floaty</div>
+									<div class="option" data-value="wave">Wavy</div>
+								{% else %}
+									<div class="option-flex">
+										<div class="option" data-value="bob">Light Bob</div>
+										<div class="label free"><a href="https://horsetranq.com/login">FREE WEKEND</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option" data-value="float">Floaty</div>
+										<div class="label free"><a href="https://horsetranq.com/login">FREE WEKEND</a></div>
+									</div>
+									<div class="option-flex">
+										<div class="option" data-value="wave">Wavy</div>
 										<div class="label free"><a href="https://horsetranq.com/login">FREE WEKEND</a></div>
 									</div>
 								{% endif %}	

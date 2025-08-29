@@ -6,6 +6,51 @@ var gamePaused = false;
 var pausedTimerTime = null;
 var currentGameMode = 'freeplay'; // Track whether playing freeplay or ranked
 
+// Initialize horse speed globally so it's accessible to all functions
+var horseSpeed = 2;
+
+// Calculate horse speed based on settings input //
+function setHorseSpeed(speed) {
+    horseSpeed = parseFloat(speed);
+    console.log('DEBUG setHorseSpeed: Setting speed to:', horseSpeed);
+    var horseElements = document.getElementsByClassName('horse-logo-3x');
+    console.log('DEBUG setHorseSpeed: Found', horseElements.length, 'horse elements');
+    
+    // Get current movement setting
+    var movementSelector = document.getElementById('movement-selector');
+    var movementStyle = movementSelector ? movementSelector.dataset.value : 'mixed';
+    
+    for (var i = 0; i < horseElements.length; i++) {
+        var animationDuration = (Math.random() * 3 + 3) / horseSpeed;
+        var animationName;
+        
+        // Choose animation based on movement setting
+        switch(movementStyle) {
+            case 'straight':
+                animationName = 'move';
+                break;
+            case 'bob':
+                animationName = 'move-with-bob';
+                break;
+            case 'float':
+                animationName = 'move-with-float';
+                break;
+            case 'wave':
+                animationName = 'move-with-wave';
+                break;
+            case 'mixed':
+            default:
+                // Randomly choose a movement pattern for each horse
+                var movementTypes = ['move-with-bob', 'move-with-float', 'move-with-wave', 'move'];
+                animationName = movementTypes[Math.floor(Math.random() * movementTypes.length)];
+                break;
+        }
+        
+        console.log('DEBUG setHorseSpeed: Setting animation', animationName, 'with duration:', animationDuration + 's');
+        horseElements[i].style.animation = animationName + ' ' + animationDuration + 's linear infinite';
+    }
+}
+
 // When Free Play is selected disable all Ranked Play settings
 var freePlayBtn = document.getElementById('freePlayBtn');
 if (freePlayBtn) {
@@ -14,14 +59,16 @@ if (freePlayBtn) {
             element.classList.add('disabled');
         });
         gameModeSelected = true;
-        gameStarted = true;
+        gameStarted = false; // Don't start game yet
         currentGameMode = 'freeplay'; // Set game mode for score tracking
-        // Start game tracker
-        if (window.gameTracker) {
-            window.gameTracker.startGame('freeplay');
-        }
-        // Start timer now that game mode is selected
-        startTimer();
+        
+        // Close game mode selection modal
+        $('#gameSelectOverlay').hide();
+        $('#gameSelectModal').removeClass('filter-is-visible');
+        
+        // Open settings modal automatically for user to configure before starting
+        $('#settingsModal').addClass('filter-is-visible');
+        console.log('Free Play selected - opening settings for configuration');
     });
 }
 // When Ranked Play is selected disable all Free Play settings
@@ -32,14 +79,16 @@ if (rankedPlayBtn) {
             element.classList.add('disabled');
         });
         gameModeSelected = true;
-        gameStarted = true;
+        gameStarted = false; // Don't start game yet
         currentGameMode = 'ranked'; // Set game mode for score tracking
-        // Start game tracker
-        if (window.gameTracker) {
-            window.gameTracker.startGame('ranked');
-        }
-        // Start timer now that game mode is selected
-        startTimer();
+        
+        // Close game mode selection modal
+        $('#gameSelectOverlay').hide();
+        $('#gameSelectModal').removeClass('filter-is-visible');
+        
+        // Open settings modal automatically for user to configure before starting
+        $('#settingsModal').addClass('filter-is-visible');
+        console.log('Ranked Play selected - opening settings for configuration');
     });
 }
 
@@ -77,21 +126,10 @@ window.onload = function() {
         '/static/img/games/horsplay/assets/hors-3.png',
     ];
 
-	// Initialize horse speed
-	var horseSpeed = 2; // Initialize horse speed
 
-	// Calculate horse speed based on settings input //
-	function setHorseSpeed(speed) {
-        horseSpeed = parseFloat(speed);
-        var horseElements = document.getElementsByClassName('horse-logo-3x');
-        for (var i = 0; i < horseElements.length; i++) {
-            var animationDuration = (Math.random() * 3 + 3) / horseSpeed;
-            horseElements[i].style.animation = 'move ' + animationDuration + 's linear infinite';
-        }
-    }
 	
-	// Start moving the horses at page load
-    setHorseSpeed(horseSpeed);
+	// Don't start horses until game mode is selected and settings are configured
+    // setHorseSpeed(horseSpeed); // Removed - will be called after settings are saved
 
 	// Horse speed is now handled by the main dropdown handler above
 
@@ -157,35 +195,61 @@ window.onload = function() {
             horseContainer.appendChild(horseDiv);
         }
         // Apply horse speed to new elements.
+        console.log('DEBUG adjustHorseIntensity: Applying horseSpeed:', horseSpeed);
         setHorseSpeed(horseSpeed);
         
         // Only start timer if game mode has been selected and horses are created
-        if (intensity > 0 && gameModeSelected) {
+        if (intensity > 0 && gameModeSelected && gameStarted) {
             startTimer();
         }
     }
-    adjustHorseIntensity(); // Adjust horse intensity at page load
+    
+    // Don't create horses until game mode is selected
+    // adjustHorseIntensity(); // Removed - will be called after settings are saved
 
 
 	$('#settingsSaveBtn').on('click', function() {
-		// Reset game state to prevent cheating/score stacking
-		score = 0;
-		resetTimer();
-		gameModeSelected = false;
-		gameStarted = false;
-		currentGameMode = 'freeplay'; // Reset to freeplay
-		updateScore();
+		// If a game mode was selected but game hasn't started yet, start it now
+		if (gameModeSelected && !gameStarted) {
+			console.log('Starting game with mode:', currentGameMode);
+			gameStarted = true;
+			
+			// Clear any existing horses and apply all current settings 
+			var horseContainer = document.getElementById('hors-container');
+			while (horseContainer.firstChild) {
+				horseContainer.removeChild(horseContainer.firstChild);
+			}
+			applyAllSettings();
+			
+			// Start game tracker
+			if (window.gameTracker) {
+				window.gameTracker.startGame(currentGameMode);
+			}
+			
+			// Start timer now that settings are configured
+			startTimer();
+		} else if (gameStarted) {
+			// If game was already started, just apply settings and reset score to prevent cheating
+			applyAllSettings();
+			score = 0;
+			resetTimer();
+			updateScore();
+			
+			// Resume the existing game
+			resumeGame();
+		}
 
-		// Apply all current settings (they've already been previewed)
-		applyAllSettings();
-
-		// Resume game and close settings
-		resumeGame();
-		$('#settingsModal').removeClass('filter-is-visible');  // This will hide the settingsModal.
+		// Close settings modal
+		$('#settingsModal').removeClass('filter-is-visible');
 	});	
 	
     // Call updateScore once initially to set the initial score and timer display.
     updateScore();
+    
+    // Show game mode selection modal on page load
+    $('#gameSelectOverlay').show();
+    $('#gameSelectModal').addClass('filter-is-visible');
+    console.log('Page loaded - showing game mode selection');
     
     // Settings modal event handlers
     $('#settings-container').on('click', function() {
@@ -194,13 +258,50 @@ window.onload = function() {
     
     // Handle settings modal close via close button
     $('#settingsModal .cd-close-filter').on('click', function() {
-        resumeGame();
+        // If a game mode was selected but game hasn't started yet, start it now
+        if (gameModeSelected && !gameStarted) {
+            console.log('Starting game with mode:', currentGameMode, '(via close button)');
+            gameStarted = true;
+            
+            // Apply all current settings and create horses for the first time
+            applyAllSettings();
+            
+            // Start game tracker
+            if (window.gameTracker) {
+                window.gameTracker.startGame(currentGameMode);
+            }
+            
+            // Start timer now that settings are configured
+            startTimer();
+        } else if (gameStarted) {
+            // If game was already running, just resume it
+            resumeGame();
+        }
     });
     
     // Handle settings modal close via clicking outside (if that functionality exists)
     $(document).on('click', function(event) {
         if ($('#settingsModal').hasClass('filter-is-visible') && !$(event.target).closest('#settingsModal').length && !$(event.target).closest('#settings-container').length) {
-            resumeGame();
+            // If a game mode was selected but game hasn't started yet, start it now
+            if (gameModeSelected && !gameStarted) {
+                console.log('Starting game with mode:', currentGameMode, '(via outside click)');
+                gameStarted = true;
+                
+                // Apply all current settings and create horses for the first time
+                applyAllSettings();
+                
+                // Start game tracker
+                if (window.gameTracker) {
+                    window.gameTracker.startGame(currentGameMode);
+                }
+                
+                // Start timer now that settings are configured
+                startTimer();
+            } else if (gameStarted) {
+                // If game was already running, just resume it
+                resumeGame();
+            }
+            
             $('#settingsModal').removeClass('filter-is-visible');
         }
     });
@@ -435,12 +536,33 @@ $('#resetBtn').click(function() {
     gameStarted = false;
     gamePaused = false;
     currentGameMode = 'freeplay'; // Reset to freeplay
+    
+    // Clear all horses from the game area
+    var horseContainer = document.getElementById('hors-container');
+    while (horseContainer.firstChild) {
+        horseContainer.removeChild(horseContainer.firstChild);
+    }
+    
+    // Re-enable all settings that might have been disabled
+    document.querySelectorAll('#rankedPlaySettings .optn-select').forEach(function(element) {
+        element.classList.remove('disabled');
+    });
+    document.querySelectorAll('#freePlaySettings .optn-select').forEach(function(element) {
+        element.classList.remove('disabled');
+    });
+    
     // Reset game tracker
     if (window.gameTracker) {
         window.gameTracker.gameActive = false;
         window.gameTracker.gameStartTime = null;
         window.gameTracker.horsesPopped = 0;
     }
+    
+    // Close any open modals and show game mode selection
+    $('#settingsModal').removeClass('filter-is-visible');
+    $('#gameSelectOverlay').show();
+    $('#gameSelectModal').addClass('filter-is-visible');
+    console.log('Game reset - showing mode selection');
 });
 
 
@@ -476,19 +598,36 @@ function applySettingChange(selectorId, value) {
             
         case 'speed-selector':
             var selectedSpeed = parseFloat(value);
+            console.log('DEBUG applySettingChange: Speed selector changed to:', selectedSpeed);
+            console.log('DEBUG applySettingChange: Current horseSpeed before change:', horseSpeed);
             setHorseSpeed(selectedSpeed);
-            console.log('Speed changed to:', selectedSpeed);
+            console.log('DEBUG applySettingChange: Current horseSpeed after change:', horseSpeed);
             break;
             
         case 'power-selector':
             console.log('Adjusting horse intensity to:', value);
             adjustHorseIntensity();
+            // Reapply current speed setting after intensity change
+            var currentSpeedSetting = document.getElementById('speed-selector').dataset.value;
+            if (currentSpeedSetting) {
+                console.log('DEBUG power-selector: Reapplying speed after intensity change:', currentSpeedSetting);
+                setHorseSpeed(parseFloat(currentSpeedSetting));
+            }
             break;
             
         case 'size-selector':
             var scale = parseFloat(value);
             $('.horse-logo-3x img').css('transform', 'scale(' + scale + ')');
             console.log('Size changed to scale:', scale);
+            break;
+            
+        case 'movement-selector':
+            console.log('Movement style changed to:', value);
+            // Reapply speed with new movement style
+            var currentSpeedSetting = document.getElementById('speed-selector').dataset.value;
+            if (currentSpeedSetting) {
+                setHorseSpeed(parseFloat(currentSpeedSetting));
+            }
             break;
             
         case 'type-selector':
@@ -544,21 +683,34 @@ function applySettingChange(selectorId, value) {
 
 // Function to apply all current settings (used by save button)
 function applyAllSettings() {
+    console.log('DEBUG applyAllSettings: Starting to apply all settings');
+    
     // Apply all current dropdown values
     var bgSelector = document.querySelector('#bg-selector');
     if (bgSelector) applySettingChange('bg-selector', bgSelector.dataset.value);
     
-    var speedSelector = document.querySelector('#speed-selector');
-    if (speedSelector) applySettingChange('speed-selector', speedSelector.dataset.value);
-    
-    var powerSelector = document.querySelector('#power-selector');
-    if (powerSelector) applySettingChange('power-selector', powerSelector.dataset.value);
+    var typeSelector = document.querySelector('#type-selector');
+    if (typeSelector) applySettingChange('type-selector', typeSelector.dataset.value);
     
     var sizeSelector = document.querySelector('#size-selector');
     if (sizeSelector) applySettingChange('size-selector', sizeSelector.dataset.value);
     
-    var typeSelector = document.querySelector('#type-selector');
-    if (typeSelector) applySettingChange('type-selector', typeSelector.dataset.value);
+    // Apply power (intensity) BEFORE speed to avoid conflicts
+    var powerSelector = document.querySelector('#power-selector');
+    if (powerSelector) applySettingChange('power-selector', powerSelector.dataset.value);
+    
+    // Apply movement style before speed
+    var movementSelector = document.querySelector('#movement-selector');
+    if (movementSelector) applySettingChange('movement-selector', movementSelector.dataset.value);
+    
+    // Apply speed LAST to ensure it takes effect after horses are created
+    var speedSelector = document.querySelector('#speed-selector');
+    if (speedSelector) {
+        console.log('DEBUG applyAllSettings: Applying speed as final step:', speedSelector.dataset.value);
+        applySettingChange('speed-selector', speedSelector.dataset.value);
+    }
+    
+    console.log('DEBUG applyAllSettings: Finished applying all settings');
 }
 
 // When opening custom settings dropdown close other dropdowns //

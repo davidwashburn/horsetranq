@@ -3,6 +3,7 @@ from datetime import datetime
 import re
 import uuid
 from firebase_admin import db
+from .utils import get_primary_user_id, get_user_database_path, get_user_auth_methods
 
 bp = Blueprint("api", __name__)
 
@@ -26,7 +27,7 @@ def update_username():
         if len(new_username) < 3 or len(new_username) > 20:
             return jsonify({'error': 'Username must be between 3 and 20 characters'}), 400
         
-        user_id = g.user['user_id']
+        user_id = get_primary_user_id(g.user)
         current_username = g.user.get('username', '')
         
         # Check if username is already taken (current usernames)
@@ -37,8 +38,8 @@ def update_username():
             return jsonify({'error': 'Username is already taken'}), 409
         
         # Check if username was previously used by this user
-        former_usernames_ref = db.reference(f'former_usernames/{user_id}')
-        user_former_usernames = former_usernames_ref.get() or {}
+        user_former_usernames_ref = db.reference(f'former_usernames/{user_id}')
+        user_former_usernames = user_former_usernames_ref.get() or {}
         
         if new_username in user_former_usernames:
             return jsonify({'error': 'You cannot reuse a previous username'}), 409
@@ -47,17 +48,17 @@ def update_username():
         all_former_usernames_ref = db.reference('former_usernames')
         all_former_usernames = all_former_usernames_ref.get() or {}
         
-        for other_user_id, other_former_usernames in all_former_usernames.items():
-            if other_user_id != user_id and new_username in other_former_usernames:
+        for other_unique_user_id, other_former_usernames in all_former_usernames.items():
+            if other_unique_user_id != user_id and new_username in other_former_usernames:
                 return jsonify({'error': 'Username was previously used by another user'}), 409
         
         # Update the user's record
-        user_ref = db.reference(f'users/{user_id}')
+        user_ref = db.reference(get_user_database_path(user_id))
         user_data = user_ref.get() or {}
         
         # Store the old username in former_usernames if it exists
         if current_username and current_username != new_username:
-            former_usernames_ref.update({
+            user_former_usernames_ref.update({
                 current_username: datetime.now().isoformat()
             })
         
@@ -93,10 +94,10 @@ def refresh_session():
         if not g.user:
             return jsonify({'error': 'Not logged in'}), 401
         
-        user_id = g.user['user_id']
+        user_id = get_primary_user_id(g.user)
         
         # Get fresh data from Firebase
-        ref = db.reference(f'users/{user_id}')
+        ref = db.reference(get_user_database_path(user_id))
         user_data = ref.get()
         
         if user_data:
@@ -126,11 +127,16 @@ def refresh_session():
 def save_game():
     """Save a completed game to Firebase"""
     try:
+        print(f"DEBUG: save_game called")
+        print(f"DEBUG: g.user = {g.user}")
+        print(f"DEBUG: session = {session.get('profile', 'No profile in session')}")
+        
         if not g.user:
+            print(f"DEBUG: No user found, returning 401")
             return jsonify({'error': 'Not logged in'}), 401
         
         data = request.get_json()
-        user_id = g.user['user_id']
+        user_id = get_primary_user_id(g.user)
         username = g.user.get('username', 'Unknown')
         
         # Generate unique game ID
@@ -153,8 +159,10 @@ def save_game():
         }
         
         # Save to Firebase
-        ref = db.reference(f'users/{user_id}/games/{game_id}')
+        print(f"DEBUG: Attempting to save to Firebase for user {user_id}")
+        ref = db.reference(f'{get_user_database_path(user_id)}/games/{game_id}')
         ref.set(game_data)
+        print(f"DEBUG: Successfully saved game data")
         
         # Update user stats
         update_user_stats(user_id, game_data)
@@ -162,33 +170,51 @@ def save_game():
         return jsonify({'success': True, 'gameId': game_id})
         
     except Exception as e:
-        print(f"Error saving game: {e}")
+        print(f"ERROR in save_game: {e}")
+        import traceback
+        traceback.print_exc()
         return jsonify({'error': 'An error occurred while saving game'}), 500
 
 def update_user_stats(user_id, game_data):
     """Update aggregated user statistics"""
     try:
-        stats_ref = db.reference(f'users/{user_id}/stats')
+        print(f"DEBUG update_user_stats: Starting for user {user_id}, mode {game_data['game_mode']}")
+        stats_ref = db.reference(f'{get_user_database_path(user_id)}/stats')
         current_stats = stats_ref.get() or {'ranked': {}, 'freeplay': {}}
+        print(f"DEBUG update_user_stats: Retrieved current_stats = {current_stats}")
         
         mode = game_data['game_mode']
+        print(f"DEBUG update_user_stats: mode = {mode}")
+        
+        # Always ensure the mode has the correct structure
         if mode not in current_stats:
-            current_stats[mode] = {
-                'total_games': 0,
-                'total_horses_popped': 0,
-                'total_time_played': 0,
-                'difficulty_breakdown': {},
-                'background_counts': {},
-                'enemy_counts': {},
-                'hors_speed_counts': {},
-                'hors_power_counts': {},
-                'hors_size_counts': {}
-            }
+            print(f"DEBUG update_user_stats: Mode {mode} not in current_stats, creating new structure")
+            current_stats[mode] = {}
+        
+        # Ensure all required keys exist with default values
+        default_structure = {
+            'total_games': 0,
+            'total_horses_popped': 0,
+            'total_time_played': 0,
+            'difficulty_breakdown': {},
+            'background_counts': {},
+            'enemy_counts': {},
+            'hors_speed_counts': {},
+            'hors_power_counts': {},
+            'hors_size_counts': {}
+        }
+        
+        for key, default_value in default_structure.items():
+            if key not in current_stats[mode]:
+                print(f"DEBUG update_user_stats: Adding missing key {key} with default {default_value}")
+                current_stats[mode][key] = default_value
         
         # Update basic stats
+        print(f"DEBUG update_user_stats: Updating basic stats")
         current_stats[mode]['total_games'] += 1
         current_stats[mode]['total_horses_popped'] += game_data['horses_popped']
         current_stats[mode]['total_time_played'] += game_data['duration']
+        print(f"DEBUG update_user_stats: Basic stats updated - games: {current_stats[mode]['total_games']}")
         
         # Update difficulty breakdown
         difficulty = game_data.get('difficulty', 'easyDifficulty')
@@ -267,8 +293,34 @@ def update_user_stats(user_id, game_data):
             if current_best == 'inf' or game_data['duration'] < current_best:
                 current_stats[mode]['best_time'] = game_data['duration']
         
+        print(f"DEBUG update_user_stats: Saving stats to Firebase")
         stats_ref.set(current_stats)
+        print(f"DEBUG update_user_stats: Stats saved successfully")
         
     except Exception as e:
-        print(f"Error updating user stats: {e}")
+        print(f"ERROR updating user stats: {e}")
+        import traceback
+        traceback.print_exc()
         raise e
+
+@bp.route('/user-auth-methods', methods=['GET'])
+def user_auth_methods():
+    """Get authentication methods for the current user"""
+    try:
+        if not g.user:
+            return jsonify({'error': 'Not logged in'}), 401
+        
+        user_id = get_primary_user_id(g.user)
+        auth_info = get_user_auth_methods(user_id)
+        
+        if auth_info:
+            return jsonify({
+                'success': True,
+                'data': auth_info
+            })
+        else:
+            return jsonify({'error': 'Could not retrieve auth methods'}), 500
+            
+    except Exception as e:
+        print(f"Error getting user auth methods: {e}")
+        return jsonify({'error': 'An error occurred while getting auth methods'}), 500

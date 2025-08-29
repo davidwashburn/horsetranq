@@ -1,6 +1,8 @@
-from flask import Flask, session, g
+from flask import Flask, session, g, request
 from firebase_admin import db, initialize_app, credentials
+from datetime import datetime
 import os
+from .utils import get_primary_user_id, get_user_database_path
 
 def create_app():
     # Get the absolute path to the templates and static folders
@@ -22,12 +24,26 @@ def create_app():
     # Use environment variables for secrets (much safer)
     app.secret_key = os.environ.get("SECRET_KEY", "TwiceAHorseAlwaysAHors1!")
     
-    # Firebase configuration
+    # Firebase configuration - use environment variables or fallback to production paths
     firebase_key_path = os.environ.get("FIREBASE_ADMIN_KEY_PATH", "/var/www/database/keys/horsetranq-firebase-admin-key.json")
     firebase_db_url = os.environ.get("FIREBASE_DB_URL", "https://horsetranq-default-rtdb.firebaseio.com/")
     
-    cred = credentials.Certificate(firebase_key_path)
-    initialize_app(cred, {'databaseURL': firebase_db_url})
+    # Only initialize Firebase if the key file exists
+    print(f"DEBUG: Checking Firebase key at: {firebase_key_path}")
+    print(f"DEBUG: Firebase key exists: {os.path.exists(firebase_key_path)}")
+    
+    if os.path.exists(firebase_key_path):
+        try:
+            cred = credentials.Certificate(firebase_key_path)
+            initialize_app(cred, {'databaseURL': firebase_db_url})
+            print(f"SUCCESS: Firebase initialized with key: {firebase_key_path}")
+        except Exception as e:
+            print(f"ERROR: Failed to initialize Firebase: {e}")
+            import traceback
+            traceback.print_exc()
+    else:
+        print(f"WARNING: Firebase key not found at {firebase_key_path}")
+        print("Firebase features will not work. Set FIREBASE_ADMIN_KEY_PATH environment variable if needed.")
 
     # Initialize OAuth
     from .auth import init_oauth
@@ -35,6 +51,7 @@ def create_app():
     
     # Store auth0 in app context for use in routes
     app.auth0 = auth0
+    print(f"DEBUG: OAuth initialized successfully: {auth0}")
 
     @app.before_request
     def load_user():
@@ -42,12 +59,24 @@ def create_app():
         g.user = None
         g.firebase_token = session.get("firebase_token")
         g.auth0 = app.auth0  # Make auth0 available in g
+        # Reduce debug spam - only show auth0 status on login routes
+        if request.endpoint and 'login' in request.endpoint:
+            print(f"AUTH0 STATUS: app.auth0={app.auth0 is not None}, g.auth0={g.auth0 is not None}")
         
+        # Only show session debug for auth routes
+        if request.endpoint and request.endpoint.startswith('auth'):
+            print(f"DEBUG: profile in session = {'profile' in session}")
         if 'profile' in session:
             # Pull firebase user to refresh subscription/account_creation
-            user_id = session['profile']['user_id']
-            ref = db.reference(f'users/{user_id}')
-            user_data = ref.get() or {}
+            user_id = get_primary_user_id(session['profile'])
+            print(f"DEBUG load_user: user_id = {user_id}")
+            try:
+                ref = db.reference(get_user_database_path(user_id))
+                user_data = ref.get() or {}
+                print(f"DEBUG load_user: Successfully got user_data from Firebase")
+            except Exception as e:
+                print(f"DEBUG load_user: Error getting user_data from Firebase: {e}")
+                user_data = {}
             
             # Keep session light; expose merged view via g.user
             session['profile'].update({
@@ -60,6 +89,7 @@ def create_app():
                 **session['profile'],
                 'account_creation_date': user_data.get('account_creation_date'),
             }
+            print(f"DEBUG load_user: g.user set successfully for {user_id}")
 
     @app.context_processor
     def inject_common():
