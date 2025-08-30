@@ -26,212 +26,12 @@
 			{% include 'partials/navigation_menu.html' %}
 
 			<!-- Profile Main Section -->
-			<div id="profile" class="main-wrapper">
-				<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-md-tablet width-xl-phone">
-					<div class="flex-row-reverse-desktop flex-column-reverse-phone flex-align-center flex-justify-center gap-xxl">
-						<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop">
-							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-all">
-								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">RANKED STATS</h3>
-								
-								<!-- Horses tranquilized -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Horses tranquilized</h4>
-									<p class="font-size-md font-weight-md color-accent-white">
-										{% if user_stats.ranked.total_horses_popped %}{{ user_stats.ranked.total_horses_popped }}{% else %}0{% endif %}
-									</p>
-								</div>
-
-								<!-- Time spent tranqing -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Time spent tranqing</h4>
-									<p class="font-size-md font-weight-md color-accent-white">
-										{% if user_stats.ranked.total_time_played %}{{ user_stats.ranked.total_time_played }}{% else %}0{% endif %} seconds
-									</p>
-								</div>
-
-								<!-- Overall rank -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Overall rank</h4>
-									<p class="font-size-md font-weight-md color-accent-white">N/A</p>
-								</div>
-
-								<!-- Best time -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Best time</h4>
-									<p class="font-size-md font-weight-md color-accent-white">
-										{% if user_stats.ranked.best_time and user_stats.ranked.best_time != 'inf' %}{{ user_stats.ranked.best_time }}{% else %}N/A{% endif %}
-									</p>
-								</div>
-							</div>
-
-							<!-- Action buttons -->
-							<div class="flex-row-desktop flex-align-items-center gap-md">
-								{% if logged_in %}
-										<button type="button" id="changeNameBtn" class="button shadow-white-md font-weight-xl font-size-md margin-lg-desktop margin-sm-phone margin-lg-tablet color-accent-gold">CHANGE NAME</button>
-									{% if subscription_type == 'free' %}
-										<a href="/store" class="button shadow-white-md font-weight-xl font-size-md margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold">UPGRAD PLAN</a>
-									{% else %}
-										<a href="/store" class="button shadow-white-md font-weight-xl font-size-md margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold">MANAG PLAN</a>
-									{% endif %}
-								{% else %}
-									<a href="/login" class="button shadow-white-md font-weight-xl font-size-lg margin-lg-desktop margin-sm-phone margin-lg-tablet color-accent-gold">SIGN IN</a>
-								{% endif %}
-							</div>
-						</div>
-						<div id="hero-square" class="width-lg-phone width-md-tablet margin-auto-phone margin-auto-tablet border-radius border-radius" style="position: relative;">
-							<!-- Username label wrapper to maintain top-right positioning -->
-							<div class="main-label main-label-top-right bg-accent-gold color-accent-grey-dark">
-								<div id="profile-username">
-									<span id="usernameDisplay">
-										{% if logged_in %}
-											{%- if username -%}{{ username | upper }}{%- elif name -%}{{ name | upper }}{%- else -%}HORS MEMBAR{%- endif -%}
-										{% else %}
-											SIGN IN, HOSS
-										{% endif %}
-									</span>
-									<input type="text" id="usernameInput" style="display: none; background: transparent; border: none; color: inherit; font: inherit; text-align: center; width: 100%;" maxlength="20" value="{{ username }}">
-								</div>
-								<!-- Username edit controls - positioned directly below the username label -->
-								<div id="usernameEditControls" class="flex-column-all flex-align-items-center width-xl-all" style="display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 4px; z-index: 1000;">
-									<!-- Buttons container -->
-									<div id="usernameButtons" class="flex-row-all gap-sm">
-										<button type="button" id="usernameSaveBtn" class="button shadow-white-sm font-weight-xl font-size-sm" style="padding: 4px 8px; min-width: 60px;">
-											<span class="color-accent-gold">SAVE</span>
-										</button>
-										<button type="button" id="usernameCancelBtn" class="button shadow-red-sm font-weight-xl font-size-sm" style="padding: 4px 8px; min-width: 60px;">
-											<span class="color-accent-white">CANCEL</span>
-										</button>
-									</div>
-									<!-- Messages container -->
-									<div id="usernameMessages" class="width-full-all shadow-green-alt-none margin-sm-desktop margin-sm-phone margin-sm-tablet text-center"></div>
-								</div>
-							</div>
-							{% if subscription_type == 'free' %}
-								<div class="main-label main-label-bottom-left bg-accent-grey-mid-alt color-accent-grey-dark">DEFALT</div>
-							{% elif subscription_type == 'one' %}
-								<div class="main-label main-label-bottom-left main-label-one color-accent-white">HORS ONE</div>
-							{% elif subscription_type == 'plus' %}
-								<div class="main-label main-label-bottom-left main-label-plus color-accent-white">HORS PLUS</div>
-							{% elif subscription_type == 'max' %}
-								<div class="main-label main-label-bottom-left main-label-max color-accent-white">HORS MAX</div>
-							{% else %}
-								<div class="main-label main-label-bottom-left bg-accent-grey-mid-alt color-accent-grey-dark">DEFALT</div>
-							{% endif %}
-							<img id="index-hero-img" src="/static/img/branding/horsetranq-v3.png" alt="Horsetranq">
-						</div>
-					</div>
-				</div>
-
-				<!-- FREE PLAY STATS Section -->
-				<div class="main-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-full-desktop width-full-tablet width-full-phone bg-primary-dark">
-					<div class="flex-column-desktop flex-column-phone flex-align-center flex-justify-center width-lg-desktop margin-auto-desktop margin-auto-phone margin-auto-tablet gap-xl">
-						<div class="flex-row-desktop flex-column-phone flex-align-items-start flex-justify-center gap-xl width-full-desktop">
-							<!-- ADVANCED RANKED STATS Column -->
-							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop width-full-phone width-md-tablet">
-								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">ADVANCED RANKED STATS</h3>
-								
-								<!-- Games played -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Games played</h4>
-									<p class="font-size-md font-weight-md color-accent-white">
-										{% if user_stats.ranked.total_games %}{{ user_stats.ranked.total_games }}{% else %}0{% endif %}
-									</p>
-								</div>
-
-								<!-- Difficulty played -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Difficulty played</h4>
-									<p class="font-size-md font-weight-md color-accent-white">
-										{% if user_stats.ranked.difficulty_breakdown %}
-											{{ user_stats.ranked.difficulty_breakdown.easyDifficulty|default(0) }} (E) / 
-											{{ user_stats.ranked.difficulty_breakdown.mediumDifficulty|default(0) }} (M) / 
-											{{ user_stats.ranked.difficulty_breakdown.hardDifficulty|default(0) }} (H)
-										{% else %}
-											0 (E) / 0 (M) / 0 (H)
-										{% endif %}
-									</p>
-								</div>
-
-								<!-- Favorite enemy -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Favorite enemy</h4>
-									<p class="font-size-md font-weight-md color-accent-white">
-										{% if user_stats.ranked.favorite_enemy and user_stats.ranked.favorite_enemy != 'N/A' %}{{ user_stats.ranked.favorite_enemy }}{% else %}N/A{% endif %}
-									</p>
-								</div>
-
-								<!-- Favorite difficulty -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Favorite difficulty</h4>
-									<p class="font-size-md font-weight-md color-accent-white">N/A</p>
-								</div>
-
-								<!-- Favorite background -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Favorite background</h4>
-									<p class="font-size-md font-weight-md color-accent-white">
-										{% if user_stats.ranked.favorite_background and user_stats.ranked.favorite_background != 'N/A' %}{{ user_stats.ranked.favorite_background }}{% else %}N/A{% endif %}
-									</p>
-								</div>
-							</div>
-
-							<!-- FREE PLAY STATS Column -->
-							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop width-full-phone width-md-tablet">
-								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">FREE PLAY STATS</h3>
-								
-								<!-- Games played -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Games played</h4>
-									<p class="font-size-md font-weight-md color-accent-white">
-										{% if user_stats.freeplay.total_games %}{{ user_stats.freeplay.total_games }}{% else %}0{% endif %}
-									</p>
-								</div>
-
-								<!-- Difficulty played -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Difficulty played</h4>
-									<p class="font-size-md font-weight-md color-accent-white">
-										{% if user_stats.freeplay.difficulty_breakdown %}
-											{{ user_stats.freeplay.difficulty_breakdown.easyDifficulty|default(0) }} (E) / 
-											{{ user_stats.freeplay.difficulty_breakdown.mediumDifficulty|default(0) }} (M) / 
-											{{ user_stats.freeplay.difficulty_breakdown.hardDifficulty|default(0) }} (H)
-										{% else %}
-											0 (E) / 0 (M) / 0 (H)
-										{% endif %}
-									</p>
-								</div>
-
-								<!-- Favorite enemy -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Favorite enemy</h4>
-									<p class="font-size-md font-weight-md color-accent-white">
-										{% if user_stats.freeplay.favorite_enemy and user_stats.freeplay.favorite_enemy != 'N/A' %}{{ user_stats.freeplay.favorite_enemy }}{% else %}N/A{% endif %}
-									</p>
-								</div>
-
-								<!-- Favorite difficulty -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Favorite difficulty</h4>
-									<p class="font-size-md font-weight-md color-accent-white">N/A</p>
-								</div>
-
-								<!-- Favorite background -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Favorite background</h4>
-									<p class="font-size-md font-weight-md color-accent-white">
-										{% if user_stats.freeplay.favorite_background and user_stats.freeplay.favorite_background != 'N/A' %}{{ user_stats.freeplay.favorite_background }}{% else %}N/A{% endif %}
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="flex-column-desktop flex-column-phone flex-align-center flex-justify-center width-lg-desktop margin-auto-desktop margin-auto-phone margin-auto-tablet gap-xl">
-
-						<!-- Account Details & Settings Grid -->
-						<div class="flex-column-desktop flex-column-phone flex-align-items-center flex-justify-center gap-xl width-full-desktop margin-xl-desktop margin-lg-phone margin-lg-tablet">
-
-							<!-- Account Details Column -->
-							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop width-full-phone width-md-tablet">
+			<div id="profile" class="main-wrapper" data-animate="page-intro">
+				<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-full-tablet width-xl-phone">
+					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center gap-xxl-all">
+						<!-- ACCOUNT DETAILS Column -->
+						<div id="hero-square" class="width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet border-radius rotate-left shadow-green-alt-md">
+							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-desktop width-full-phone width-full-tablet padding-md-all">
 								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">
 									ACOUNT DETALES
 								</h3>
@@ -240,7 +40,11 @@
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Name</h4>
 									<p class="font-size-md font-weight-md color-accent-white">
-										{% if logged_in and name %}{{ name }}{% else %}Not logged in{% endif %}
+										{% if logged_in and name %}
+											{{ name }}
+										{% else %}
+											Not logged in
+										{% endif %}
 									</p>
 								</div>
 
@@ -248,23 +52,61 @@
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Email</h4>
 									<p class="font-size-md font-weight-md color-accent-white">
-										{% if logged_in and email %}{{ email }}{% else %}Not logged in{% endif %}
+										{% if logged_in and email %}
+											{{ email }}
+										{% else %}
+											Not logged in
+										{% endif %}
 									</p>
 								</div>
 
 								<!-- Username -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+								<div id="profile-username-container" class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Username</h4>
-									<p class="font-size-md font-weight-md color-accent-white">
-										{% if logged_in and username %}{{ username }}{% else %}THIS-IS-A-STICKUP{% endif %}
-									</p>
+									<!-- Username label wrapper to maintain top-right positioning -->
+									<div class="main-label bg-accent-gold color-accent-grey-dark">
+										<div id="profile-username">
+											<span id="usernameDisplay">
+												{% if logged_in %}
+													{%- if username -%}
+														{{ username | upper }}
+													{%- elif name -%}
+														{{ name | upper }}
+													{%- else -%}
+														HORS MEMBAR
+													{%- endif -%}
+												{% else %}
+													SIGN IN, HOSS
+												{% endif %}
+											</span>
+											<input type="text" id="usernameInput" style="display: none; background: transparent; border: none; color: inherit; font: inherit; text-align: center; width: 100%;" maxlength="20" value="{{ username }}">
+										</div>
+										<!-- Username edit controls - positioned directly below the username label -->
+										<div id="profile-username-edit-controls" class="flex-column-all flex-align-items-center width-xl-all" style="display: none;">
+											<!-- Buttons container -->
+											<div id="profile-username-buttons" class="flex-row-all gap-sm-all">
+												<button type="button" id="profile-username-save-button" class="button shadow-white-sm font-weight-xl font-size-sm" style="padding: 4px 8px; min-width: 60px;">
+													<span class="color-accent-gold">SAVE</span>
+												</button>
+												<button type="button" id="profile-username-cancel-button" class="button shadow-red-sm font-weight-xl font-size-sm" style="padding: 4px 8px; min-width: 60px;">
+													<span class="color-accent-white">CANCEL</span>
+												</button>
+											</div>
+											<!-- Messages container -->
+											<div id="usernameMessages" class="width-full-all shadow-green-alt-none margin-sm-desktop margin-sm-phone margin-sm-tablet text-center"></div>
+										</div>
+									</div>
 								</div>
 
 								<!-- Account ID -->
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Account ID</h4>
 									<p class="font-size-md font-weight-md color-accent-white">
-										{% if logged_in and user_id %}{{ user_id }}{% else %}Not logged in{% endif %}
+										{% if logged_in and user_id %}
+											{{ user_id }}
+										{% else %}
+											Not logged in
+										{% endif %}
 									</p>
 								</div>
 
@@ -281,9 +123,231 @@
 									</p>
 								</div>
 							</div>
+							<div class="flex-row-desktop flex-column-phone flex-align-items-start flex-justify-center gap-xxl-all width-full-desktop padding-md-all">
+								<!-- RANKED STATS Column -->
+								<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop width-full-phone width-full-tablet">
+									<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">RANKED STATS</h3>
+									
+									<!-- Games played -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Games played</h4>
+										<p class="font-size-md font-weight-md color-accent-white">
+											{% if user_stats.ranked.total_games %}
+												{{ user_stats.ranked.total_games }}
+											{% else %}
+												0
+											{% endif %}
+										</p>
+									</div>
 
-							<div class="flex-column-desktop flex-align-items-center gap-md">
-								<button type="button" id="deleteAccountBtn" class="button shadow-red-md font-weight-xl font-size-md margin-md-desktop margin-sm-phone margin-md-tablet color-accent-white">DELET ACCOUNT</button>
+									<!-- Difficulty played -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Difficulty played</h4>
+										<p class="font-size-md font-weight-md color-accent-white">
+											{% if user_stats.ranked.difficulty_breakdown %}
+												{{ user_stats.ranked.difficulty_breakdown.easyDifficulty|default(0) }} (E) / 
+												{{ user_stats.ranked.difficulty_breakdown.mediumDifficulty|default(0) }} (M) / 
+												{{ user_stats.ranked.difficulty_breakdown.hardDifficulty|default(0) }} (H)
+											{% else %}
+												0 (E) / 0 (M) / 0 (H)
+											{% endif %}
+										</p>
+									</div>
+
+									<!-- Favorite enemy -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Favorite enemy</h4>
+										<p class="font-size-md font-weight-md color-accent-white">
+											{% if user_stats.ranked.favorite_enemy and user_stats.ranked.favorite_enemy != 'N/A' %}
+												{{ user_stats.ranked.favorite_enemy }}
+											{% else %}
+												N/A
+											{% endif %}
+										</p>
+									</div>
+
+									<!-- Favorite difficulty -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Favorite difficulty</h4>
+										<p class="font-size-md font-weight-md color-accent-white">N/A</p>
+									</div>
+
+									<!-- Favorite background -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Favorite background</h4>
+										<p class="font-size-md font-weight-md color-accent-white">
+											{% if user_stats.ranked.favorite_background and user_stats.ranked.favorite_background != 'N/A' %}
+												{{ user_stats.ranked.favorite_background }}
+											{% else %}
+												N/A
+											{% endif %}
+										</p>
+									</div>
+								</div>
+
+								<!-- FREE PLAY STATS Column -->
+								<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop width-full-phone width-full-tablet">
+									<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">FREE PLAY STATS</h3>
+									
+									<!-- Games played -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Games played</h4>
+										<p class="font-size-md font-weight-md color-accent-white">
+											{% if user_stats.freeplay.total_games %}
+												{{ user_stats.freeplay.total_games }}
+											{% else %}
+												0
+											{% endif %}
+										</p>
+									</div>
+
+									<!-- Difficulty played -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Difficulty played</h4>
+										<p class="font-size-md font-weight-md color-accent-white">
+											{% if user_stats.freeplay.difficulty_breakdown %}
+												{{ user_stats.freeplay.difficulty_breakdown.easyDifficulty|default(0) }} (E) / 
+												{{ user_stats.freeplay.difficulty_breakdown.mediumDifficulty|default(0) }} (M) / 
+												{{ user_stats.freeplay.difficulty_breakdown.hardDifficulty|default(0) }} (H)
+											{% else %}
+												0 (E) / 0 (M) / 0 (H)
+											{% endif %}
+										</p>
+									</div>
+
+									<!-- Favorite enemy -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Favorite enemy</h4>
+										<p class="font-size-md font-weight-md color-accent-white">
+											{% if user_stats.freeplay.favorite_enemy and user_stats.freeplay.favorite_enemy != 'N/A' %}
+												{{ user_stats.freeplay.favorite_enemy }}
+											{% else %}
+												N/A
+											{% endif %}
+										</p>
+									</div>
+
+									<!-- Favorite difficulty -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Favorite difficulty</h4>
+										<p class="font-size-md font-weight-md color-accent-white">N/A</p>
+									</div>
+
+									<!-- Favorite background -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Favorite background</h4>
+										<p class="font-size-md font-weight-md color-accent-white">
+											{% if user_stats.freeplay.favorite_background and user_stats.freeplay.favorite_background != 'N/A' %}
+												{{ user_stats.freeplay.favorite_background }}
+											{% else %}
+												N/A
+											{% endif %}
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<!-- ACCOUNT OPTIONS Column -->
+						<div id="hero-square" class="width-full-phone width-sm-desktop width-full-tablet margin-auto-phone margin-auto-tablet border-radius">
+							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-all">
+								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">ACCOUNT OPTINS</h3>
+								<div class="flex-column-desktop flex-column-phone width-full-all flex-align-items-center gap-md-all">
+									{% if logged_in %}
+										<button type="button" id="changeNameBtn" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold rotate-left">CHANGE NAME</button>
+										{% if subscription_type == 'free' %}
+											<a href="/store" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold">UPGRAD PLAN</a>
+										{% else %}
+											<a href="/store" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold rotate-right">MANAG PLAN</a>
+										{% endif %}
+										<button type="button" id="deleteAccountBtn" class="button shadow-red-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-white rotate-right">DELET ACCOUNT</button>
+									{% else %}
+										<a href="/login" class="button shadow-white-md font-weight-xl font-size-sm margin-lg-desktop margin-sm-phone margin-lg-tablet color-accent-gold rotate-right">SIGN IN</a>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- ACCOUNT DETAILS SECTION -->
+				<div class="main-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-full-desktop width-full-tablet width-full-phone bg-primary-dark" style="transform: translateY(0px);opacity: 1;padding-top: 0;" data-animate="page-intro">
+					<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-full-desktop width-full-tablet width-xl-phone" style="transform: translateY(0px); opacity: 1;">
+						<div class="flex-row-reverse-desktop flex-column-reverse-phone flex-align-center flex-justify-center gap-xxl-all margin-md-tablet">
+							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop">
+								<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-all">
+									<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">RANKED STATS</h3>
+									
+									<!-- Horses tranquilized -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Horses tranquilized</h4>
+										<p class="font-size-md font-weight-md color-accent-white">
+											{% if user_stats.ranked.total_horses_popped %}
+												{{ user_stats.ranked.total_horses_popped }}
+											{% else %}
+												0
+											{% endif %}
+										</p>
+									</div>
+	
+									<!-- Time spent tranqing -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Time spent tranqing</h4>
+										<p class="font-size-md font-weight-md color-accent-white">
+											{% if user_stats.ranked.total_time_played %}
+												{{ user_stats.ranked.total_time_played }}
+											{% else %}
+												0
+											{% endif %} seconds
+										</p>
+									</div>
+	
+									<!-- Overall rank -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Overall rank</h4>
+										<p class="font-size-md font-weight-md color-accent-white">N/A</p>
+									</div>
+	
+									<!-- Best time -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Best time</h4>
+										<p class="font-size-md font-weight-md color-accent-white">
+											{% if user_stats.ranked.best_time and user_stats.ranked.best_time != 'inf' %}
+												{{ user_stats.ranked.best_time }}
+											{% else %}
+												N/A
+											{% endif %}
+										</p>
+									</div>
+								</div>
+	
+								<!-- Action buttons -->
+								<div class="flex-row-desktop flex-align-items-center gap-md-all">
+									{% if logged_in %}
+										<button type="button" id="changeNameBtn" class="button shadow-white-md font-weight-xl font-size-md margin-lg-desktop margin-sm-phone margin-lg-tablet color-accent-gold">CHANGE NAME</button>
+										{% if subscription_type == 'free' %}
+											<a href="/store" class="button shadow-white-md font-weight-xl font-size-md margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold">UPGRAD PLAN</a>
+										{% else %}
+											<a href="/store" class="button shadow-white-md font-weight-xl font-size-md margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold">MANAG PLAN</a>
+										{% endif %}
+									{% else %}
+										<a href="/login" class="button shadow-white-md font-weight-xl font-size-lg margin-lg-desktop margin-sm-phone margin-lg-tablet color-accent-gold">SIGN IN</a>
+									{% endif %}
+								</div>
+							</div>
+							<div id="hero-square" class="width-lg-phone width-full-tablet margin-auto-phone margin-auto-tablet border-radius border-radius rotate-left" style="position: relative;">
+								{% if subscription_type == 'free' %}
+									<div class="main-label main-label-bottom-left bg-accent-grey-mid-alt color-accent-grey-dark">DEFALT</div>
+								{% elif subscription_type == 'one' %}
+									<div class="main-label main-label-bottom-left main-label-one color-accent-white">HORS ONE</div>
+								{% elif subscription_type == 'plus' %}
+									<div class="main-label main-label-bottom-left main-label-plus color-accent-white">HORS PLUS</div>
+								{% elif subscription_type == 'max' %}
+									<div class="main-label main-label-bottom-left main-label-max color-accent-white">HORS MAX</div>
+								{% else %}
+									<div class="main-label main-label-bottom-left bg-accent-grey-mid-alt color-accent-grey-dark">DEFALT</div>
+								{% endif %}
+								<img id="index-hero-img" src="/static/img/branding/horsetranq-v3.png" alt="Horsetranq">
 							</div>
 						</div>
 					</div>

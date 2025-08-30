@@ -5,10 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const profileUsernameLabel = document.getElementById('profile-username');
     const usernameDisplay = profileUsernameLabel ? profileUsernameLabel.querySelector('#usernameDisplay') : null;
     const usernameInput = profileUsernameLabel ? profileUsernameLabel.querySelector('#usernameInput') : null;
-    const usernameEditControls = document.getElementById('usernameEditControls');
+    const usernameEditControls = document.getElementById('profile-username-edit-controls');
     const usernameMessages = document.getElementById('usernameMessages');
-    const usernameSaveBtn = document.getElementById('usernameSaveBtn');
-    const usernameCancelBtn = document.getElementById('usernameCancelBtn');
+    const usernameSaveBtn = document.getElementById('profile-username-save-button');
+    const usernameCancelBtn = document.getElementById('profile-username-cancel-button');
     
     let originalUsername = '';
     let isEditing = false;

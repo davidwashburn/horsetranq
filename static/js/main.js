@@ -108,30 +108,18 @@ jQuery(document).ready(function($){
 	$(document).ready(function() {
         console.log('Page animation script running...');
         
-        // Target specific content sections, not main containers
-        var $content = $('.store-wrapper, .tools-wrapper, .lemon-flex-container');
-        
-        // Target hero-section on specific pages (not scores)
-        var $heroContent = $('#index .hero-section, #profile .hero-section, #store .hero-section, #horsplay .hero-section, #lemondrop .hero-section');
-        $content = $content.add($heroContent);
-        
-        // Target main-wrapper and main-section on specific pages (not scores)
-        var $pageContent = $('#index .main-wrapper, #index .main-section, #profile .main-wrapper, #profile .main-section, #store .main-wrapper, #store .main-section, #horsplay .main-wrapper, #horsplay .main-section, #lemondrop .main-wrapper, #lemondrop .main-section');
-        $content = $content.add($pageContent);
-        
-        // Also target scores page specific elements
-        var $scoresContent = $('#scores .main-wrapper, #scores .main-section, #scores .hero-section');
-        console.log('Scores content found:', $scoresContent.length);
-        console.log('Scores elements:', $scoresContent);
-        $scoresContent.each(function(index) {
-            console.log('Scores element ' + index + ':', this.className, this.tagName);
-        });
-        $content = $content.add($scoresContent);
+        // Target all elements with the page-intro animation attribute
+        var $content = $('[data-animate="page-intro"]');
         
         console.log('Total content elements to animate:', $content.length);
         
         // Use jQuery's native animate method (CSS already sets initial state)
         setTimeout(function() {
+            console.log('Starting animation for', $content.length, 'elements');
+            $content.each(function(index) {
+                console.log('Animating element', index, ':', this.className || this.tagName);
+            });
+            
             $content.animate({
                 opacity: 1
             }, {
@@ -142,9 +130,34 @@ jQuery(document).ready(function($){
                     var translateY = 50 * (1 - slideProgress);
                     $(this).css('transform', `translateY(${translateY}px)`);
                 },
+                complete: function() {
+                    // Ensure final state is set correctly
+                    $(this).css({
+                        'opacity': '1',
+                        'transform': 'translateY(0px)'
+                    });
+                },
                 easing: 'swing'
             });
         }, 50); // Reduced delay to 50ms for snappier feel
+        
+        // Fallback: ensure elements are visible after animation should complete
+        setTimeout(function() {
+            $content.css({
+                'opacity': '1',
+                'transform': 'translateY(0px)'
+            });
+            console.log('Fallback: ensured all elements are visible');
+        }, 600); // Slightly longer than animation duration
+        
+        // Specific fallback for any remaining hidden elements
+        setTimeout(function() {
+            $('[data-animate="page-intro"]').css({
+                'opacity': '1 !important',
+                'transform': 'translateY(0px) !important'
+            });
+            console.log('Universal fallback applied to all animated elements');
+        }, 1000);
     });
 
 
@@ -308,8 +321,10 @@ jQuery(document).ready(function($){
   $('#index-hero-button').hover(
     function() {
       var originalSrc = $('#index-hero-img').attr('src');
-      // Instantly go to image 1
-      $('#index-hero-img').attr('src', '/static/img/branding/horsetranq-v3-intensity-1.gif');
+      var originalOpacity = $('#index-hero-img').css('opacity');
+      
+      // Reset opacity to 1 and instantly go to image 1
+      $('#index-hero-img').css('opacity', '1').attr('src', '/static/img/branding/horsetranq-v3-intensity-1.gif');
       
       var timer2 = setTimeout(function() {
         $('#index-hero-img').attr('src', '/static/img/branding/horsetranq-v3-intensity-2.gif');
@@ -324,15 +339,20 @@ jQuery(document).ready(function($){
         $('#index-hero-img').attr('src', '/static/img/branding/horsetranq-v3-intensity-5.gif');
       }, 12000);
       var timer6 = setTimeout(function() {
-        $('#index-hero-img').attr('src', originalSrc);
+        $('#index-hero-img').attr('src', '/static/img/branding/horsetranq-v3-intensity-6.gif');
       }, 15000);
+      var timer7 = setTimeout(function() {
+        // After explosion animation, set opacity to 0 while keeping width/height
+        $('#index-hero-img').css('opacity', '0');
+      }, 18000);
       
       // Store timers and original src on the element for cleanup
-      $(this).data('timers', [timer2, timer3, timer4, timer5, timer6]);
+      $(this).data('timers', [timer2, timer3, timer4, timer5, timer6, timer7]);
       $(this).data('originalSrc', originalSrc);
+      $(this).data('originalOpacity', originalOpacity);
     },
     function() {
-      // Clear all timers and restore original image
+      // Clear all timers and restore original image and opacity
       var timers = $(this).data('timers');
       if (timers) {
         timers.forEach(function(timer) {
@@ -340,8 +360,12 @@ jQuery(document).ready(function($){
         });
       }
       var originalSrc = $(this).data('originalSrc');
+      var originalOpacity = $(this).data('originalOpacity');
       if (originalSrc) {
         $('#index-hero-img').attr('src', originalSrc);
+      }
+      if (originalOpacity) {
+        $('#index-hero-img').css('opacity', originalOpacity);
       }
     }
   );

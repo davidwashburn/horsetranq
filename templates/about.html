@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="en" class="no-js bg-primary">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -7,29 +7,25 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 		<link rel="icon" type="image/x-icon" href="/static/img/assets/ico/hors.ico">
-		<link rel="stylesheet" href="../static/css/reset.css"> <!-- CSS reset -->
-		<link rel="stylesheet" href="../static/css/style.css"> <!-- Main style -->
-		<link rel="stylesheet" href="../static/css/about.css"> <!-- Main style -->
-		<link rel="stylesheet" href="../static/css/variables.css"> <!-- Variables style -->
-		<link rel="stylesheet" href="../static/css/style-v3.css"> <!-- New v3 style -->
-		<script src="../static/js/resources/modernizr.js"></script> <!-- Modernizr -->
+		<link rel="stylesheet" href="/static/css/reset.css"> <!-- CSS reset -->
+		<link rel="stylesheet" href="/static/css/style.css"> <!-- Main style -->
+		<link rel="stylesheet" href="/static/css/about.css"> <!-- Main style -->
+		<link rel="stylesheet" href="/static/css/variables.css"> <!-- Variables style -->
+		<link rel="stylesheet" href="/static/css/style-v3.css"> <!-- New v3 style -->
+		<script src="/static/js/resources/modernizr.js"></script> <!-- Modernizr -->
 		<script src="https://cdn.auth0.com/js/auth0/9.18/auth0.min.js"></script>
 		<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
 		<title>HOrstRnq</title>
 	</head>
 	<body>
-		<main class="static-bg is-fixed">
+		<main id="about" class="main-content" data-animate="page-intro">
 			{% include 'partials/navigation_menu.html' %}
 
 			<div class="about-wrapper">
 				<section class="position-relative padding-y-xl">
 					<div class="container max-width-adaptive-md">
-						<div id="about-title" class="title-container">
-							<h2 class="big-bold">QUESTONS</h2>
-							<p>frequent FAQs</p>
-						</div>
 					
-						<div class="grid gap-lg">
+						<div class="grid gap-lg-all">
 							<div #id="mobile-selector" class="col-3@md">
 								<div class="toc toc--static@md position-sticky@md js-toc">
 									<button class=" toc__control padding-md no-js:hide  js-toc__control" aria-controls="toc">
@@ -59,14 +55,14 @@
 							</div>
 					
 						<div class="toc-content js-toc-content col-9@md">
-							<div class="grid gap-lg">
+							<div class="grid gap-lg-all">
 							<div>
 								<h2 id="basics" class="toc-header text-xl margin-bottom-xs">Basics</h2>
 					
 								<ul class="accordion-v2 flex flex-column gap-xs js-accordion" data-animation="on" data-multi-items="on" data-version="v2">
 					
 								<li class="accordion-v2__item  js-accordion__item">
-									<button class=" accordion-v2__header padding-y-md padding-x-md " type="button">
+									<button class="accordion-v2__header padding-y-md padding-x-md shadow-green-md color-accent-white js-accordion__trigger" type="button">
 									<span class="text-lg">Wats a horsetranq?</span>
 					
 									<svg class="icon accordion-v2__icon-arrow no-js:hide" viewBox="0 0 20 20">
@@ -79,14 +75,14 @@
 					
 									<div class="accordion-v2__panel padding-top-3xs padding-x-md padding-bottom-md js-accordion__panel">
 									<div class="text-component line-height-lg">
-										<p>A horstranq is wen u tranq a horse wit a tranqlizer dart for its own good of the hors. This can be use to help hors in medical or jus when u want to help hors. No hors were harmed in making of this cite.</p>
-										<p>Onse a hors alway a hors. Liv boled, be fre.</p>
+										<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-sm font-weight-xl color-accent-white">A horstranq is wen u tranq a horse wit a tranqlizer dart for its own good of the hors. This can be use to help hors in medical or jus when u want to help hors. No hors were harmed in making of this cite.</p>
+										<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-sm font-weight-xl color-accent-white">Onse a hors alway a hors. Liv boled, be fre.</p>
 									</div>
 									</div>
 								</li>
 					
 								<li class="accordion-v2__item  js-accordion__item">
-									<button class=" accordion-v2__header padding-y-md padding-x-md " type="button">
+									<button class="accordion-v2__header padding-y-md padding-x-md shadow-green-md color-accent-white js-accordion__trigger" type="button">
 									<span class="text-lg">Wat is Horsetranq media grop?</span>
 					
 									<svg class="icon accordion-v2__icon-arrow no-js:hide" viewBox="0 0 20 20">
@@ -99,14 +95,14 @@
 					
 									<div class="accordion-v2__panel padding-top-3xs padding-x-md padding-bottom-md js-accordion__panel">
 									<div class="text-component line-height-lg">
-										<p>Horstarnq Media Grop ©2023 is teh parent company for Horsetranq.com. Horsetranq was found in 2001 durin the doctom bubble. Y2k and Gran Turismo 2 devlopers teamed up to make this websit. We r teh industy leadr in digtal contant and vido game experiences.</p>
-										<p>We also hav a vary loose* parnership wit Foundation for the Hors. Its loose cus they may not kno it exits. We like to parner wit hors fundations to benefit all the hors in teh wild. Majecstic beast wit four legs n a tail n a head. Our fundang and incom goes to hors phlanthropy acros the globe (wen wer'e able to). It makes us difrent than or competitin. We are 'nt afraid of wat othrs think of horstranq.</p>
+										<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-sm font-weight-xl color-accent-white">Horstarnq Media Grop ©2023 is teh parent company for Horsetranq.com. Horsetranq was found in 2001 durin the doctom bubble. Y2k and Gran Turismo 2 devlopers teamed up to make this websit. We r teh industy leadr in digtal contant and vido game experiences.</p>
+										<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-sm font-weight-xl color-accent-white">We also hav a vary loose* parnership wit Foundation for the Hors. Its loose cus they may not kno it exits. We like to parner wit hors fundations to benefit all the hors in teh wild. Majecstic beast wit four legs n a tail n a head. Our fundang and incom goes to hors phlanthropy acros the globe (wen wer'e able to). It makes us difrent than or competitin. We are 'nt afraid of wat othrs think of horstranq.</p>
 									</div>
 									</div>
 								</li>
 					
 								<li class="accordion-v2__item  js-accordion__item">
-									<button class=" accordion-v2__header padding-y-md padding-x-md " type="button">
+									<button class="accordion-v2__header padding-y-md padding-x-md shadow-green-md color-accent-white js-accordion__trigger" type="button">
 									<span class="text-lg">Wat do I do on ur cite?</span>
 					
 									<svg class="icon accordion-v2__icon-arrow no-js:hide" viewBox="0 0 20 20">
@@ -119,13 +115,13 @@
 					
 									<div class="accordion-v2__panel padding-top-3xs padding-x-md padding-bottom-md js-accordion__panel">
 									<div class="text-component line-height-lg">
-										<p>As teh industry leadr in digital contant experineces and vido games u can play many varity of games and score pts that u can turn in for no prizes. More games are comin in the future as we incrase our devlopment pace.</p>
+										<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-sm font-weight-xl color-accent-white">As teh industry leadr in digital contant experineces and vido games u can play many varity of games and score pts that u can turn in for no prizes. More games are comin in the future as we incrase our devlopment pace.</p>
 									</div>
 									</div>
 								</li>
 					
 								<li class="accordion-v2__item  js-accordion__item">
-									<button class=" accordion-v2__header padding-y-md padding-x-md " type="button">
+									<button class="accordion-v2__header padding-y-md padding-x-md shadow-green-md color-accent-white js-accordion__trigger" type="button">
 									<span class="text-lg">How do I contect teh Horstranq team?</span>
 					
 									<svg class="icon accordion-v2__icon-arrow no-js:hide" viewBox="0 0 20 20">
@@ -138,7 +134,7 @@
 					
 									<div class="accordion-v2__panel padding-top-3xs padding-x-md padding-bottom-md js-accordion__panel">
 									<div class="text-component line-height-lg">
-										<p> Find us at on of teh websites and cntact optins below.</p>
+										<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-sm font-weight-xl color-accent-white"> Find us at on of teh websites and cntact optins below.</p>
 										<div class="title-wrapper flex settings">
 											<div class="title-wrapper flex settings bg-none" style="margin-bottom: 0;">
 												<div class="socials flex">
@@ -169,7 +165,7 @@
 								<ul class="accordion-v2 flex flex-column gap-xs js-accordion" data-animation="on" data-multi-items="on" data-version="v2">
 					
 								<li class="accordion-v2__item  js-accordion__item">
-									<button class=" accordion-v2__header padding-y-md padding-x-md " type="button">
+									<button class="accordion-v2__header padding-y-md padding-x-md shadow-green-md color-accent-white js-accordion__trigger" type="button">
 									<span class="text-lg">How do I change password?</span>
 					
 									<svg class="icon accordion-v2__icon-arrow no-js:hide" viewBox="0 0 20 20">
@@ -182,13 +178,13 @@
 					
 									<div class="accordion-v2__panel padding-top-3xs padding-x-md padding-bottom-md js-accordion__panel">
 									<div class="text-component line-height-lg">
-										<p>Ur pasword can b changed depdning on wher u create ur account. If u used a socail login like Google or Patron your acount is manage there. If ur account is create directly for Horsetranq then ur accvount exists on Auth0's identy platform.</p>
+										<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-sm font-weight-xl color-accent-white">Ur pasword can b changed depdning on wher u create ur account. If u used a socail login like Google or Patron your acount is manage there. If ur account is create directly for Horsetranq then ur accvount exists on Auth0's identy platform.</p>
 									</div>
 									</div>
 								</li>
 					
 								<li class="accordion-v2__item  js-accordion__item">
-									<button class=" accordion-v2__header padding-y-md padding-x-md " type="button">
+									<button class="accordion-v2__header padding-y-md padding-x-md shadow-green-md color-accent-white js-accordion__trigger" type="button">
 									<span class="text-lg">How do I delete my account?</span>
 					
 									<svg class="icon accordion-v2__icon-arrow no-js:hide" viewBox="0 0 20 20">
@@ -201,14 +197,14 @@
 					
 									<div class="accordion-v2__panel padding-top-3xs padding-x-md padding-bottom-md js-accordion__panel">
 									<div class="text-component line-height-lg">
-										<p>As mention above ur acount depends on wher u create it from. If is a Horsetranq specify account then we can assist in u delet it. Contact us using the "how do I contect teh Horsetraqn team" FAQ.</p>
-										<p>You can also contact us direclty via <a href="https://support.horsetranq.com">support.horsetranq.com</a>.</p>
+										<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-sm font-weight-xl color-accent-white">As mention above ur acount depends on wher u create it from. If is a Horsetranq specify account then we can assist in u delet it. Contact us using the "how do I contect teh Horsetraqn team" FAQ.</p>
+										<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-sm font-weight-xl color-accent-white">You can also contact us direclty via <a href="https://support.horsetranq.com">support.horsetranq.com</a>.</p>
 									</div>
 									</div>
 								</li>
 					
 								<li class="accordion-v2__item  js-accordion__item">
-									<button class=" accordion-v2__header padding-y-md padding-x-md " type="button">
+									<button class="accordion-v2__header padding-y-md padding-x-md shadow-green-md color-accent-white js-accordion__trigger" type="button">
 									<span class="text-lg">Why dont I see my digtal content packs?</span>
 					
 									<svg class="icon accordion-v2__icon-arrow no-js:hide" viewBox="0 0 20 20">
@@ -221,13 +217,13 @@
 					
 									<div class="accordion-v2__panel padding-top-3xs padding-x-md padding-bottom-md js-accordion__panel">
 									<div class="text-component line-height-lg">
-										<p>If you do not see your digtal contant paks on your account after purchase please sign out and sign back in. Sumtime our system takes a hot minut to updat. If that does not work please contact us at <a href="https://support.horsetranq.com">support.horsetranq.com</a> and we will halp u out.</p>
+										<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-sm font-weight-xl color-accent-white">If you do not see your digtal contant paks on your account after purchase please sign out and sign back in. Sumtime our system takes a hot minut to updat. If that does not work please contact us at <a href="https://support.horsetranq.com">support.horsetranq.com</a> and we will halp u out.</p>
 									</div>
 									</div>
 								</li>
 					
 								<li class="accordion-v2__item  js-accordion__item">
-									<button class=" accordion-v2__header padding-y-md padding-x-md " type="button">
+									<button class="accordion-v2__header padding-y-md padding-x-md shadow-green-md color-accent-white js-accordion__trigger" type="button">
 									<span class="text-lg">How do I change my account settings?</span>
 					
 									<svg class="icon accordion-v2__icon-arrow no-js:hide" viewBox="0 0 20 20">
@@ -240,8 +236,8 @@
 					
 									<div class="accordion-v2__panel padding-top-3xs padding-x-md padding-bottom-md js-accordion__panel">
 									<div class="text-component line-height-lg">
-										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia quia? Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum inventore sapiente laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
-										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia quia? Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum inventore sapiente laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
+										<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-sm font-weight-xl color-accent-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia quia? Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum inventore sapiente laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
+										<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-sm font-weight-xl color-accent-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia quia? Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum inventore sapiente laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
 									</div>
 									</div>
 								</li>
@@ -255,7 +251,7 @@
 								<ul class="accordion-v2 flex flex-column gap-xs js-accordion" data-animation="on" data-multi-items="on" data-version="v2">
 					
 								<li class="accordion-v2__item  js-accordion__item">
-									<button class=" accordion-v2__header padding-y-md padding-x-md " type="button">
+									<button class="accordion-v2__header padding-y-md padding-x-md shadow-green-md color-accent-white js-accordion__trigger" type="button">
 									<span class="text-lg">Where can I download an invoice?</span>
 					
 									<svg class="icon accordion-v2__icon-arrow no-js:hide" viewBox="0 0 20 20">
@@ -268,13 +264,13 @@
 					
 									<div class="accordion-v2__panel padding-top-3xs padding-x-md padding-bottom-md js-accordion__panel">
 									<div class="text-component line-height-lg">
-										<p>Yu can donload an invoice from the <a href="https://www.invoicesimple.com/invoice-generator">wesite linkd here</a>. Click the site and input ur information and the cost that Horsetranq charged you for our servic and then u can download that PDF and keep a copy for ur record. If you need a logo image 2 make it official jus let our suport team know at support@horsetranq.com.</p>
+										<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-sm font-weight-xl color-accent-white">Yu can donload an invoice from the <a href="https://www.invoicesimple.com/invoice-generator">wesite linkd here</a>. Click the site and input ur information and the cost that Horsetranq charged you for our servic and then u can download that PDF and keep a copy for ur record. If you need a logo image 2 make it official jus let our suport team know at support@horsetranq.com.</p>
 									</div>
 									</div>
 								</li>
 					
 								<li class="accordion-v2__item  js-accordion__item">
-									<button class=" accordion-v2__header padding-y-md padding-x-md " type="button">
+									<button class="accordion-v2__header padding-y-md padding-x-md shadow-green-md color-accent-white js-accordion__trigger" type="button">
 									<span class="text-lg">Why did my payment fail?</span>
 					
 									<svg class="icon accordion-v2__icon-arrow no-js:hide" viewBox="0 0 20 20">
@@ -287,13 +283,13 @@
 					
 									<div class="accordion-v2__panel padding-top-3xs padding-x-md padding-bottom-md js-accordion__panel">
 										<div class="text-component line-height-lg">
-											<p>Are u srlsy tryn to make it my falt u hav no money? If you payment fail is probly something wrong wit ur bank or card or you don have money which is perplexing.</p>
+											<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-sm font-weight-xl color-accent-white">Are u srlsy tryn to make it my falt u hav no money? If you payment fail is probly something wrong wit ur bank or card or you don have money which is perplexing.</p>
 										</div>
 									</div>
 								</li>
 					
 								<li class="accordion-v2__item  js-accordion__item">
-									<button class=" accordion-v2__header padding-y-md padding-x-md " type="button">
+									<button class="accordion-v2__header padding-y-md padding-x-md shadow-green-md color-accent-white js-accordion__trigger" type="button">
 									<span class="text-lg">Do you ofer studant discounts?</span>
 					
 									<svg class="icon accordion-v2__icon-arrow no-js:hide" viewBox="0 0 20 20">
@@ -306,8 +302,8 @@
 					
 									<div class="accordion-v2__panel padding-top-3xs padding-x-md padding-bottom-md js-accordion__panel">
 									<div class="text-component line-height-lg">
-										<p>If you are intersted in a studen idscount please visit <a href="https://support.horsetranq.com">support.horsetranq.com</a> and submit a request with information bout what classes ur takin and stuff and which semester ur in and where you anticipate goin wit ur life and we'll take it into considretation.</p>
-										<p>For other discount like frendship discount or non profit access plz submit a reqwuest to <a href="https://support.horsetranq.com">support.horsetranq.com</a>.</p>
+										<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-sm font-weight-xl color-accent-white">If you are intersted in a studen idscount please visit <a href="https://support.horsetranq.com">support.horsetranq.com</a> and submit a request with information bout what classes ur takin and stuff and which semester ur in and where you anticipate goin wit ur life and we'll take it into considretation.</p>
+										<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-sm font-weight-xl color-accent-white">For other discount like frendship discount or non profit access plz submit a reqwuest to <a href="https://support.horsetranq.com">support.horsetranq.com</a>.</p>
 									</div>
 									</div>
 								</li>
@@ -321,7 +317,7 @@
 								<ul class="accordion-v2 flex flex-column gap-xs js-accordion" data-animation="on" data-multi-items="on" data-version="v2">
 					
 								<li class="accordion-v2__item  js-accordion__item">
-									<button class=" accordion-v2__header padding-y-md padding-x-md " type="button">
+									<button class="accordion-v2__header padding-y-md padding-x-md shadow-green-md color-accent-white js-accordion__trigger" type="button">
 									<span class="text-lg">What is Horstranq privacy police?</span>
 					
 									<svg class="icon accordion-v2__icon-arrow no-js:hide" viewBox="0 0 20 20">
@@ -334,13 +330,13 @@
 					
 									<div class="accordion-v2__panel padding-top-3xs padding-x-md padding-bottom-md js-accordion__panel">
 									<div class="text-component line-height-lg">
-										<p>..</p>
+										<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-sm font-weight-xl color-accent-white">..</p>
 									</div>
 									</div>
 								</li>
 					
 								<li class="accordion-v2__item  js-accordion__item">
-									<button class=" accordion-v2__header padding-y-md padding-x-md " type="button">
+									<button class="accordion-v2__header padding-y-md padding-x-md shadow-green-md color-accent-white js-accordion__trigger" type="button">
 									<span class="text-lg">Do you store any private information?</span>
 					
 									<svg class="icon accordion-v2__icon-arrow no-js:hide" viewBox="0 0 20 20">
@@ -353,7 +349,7 @@
 					
 									<div class="accordion-v2__panel padding-top-3xs padding-x-md padding-bottom-md js-accordion__panel">
 									<div class="text-component line-height-lg">
-										<p>Lol not if we can halp it. Not saying we don't but also not sayin we do because we don want to get ur information haxed by the baddies. Lets just say all important acount profil information is handled by third partay services that are relible.</p>
+										<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-sm font-weight-xl color-accent-white">Lol not if we can halp it. Not saying we don't but also not sayin we do because we don want to get ur information haxed by the baddies. Lets just say all important acount profil information is handled by third partay services that are relible.</p>
 									</div>
 									</div>
 								</li>
@@ -362,36 +358,12 @@
 							</div>
 							</div>
 						</div>
-						</div>
 					</div>
-					<div id="footer-wrapper" class="stable-flex-container subscribe">
-						<div class="footer-container">
-							<footer class="footer-v3 mv0-padding-y-lg">
-								<div class="footer-v3__container mv0-container mv0-max-width-lg">
-								  <nav class="footer-v3__nav">
-									<ul class="footer-v3__nav-list">
-									  <li class="footer-v3__nav-item"><a href="/store">Store</a></li>
-									  <li class="footer-v3__nav-item"><a href="/">Mishun</a></li>
-									  <li class="footer-v3__nav-item"><a href="https://suport.horsetranq.com">Help centaur</a></li>
-									  <li class="footer-v3__nav-item"><a href="/about">About</a></li>
-									</ul>
-								  </nav>
-								</div>
-								<div class="footer-legal">
-									<div class="footer-legal-container">
-										<div class="footer-legal-container">
-											<p>©2023 Horstranq Media Grop, LLC, a Horsetranq company.</p>
-											<p>All rites reservation. Varous tradmarks held by respective ownars.</p>
-										</div>
-									</div>
-								</div>
-							</footer>
-						</div>
 					</div>
 				</section>
 			</div>
 			{% include 'partials/account_modal.html' %}	
-		</main>
+		</main> <!-- main-content -->
 	<script>
 		window.auth0UserId = '{{ user_id }}';
 		window.firebaseToken = '{{ firebase_token }}';

@@ -54,22 +54,7 @@ body {
   --tb9-text-sm: 0.833rem;
 }
 
-@media(min-width: 64rem){
-  :root {
-    /* spacing */
-    --tb9-space-4xs: 0.1875rem;
-    --tb9-space-3xs: 0.375rem;
-    --tb9-space-2xs: 0.5625rem;
-    --tb9-space-xs: 0.75rem;
-    --tb9-space-sm: 1.125rem;
-    --tb9-space-md: 2rem;
-
-    /* typography */
-    --tb9-text-sm: 1rem;
-    --tb9-text-xs: 0.8rem;
-    --tb9-text-sm: 1rem;
-  }
-}
+/* Removed media query that was causing size changes on page load */
 
 nav.toc__nav {
   margin-top: 4em;
@@ -670,19 +655,7 @@ img, video, svg {
   --ak6-text-sm: 0.833rem;
 }
 
-@media(min-width: 64rem){
-  :root {
-    /* spacing */
-    --ak6-space-2xs: 0.5625rem;
-    --ak6-space-sm: 1.125rem;
-    --ak6-space-md: 2rem;
-    --ak6-space-xs: 0.75rem;
-
-    /* typography */
-    --ak6-text-md: 1.5625rem;
-    --ak6-text-sm: 1rem;
-  }
-}
+/* Removed media query that was causing size changes on page load */
 
 /* icons */
 .ak6-icon {
@@ -1058,27 +1031,7 @@ img, video, svg {
   max-width: 100%;
 }
 
-@media (min-width: 64rem) {
-  body {
-    font-size: 1.25rem;
-  }
-
-  h1 {
-    font-size: 3.051rem;
-  }
-
-    h2 {
-    font-size: 2.44rem;
-  }
-
-    h3 {
-    font-size: 1.75rem;
-  }
-
-    h4 {
-    font-size: 1.5625rem;
-  }
-}
+/* Removed media query that was causing size changes on page load */
 
 /* variables */
 :root {
@@ -1102,19 +1055,7 @@ img, video, svg {
   --ap9-text-sm: 0.833rem;
 }
 
-@media(min-width: 64rem){
-  :root {
-    /* spacing */
-    --ap9-space-3xs: 0.375rem;
-    --ap9-space-sm: 1.125rem;
-    --ap9-space-md: 2rem;
-    --ap9-space-xs: 0.75rem;
-
-    /* typography */
-    --ap9-text-md: 1.5625rem;
-    --ap9-text-sm: 1rem;
-  }
-}
+/* Removed media query that was causing size changes on page load */
 
 /* icons */
 .ap9-icon {
@@ -1135,14 +1076,7 @@ img, video, svg {
 }
 
 .accordion-v2__item {
-  background-color: hsl(var(--ap9-color-bg-light-hsl));
-  box-shadow: inset 0 1px 0.5px hsla(0, 0%, 100%, 0.075), 0 0.3px 0.4px rgba(0, 0, 0, 0.025),0 0.9px 1.5px rgba(0, 0, 0, 0.05), 0 3.5px 6px rgba(0, 0, 0, 0.1);
-  border-radius: var(--radius-md);
   transition: 0.3s;
-  border: 2px solid rgba(255,255,255,0.2);
-}
-.accordion-v2__item:hover {
-  box-shadow: inset 0 1px 0.5px hsla(0, 0%, 100%, 0.075), 0 0.9px 1.5px rgba(0, 0, 0, 0.03),0 3.1px 5.5px rgba(0, 0, 0, 0.08),0 14px 25px rgba(0, 0, 0, 0.12);
 }
 
 .accordion-v2__header {
@@ -1196,11 +1130,6 @@ img, video, svg {
           transform: translateZ(0px);
 }
 
-.accordion-v2__panel p {
-  font-size: var(--font-size-xl);
-  font-weight: bold;
-  color: var(--color-primary-darker);
-}
 .toc-header {
   font-weight: 800;
   color: white;

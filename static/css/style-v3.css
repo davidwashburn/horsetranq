@@ -274,11 +274,38 @@
 }
 
 /* Gap utilities */
-.gap-sm { gap: var(--margin-sm); }
-.gap-md { gap: var(--margin-md); }
-.gap-lg { gap: var(--margin-lg); }
-.gap-xl { gap: var(--margin-xl); }
-.gap-xxl { gap: var(--margin-xxl); }
+.gap-sm-all { gap: var(--margin-sm); }
+.gap-md-all { gap: var(--margin-md); }
+.gap-lg-all { gap: var(--margin-lg); }
+.gap-xl-all { gap: var(--margin-xl); }
+.gap-xxl-all { gap: var(--margin-xxl); }
+
+/* Responsive gap utilities - Desktop */
+@media (min-width: 1024px) {
+  .gap-sm-desktop { gap: var(--margin-sm); }
+  .gap-md-desktop { gap: var(--margin-md); }
+  .gap-lg-desktop { gap: var(--margin-lg); }
+  .gap-xl-desktop { gap: var(--margin-xl); }
+  .gap-xxl-desktop { gap: var(--margin-xxl); }
+}
+
+/* Responsive gap utilities - Tablet */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .gap-sm-tablet { gap: var(--margin-sm); }
+  .gap-md-tablet { gap: var(--margin-md); }
+  .gap-lg-tablet { gap: var(--margin-lg); }
+  .gap-xl-tablet { gap: var(--margin-xl); }
+  .gap-xxl-tablet { gap: var(--margin-xxl); }
+}
+
+/* Responsive gap utilities - Phone */
+@media (max-width: 599px) {
+  .gap-sm-phone { gap: var(--margin-sm); }
+  .gap-md-phone { gap: var(--margin-md); }
+  .gap-lg-phone { gap: var(--margin-lg); }
+  .gap-xl-phone { gap: var(--margin-xl); }
+  .gap-xxl-phone { gap: var(--margin-xxl); }
+}
 
 /* Text utilities */
 .text-left {text-align: left;}
@@ -643,7 +670,6 @@ input:focus {
 #hero-square {
   --d: 20px;
   padding: 10px;
-  aspect-ratio: 1;
   height: min-content;
   box-sizing: border-box;
   border: solid #0000;
@@ -651,12 +677,10 @@ input:focus {
   clip-path: polygon(0 0, calc(100% - var(--d)) 0, 100% var(--d), 100% 100%, var(--d) 100%, 0 calc(100% - var(--d)));
   background: conic-gradient(at calc(100% - var(--d)) calc(100% - var(--d)), #0004 37.5%, #0008 0 75%, #0000 0) border-box #106552;
   /* Rotate and round corners */
-  transform: rotate(-5deg);
   position: relative;
 }
 
 .main-label {
-  position: absolute;
   padding: 8px 12px;
   font-size: var(--v3-font-size-lg);
   font-weight: var(--v3-font-weight-xl);
@@ -669,18 +693,22 @@ input:focus {
 .main-label.main-label-top-right {
   top: 15px;
   right: 15px;
+  position: absolute;
 }
 .main-label.main-label-top-left {
   top: 15px;
   left: 15px;
+  position: absolute;
 }
 .main-label.main-label-bottom-left {
   bottom: 15px;
   left: 15px;
+  position: absolute;
 }
 .main-label.main-label-bottom-right {
   bottom: 15px;
   right: 15px;
+  position: absolute;
 }
 
 .main-label.main-label-one {
@@ -697,6 +725,8 @@ input:focus {
 #index .hero-section {margin: 10em auto;}
 #profile .hero-section {margin: 10em auto;}
 #scores .hero-section {margin: 10em auto;}
+#store .hero-section {margin: 10em auto;}
+#store-hero-img {width: 500px; height: auto;}
 
 /* Mobile responsiveness for hero section */
 @media (max-width: 599px) {
@@ -704,6 +734,9 @@ input:focus {
   #profile .hero-section {margin: 2em auto 4em;}
   #scores .hero-section {margin: 2em auto 4em;}
 }
+
+.rotate-left {transform: rotate(-5deg);}
+.rotate-right {transform: rotate(5deg);}
 
 /* Table */
 .scoreboard-table {
@@ -762,7 +795,17 @@ input:focus {
 #index-horsetranq-game-img {
   height: 100%;
 }
-
+#profile-username-edit-controls {
+  display: flex;
+  position: absolute;
+  right: 20px;
+  margin-top: 20px;
+  z-index: 1000;
+  flex-direction: row-reverse;
+}
+#profile-username-container:hover {
+  transform: none;
+}
 /* Accordion styles */
 .accordion-sections {
   max-height: 0;
@@ -805,45 +848,7 @@ input:focus {
 }
 
 /* Initial state for page animation - hide content by default */
-.store-wrapper, .tools-wrapper, .lemon-flex-container {
-  opacity: 0;
-  transform: translateY(50px);
-}
-
-/* Hide hero-section only on specific pages, not scores */
-#index .hero-section,
-#profile .hero-section,
-#store .hero-section,
-#horsplay .hero-section,
-#lemondrop .hero-section {
-  opacity: 0;
-  transform: translateY(50px);
-}
-
-/* Hide scores page hero section for animation */
-#scores .hero-section {
-  opacity: 0;
-  transform: translateY(50px);
-}
-
-/* Hide main-wrapper and main-section only on specific pages, not scores */
-#index .main-wrapper,
-#index .main-section,
-#profile .main-wrapper,
-#profile .main-section,
-#store .main-wrapper,
-#store .main-section,
-#horsplay .main-wrapper,
-#horsplay .main-section,
-#lemondrop .main-wrapper,
-#lemondrop .main-section {
-  opacity: 0;
-  transform: translateY(50px);
-}
-
-/* Hide scores page main-wrapper and main-section for animation */
-#scores .main-wrapper,
-#scores .main-section {
+[data-animate="page-intro"] {
   opacity: 0;
   transform: translateY(50px);
 }

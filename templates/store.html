@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="en" class="no-js bg-primary">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -10,289 +10,54 @@
 		<link rel="stylesheet" href="/static/css/reset.css"> <!-- CSS reset -->
 		<link rel="stylesheet" href="/static/css/style.css"> <!-- Resource style -->
 		<link rel="stylesheet" href="/static/css/variables.css"> <!-- Variables style -->
-		<link rel="stylesheet" href="/static/css/swipe-content.css"> <!-- Swipe content style -->
-		<link rel="stylesheet" href="/static/css/tabs.css"> <!-- Tabs content style -->
 		<link rel="stylesheet" href="/static/css/style-v3.css"> <!-- New v3 style -->
 		<script src="/static/js/resources/modernizr.js"></script> <!-- Modernizr -->
 		<script src="https://cdn.auth0.com/js/auth0/9.18/auth0.min.js"></script>
 		<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
-		<title>HOrstRnq</title>
+		<title>Store - HOrstRnq</title>
 	</head>
 	<body>
 
-		<main class="cd-main-content scroll static-bg horseplay-background is-fixed">
+		<main id="store" class="main-content">
 			{% include 'partials/navigation_menu.html' %}
 
-			<div class="store-wrapper">
-				<div class="store-flex-container subscribe">
-					<div id="stor-title" class="title-container">
-						<h2 class="big-bold">SCRIBE</h2>
-						<p>Suport our equine eforts</p>
-					</div>
-					<div class="flex-container">
-						<div class="ui-container product subscribe shadow">
-							<div class="subscribe-container">
-								<img src="/static/img/branding/hors-one.png">
+			<div class="main-wrapper" data-animate="page-intro">
+				<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-md-tablet width-xl-phone">
+					<div class="flex-row-reverse-desktop flex-column-reverse-phone flex-align-center flex-justify-center gap-xxl-all">
+						<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop">
+							<div class="flex-row-desktop flex-align-items-start text-left">
+								<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-xl font-weight-xl color-accent-gold">COMIN SOON</p>
 							</div>
-							<header class="cd-pricing-header hide">
-								<h1>$5 mo for HORS ONE</h1>
-							</header>
-							<div class="cd-pricing-body">
-								<ul class="cd-pricing-features big-bold big-bold">
-									<li><em>Genral</em> suport</li>
-									<li><em>Webcite</em> shout out</li>
-									<li><em>Digtal</em> icon pak</li>
-									<li><em>Munthee</em> newsletr</li>
-									<li><a href="https://www.patreon.com/horsetranq"><em>Read</em> moar</a></li>
-								</ul>
+							<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-md font-weight-xl color-accent-white">Prepar for teh HorsPass, comin soon. From her u will b able to unlok customizers and rewards. Be one of teh firts to get ur hands on premeim hors itams.</p>
+							<div id="store-hero-button" class="button shadow-white-md font-weight-xl font-size-xl margin-lg-desktop margin-sm-phone margin-lg-tablet">
+								<a href="/" class="color-accent-gold">
+									GO TO STABLE
+								</a>
 							</div>
-							<footer class="cd-pricing-footer">
-								<a href="https://www.patreon.com/horsetranq" class="cd-select product-buy">Subscripe ($3 mo)</a>
-							</footer>
 						</div>
-						<div class="ui-container product subscribe shadow">
-							<div class="subscribe-container">
-								<img src="/static/img/branding/hors-plus.png">
-							</div>
-							<header class="cd-pricing-header hide">
-								<h1>$10 mo for HORS PLUS</h1>
-							</header>
-							<div class="cd-pricing-body">
-								<ul class="cd-pricing-features big-bold">
-									<li><em>All pryer</em> rewrds</li>
-									<li><em>Digtal</em> artwerk</li>
-									<li><em>Erly acess</em> fetures</li>
-									<li><em>Galop merch</em> stor acess</li>
-									<li><a href="https://www.patreon.com/horsetranq"><em>Read</em> moar</a></li>
-								</ul>
-							</div>
-							<footer class="cd-pricing-footer">
-								<a href="https://www.patreon.com/horsetranq" class="cd-select product-buy">Subscripe ($6 mo)</a>
-							</footer>
+						<div id="hero-square" class="width-lg-phone width-md-tablet margin-auto-phone margin-auto-tablet border-radius border-radius rotate-left">
+							<div class="main-label main-label-top-right bg-accent-gold color-accent-grey-dark">STORE</div>
+							<img id="store-hero-img" src="/static/img/branding/horsetranq-v3-money-explosion.gif" alt="Horsetranq Store" />
 						</div>
-						<div class="ui-container product subscribe shadow">
-							<div class="subscribe-container">
-								<img src="/static/img/branding/hors-max.png">
-							</div>
-							<header class="cd-pricing-header hide">
-								<h1>$15 mo for HORS MAX</h1>
-							</header>
-							<div class="cd-pricing-body">
-								<ul class="cd-pricing-features big-bold">
-									<li><em>All pryer</em> rewrds</li>
-									<li><em>TrankTalk</em> live Q&a</li>
-									<li><em>Horstranq AI </em> API acess</li>
-									<li><em>Makin of</em> documentry</li>
-									<li><a href="https://www.patreon.com/horsetranq"><em>Read</em> moar</a></li>
-								</ul>
-							</div>
-							<footer class="cd-pricing-footer">
-								<a href="https://www.patreon.com/horsetranq" class="cd-select product-buy">Subscripe ($10 mo)</a>
-							</footer>
-						</div>
-					</div>
-				</div>
-				<div id="digtal-title" class="title-container">
-					<h2 class="big-bold">DIGTAL</h2>
-					<p>hors contant paks</p>
-				</div>
-				<div class="flex-container subscribe section">
-					<div id="digtal-flex" class="flex-container wrapper">
-						<div class="tab-features-v2 js-tabs" data-show-panel-class="tab-features-v2__panel--display" data-hide-panel-class="tab-features-v2__panel--hide">
-							<ul class="tab-features-v2__controls-list js-tabs__controls" aria-label="Tabs navigation">
-							  <li>
-								<a href="#tab-features-1" class="tab-features-v2__control" aria-selected="true">
-									<div class="title-container slider">
-										<h2 id="tab-one" class="big-bold digtal">ONE TIER PAK</h2>
-									</div>
-								</a>
-							  </li>
-						  
-							  <li>
-								<a href="#tab-features-2" class="tab-features-v2__control">
-									<div class="title-container slider">
-										<h2 id="tab-plus" class="big-bold digtal">PLUS TIER PAK</h2>
-									</div>
-								</a>
-							  </li>
-						  
-							  <li>
-								<a href="#tab-features-3" class="tab-features-v2__control">
-									<div class="title-container slider">
-										<h2 id="tab-max" class="big-bold digtal">MAX TIER PAK</h2>
-									</div>
-								</a>
-							  </li>
-						  
-							  <li>
-								<a href="#tab-features-4" class="tab-features-v2__control">
-									<div class="title-container slider">
-										<h2 class="big-bold digtal">FOUNDR PAK</h2>
-									</div>
-								</a>
-							  </li>
-						  
-							  <li class="tab-features-v2__text-crop-gradient" aria-hidden="true"></li>
-							</ul>
-						  
-							<div class="tab-features-v2__panels js-tabs__panels">
-								<section id="tab-features-1" class="tab-features-v2__panel js-tabs__panel">
-									<p class="description-text">
-										Hors One subscribars get aces to hi reszoluton backgrouns for horsplay game. Thes BG's are 19x resoluton of orignal bagrounds and procude powarful imagry or emotins.
-									</p>
-									<div class="compare-slider js-compare-slider" aria-hidden="true">
-										<figure class="compare-slider__img compare-slider__img--original">
-											<img src="../static/img/branding/background-low-rez.png" alt="Original Image">
-											<figcaption class="compare-slider__caption js-compare-slider__caption">Lo Rez</figcaption>
-											</figure>
-											
-										<figure class="compare-slider__img compare-slider__img--modified js-compare-slider__img--modified">
-											<img src="../static/img/branding/background-hi-rez.png" alt="Modified Image">
-											<figcaption class="compare-slider__caption js-compare-slider__caption">Hi Rez</figcaption>
-											</figure>
-			
-										<input class="compare-slider__input-handle js-compare-slider__input-handle" type="range" min="0" max="100" step="1" value="50">
-										
-										<span class="compare-slider__handle js-compare-slider__handle">
-											<svg class="iy2-icon iy2-icon--sm" viewBox="0 0 24 24"><path d="M7.7,5.042a.5.5,0,0,0-.54.092l-7,6.5a.5.5,0,0,0,0,.732l7,6.5A.5.5,0,0,0,7.5,19a.5.5,0,0,0,.5-.5V5.5A.5.5,0,0,0,7.7,5.042Z"/><path d="M23.84,11.634l-7-6.5A.5.5,0,0,0,16,5.5v13a.5.5,0,0,0,.84.366l7-6.5a.5.5,0,0,0,0-.732Z"/></svg>
-										</span>
-									</div>
-								</section>
-						  
-								<section id="tab-features-2" class="tab-features-v2__panel js-tabs__panel">
-									<p class="description-text">
-										Hors Plus membars join n xclusiv club to get all varations of hors targets in horsplay gaem mode. It also coms with two hors avatars, and "manz bes fren" pak which include sum dogs nd ppl.
-									</p>
-									<div class="ui-container product merch">
-										<div class="cd-pricing-body">
-											<ul class="cd-pricing-features merch nowrap big-bold">									
-												<li><em>Hors 1</em><img src="/static/img/gif/hors-1.gif" alt=""></li>
-												<li><em>Hors 2</em><img src="/static/img/gif/hors-2.gif" alt=""></li>
-												<li><em>Hors 3</em><img src="/static/img/gif/hors-3.gif" alt=""></li>
-												<li><em>Mony Hors</em><img src="/static/img/gif/hors-money.gif" alt=""></li>
-												<li><em>Suport Hors</em><img src="/static/img/gif/hors-support.gif" alt=""></li>
-											</ul>
-										</div>
-									</div>
-									<div class="ui-container product merch">
-										<div class="cd-pricing-body">
-											<ul class="cd-pricing-features merch nowrap big-bold">									
-												<li><em>Dog 1</em><img src="/static/img/gif/dog-1.gif" alt=""></li>
-												<li><em>Dog 2</em><img src="/static/img/gif/dog-2.gif" alt=""></li>
-												<li><em>Dog 3</em><img src="/static/img/gif/dog-3.gif" alt=""></li>
-												<li><em>Persin 1</em><img src="/static/img/gif/person-1.gif" alt=""></li>
-												<li><em>Persin 2</em><img src="/static/img/gif/person-2.gif" alt=""></li>
-											</ul>
-										</div>
-									</div>
-								</section>
-						  
-								<section id="tab-features-3" class="tab-features-v2__panel js-tabs__panel">
-									<p class="description-text">
-										Hors Max scribars are teh real ones thay suport our hors dreams and giv back to the comunity most. Enjoy teh perk pak includin new avatar and hors types in horsplay gaem.
-									</p>
-									<div class="ui-container product merch">
-										<div class="cd-pricing-body">
-											<ul class="cd-pricing-features merch nowrap big-bold">									
-												<li><em>Glok</em><img src="/static/img/gif/glock.gif" alt=""></li>
-												<li><em>Helmat</em><img src="/static/img/gif/helmet.gif" alt=""></li>
-												<li><em>Tools 1</em><img src="/static/img/gif/tool-1.gif" alt=""></li>
-												<li><em>Trools 2</em><img src="/static/img/gif/tool-2.gif" alt=""></li>
-											</ul>
-										</div>
-									</div>
-									<div class="ui-container product merch">
-										<div class="cd-pricing-body">
-											<ul class="cd-pricing-features merch nowrap big-bold">									
-												<li><em>Tranq 1</em><img src="/static/img/gif/tranq-1.gif" alt=""></li>
-												<li><em>Tranq 2</em><img src="/static/img/gif/tranq-2.gif" alt=""></li>
-												<li><em>Person 3</em><img src="/static/img/gif/person-3.gif" alt=""></li>
-												<li><em>HorsGoos</em><img src="/static/img/loading/hors-load-3.gif" alt=""></li>
-											</ul>
-										</div>
-									</div>
-								</section>
-						  
-								<section id="tab-features-4" class="tab-features-v2__panel js-tabs__panel">
-									<p class="description-text">
-										Foundars are an elit sqaudron of early acess frens family and belivers in horstranq. Witout them non this would be possable except most of it but it woudnt be as heart felt. Thx 4 also bein teh real ones enjoi this pak.
-									</p>
-									<div class="ui-container product merch">
-										<div class="cd-pricing-body">
-											<ul class="cd-pricing-features merch nowrap big-bold">									
-												<li><em>Bare</em><img src="/static/img/gif/bear.gif" alt=""></li>
-												<li><em>Lemin</em><img src="/static/img/gif/lemon-1.gif" alt=""></li>
-												<li><em>Ravin</em><img src="/static/img/gif/raven.gif" alt=""></li>
-												<li><em>Goos</em><img src="/static/img/gif/goose.gif" alt=""></li>
-											</ul>
-										</div>
-									</div>
-									<div class="ui-container product merch">
-										<div class="cd-pricing-body">
-											<ul class="cd-pricing-features merch nowrap big-bold">									
-												<li><em>Moody Day</em><img src="/static/img/games/horsplay/backgrounds/mood-bg-1.png" alt=""></li>
-												<li><em>Moody Cloud</em><img src="/static/img/games/horsplay/backgrounds/mood-bg-2.png" alt=""></li>
-												<li><em>Moody Moon</em><img src="/static/img/games/horsplay/backgrounds/mood-bg-3.png" alt=""></li>
-												<li><em>Moody Dusk</em><img src="/static/img/games/horsplay/backgrounds/mood-bg-4.png" alt=""></li>
-												<li><em>Moody Scifi</em><img src="/static/img/games/horsplay/backgrounds/mood-bg-5.png" alt=""></li>
-												<li><em>Moody Scifi2</em><img src="/static/img/games/horsplay/backgrounds/mood-bg-6.png" alt=""></li>
-											</ul>
-										</div>
-									</div>	
-								</section>
-							</div>
-						  </div>
-					</div>
-				</div>
-
-				<div id="footer-wrapper" class="stable-flex-container subscribe">
-					<div class="footer-container">
-						<footer class="footer-v3 mv0-padding-y-lg">
-							<div class="footer-v3__container mv0-container mv0-max-width-lg">
-							  <nav class="footer-v3__nav">
-								<ul class="footer-v3__nav-list">
-								  <li class="footer-v3__nav-item"><a href="/store">Store</a></li>
-								  <li class="footer-v3__nav-item"><a href="/">Mishun</a></li>
-								  <li class="footer-v3__nav-item"><a href="https://suport.horsetranq.com">Help centaur</a></li>
-								  <li class="footer-v3__nav-item"><a href="/about">About</a></li>
-								</ul>
-							  </nav>
-							</div>
-							<div class="footer-legal">
-								<div class="footer-legal-container">
-									<div class="footer-legal-container">
-										<p>©2023 Horstranq Media Grop, LLC, a Horsetranq company.</p>
-										<p>All rites reservation. Varous tradmarks held by respective ownars.</p>
-									</div>
-								</div>
-							</div>
-						</footer>
 					</div>
 				</div>
 			</div>
 		
 		{% include 'partials/account_modal.html' %}	
-		</main> <!-- cd-main-content -->
-	<script>
-		window.auth0UserId = '{{ user_id }}';
-		window.firebaseToken = '{{ firebase_token }}';
-	</script>
-			<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-	<script src="/static/js/resources/jquery.mixitup.min.js"></script>
-	<script type="module" src="/static/js/main.js"></script> <!-- Resource jQuery -->
-	<script type="module" src="/static/js/firebase.js"></script>
-	<script src="/static/js/resources/swipe-content.js"></script> <!-- Swipe content JS -->
-	<script src="/static/js/resources/tabs.js"></script> <!-- Swipe content JS -->
-	<script>
-		// Make logged in status available to JavaScript
-		window.loggedIn = {{ 'true' if logged_in else 'false' }};
-	</script>
-	<script src="/static/js/secondary/username-editor.js"></script> <!-- Username editing functionality -->
-	<script src="/static/js/secondary/account-button.js"></script> <!-- Account button avatar functionality -->
-	<script src="/static/js/secondary/hide-avatar.js"></script> <!-- Hide avatar checkbox functionality -->
-	<script src="/static/js/secondary/avatar-selector.js"></script> <!-- Avatar selection dropdown functionality -->
-	
-	<script src="/static/js/resources/jquery-ui.js"></script> <!-- Added for the draggable UI -->
-	<script src="/static/js/resources/jquery.ui.touch-punch.min.js"></script>
+		</main> <!-- main-content -->
+
+		<script>
+			window.auth0UserId = '{{ user_id }}';
+			window.firebaseToken = '{{ firebase_token }}';
+		</script>
+		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+		<script type="module" src="/static/js/main.js"></script> <!-- Resource jQuery -->
+		<script>
+			// Make logged in status available to JavaScript
+			window.loggedIn = {{ 'true' if logged_in else 'false' }};
+		</script>
+		<script src="/static/js/secondary/username-editor.js"></script> <!-- Username editing functionality -->
+		<script src="/static/js/secondary/account-button.js"></script> <!-- Account button avatar functionality -->
+		<script src="/static/js/secondary/hide-avatar.js"></script> <!-- Hide avatar checkbox functionality -->
 	</body>
 </html>
