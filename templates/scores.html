@@ -17,16 +17,12 @@
 		<title>Scores - HOrstRnq</title>
 	</head>
 	<body>
-		<div id="loadingScreen" style="position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: #ffffff; z-index: 10000;">
-			<div id="loading-img-container">
-				<img src="/static/img/loading/hors-load-3.gif" alt="Loading..." loading="eager" style="width: 150px; height: auto;" />
-			</div>
-		</div>	
+
 		<main id="scores" class="main-content">
 			{% include 'partials/navigation_menu.html' %}
 
 			<!-- Scores Main Section -->
-			<div id="scores" class="main-wrapper">
+			<div class="main-wrapper">
 				<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-md-tablet width-xl-phone">
 					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center gap-md">
 						<!-- ALL TIME STATS Column -->
@@ -95,150 +91,175 @@
 
 				<!-- Scores Section -->
 				<div class="main-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-full-desktop width-full-tablet width-full-phone bg-primary-dark">
-					<div class="flex-column-desktop flex-column-phone flex-align-center flex-justify-center width-lg-desktop margin-auto-desktop margin-auto-phone margin-auto-tablet gap-sm">
-						<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-lg font-weight-xl color-accent-white text-center">GLOBAL LEADERBOARD</h3>
+					<div class="flex-column-desktop flex-column-phone flex-align-center flex-justify-center width-lg-desktop margin-auto-desktop margin-md-phone margin-auto-tablet gap-sm">
+						<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-lg font-weight-xl color-accent-white text-center">GLOBAL SCOREBOARD</h3>
 						
-						<!-- Scores Table Header -->
-						<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet width-full-all" style="background: rgba(255,255,255,0.1); font-weight: bold; min-height: 3.5rem;">
-							<div class="font-size-sm font-weight-xl color-accent-white text-center" style="width: 8%;">#</div>
-							<h4 class="font-size-sm font-weight-xl color-accent-white text-left" style="width: 25%;">Username</h4>
-							<div class="font-size-sm font-weight-xl color-accent-white text-center" style="width: 12%;">Games</div>
-							<div class="font-size-sm font-weight-xl color-accent-white text-center" style="width: 15%;">Horses</div>
-							<div class="font-size-sm font-weight-xl color-accent-white text-center" style="width: 15%;">Best Time</div>
-							<div class="font-size-sm font-weight-xl color-accent-white text-center" style="width: 12%;">HorsPass</div>
-							<div class="font-size-sm font-weight-xl color-accent-white text-center" style="width: 13%;">Subscription</div>
-						</div>
+						<div class="overflow-scroll width-full-all">
+						<table class="scoreboard-table margin-sm-desktop margin-sm-phone margin-sm-tablet width-full-all">
+							<thead>
+								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<th class="font-size-sm font-weight-xl color-accent-white text-center">#</th>
+									<th class="font-size-sm font-weight-xl color-accent-white text-left">Username</th>
+									<th class="font-size-sm font-weight-xl color-accent-white text-center">Games</th>
+									<th class="font-size-sm font-weight-xl color-accent-white text-center">Horses</th>
+									<th class="font-size-sm font-weight-xl color-accent-white text-center">Best Time</th>
+									<th class="font-size-sm font-weight-xl color-accent-white text-center">HorsPass</th>
+									<th class="font-size-sm font-weight-xl color-accent-white text-center">Subscription</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- Rank 1 -->
+								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<td class="font-size-md font-weight-xl color-accent-gold text-center">1</td>
+									<td class="font-size-md font-weight-xl color-accent-white text-left">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Horsmaster42</h4>
+									</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">892</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">15,047</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">11.2s</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">Level 47</td>
+									<td class="font-size-md font-weight-md text-center">
+										<span class="font-size-sm font-weight-xl bg-accent-gold color-accent-grey-dark" style="padding: 2px 6px; border-radius: 4px;">MAX</span>
+									</td>
+								</tr>
 
-						<!-- Scores Entries -->
-						<!-- Rank 1 -->
-						<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet width-full-all" style="min-height: 3.5rem;">
-							<div class="font-size-md font-weight-xl color-accent-gold text-center" style="width: 8%;">1</div>
-							<h4 class="font-size-md font-weight-xl color-accent-white text-left" style="width: 25%;">Horsmaster42</h4>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 12%;">892</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 15%;">15,047</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 15%;">11.2s</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 12%;">Level 47</div>
-							<div class="font-size-md font-weight-md text-center" style="width: 13%;">
-								<span class="font-size-sm font-weight-xl bg-accent-gold color-accent-grey-dark" style="padding: 2px 6px; border-radius: 4px;">MAX</span>
-							</div>
-						</div>
+								<!-- Rank 2 -->
+								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<td class="font-size-md font-weight-xl color-accent-grey-mid text-center">2</td>
+									<td class="font-size-md font-weight-xl color-accent-white text-left">
+										<h4 class="font-size-md font-weight-xl color-accent-white">TranqKing</h4>
+									</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">743</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">12,891</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">12.1s</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">Level 43</td>
+									<td class="font-size-md font-weight-md text-center">
+										<span class="font-size-sm font-weight-xl bg-secondary color-accent-white" style="padding: 2px 6px; border-radius: 4px;">PLUS</span>
+									</td>
+								</tr>
 
-						<!-- Rank 2 -->
-						<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet width-full-all" style="min-height: 3.5rem;">
-							<div class="font-size-md font-weight-xl color-accent-grey-mid text-center" style="width: 8%;">2</div>
-							<h4 class="font-size-md font-weight-xl color-accent-white text-left" style="width: 25%;">TranqKing</h4>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 12%;">743</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 15%;">12,891</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 15%;">12.1s</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 12%;">Level 43</div>
-							<div class="font-size-md font-weight-md text-center" style="width: 13%;">
-								<span class="font-size-sm font-weight-xl bg-secondary color-accent-white" style="padding: 2px 6px; border-radius: 4px;">PLUS</span>
-							</div>
-						</div>
+								<!-- Rank 3 -->
+								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<td class="font-size-md font-weight-xl color-accent-grey-mid text-center">3</td>
+									<td class="font-size-md font-weight-xl color-accent-white text-left">
+										<h4 class="font-size-md font-weight-xl color-accent-white">SpeedyHors</h4>
+									</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">567</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">9,234</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">10.8s</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">Level 39</td>
+									<td class="font-size-md font-weight-md text-center">
+										<span class="font-size-sm font-weight-xl bg-success-dark color-accent-white" style="padding: 2px 6px; border-radius: 4px;">ONE</span>
+									</td>
+								</tr>
 
-						<!-- Rank 3 -->
-						<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet width-full-all" style="min-height: 3.5rem;">
-							<div class="font-size-md font-weight-xl color-accent-grey-mid text-center" style="width: 8%;">3</div>
-							<h4 class="font-size-md font-weight-xl color-accent-white text-left" style="width: 25%;">SpeedyHors</h4>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 12%;">567</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 15%;">9,234</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 15%;">10.8s</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 12%;">Level 39</div>
-							<div class="font-size-md font-weight-md text-center" style="width: 13%;">
-								<span class="font-size-sm font-weight-xl bg-success-dark color-accent-white" style="padding: 2px 6px; border-radius: 4px;">ONE</span>
-							</div>
-						</div>
+								<!-- Rank 4 -->
+								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<td class="font-size-md font-weight-md color-accent-white text-center">4</td>
+									<td class="font-size-md font-weight-lg color-accent-white text-left">
+										<h4 class="font-size-md font-weight-lg color-accent-white">HorsLover99</h4>
+									</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">423</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">8,156</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">13.4s</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">Level 32</td>
+									<td class="font-size-md font-weight-md text-center">
+										<span class="font-size-sm font-weight-xl bg-accent-grey-mid color-accent-grey-dark" style="padding: 2px 6px; border-radius: 4px;">FREE</span>
+									</td>
+								</tr>
 
-						<!-- Rank 4 -->
-						<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet width-full-all" style="min-height: 3.5rem;">
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 8%;">4</div>
-							<h4 class="font-size-md font-weight-lg color-accent-white text-left" style="width: 25%;">HorsLover99</h4>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 12%;">423</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 15%;">8,156</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 15%;">13.4s</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 12%;">Level 32</div>
-							<div class="font-size-md font-weight-md text-center" style="width: 13%;">
-								<span class="font-size-sm font-weight-xl bg-accent-grey-mid color-accent-grey-dark" style="padding: 2px 6px; border-radius: 4px;">FREE</span>
-							</div>
-						</div>
+								<!-- Rank 5 -->
+								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<td class="font-size-md font-weight-md color-accent-white text-center">5</td>
+									<td class="font-size-md font-weight-lg color-accent-white text-left">
+										<h4 class="font-size-md font-weight-lg color-accent-white">TranqMaster</h4>
+									</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">389</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">7,892</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">14.2s</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">Level 28</td>
+									<td class="font-size-md font-weight-md text-center">
+										<span class="font-size-sm font-weight-xl bg-secondary color-accent-white" style="padding: 2px 6px; border-radius: 4px;">PLUS</span>
+									</td>
+								</tr>
 
-						<!-- Rank 5 -->
-						<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet width-full-all" style="min-height: 3.5rem;">
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 8%;">5</div>
-							<h4 class="font-size-md font-weight-lg color-accent-white text-left" style="width: 25%;">TranqMaster</h4>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 12%;">389</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 15%;">7,892</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 15%;">14.2s</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 12%;">Level 28</div>
-							<div class="font-size-md font-weight-md text-center" style="width: 13%;">
-								<span class="font-size-sm font-weight-xl bg-secondary color-accent-white" style="padding: 2px 6px; border-radius: 4px;">PLUS</span>
-							</div>
-						</div>
+								<!-- Rank 6 -->
+								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<td class="font-size-md font-weight-md color-accent-white text-center">6</td>
+									<td class="font-size-md font-weight-lg color-accent-white text-left">
+										<h4 class="font-size-md font-weight-lg color-accent-white">QuickDraw</h4>
+									</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">345</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">6,234</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">15.1s</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">Level 24</td>
+									<td class="font-size-md font-weight-md text-center">
+										<span class="font-size-sm font-weight-xl bg-success-dark color-accent-white" style="padding: 2px 6px; border-radius: 4px;">ONE</span>
+									</td>
+								</tr>
 
-						<!-- Rank 6 -->
-						<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet width-full-all" style="min-height: 3.5rem;">
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 8%;">6</div>
-							<h4 class="font-size-md font-weight-lg color-accent-white text-left" style="width: 25%;">QuickDraw</h4>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 12%;">345</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 15%;">6,234</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 15%;">15.1s</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 12%;">Level 24</div>
-							<div class="font-size-md font-weight-md text-center" style="width: 13%;">
-								<span class="font-size-sm font-weight-xl bg-success-dark color-accent-white" style="padding: 2px 6px; border-radius: 4px;">ONE</span>
-							</div>
-						</div>
+								<!-- Rank 7 -->
+								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<td class="font-size-md font-weight-md color-accent-white text-center">7</td>
+									<td class="font-size-md font-weight-lg color-accent-white text-left">
+										<h4 class="font-size-md font-weight-lg color-accent-white">NewHors123</h4>
+									</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">298</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">5,567</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">16.8s</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">Level 19</td>
+									<td class="font-size-md font-weight-md text-center">
+										<span class="font-size-sm font-weight-xl bg-accent-grey-mid color-accent-grey-dark" style="padding: 2px 6px; border-radius: 4px;">FREE</span>
+									</td>
+								</tr>
 
-						<!-- Rank 7 -->
-						<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet width-full-all" style="min-height: 3.5rem;">
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 8%;">7</div>
-							<h4 class="font-size-md font-weight-lg color-accent-white text-left" style="width: 25%;">NewHors123</h4>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 12%;">298</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 15%;">5,567</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 15%;">16.8s</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 12%;">Level 19</div>
-							<div class="font-size-md font-weight-md text-center" style="width: 13%;">
-								<span class="font-size-sm font-weight-xl bg-accent-grey-mid color-accent-grey-dark" style="padding: 2px 6px; border-radius: 4px;">FREE</span>
-							</div>
-						</div>
+								<!-- Rank 8 -->
+								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<td class="font-size-md font-weight-md color-accent-white text-center">8</td>
+									<td class="font-size-md font-weight-lg color-accent-white text-left">
+										<h4 class="font-size-md font-weight-lg color-accent-white">AimTrue</h4>
+									</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">267</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">4,893</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">17.2s</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">Level 16</td>
+									<td class="font-size-md font-weight-md text-center">
+										<span class="font-size-sm font-weight-xl bg-accent-grey-mid color-accent-grey-dark" style="padding: 2px 6px; border-radius: 4px;">FREE</span>
+									</td>
+								</tr>
 
-						<!-- Rank 8 -->
-						<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet width-full-all" style="min-height: 3.5rem;">
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 8%;">8</div>
-							<h4 class="font-size-md font-weight-lg color-accent-white text-left" style="width: 25%;">AimTrue</h4>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 12%;">267</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 15%;">4,893</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 15%;">17.2s</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 12%;">Level 16</div>
-							<div class="font-size-md font-weight-md text-center" style="width: 13%;">
-								<span class="font-size-sm font-weight-xl bg-accent-grey-mid color-accent-grey-dark" style="padding: 2px 6px; border-radius: 4px;">FREE</span>
-							</div>
-						</div>
+								<!-- Rank 9 -->
+								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<td class="font-size-md font-weight-md color-accent-white text-center">9</td>
+									<td class="font-size-md font-weight-lg color-accent-white text-left">
+										<h4 class="font-size-md font-weight-lg color-accent-white">HorsWhisperer</h4>
+									</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">234</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">4,123</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">18.5s</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">Level 14</td>
+									<td class="font-size-md font-weight-md text-center">
+										<span class="font-size-sm font-weight-xl bg-success-dark color-accent-white" style="padding: 2px 6px; border-radius: 4px;">ONE</span>
+									</td>
+								</tr>
 
-						<!-- Rank 9 -->
-						<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet width-full-all" style="min-height: 3.5rem;">
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 8%;">9</div>
-							<h4 class="font-size-md font-weight-lg color-accent-white text-left" style="width: 25%;">HorsWhisperer</h4>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 12%;">234</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 15%;">4,123</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 15%;">18.5s</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 12%;">Level 14</div>
-							<div class="font-size-md font-weight-md text-center" style="width: 13%;">
-								<span class="font-size-sm font-weight-xl bg-success-dark color-accent-white" style="padding: 2px 6px; border-radius: 4px;">ONE</span>
-							</div>
-						</div>
-
-						<!-- Rank 10 -->
-						<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet width-full-all" style="min-height: 3.5rem;">
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 8%;">10</div>
-							<h4 class="font-size-md font-weight-lg color-accent-white text-left" style="width: 25%;">FastFinger</h4>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 12%;">198</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 15%;">3,456</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 15%;">19.3s</div>
-							<div class="font-size-md font-weight-md color-accent-white text-center" style="width: 12%;">Level 12</div>
-							<div class="font-size-md font-weight-md text-center" style="width: 13%;">
-								<span class="font-size-sm font-weight-xl bg-accent-grey-mid color-accent-grey-dark" style="padding: 2px 6px; border-radius: 4px;">FREE</span>
-							</div>
-						</div>
+								<!-- Rank 10 -->
+								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<td class="font-size-md font-weight-md color-accent-white text-center">10</td>
+									<td class="font-size-md font-weight-lg color-accent-white text-left">
+										<h4 class="font-size-md font-weight-lg color-accent-white">FastFinger</h4>
+									</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">198</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">3,456</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">19.3s</td>
+									<td class="font-size-md font-weight-md color-accent-white text-center">Level 12</td>
+									<td class="font-size-md font-weight-md text-center">
+										<span class="font-size-sm font-weight-xl bg-accent-grey-mid color-accent-grey-dark" style="padding: 2px 6px; border-radius: 4px;">FREE</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						</div> <!-- end overflow-scroll -->
 
 					</div>
 				</div>
@@ -247,7 +268,7 @@
 		{% include 'partials/account_modal.html' %}	
 		</main> <!-- main-content -->
 
-		<script src="/static/js/resources/jquery-2.1.1.js"></script>
+		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 		<script type="module" src="/static/js/main.js"></script> <!-- Resource jQuery -->
 		<script>
 			// Make logged in status available to JavaScript

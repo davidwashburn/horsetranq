@@ -519,6 +519,9 @@ input:focus {
   transition: .05s ease-in-out;
   z-index: 1;
   text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
 }
 /* Remove gaps between menu items to create seamless appearance */
 .nav-menu-item:not(:first-child) {
@@ -530,31 +533,20 @@ input:focus {
   transform: translate(2px, 2px);
   z-index: 10;
   transition: .05s ease-in-out;
+  color: var(--v3-color-accent-white) !important;
 }
 .nav-menu-item:first-child {
   border-top-left-radius: 24px;
-}
-.nav-menu-item a,
-.nav-menu-item .nav-toggle-trigger {
-  cursor: pointer;
-}
-/* Make nav links fill entire button area */
-.nav-menu-item a {
-  display: block;
-  width: 100%;
-  height: 100%;
-  text-decoration: none;
 }
 /* Make dropdown nav items fully clickable */
 .nav-menu-item.nav-dropdown {
   cursor: pointer;
 }
-.nav-menu-item:hover a,
-.nav-menu-item:hover .nav-toggle-trigger {color: var(--v3-color-accent-white);}
 /* Active/selected state */
-.nav-menu-item.active {background: conic-gradient(at calc(100% - var(--d)) calc(100% - var(--d)), #E3BA02 37.5%, #A78B01 0 75%, #F4D633 0) border-box #E3BA02;}
-.nav-menu-item.active a,
-.nav-menu-item.active .nav-toggle-trigger {color: var(--v3-color-accent-grey-dark);}
+.nav-menu-item.active {
+  background: conic-gradient(at calc(100% - var(--d)) calc(100% - var(--d)), #E3BA02 37.5%, #A78B01 0 75%, #F4D633 0) border-box #E3BA02;
+  color: var(--v3-color-accent-grey-dark) !important;
+}
 
 /* Nav dropdown styles - positioned outside nav structure */
 .nav-dropdown {
@@ -633,20 +625,14 @@ input:focus {
   
   .nav-menu-item {
     padding: 8px 12px;
-  }
-  
-  .nav-menu-item a {
     font-size: var(--v3-font-size-sm);
-  text-align: center;
-}
+    text-align: center;
+  }
 }
 
 @media (min-width: 600px) and (max-width: 1023px) {
   .nav-menu-item {
     padding: 10px 18px;
-  }
-  
-  .nav-menu-item a {
     font-size: var(--v3-font-size-sm);
   }
 }
@@ -719,6 +705,59 @@ input:focus {
   #scores .hero-section {margin: 2em auto 4em;}
 }
 
+/* Table */
+.scoreboard-table {
+  border-collapse: separate;       /* allows spacing + rounded row ends */
+  border-spacing: 0 0.75rem;               /* you can tweak this later */
+  table-layout: auto;              /* columns size from their content */
+  width: 100%;              /* let it grow to content width */
+  min-width: 100%;                 /* but never smaller than container */
+}
+
+/* Rows: revert to real table rows (important for alignment) */
+.scoreboard-table thead tr,
+.scoreboard-table tbody tr {
+  /* REMOVE: display: table; width:100%; table-layout:auto; */
+  display: table-row;
+  background: var(--v3-background-overlay);
+  transition: .1s ease-in-out;
+}
+
+/* Header */
+.scoreboard-table thead tr {
+  background: transparent;
+  font-weight: bold;
+}
+
+/* Cells */
+.scoreboard-table th,
+.scoreboard-table td {
+  border-right: 1px solid #114a3c;
+  padding: var(--margin-md);
+  vertical-align: middle;
+  min-height: 3.5rem;
+  height: 3.5rem;
+  white-space: nowrap;              /* keep labels on one line */
+}
+
+/* Optional: rounded row “pills” */
+.scoreboard-table tbody tr > *:first-child { border-radius: var(--radius-base) 0 0 var(--radius-base); }
+.scoreboard-table tbody tr > *:last-child  { border-radius: 0 var(--radius-base) var(--radius-base) 0; }
+
+/* Hover (apply to cells, not the row, for better support) */
+.scoreboard-table tbody tr:hover > * {
+  background: rgba(0,0,0,0.25);
+}
+
+/* Mobile horizontal scroll */
+@media (max-width: 599px) {
+  .overflow-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+
 /* Horsetranq game image */
 #index-horsetranq-game-img {
   height: 100%;
@@ -764,3 +803,49 @@ input:focus {
   overflow-y: scroll;
   overflow-x: visible;
 }
+
+/* Initial state for page animation - hide content by default */
+.store-wrapper, .tools-wrapper, .lemon-flex-container {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+/* Hide hero-section only on specific pages, not scores */
+#index .hero-section,
+#profile .hero-section,
+#store .hero-section,
+#horsplay .hero-section,
+#lemondrop .hero-section {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+/* Hide scores page hero section for animation */
+#scores .hero-section {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+/* Hide main-wrapper and main-section only on specific pages, not scores */
+#index .main-wrapper,
+#index .main-section,
+#profile .main-wrapper,
+#profile .main-section,
+#store .main-wrapper,
+#store .main-section,
+#horsplay .main-wrapper,
+#horsplay .main-section,
+#lemondrop .main-wrapper,
+#lemondrop .main-section {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+/* Hide scores page main-wrapper and main-section for animation */
+#scores .main-wrapper,
+#scores .main-section {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+

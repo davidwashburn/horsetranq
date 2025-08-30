@@ -1,48 +1,28 @@
 <nav class="nav-menu">
-	<div class="nav-menu-item nav-dropdown font-size-sm font-weight-xl shadow-white-md {% if current_page == 'STABLE' or current_page == 'HORSPLAY' or current_page == 'LEMON DROP' %}active{% endif %}" id="stable-nav-item">
-		<span class="nav-toggle-trigger color-accent-grey-dark">STABLE</span>
-	</div>
-	<div class="nav-menu-item font-size-sm font-weight-xl shadow-white-md color-accent-grey-dark {% if current_page == 'STOR' %}active{% endif %}">
-		<a href="/store" class="color-accent-grey-dark">STOR</a>
-	</div>
-	<div class="nav-menu-item font-size-sm font-weight-xl shadow-white-md {% if current_page == 'ABOUT' %}active{% endif %}">
-		<a href="/about" class="color-accent-grey-dark">ABOUT</a>
-	</div>
-	<div class="nav-menu-item font-size-sm font-weight-xl shadow-white-md {% if current_page == 'SCORES' %}active{% endif %}">
-		<a href="/scores" class="color-accent-grey-dark">SCORES</a>
-	</div>
-	<div class="nav-menu-item font-size-sm font-weight-xl shadow-white-md {% if logged_in %}nav-dropdown{% if current_page == 'PROFILE' %} active{% endif %}{% endif %}" id="profile-nav-item">
-		{% if logged_in %}
-			<span class="nav-toggle-trigger color-accent-grey-dark">{{ username }}</span>
-		{% else %}
-			<a href="/login" class="color-accent-grey-dark">SIGN IN</a>
-		{% endif %}
-	</div>
+	<span class="nav-menu-item nav-dropdown font-size-sm font-weight-xl shadow-white-md nav-toggle-trigger color-accent-grey-dark {% if current_page == 'STABLE' or current_page == 'HORSPLAY' or current_page == 'LEMON DROP' %}active{% endif %}" id="stable-nav-item">STABLE</span>
+	<a href="/store" class="nav-menu-item font-size-sm font-weight-xl shadow-white-md color-accent-grey-dark {% if current_page == 'STOR' %}active{% endif %}">STOR</a>
+	<a href="/about" class="nav-menu-item font-size-sm font-weight-xl shadow-white-md color-accent-grey-dark {% if current_page == 'ABOUT' %}active{% endif %}">ABOUT</a>
+	<a href="/scores" class="nav-menu-item font-size-sm font-weight-xl shadow-white-md color-accent-grey-dark {% if current_page == 'SCORES' %}active{% endif %}">SCORES</a>
+	{% if logged_in %}
+		<span class="nav-menu-item nav-dropdown font-size-sm font-weight-xl shadow-white-md nav-toggle-trigger color-accent-grey-dark {% if current_page == 'PROFILE' %}active{% endif %}" id="profile-nav-item">{{ username }}</span>
+	{% else %}
+		<a href="/login" class="nav-menu-item font-size-sm font-weight-xl shadow-white-md color-accent-grey-dark">SIGN IN</a>
+	{% endif %}
 </nav>
 
 <!-- Dropdown positioned outside nav structure -->
 {% if logged_in %}
 <div class="nav-dropdown-menu" id="profile-dropdown">
-	<div class="nav-menu-item nav-dropdown-item button shadow-white-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet">
-		<a href="/profile" class="color-accent-gold">VIEW PROFIL</a>
-	</div>
-	<div class="nav-menu-item nav-dropdown-item button shadow-red-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet">
-		<a href="/logout" class="color-accent-white">SIGN OUT</a>
-	</div>
+	<a href="/profile" class="nav-menu-item nav-dropdown-item button shadow-white-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet color-accent-gold">VIEW PROFIL</a>
+	<a href="/logout" class="nav-menu-item nav-dropdown-item button shadow-red-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet color-accent-white">SIGN OUT</a>
 </div>
 {% endif %}
 
 <!-- STABLE Dropdown positioned outside nav structure -->
 <div class="nav-dropdown-menu" id="stable-dropdown">
-	<div class="nav-menu-item nav-dropdown-item button shadow-white-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet {% if current_page == 'STABLE' %}active{% endif %}">
-		<a href="/" class="color-accent-grey-dark">HOME</a>
-	</div>
-	<div class="nav-menu-item nav-dropdown-item button shadow-white-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet {% if current_page == 'HORSPLAY' %}active{% endif %}">
-		<a href="/horsplay" class="color-accent-grey-dark">PLAY HORSPLAY</a>
-	</div>
-	<div class="nav-menu-item nav-dropdown-item button shadow-white-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet {% if current_page == 'LEMON DROP' %}active{% endif %}">
-		<a href="/lemondrop" class="color-accent-grey-dark">PLAY LEMONDROP</a>
-	</div>
+	<a href="/" class="nav-menu-item nav-dropdown-item button shadow-white-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet color-accent-grey-dark {% if current_page == 'STABLE' %}active{% endif %}">HOME</a>
+	<a href="/horsplay" class="nav-menu-item nav-dropdown-item button shadow-white-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet color-accent-grey-dark {% if current_page == 'HORSPLAY' %}active{% endif %}">PLAY HORSPLAY</a>
+	<a href="/lemondrop" class="nav-menu-item nav-dropdown-item button shadow-white-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet color-accent-grey-dark {% if current_page == 'LEMON DROP' %}active{% endif %}">PLAY LEMONDROP</a>
 </div>
 
 <script>

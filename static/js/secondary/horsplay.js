@@ -9,6 +9,88 @@ var currentGameMode = 'freeplay'; // Track whether playing freeplay or ranked
 // Initialize horse speed globally so it's accessible to all functions
 var horseSpeed = 2;
 
+// Global horse images array
+var horseImages = [
+    '/static/img/games/horsplay/assets/hors-1.png',
+    '/static/img/games/horsplay/assets/hors-2.png',
+    '/static/img/games/horsplay/assets/hors-3.png',
+];
+
+// Function to pick a random image - moved to global scope
+function getRandomImage() {
+    var images = [
+        // Retro images removed from rotation
+        //'farm-bg-day.jpg',
+        //'farm-bg-overcast.jpg',
+        //'farm-bg-dusk.jpg',
+        //'farm-bg-night.jpg',
+        //'farm-bg-day.jpg',
+        //'farm-bg-day-alt.jpg',
+        //'farm-bg-peaceful.jpg',
+        'mood-bg-1.png',
+        'mood-bg-2.png',
+        'mood-bg-3.png',
+        'mood-bg-4.png',
+        'mood-bg-5.png',
+        'mood-bg-6.png'
+    ];
+    return images[Math.floor(Math.random() * images.length)];
+}
+
+// Function to set a background image - moved to global scope
+function setBackgroundImage(imageName) {
+    var element = document.getElementsByClassName('horseplay-background')[0];
+    if (element) {
+        element.style.backgroundImage = 'url(./static/img/games/horsplay/backgrounds/' + imageName + ')';
+    }
+}
+
+// Horse intensity adjustment function - moved to global scope
+function adjustHorseIntensity() {
+    var powerSelector = document.getElementById('power-selector');
+    var intensity = parseInt(powerSelector.dataset.value);
+    var horseContainer = document.getElementById('hors-container');
+    
+    console.log('DEBUG adjustHorseIntensity: Creating', intensity, 'horses');
+
+    // Remove all existing horse elements.
+    while (horseContainer.firstChild) {
+        horseContainer.removeChild(horseContainer.firstChild);
+    }
+
+    // Create new horse elements.
+    for (var i = 0; i < intensity; i++) {
+        var horseDiv = document.createElement('div');
+        horseDiv.className = 'horse-logo-3x float-left';
+
+        var horseImg = document.createElement('img');
+        var randomHorse = horseImages[Math.floor(Math.random() * horseImages.length)];
+
+        horseImg.src = randomHorse;
+        horseDiv.appendChild(horseImg);
+
+        var horseHeight = Math.random() * 80 + '%';
+        horseDiv.style.position = 'absolute';
+        horseDiv.style.right = '0';
+        horseDiv.style.top = horseHeight;
+        horseContainer.appendChild(horseDiv);
+    }
+    
+    console.log('DEBUG adjustHorseIntensity: Created', horseContainer.children.length, 'horse elements');
+    
+    // Apply horse speed to new elements after a small delay to ensure DOM is updated
+    setTimeout(function() {
+        console.log('DEBUG adjustHorseIntensity: Applying horseSpeed:', horseSpeed);
+        setHorseSpeed(horseSpeed);
+    }, 50);
+    
+    // Only start timer if game mode has been selected and horses are created
+    if (intensity > 0 && gameModeSelected && gameStarted) {
+        console.log('DEBUG adjustHorseIntensity: Starting timer');
+        startTimer();
+    }
+}
+
 // Calculate horse speed based on settings input //
 function setHorseSpeed(speed) {
     horseSpeed = parseFloat(speed);
@@ -119,96 +201,18 @@ window.onload = function() {
 		});
 	}); 	
 
-	// background and game mechanics //
-    var horseImages = [
-        '/static/img/games/horsplay/assets/hors-1.png',
-        '/static/img/games/horsplay/assets/hors-2.png',
-        '/static/img/games/horsplay/assets/hors-3.png',
-    ];
-
-
-	
-	// Don't start horses until game mode is selected and settings are configured
-    // setHorseSpeed(horseSpeed); // Removed - will be called after settings are saved
-
-	// Horse speed is now handled by the main dropdown handler above
-
-	// Function to pick a random image
-	function getRandomImage() {
-		var images = [
-			// Retro images removed from rotation
-			//'farm-bg-day.jpg',
-			//'farm-bg-overcast.jpg',
-			//'farm-bg-dusk.jpg',
-			//'farm-bg-night.jpg',
-			//'farm-bg-day.jpg',
-			//'farm-bg-day-alt.jpg',
-			//'farm-bg-peaceful.jpg',
-			'mood-bg-1.png',
-			'mood-bg-2.png',
-			'mood-bg-3.png',
-			'mood-bg-4.png',
-			'mood-bg-5.png',
-			'mood-bg-6.png'
-		];
-		return images[Math.floor(Math.random() * images.length)];
-	}
-
-	// Function to set a background image
-	function setBackgroundImage(imageName) {
-		var element = document.getElementsByClassName('horseplay-background')[0];
-		if (element) {
-			element.style.backgroundImage = 'url(./static/img/games/horsplay/backgrounds/' + imageName + ')';
-		}
-	}
-
 	// Initialize with random background on page load
 	setBackgroundImage(getRandomImage());
-
-    
-	// Initialize horse intensity
-	var powerSelector = document.getElementById('power-selector');
-    function adjustHorseIntensity() {
-		var intensity = powerSelector.dataset.value;
-		var horseContainer = document.getElementById('hors-container');
-
-        // Remove all existing horse elements.
-        while (horseContainer.firstChild) {
-            horseContainer.removeChild(horseContainer.firstChild);
-        }
-
-        // Create new horse elements.
-        for (var i = 0; i < intensity; i++) {
-            var horseDiv = document.createElement('div');
-            horseDiv.className = 'horse-logo-3x float-left';
-
-            var horseImg = document.createElement('img');
-            var randomHorse = horseImages[Math.floor(Math.random() * horseImages.length)];
-
-            horseImg.src = randomHorse;
-            horseDiv.appendChild(horseImg);
-
-            var horseHeight = Math.random() * 80 + '%';
-            horseDiv.style.position = 'absolute';
-            horseDiv.style.right = '0';
-            horseDiv.style.top = horseHeight;
-            horseContainer.appendChild(horseDiv);
-        }
-        // Apply horse speed to new elements.
-        console.log('DEBUG adjustHorseIntensity: Applying horseSpeed:', horseSpeed);
-        setHorseSpeed(horseSpeed);
-        
-        // Only start timer if game mode has been selected and horses are created
-        if (intensity > 0 && gameModeSelected && gameStarted) {
-            startTimer();
-        }
-    }
     
     // Don't create horses until game mode is selected
     // adjustHorseIntensity(); // Removed - will be called after settings are saved
 
 
-	$('#settingsSaveBtn').on('click', function() {
+	// Settings save button handler - using document.ready to ensure it works
+	$(document).on('click', '#settingsSaveBtn', function() {
+		console.log('Settings save button clicked!');
+		console.log('Game mode selected:', gameModeSelected, 'Game started:', gameStarted);
+		
 		// If a game mode was selected but game hasn't started yet, start it now
 		if (gameModeSelected && !gameStarted) {
 			console.log('Starting game with mode:', currentGameMode);
@@ -219,6 +223,8 @@ window.onload = function() {
 			while (horseContainer.firstChild) {
 				horseContainer.removeChild(horseContainer.firstChild);
 			}
+			
+			console.log('Applying all settings...');
 			applyAllSettings();
 			
 			// Start game tracker
@@ -230,6 +236,7 @@ window.onload = function() {
 			startTimer();
 		} else if (gameStarted) {
 			// If game was already started, just apply settings and reset score to prevent cheating
+			console.log('Game already started, applying settings and resetting...');
 			applyAllSettings();
 			score = 0;
 			resetTimer();
@@ -237,6 +244,8 @@ window.onload = function() {
 			
 			// Resume the existing game
 			resumeGame();
+		} else {
+			console.log('No game mode selected yet!');
 		}
 
 		// Close settings modal
@@ -685,32 +694,50 @@ function applySettingChange(selectorId, value) {
 function applyAllSettings() {
     console.log('DEBUG applyAllSettings: Starting to apply all settings');
     
-    // Apply all current dropdown values
+    // Apply background first
     var bgSelector = document.querySelector('#bg-selector');
-    if (bgSelector) applySettingChange('bg-selector', bgSelector.dataset.value);
-    
-    var typeSelector = document.querySelector('#type-selector');
-    if (typeSelector) applySettingChange('type-selector', typeSelector.dataset.value);
-    
-    var sizeSelector = document.querySelector('#size-selector');
-    if (sizeSelector) applySettingChange('size-selector', sizeSelector.dataset.value);
-    
-    // Apply power (intensity) BEFORE speed to avoid conflicts
-    var powerSelector = document.querySelector('#power-selector');
-    if (powerSelector) applySettingChange('power-selector', powerSelector.dataset.value);
-    
-    // Apply movement style before speed
-    var movementSelector = document.querySelector('#movement-selector');
-    if (movementSelector) applySettingChange('movement-selector', movementSelector.dataset.value);
-    
-    // Apply speed LAST to ensure it takes effect after horses are created
-    var speedSelector = document.querySelector('#speed-selector');
-    if (speedSelector) {
-        console.log('DEBUG applyAllSettings: Applying speed as final step:', speedSelector.dataset.value);
-        applySettingChange('speed-selector', speedSelector.dataset.value);
+    if (bgSelector) {
+        console.log('DEBUG applyAllSettings: Applying background:', bgSelector.dataset.value);
+        applySettingChange('bg-selector', bgSelector.dataset.value);
     }
     
-    console.log('DEBUG applyAllSettings: Finished applying all settings');
+    // Apply power (intensity) FIRST to create horses
+    var powerSelector = document.querySelector('#power-selector');
+    if (powerSelector) {
+        console.log('DEBUG applyAllSettings: Applying power/intensity:', powerSelector.dataset.value);
+        applySettingChange('power-selector', powerSelector.dataset.value);
+    }
+    
+    // Wait a bit for horses to be created, then apply other settings
+    setTimeout(function() {
+        var typeSelector = document.querySelector('#type-selector');
+        if (typeSelector) {
+            console.log('DEBUG applyAllSettings: Applying type:', typeSelector.dataset.value);
+            applySettingChange('type-selector', typeSelector.dataset.value);
+        }
+        
+        var sizeSelector = document.querySelector('#size-selector');
+        if (sizeSelector) {
+            console.log('DEBUG applyAllSettings: Applying size:', sizeSelector.dataset.value);
+            applySettingChange('size-selector', sizeSelector.dataset.value);
+        }
+        
+        // Apply movement style before speed
+        var movementSelector = document.querySelector('#movement-selector');
+        if (movementSelector) {
+            console.log('DEBUG applyAllSettings: Applying movement:', movementSelector.dataset.value);
+            applySettingChange('movement-selector', movementSelector.dataset.value);
+        }
+        
+        // Apply speed LAST to ensure it takes effect after horses are created
+        var speedSelector = document.querySelector('#speed-selector');
+        if (speedSelector) {
+            console.log('DEBUG applyAllSettings: Applying speed as final step:', speedSelector.dataset.value);
+            applySettingChange('speed-selector', speedSelector.dataset.value);
+        }
+        
+        console.log('DEBUG applyAllSettings: Finished applying all settings');
+    }, 100);
 }
 
 // When opening custom settings dropdown close other dropdowns //

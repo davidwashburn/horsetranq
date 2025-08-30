@@ -2496,50 +2496,7 @@ Usage: codyhouse.co/license
   align-items: center;
 }
 
-/* Loading screen */
-#loadingScreen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10000;
-  /* Optimized background with performance improvements */
-  background-image: url('../../static/img/games/horsplay/backgrounds/peaceful-alt.png');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  /* Hardware acceleration for smooth rendering */
-  transform: translateZ(0);
-  will-change: background-position;
-  /* Smooth transition when loading */
-  transition: opacity 0.3s ease-out;
-}
-
-#loading-img-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* Add hardware acceleration for smoother animation */
-  transform: translateZ(0);
-  will-change: transform;
-}
-
-#loading-img-container img {
-  width: 200px; /* Reduced from 350px for better performance */
-  height: auto;
-  /* Hardware acceleration for smooth GIF playback */
-  transform: translateZ(0);
-  will-change: transform;
-  /* Optimize image rendering */
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: optimize-contrast;
-}
+/* Loading screen removed - now using slide-up animation */
 
 /* CSS-based loading spinner alternative (much lighter than GIFs) */
 .css-spinner {

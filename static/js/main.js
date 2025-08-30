@@ -88,15 +88,11 @@ $("#accountDeleteBtn").click(function() {
 // DOCUMENT READY FUNCTIONS AND ONLOAD SCRIPTS //
 jQuery(document).ready(function($){
 
-	// OPTIMIZED LOADING SCREEN PERFORMANCE
-	
 	// Preload critical resources for smoother experience
 	function preloadCriticalResources() {
 		const criticalImages = [
 			'/static/img/branding/game-horsetranq-alt-large.png',
-			'/static/img/games/lemondrop/promo/lemondrop-alt.png',
-			// Preload the loading screen background for instant display
-			'/static/img/games/horsplay/backgrounds/peaceful-alt.png'
+			'/static/img/games/lemondrop/promo/lemondrop-alt.png'
 		];
 		
 		criticalImages.forEach(src => {
@@ -108,64 +104,48 @@ jQuery(document).ready(function($){
 	// Start preloading immediately
 	preloadCriticalResources();
 	
-	// Function to use lightweight CSS spinner instead of heavy GIF
-	function useLightweightLoader() {
-		const container = document.getElementById('loading-img-container');
-		if (container) {
-			// Replace GIF with CSS spinner - natural background visibility
-			container.innerHTML = '<div class="horse-spinner"></div>';
-		}
-	}
-	
-	// Function to use optimized GIF loader
-	function useOptimizedGifLoader() {
-		const container = document.getElementById('loading-img-container');
-		if (container && container.querySelector('img')) {
-			const img = container.querySelector('img');
-			// Use the smallest GIF and lazy load
-			img.src = '/static/img/loading/hors-load-3.gif'; // 386KB - smallest one
-			img.loading = 'eager';
-			img.style.width = '150px'; // Even smaller for better performance
-			// Natural background - no white box
-		}
-	}
-	
-	// Auto-detect performance and choose best loading method
-	function autoOptimizeLoader() {
-		// Check connection speed or device performance
-		if ('connection' in navigator) {
-			const connection = navigator.connection;
-			if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
-				useLightweightLoader();
-				return;
-			}
-		}
-		
-		// Check if user prefers reduced motion
-		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-			useLightweightLoader();
-			return;
-		}
-		
-		// Default to optimized GIF
-		useOptimizedGifLoader();
-	}
-	
-	// Apply optimization
-	autoOptimizeLoader();
-	
-	// Remove the loading screen after DOM and initial resources load
-	// Reduced time for better UX
-	setTimeout(function() {
-        const loadingScreen = document.getElementById('loadingScreen');
-        if (loadingScreen) {
-            loadingScreen.style.opacity = '0';
-            loadingScreen.style.transition = 'opacity 0.3s ease-out';
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-            }, 300);
-        }
-    }, 1200); // Reduced from 1750ms to 1200ms
+	// Page intro animation - using native jQuery
+	$(document).ready(function() {
+        console.log('Page animation script running...');
+        
+        // Target specific content sections, not main containers
+        var $content = $('.store-wrapper, .tools-wrapper, .lemon-flex-container');
+        
+        // Target hero-section on specific pages (not scores)
+        var $heroContent = $('#index .hero-section, #profile .hero-section, #store .hero-section, #horsplay .hero-section, #lemondrop .hero-section');
+        $content = $content.add($heroContent);
+        
+        // Target main-wrapper and main-section on specific pages (not scores)
+        var $pageContent = $('#index .main-wrapper, #index .main-section, #profile .main-wrapper, #profile .main-section, #store .main-wrapper, #store .main-section, #horsplay .main-wrapper, #horsplay .main-section, #lemondrop .main-wrapper, #lemondrop .main-section');
+        $content = $content.add($pageContent);
+        
+        // Also target scores page specific elements
+        var $scoresContent = $('#scores .main-wrapper, #scores .main-section, #scores .hero-section');
+        console.log('Scores content found:', $scoresContent.length);
+        console.log('Scores elements:', $scoresContent);
+        $scoresContent.each(function(index) {
+            console.log('Scores element ' + index + ':', this.className, this.tagName);
+        });
+        $content = $content.add($scoresContent);
+        
+        console.log('Total content elements to animate:', $content.length);
+        
+        // Use jQuery's native animate method (CSS already sets initial state)
+        setTimeout(function() {
+            $content.animate({
+                opacity: 1
+            }, {
+                duration: 500, // 0.5 second animation (50% faster than original)
+                step: function(now, tween) {
+                    // Calculate slide-up progress based on opacity
+                    var slideProgress = now; // opacity goes 0->1, so we use it directly
+                    var translateY = 50 * (1 - slideProgress);
+                    $(this).css('transform', `translateY(${translateY}px)`);
+                },
+                easing: 'swing'
+            });
+        }, 50); // Reduced delay to 50ms for snappier feel
+    });
 
 
 	// Remove overlay when ranked or free play is selected
