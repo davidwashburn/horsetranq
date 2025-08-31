@@ -245,92 +245,31 @@
 							</div>
 						</div>
 						
-						<!-- ACCOUNT OPTIONS Column -->
-						<div id="profile-account-option" class="width-md-phone width-sm-desktop width-full-tablet margin-auto-phone margin-auto-tablet border-radius shadow-green-md padding-md-all">
-							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-center width-full-all">
-								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">ACCOUNT OPTINS</h3>
-								<div class="flex-column-desktop flex-column-phone width-full-all flex-align-items-center gap-md-all">
-									{% if logged_in %}
-										<button type="button" id="profile-change-username-button" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold rotate-left">CHANGE USARNAME</button>
-										{% if subscription_type == 'free' %}
-											<a href="/store" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet text-center color-accent-gold">UPGRAD PLAN</a>
+						<div class="flex-column-desktop">
+							<!-- ACCOUNT OPTIONS Column -->
+							<div id="profile-account-option" class="width-md-phone width-lg-desktop width-full-tablet margin-auto-phone margin-auto-tablet border-radius shadow-green-md padding-md-all">
+								<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-center width-full-all">
+									<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">ACCOUNT OPTINS</h3>
+									<div class="flex-column-desktop flex-column-phone width-full-all flex-align-items-center gap-md-all">
+										{% if logged_in %}
+											<button type="button" id="profile-change-username-button" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold rotate-left">CHANGE USARNAME</button>
+											<button type="button" id="profile-change-hors-button" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold rotate-left">CHANGE HORS</button>
+											{% if subscription_type == 'free' %}
+												<a href="/store" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet text-center color-accent-gold">UPGRAD PLAN</a>
+											{% else %}
+												<a href="/store" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold text-center rotate-right">MANAG PLAN</a>
+											{% endif %}
+											<button type="button" id="deleteAccountBtn" class="button shadow-red-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-white rotate-right">DELET ACCOUNT</button>
 										{% else %}
-											<a href="/store" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold text-center rotate-right">MANAG PLAN</a>
+											<a href="/login" class="button shadow-white-md font-weight-xl font-size-sm margin-lg-desktop margin-sm-phone margin-lg-tablet color-accent-gold rotate-right">SIGN IN</a>
 										{% endif %}
-										<button type="button" id="deleteAccountBtn" class="button shadow-red-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-white rotate-right">DELET ACCOUNT</button>
-									{% else %}
-										<a href="/login" class="button shadow-white-md font-weight-xl font-size-sm margin-lg-desktop margin-sm-phone margin-lg-tablet color-accent-gold rotate-right">SIGN IN</a>
-									{% endif %}
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- ACCOUNT DETAILS SECTION -->
-				<div class="main-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-full-desktop width-full-tablet width-full-phone bg-primary-dark" style="transform: translateY(0px);opacity: 1;padding-top: 0;" data-animate="page-intro">
-					<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-full-tablet width-xl-phone" style="transform: translateY(0px); opacity: 1;">
-						<div class="flex-row-reverse-desktop flex-column-reverse-phone flex-align-center flex-justify-center gap-xxl-all margin-md-tablet">
-							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop">
-								<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-all">
-									<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">RANKED STATS</h3>
-									
-									<!-- Horses tranquilized -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-										<h4 class="font-size-md font-weight-xl color-accent-white">Horses tranquilized</h4>
-										<p class="font-size-md font-weight-md color-accent-white">
-											{% if user_stats.ranked.total_horses_popped %}
-												{{ user_stats.ranked.total_horses_popped }}
-											{% else %}
-												0
-											{% endif %}
-										</p>
-									</div>
-	
-									<!-- Time spent tranqing -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-										<h4 class="font-size-md font-weight-xl color-accent-white">Time spent tranqing</h4>
-										<p class="font-size-md font-weight-md color-accent-white">
-											{% if user_stats.ranked.total_time_played %}
-												{{ user_stats.ranked.total_time_played }}
-											{% else %}
-												0
-											{% endif %} seconds
-										</p>
-									</div>
-	
-									<!-- Overall rank -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-										<h4 class="font-size-md font-weight-xl color-accent-white">Overall rank</h4>
-										<p class="font-size-md font-weight-md color-accent-white">N/A</p>
-									</div>
-	
-									<!-- Best time -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-										<h4 class="font-size-md font-weight-xl color-accent-white">Best time</h4>
-										<p class="font-size-md font-weight-md color-accent-white">
-											{% if user_stats.ranked.best_time and user_stats.ranked.best_time != 'inf' %}
-												{{ user_stats.ranked.best_time }}
-											{% else %}
-												N/A
-											{% endif %}
-										</p>
 									</div>
 								</div>
 							</div>
-							<div id="hero-square" class="width-lg-phone width-full-tablet margin-auto-phone margin-auto-tablet border-radius border-radius rotate-left shadow-green-md" style="position: relative;">
-								{% if subscription_type == 'free' %}
-									<div class="main-label main-label-bottom-left bg-accent-grey-mid-alt color-accent-grey-dark">DEFALT</div>
-								{% elif subscription_type == 'one' %}
+							<div id="hero-square" class="width-lg-desktop width-sm-phone width-full-tablet margin-auto-phone margin-auto-tablet border-radius border-radius rotate-right shadow-green-md" style="margin-top: 3em;">
 									<div class="main-label main-label-bottom-left main-label-one color-accent-white">HORS ONE</div>
-								{% elif subscription_type == 'plus' %}
-									<div class="main-label main-label-bottom-left main-label-plus color-accent-white">HORS PLUS</div>
-								{% elif subscription_type == 'max' %}
-									<div class="main-label main-label-bottom-left main-label-max color-accent-white">HORS MAX</div>
-								{% else %}
-									<div class="main-label main-label-bottom-left bg-accent-grey-mid-alt color-accent-grey-dark">DEFALT</div>
-								{% endif %}
-								<img id="index-hero-img" src="/static/img/branding/horsetranq-v3.png" alt="Horsetranq">
+								
+								<img id="index-hero-img" class="width-full-desktop" src="/static/img/branding/horsetranq-v3.png" alt="Horsetranq">
 							</div>
 						</div>
 					</div>

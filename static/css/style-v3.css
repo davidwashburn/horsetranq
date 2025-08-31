@@ -456,6 +456,7 @@ input:focus {
   transition: .05s ease-in-out;
   cursor: pointer;
   border-radius: 10px;
+  min-width: max-content;
 }
 .button:hover {
   background: conic-gradient(at calc(100% - var(--d)) calc(100% - var(--d)), #0276e3 37.5%, #025bb2 0 75%, #66b3f4 0) border-box #0276e3;
@@ -678,7 +679,6 @@ input:focus {
   height: min-content;
 }
 #profile-account-option {
-  min-width: 320px;
   height: min-content;
 }
 
