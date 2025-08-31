@@ -61,7 +61,7 @@
 					<div class="title-wrapper flex settings">
 						<h4 class="bold color-contrast-medium">Username</h4>
 						<div class="username-editable width-100 margin-xs">
-							<p class="bold color-contrast-higher username-display" id="usernameDisplay">
+							<p class="bold color-contrast-higher username-display" id="profile-username-display">
 								{% if username %}
 									{{ username }}
 								{% else %}
@@ -69,7 +69,7 @@
 								{% endif %}
 							</p>
 							<div class="username-edit-controls" style="display: none;">
-								<input type="text" id="usernameInput" class="username-input" value="{{ username }}" maxlength="20">
+								<input type="text" id="profile-username-input" class="username-input" value="{{ username }}" maxlength="20">
 								<button type="button" id="usernameSaveBtn" class="btn-small">Save</button>
 								<button type="button" id="usernameCancelBtn" class="btn-small">Cancel</button>
 							</div>

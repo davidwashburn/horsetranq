@@ -35,8 +35,8 @@
 
 /* ===== Breakpoints ===== */
 @media (max-width: 599px) {
-  /* phones: shrink everything ~12% */
-  :root { --type-scale: 0.88; }
+  /* phones: shrink everything 25% */
+  :root { --type-scale: 0.75; }
 }
 
 @media (min-width: 600px) and (max-width: 1023px) {
@@ -232,6 +232,12 @@
   --padding-lg: 1.5rem;  /* 24px */
   --padding-xl: 3rem;    /* 48px */
   --padding-xxl: 6rem;   /* 96px */
+  
+  /* Border radius variables copied from variables.css */
+  --radius-sm: 0.1875em;
+  --radius-md: 0.375em;
+  --radius-base: 0.5625em;
+  --radius-lg: 0.75em;
 }
 
 /* Desktop-specific margin utilities (1024px+) */
@@ -474,7 +480,7 @@ input:focus {
 
 /* Data/Detail item containers */
 .data-item {
-  padding: var(--margin-md);
+  padding: var(--margin-lg);
   background: var(--v3-background-overlay);
   border-radius: var(--radius-base);
   margin: var(--margin-sm) 0;
@@ -668,21 +674,16 @@ input:focus {
 #index {background-color: var(--v3-color-primary);}
 
 #hero-square {
-  --d: 20px;
   padding: 10px;
   height: min-content;
-  box-sizing: border-box;
-  border: solid #0000;
-  border-width: 0 var(--d) var(--d) 0;
-  clip-path: polygon(0 0, calc(100% - var(--d)) 0, 100% var(--d), 100% 100%, var(--d) 100%, 0 calc(100% - var(--d)));
-  background: conic-gradient(at calc(100% - var(--d)) calc(100% - var(--d)), #0004 37.5%, #0008 0 75%, #0000 0) border-box #106552;
-  /* Rotate and round corners */
-  position: relative;
+}
+#profile-account-option {
+  min-width: 320px;
+  height: min-content;
 }
 
 .main-label {
   padding: 8px 12px;
-  font-size: var(--v3-font-size-lg);
   font-weight: var(--v3-font-weight-xl);
   text-transform: uppercase;
   border-radius: 4px;
@@ -838,8 +839,21 @@ input:focus {
   border-bottom: 2px solid var(--v3-color-primary-dark-alt);
 }
 
-.border-radius {
-  border-radius: 24px;
+/* Border radius utility classes */
+.border-radius-sm {
+  border-radius: var(--radius-sm);
+}
+
+.border-radius-md {
+  border-radius: var(--radius-md);
+}
+
+.border-radius, .border-radius-base {
+  border-radius: var(--radius-base);
+}
+
+.border-radius-lg {
+  border-radius: var(--radius-lg);
 }
 
 .main-content {

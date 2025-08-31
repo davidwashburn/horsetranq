@@ -1,10 +1,10 @@
 // Username Editor functionality
 document.addEventListener('DOMContentLoaded', function() {
     // New elements for inline editing in profile username label
-    const changeNameBtn = document.getElementById('changeNameBtn');
+    const changeNameBtn = document.getElementById('profile-change-username-button');
     const profileUsernameLabel = document.getElementById('profile-username');
-    const usernameDisplay = profileUsernameLabel ? profileUsernameLabel.querySelector('#usernameDisplay') : null;
-    const usernameInput = profileUsernameLabel ? profileUsernameLabel.querySelector('#usernameInput') : null;
+    const usernameDisplay = profileUsernameLabel ? profileUsernameLabel.querySelector('#profile-username-display') : null;
+    const usernameInput = profileUsernameLabel ? profileUsernameLabel.querySelector('#profile-username-input') : null;
     const usernameEditControls = document.getElementById('profile-username-edit-controls');
     const usernameMessages = document.getElementById('usernameMessages');
     const usernameSaveBtn = document.getElementById('profile-username-save-button');

@@ -1,10 +1,10 @@
 <nav class="nav-menu">
-	<span class="nav-menu-item nav-dropdown font-size-sm font-weight-xl shadow-white-md nav-toggle-trigger color-accent-grey-dark {% if current_page == 'STABLE' or current_page == 'HORSPLAY' or current_page == 'LEMON DROP' %}active{% endif %}" id="stable-nav-item">STABLE</span>
+	<a href="/" class="nav-menu-item nav-dropdown font-size-sm font-weight-xl shadow-white-md nav-toggle-trigger color-accent-grey-dark {% if current_page == 'STABLE' or current_page == 'HORSPLAY' or current_page == 'LEMON DROP' %}active{% endif %}" id="stable-nav-item">STABLE</a>
 	<a href="/store" class="nav-menu-item font-size-sm font-weight-xl shadow-white-md color-accent-grey-dark {% if current_page == 'STOR' %}active{% endif %}">STOR</a>
 	<a href="/about" class="nav-menu-item font-size-sm font-weight-xl shadow-white-md color-accent-grey-dark {% if current_page == 'ABOUT' %}active{% endif %}">ABOUT</a>
 	<a href="/scores" class="nav-menu-item font-size-sm font-weight-xl shadow-white-md color-accent-grey-dark {% if current_page == 'SCORES' %}active{% endif %}">SCORES</a>
 	{% if logged_in %}
-		<span class="nav-menu-item nav-dropdown font-size-sm font-weight-xl shadow-white-md nav-toggle-trigger color-accent-grey-dark {% if current_page == 'PROFILE' %}active{% endif %}" id="profile-nav-item">{{ username }}</span>
+		<a href="/profile" class="nav-menu-item nav-dropdown font-size-sm font-weight-xl shadow-white-md nav-toggle-trigger color-accent-grey-dark {% if current_page == 'PROFILE' %}active{% endif %}" id="profile-nav-item" style="max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-block;">{{ username }}</a>
 	{% else %}
 		<a href="/login" class="nav-menu-item font-size-sm font-weight-xl shadow-white-md color-accent-grey-dark">SIGN IN</a>
 	{% endif %}
@@ -13,14 +13,12 @@
 <!-- Dropdown positioned outside nav structure -->
 {% if logged_in %}
 <div class="nav-dropdown-menu" id="profile-dropdown">
-	<a href="/profile" class="nav-menu-item nav-dropdown-item button shadow-white-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet color-accent-gold">VIEW PROFIL</a>
 	<a href="/logout" class="nav-menu-item nav-dropdown-item button shadow-red-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet color-accent-white">SIGN OUT</a>
 </div>
 {% endif %}
 
 <!-- STABLE Dropdown positioned outside nav structure -->
 <div class="nav-dropdown-menu" id="stable-dropdown">
-	<a href="/" class="nav-menu-item nav-dropdown-item button shadow-white-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet color-accent-grey-dark {% if current_page == 'STABLE' %}active{% endif %}">HOME</a>
 	<a href="/horsplay" class="nav-menu-item nav-dropdown-item button shadow-white-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet color-accent-grey-dark {% if current_page == 'HORSPLAY' %}active{% endif %}">PLAY HORSPLAY</a>
 	<a href="/lemondrop" class="nav-menu-item nav-dropdown-item button shadow-white-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet color-accent-grey-dark {% if current_page == 'LEMON DROP' %}active{% endif %}">PLAY LEMONDROP</a>
 </div>
@@ -56,16 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
             stableHoverTimeout = setTimeout(hideStableDropdown, 100);
         });
         
-        // Toggle dropdown on click (entire nav item is clickable)
-        stableNavItem.addEventListener('click', function(e) {
-            e.preventDefault();
-            clearTimeout(stableHoverTimeout);
-            if (stableDropdown.classList.contains('show')) {
-                hideStableDropdown();
-            } else {
-                showStableDropdown();
-            }
-        });
+        // STABLE button now behaves as a normal link - no click interference
         
         // Keep dropdown open when hovering over it
         stableDropdown.addEventListener('mouseenter', function() {
@@ -107,19 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
             hoverTimeout = setTimeout(hideDropdown, 100);
         });
         
-        // Toggle dropdown on click (entire nav item is clickable)
-        const profileToggle = profileNavItem.querySelector('.nav-toggle-trigger');
-        if (profileToggle) {
-            profileNavItem.addEventListener('click', function(e) {
-                e.preventDefault();
-                clearTimeout(hoverTimeout);
-                if (profileDropdown.classList.contains('show')) {
-                    hideDropdown();
-                } else {
-                    showDropdown();
-                }
-            });
-        }
+        // Profile button now behaves as a normal link - no click interference
         
         // Keep dropdown open when hovering over it
         profileDropdown.addEventListener('mouseenter', function() {

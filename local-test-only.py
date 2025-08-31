@@ -18,7 +18,7 @@ def generate_mock_username():
 # Mock data for development - this would typically come from a database
 mock_user_data = {
     'logged_in': True,  # Change to True to test logged-in state
-    'user_id': 'test_user_123',
+    'user_id': '1883-4836-3848-8348',
     'name': 'Test User',
     'email': 'test@example.com',
     'picture': 'https://via.placeholder.com/100',

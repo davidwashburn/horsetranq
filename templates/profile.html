@@ -8,9 +8,6 @@
 		<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 		<link rel="icon" type="image/x-icon" href="/static/img/assets/ico/hors.ico">
 		<link rel="stylesheet" href="/static/css/reset.css"> <!-- CSS reset -->
-		<link rel="stylesheet" href="/static/css/style.css"> <!-- Resource style -->
-		<link rel="stylesheet" href="../static/css/style-slides.css"> <!-- Slide specific style -->
-		<link rel="stylesheet" href="/static/css/variables.css"> <!-- Variables style -->
 		<link rel="stylesheet" href="/static/css/style-v3.css"> <!-- New v3 style -->
 		<script src="/static/js/resources/modernizr.js"></script> <!-- Modernizr -->
 		<script src="https://cdn.auth0.com/js/auth0/9.18/auth0.min.js"></script>
@@ -30,11 +27,49 @@
 				<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-full-tablet width-xl-phone">
 					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center gap-xxl-all">
 						<!-- ACCOUNT DETAILS Column -->
-						<div id="hero-square" class="width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet border-radius rotate-left shadow-green-alt-md">
+						<div id="hero-square" class="width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet border-radius rotate-left shadow-green-md">
 							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-desktop width-full-phone width-full-tablet padding-md-all">
 								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">
 									ACOUNT DETALES
 								</h3>
+
+								<!-- Username -->
+								<div id="profile-username-container" class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<h4 class="font-size-md font-weight-xl color-accent-white">Username</h4>
+									<!-- Username label wrapper to maintain top-right positioning -->
+									<div class="main-label bg-accent-gold color-accent-grey-dark">
+										<div id="profile-username">
+											<span id="profile-username-display" class="font-size-md">
+												{% if logged_in %}
+													{%- if username -%}
+														{{ username | upper }}
+													{%- elif name -%}
+														{{ name | upper }}
+													{%- else -%}
+														HORS MEMBAR
+													{%- endif -%}
+												{% else %}
+													SIGN IN, HOSS
+												{% endif %}
+											</span>
+											<input type="text" id="profile-username-input" style="display: none; background: transparent; border: none; color: inherit; font: inherit; text-align: center; width: 100%;" maxlength="20" value="{{ username }}">
+										</div>
+										<!-- Username edit controls - positioned directly below the username label -->
+										<div id="profile-username-edit-controls" class="flex-column-all flex-align-items-center width-xl-all" style="display: none;">
+											<!-- Buttons container -->
+											<div id="profile-username-buttons" class="flex-row-all gap-sm-all">
+												<button type="button" id="profile-username-save-button" class="button shadow-white-sm font-weight-xl font-size-sm" style="padding: 4px 8px; min-width: 60px;">
+													<span class="color-accent-gold">SAVE</span>
+												</button>
+												<button type="button" id="profile-username-cancel-button" class="button shadow-red-sm font-weight-xl font-size-sm" style="padding: 4px 8px; min-width: 60px;">
+													<span class="color-accent-white">CANCEL</span>
+												</button>
+											</div>
+											<!-- Messages container -->
+											<div id="usernameMessages" class="width-full-all shadow-green-alt-none margin-sm-desktop margin-sm-phone margin-sm-tablet text-center"></div>
+										</div>
+									</div>
+								</div>
 
 								<!-- Name -->
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
@@ -58,44 +93,6 @@
 											Not logged in
 										{% endif %}
 									</p>
-								</div>
-
-								<!-- Username -->
-								<div id="profile-username-container" class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Username</h4>
-									<!-- Username label wrapper to maintain top-right positioning -->
-									<div class="main-label bg-accent-gold color-accent-grey-dark">
-										<div id="profile-username">
-											<span id="usernameDisplay">
-												{% if logged_in %}
-													{%- if username -%}
-														{{ username | upper }}
-													{%- elif name -%}
-														{{ name | upper }}
-													{%- else -%}
-														HORS MEMBAR
-													{%- endif -%}
-												{% else %}
-													SIGN IN, HOSS
-												{% endif %}
-											</span>
-											<input type="text" id="usernameInput" style="display: none; background: transparent; border: none; color: inherit; font: inherit; text-align: center; width: 100%;" maxlength="20" value="{{ username }}">
-										</div>
-										<!-- Username edit controls - positioned directly below the username label -->
-										<div id="profile-username-edit-controls" class="flex-column-all flex-align-items-center width-xl-all" style="display: none;">
-											<!-- Buttons container -->
-											<div id="profile-username-buttons" class="flex-row-all gap-sm-all">
-												<button type="button" id="profile-username-save-button" class="button shadow-white-sm font-weight-xl font-size-sm" style="padding: 4px 8px; min-width: 60px;">
-													<span class="color-accent-gold">SAVE</span>
-												</button>
-												<button type="button" id="profile-username-cancel-button" class="button shadow-red-sm font-weight-xl font-size-sm" style="padding: 4px 8px; min-width: 60px;">
-													<span class="color-accent-white">CANCEL</span>
-												</button>
-											</div>
-											<!-- Messages container -->
-											<div id="usernameMessages" class="width-full-all shadow-green-alt-none margin-sm-desktop margin-sm-phone margin-sm-tablet text-center"></div>
-										</div>
-									</div>
 								</div>
 
 								<!-- Account ID -->
@@ -123,7 +120,7 @@
 									</p>
 								</div>
 							</div>
-							<div class="flex-row-desktop flex-column-phone flex-align-items-start flex-justify-center gap-xxl-all width-full-desktop padding-md-all">
+							<div class="flex-row-desktop flex-column-phone flex-align-items-start flex-justify-center gap-md-all width-full-desktop padding-md-all">
 								<!-- RANKED STATS Column -->
 								<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop width-full-phone width-full-tablet">
 									<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">RANKED STATS</h3>
@@ -249,16 +246,16 @@
 						</div>
 						
 						<!-- ACCOUNT OPTIONS Column -->
-						<div id="hero-square" class="width-full-phone width-sm-desktop width-full-tablet margin-auto-phone margin-auto-tablet border-radius">
-							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-all">
+						<div id="profile-account-option" class="width-md-phone width-sm-desktop width-full-tablet margin-auto-phone margin-auto-tablet border-radius shadow-green-md padding-md-all">
+							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-center width-full-all">
 								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">ACCOUNT OPTINS</h3>
 								<div class="flex-column-desktop flex-column-phone width-full-all flex-align-items-center gap-md-all">
 									{% if logged_in %}
-										<button type="button" id="changeNameBtn" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold rotate-left">CHANGE NAME</button>
+										<button type="button" id="profile-change-username-button" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold rotate-left">CHANGE USARNAME</button>
 										{% if subscription_type == 'free' %}
-											<a href="/store" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold">UPGRAD PLAN</a>
+											<a href="/store" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet text-center color-accent-gold">UPGRAD PLAN</a>
 										{% else %}
-											<a href="/store" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold rotate-right">MANAG PLAN</a>
+											<a href="/store" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold text-center rotate-right">MANAG PLAN</a>
 										{% endif %}
 										<button type="button" id="deleteAccountBtn" class="button shadow-red-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-white rotate-right">DELET ACCOUNT</button>
 									{% else %}
@@ -272,7 +269,7 @@
 
 				<!-- ACCOUNT DETAILS SECTION -->
 				<div class="main-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-full-desktop width-full-tablet width-full-phone bg-primary-dark" style="transform: translateY(0px);opacity: 1;padding-top: 0;" data-animate="page-intro">
-					<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-full-desktop width-full-tablet width-xl-phone" style="transform: translateY(0px); opacity: 1;">
+					<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-full-tablet width-xl-phone" style="transform: translateY(0px); opacity: 1;">
 						<div class="flex-row-reverse-desktop flex-column-reverse-phone flex-align-center flex-justify-center gap-xxl-all margin-md-tablet">
 							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop">
 								<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-all">
@@ -320,22 +317,8 @@
 										</p>
 									</div>
 								</div>
-	
-								<!-- Action buttons -->
-								<div class="flex-row-desktop flex-align-items-center gap-md-all">
-									{% if logged_in %}
-										<button type="button" id="changeNameBtn" class="button shadow-white-md font-weight-xl font-size-md margin-lg-desktop margin-sm-phone margin-lg-tablet color-accent-gold">CHANGE NAME</button>
-										{% if subscription_type == 'free' %}
-											<a href="/store" class="button shadow-white-md font-weight-xl font-size-md margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold">UPGRAD PLAN</a>
-										{% else %}
-											<a href="/store" class="button shadow-white-md font-weight-xl font-size-md margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold">MANAG PLAN</a>
-										{% endif %}
-									{% else %}
-										<a href="/login" class="button shadow-white-md font-weight-xl font-size-lg margin-lg-desktop margin-sm-phone margin-lg-tablet color-accent-gold">SIGN IN</a>
-									{% endif %}
-								</div>
 							</div>
-							<div id="hero-square" class="width-lg-phone width-full-tablet margin-auto-phone margin-auto-tablet border-radius border-radius rotate-left" style="position: relative;">
+							<div id="hero-square" class="width-lg-phone width-full-tablet margin-auto-phone margin-auto-tablet border-radius border-radius rotate-left shadow-green-md" style="position: relative;">
 								{% if subscription_type == 'free' %}
 									<div class="main-label main-label-bottom-left bg-accent-grey-mid-alt color-accent-grey-dark">DEFALT</div>
 								{% elif subscription_type == 'one' %}

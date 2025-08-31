@@ -156,6 +156,13 @@ jQuery(document).ready(function($){
                 'opacity': '1 !important',
                 'transform': 'translateY(0px) !important'
             });
+            
+            // Extra fallback specifically for about page
+            $('#about .about-wrapper').css({
+                'opacity': '1 !important',
+                'transform': 'translateY(0px) !important'
+            });
+            
             console.log('Universal fallback applied to all animated elements');
         }, 1000);
     });
