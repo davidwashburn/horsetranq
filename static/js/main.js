@@ -169,7 +169,7 @@ jQuery(document).ready(function($){
 
 
 	// Remove overlay when ranked or free play is selected
-	$('#rankedPlayBtn, #freePlayBtn, #myAccountBtn').on('click', function() {
+	$('#rankedPlayBtn, #freePlayBtn').on('click', function() {
 		$('#gameSelectOverlay').removeClass('overlay');
 	});
 
@@ -178,20 +178,13 @@ jQuery(document).ready(function($){
 
 	var settingsModal = $('#settingsModal');
 	var gameSelectModal = $('#gameSelectModal');
-	var accountModal = $('#accountModal');
-
 	$('.modal-trigger').on('click', function() {
 		var target = $(this).data('target');
 
 		if (target == 'settingsModal') {
 			gameSelectModal.removeClass('filter-is-visible');
-			accountModal.removeClass('filter-is-visible');
 		} else if (target == 'gameSelectModal') {
 			settingsModal.removeClass('filter-is-visible');
-			accountModal.removeClass('filter-is-visible');
-		} else if (target == 'accountModal') {
-			settingsModal.removeClass('filter-is-visible');
-			gameSelectModal.removeClass('filter-is-visible');
 		}
 
 		$('#' + target).toggleClass('filter-is-visible');

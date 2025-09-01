@@ -24,10 +24,10 @@
 
 			<!-- Profile Main Section -->
 			<div id="profile" class="main-wrapper" data-animate="page-intro">
-				<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-full-tablet width-xl-phone">
+				<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-xl-desktop width-full-tablet width-xl-phone">
 					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center gap-xxl-all">
 						<!-- ACCOUNT DETAILS Column -->
-						<div id="hero-square" class="width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet border-radius rotate-left shadow-green-md">
+						<div id="hero-square" class="width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet border-radius rotate-left-desktop shadow-green-md">
 							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-desktop width-full-phone width-full-tablet padding-md-all">
 								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">
 									ACOUNT DETALES
@@ -111,11 +111,11 @@
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Member since</h4>
 									<p class="font-size-md font-weight-md color-accent-white">
-										{% if account_creation_date %}
+										{% if logged_in and account_creation_date %}
 											{% set date_parts = account_creation_date.split('T')[0].split('-') %}
 											<span>{{ date_parts[1] }}</span>/<span>{{ date_parts[2] }}</span>/<span>{{ date_parts[0] }}</span>
 										{% else %}
-											02/24/2024
+											Not logged in
 										{% endif %}
 									</p>
 								</div>
@@ -247,30 +247,32 @@
 						
 						<div class="flex-column-desktop">
 							<!-- ACCOUNT OPTIONS Column -->
-							<div id="profile-account-option" class="width-md-phone width-lg-desktop width-full-tablet margin-auto-phone margin-auto-tablet border-radius shadow-green-md padding-md-all">
+							<div id="profile-account-option" class="width-lg-phone width-lg-desktop width-full-tablet margin-auto-phone margin-auto-tablet border-radius shadow-green-md padding-md-all">
 								<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-center width-full-all">
 									<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">ACCOUNT OPTINS</h3>
-									<div class="flex-column-desktop flex-column-phone width-full-all flex-align-items-center gap-md-all">
+									<div class="flex-column-desktop flex-column-phone width-full-all flex-align-items-center gap-sm-all">
 										{% if logged_in %}
-											<button type="button" id="profile-change-username-button" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold rotate-left">CHANGE USARNAME</button>
-											<button type="button" id="profile-change-hors-button" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold rotate-left">CHANGE HORS</button>
+											<button type="button" id="profile-change-username-button" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold rotate-left-desktop">CHANGE USARNAME</button>
+											<button type="button" id="profile-change-hors-button" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold rotate-left-desktop">CHANGE HORS</button>
 											{% if subscription_type == 'free' %}
 												<a href="/store" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet text-center color-accent-gold">UPGRAD PLAN</a>
 											{% else %}
-												<a href="/store" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold text-center rotate-right">MANAG PLAN</a>
+												<a href="/store" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold text-center rotate-right-desktop">MANAG PLAN</a>
 											{% endif %}
-											<button type="button" id="deleteAccountBtn" class="button shadow-red-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-white rotate-right">DELET ACCOUNT</button>
+											<button type="button" id="deleteAccountBtn" class="button shadow-red-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-white rotate-right-desktop">DELET ACCOUNT</button>
 										{% else %}
-											<a href="/login" class="button shadow-white-md font-weight-xl font-size-sm margin-lg-desktop margin-sm-phone margin-lg-tablet color-accent-gold rotate-right">SIGN IN</a>
+											<a href="/login" class="button shadow-white-md font-weight-xl font-size-sm margin-lg-desktop margin-sm-phone margin-lg-tablet color-accent-gold rotate-right-desktop">SIGN IN</a>
 										{% endif %}
 									</div>
 								</div>
 							</div>
-							<div id="hero-square" class="width-lg-desktop width-sm-phone width-full-tablet margin-auto-phone margin-auto-tablet border-radius border-radius rotate-right shadow-green-md" style="margin-top: 3em;">
-									<div class="main-label main-label-bottom-left main-label-one color-accent-white">HORS ONE</div>
-								
-								<img id="index-hero-img" class="width-full-desktop" src="/static/img/branding/horsetranq-v3.png" alt="Horsetranq">
-							</div>
+							{% if logged_in %}
+								<div id="hero-square" class="width-lg-desktop width-lg-phone width-full-tablet margin-auto-phone margin-auto-tablet border-radius border-radius rotate-right-desktop shadow-green-md" style="margin-top: 3em;">
+										<div class="main-label main-label-bottom-left main-label-one color-accent-white">HORS ONE</div>
+										<img id="index-hero-img" class="width-full-all" src="/static/img/branding/horsetranq-v3.png" alt="Horsetranq">
+								</div>
+							{% else %}
+							{% endif %}
 						</div>
 					</div>
 				</div>

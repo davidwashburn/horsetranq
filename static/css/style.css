@@ -309,9 +309,6 @@ img {
   transition: .25s ease-in-out;
   margin: 10px 0 2em 0;
 }
-#accountModal .cd-filter-block .cd-select::after {
-  display: none;
-}
 .shrink-animation {
   animation: shrink .5s forwards;
 }
