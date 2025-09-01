@@ -217,6 +217,37 @@
   .width-full-phone { width: 100%; }
 }
 
+/* ===== MAX-WIDTH UTILITIES ===== */
+/* Universal max-width utilities - work across all devices */
+.max-width-sm-all { max-width: 400px; }
+.max-width-md-all { max-width: 600px; }
+.max-width-lg-all { max-width: 900px; }
+.max-width-xl-all { max-width: 1200px; }
+
+/* Desktop-specific max-width utilities (1024px+) */
+@media (min-width: 1024px) {
+  .max-width-sm-desktop { max-width: 400px; }
+  .max-width-md-desktop { max-width: 600px; }
+  .max-width-lg-desktop { max-width: 900px; }
+  .max-width-xl-desktop { max-width: 1200px; }
+}
+
+/* Tablet-specific max-width utilities (600px - 1023px) */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .max-width-sm-tablet { max-width: 400px; }
+  .max-width-md-tablet { max-width: 600px; }
+  .max-width-lg-tablet { max-width: 900px; }
+  .max-width-xl-tablet { max-width: 1200px; }
+}
+
+/* Phone-specific max-width utilities (max 599px) */
+@media (max-width: 599px) {
+  .max-width-sm-phone { max-width: 300px; }
+  .max-width-md-phone { max-width: 400px; }
+  .max-width-lg-phone { max-width: 500px; }
+  .max-width-xl-phone { max-width: 600px; }
+}
+
 /* margin utilities - responsive margin system */
 /* Margin size variables for easy maintenance */
 :root {
@@ -241,6 +272,8 @@
 }
 
 /* Desktop-specific margin utilities (1024px+) */
+.margin-auto-all { margin: auto; }
+
 @media (min-width: 1024px) {
   .margin-auto-desktop { margin: auto; }
   .margin-sm-desktop { margin: var(--margin-sm); }
@@ -369,12 +402,6 @@
   .rotate-right-phone { transform: rotate(3deg); }
 }
 
-/* About Page Social Icons */
-.about-social-icons {
-  width: 22px;
-  height: 22px;
-}
-
 /* Shadow system */
 :root {
   --shadow-depth-none: 0px;
@@ -466,6 +493,7 @@ body {
 a {
   text-decoration: none;
 }
+
 /* Input utilities */
 input:focus {
   border: none !important;
@@ -501,6 +529,7 @@ input:focus {
 /* Card containers */
 .card {
   padding: 0 0 1em;
+  max-width: 340px;
 }
 
 /* Data/Detail item containers */
@@ -766,6 +795,12 @@ input:focus {
   #about .hero-section {
     margin: 3em auto 4em;
   }
+}
+
+/* About Page Social Icons */
+.about-social-icons {
+  width: 22px;
+  height: 22px;
 }
 
 /* Table */

@@ -129,8 +129,8 @@
 									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 										<h4 class="font-size-md font-weight-xl color-accent-white">Games played</h4>
 										<p class="font-size-md font-weight-md color-accent-white">
-											{% if user_stats.ranked.total_games %}
-												{{ user_stats.ranked.total_games }}
+											{% if user_stats['ranked'] and user_stats['ranked']['total_games'] %}
+												{{ user_stats['ranked']['total_games'] }}
 											{% else %}
 												0
 											{% endif %}
@@ -141,10 +141,10 @@
 									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 										<h4 class="font-size-md font-weight-xl color-accent-white">Difficulty played</h4>
 										<p class="font-size-md font-weight-md color-accent-white">
-											{% if user_stats.ranked.difficulty_breakdown %}
-												{{ user_stats.ranked.difficulty_breakdown.easyDifficulty|default(0) }} (E) / 
-												{{ user_stats.ranked.difficulty_breakdown.mediumDifficulty|default(0) }} (M) / 
-												{{ user_stats.ranked.difficulty_breakdown.hardDifficulty|default(0) }} (H)
+											{% if user_stats['ranked'] and user_stats['ranked']['difficulty_breakdown'] %}
+												{{ user_stats['ranked']['difficulty_breakdown']['easyDifficulty']|default(0) }} (E) / 
+												{{ user_stats['ranked']['difficulty_breakdown']['mediumDifficulty']|default(0) }} (M) / 
+												{{ user_stats['ranked']['difficulty_breakdown']['hardDifficulty']|default(0) }} (H)
 											{% else %}
 												0 (E) / 0 (M) / 0 (H)
 											{% endif %}
@@ -155,8 +155,8 @@
 									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 										<h4 class="font-size-md font-weight-xl color-accent-white">Favorite enemy</h4>
 										<p class="font-size-md font-weight-md color-accent-white">
-											{% if user_stats.ranked.favorite_enemy and user_stats.ranked.favorite_enemy != 'N/A' %}
-												{{ user_stats.ranked.favorite_enemy }}
+											{% if user_stats['ranked'] and user_stats['ranked']['favorite_enemy'] and user_stats['ranked']['favorite_enemy'] != 'N/A' %}
+												{{ user_stats['ranked']['favorite_enemy'] }}
 											{% else %}
 												N/A
 											{% endif %}
@@ -173,8 +173,8 @@
 									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 										<h4 class="font-size-md font-weight-xl color-accent-white">Favorite background</h4>
 										<p class="font-size-md font-weight-md color-accent-white">
-											{% if user_stats.ranked.favorite_background and user_stats.ranked.favorite_background != 'N/A' %}
-												{{ user_stats.ranked.favorite_background }}
+											{% if user_stats['ranked'] and user_stats['ranked']['favorite_background'] and user_stats['ranked']['favorite_background'] != 'N/A' %}
+												{{ user_stats['ranked']['favorite_background'] }}
 											{% else %}
 												N/A
 											{% endif %}
@@ -190,8 +190,8 @@
 									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 										<h4 class="font-size-md font-weight-xl color-accent-white">Games played</h4>
 										<p class="font-size-md font-weight-md color-accent-white">
-											{% if user_stats.freeplay.total_games %}
-												{{ user_stats.freeplay.total_games }}
+											{% if user_stats['freeplay'] and user_stats['freeplay']['total_games'] %}
+												{{ user_stats['freeplay']['total_games'] }}
 											{% else %}
 												0
 											{% endif %}
@@ -202,10 +202,10 @@
 									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 										<h4 class="font-size-md font-weight-xl color-accent-white">Difficulty played</h4>
 										<p class="font-size-md font-weight-md color-accent-white">
-											{% if user_stats.freeplay.difficulty_breakdown %}
-												{{ user_stats.freeplay.difficulty_breakdown.easyDifficulty|default(0) }} (E) / 
-												{{ user_stats.freeplay.difficulty_breakdown.mediumDifficulty|default(0) }} (M) / 
-												{{ user_stats.freeplay.difficulty_breakdown.hardDifficulty|default(0) }} (H)
+											{% if user_stats['freeplay'] and user_stats['freeplay']['difficulty_breakdown'] %}
+												{{ user_stats['freeplay']['difficulty_breakdown']['easyDifficulty']|default(0) }} (E) / 
+												{{ user_stats['freeplay']['difficulty_breakdown']['mediumDifficulty']|default(0) }} (M) / 
+												{{ user_stats['freeplay']['difficulty_breakdown']['hardDifficulty']|default(0) }} (H)
 											{% else %}
 												0 (E) / 0 (M) / 0 (H)
 											{% endif %}
@@ -216,8 +216,8 @@
 									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 										<h4 class="font-size-md font-weight-xl color-accent-white">Favorite enemy</h4>
 										<p class="font-size-md font-weight-md color-accent-white">
-											{% if user_stats.freeplay.favorite_enemy and user_stats.freeplay.favorite_enemy != 'N/A' %}
-												{{ user_stats.freeplay.favorite_enemy }}
+											{% if user_stats['freeplay'] and user_stats['freeplay']['favorite_enemy'] and user_stats['freeplay']['favorite_enemy'] != 'N/A' %}
+												{{ user_stats['freeplay']['favorite_enemy'] }}
 											{% else %}
 												N/A
 											{% endif %}
@@ -234,8 +234,8 @@
 									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 										<h4 class="font-size-md font-weight-xl color-accent-white">Favorite background</h4>
 										<p class="font-size-md font-weight-md color-accent-white">
-											{% if user_stats.freeplay.favorite_background and user_stats.freeplay.favorite_background != 'N/A' %}
-												{{ user_stats.freeplay.favorite_background }}
+											{% if user_stats['freeplay'] and user_stats['freeplay']['favorite_background'] and user_stats['freeplay']['favorite_background'] != 'N/A' %}
+												{{ user_stats['freeplay']['favorite_background'] }}
 											{% else %}
 												N/A
 											{% endif %}
