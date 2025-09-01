@@ -889,7 +889,7 @@ xtab-filter
   display: inline-block;
   width: 16px;
   height: 16px;
-  background: url("/static/img/assets/ux/icon-arrow.svg") no-repeat center center;
+  background: url("/static/img/ui/icons/icon-arrow.svg") no-repeat center center;
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
   transition: all 0.3s;
@@ -1764,7 +1764,7 @@ xcustom form elements
   display: block;
   width: 16px;
   height: 16px;
-  background: url("/static/img/assets/ux/icon-arrow.svg") no-repeat center center;
+  background: url("/static/img/ui/icons/icon-arrow.svg") no-repeat center center;
   pointer-events: none;
 }
 .cd-filter-block select {
@@ -1829,7 +1829,7 @@ xcustom form elements
   /* check mark style for check boxes */
   width: 16px;
   height: 16px;
-  background: url("/static/img/assets/ux/icon-check.svg") no-repeat center center;
+  background: url("/static/img/ui/icons/icon-check.svg") no-repeat center center;
 }
 .cd-filter-block .radio-label::before,
 .cd-filter-block .radio-label::after {
@@ -1911,7 +1911,7 @@ Login/Signup modal window - by CodyHouse.co
   margin-right: 5%;
   width: 44px;
   height: 100%;
-  background: url("/static/img/assets/ux/icon-menu.svg") no-repeat center center;
+  background: url("/static/img/ui/icons/icon-menu.svg") no-repeat center center;
   cursor: pointer;
 }
 
@@ -1965,13 +1965,13 @@ Pricing table and plans
   transform: translateY(-50%);
   height: 20px;
   width: 20px;
-  background: url("/static/img/assets/ux/icon-arrow-small.svg");
+  background: url("/static/img/ui/icons/icon-arrow-small.svg");
 }
 .store-flex-container .ui-container:nth-child(2) .cd-pricing-footer::after {
-  background: url("/static/img/assets/ux/icon-arrow-small-dark.svg");
+  background: url("/static/img/ui/icons/icon-arrow-small-dark.svg");
 }
 .product.merch .cd-pricing-footer::after {
-  background: url("/static/img/assets/ux/icon-arrow-small-dark.svg");
+  background: url("/static/img/ui/icons/icon-arrow-small-dark.svg");
 }
 
 @media only screen and (min-width: 768px) {
@@ -2405,7 +2405,7 @@ Usage: codyhouse.co/license
   display: block;
   width: 16px;
   height: 16px;
-  background: url("/static/img/assets/ux/icon-arrow.svg") no-repeat center center;
+  background: url("/static/img/ui/icons/icon-arrow.svg") no-repeat center center;
   pointer-events: none;
 }
 
@@ -2578,7 +2578,7 @@ Usage: codyhouse.co/license
 /* LEMON DROP GAME */
 #lemon-game-container {
   margin: 0 auto;
-  background: url("../../static/img/games/lemondrop/assets/background.png");
+  background: url("../../static/img/games/lemondrop/backgrounds/background.png");
   background-size: contain;
   background-size: cover;
   overflow: hidden;

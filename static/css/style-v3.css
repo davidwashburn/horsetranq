@@ -243,8 +243,6 @@
 /* Desktop-specific margin utilities (1024px+) */
 @media (min-width: 1024px) {
   .margin-auto-desktop { margin: auto; }
-  .margin-x-auto-desktop { margin-left: auto; margin-right: auto; }
-  .margin-y-auto-desktop { margin-top: auto; margin-bottom: auto; }
   .margin-sm-desktop { margin: var(--margin-sm); }
   .margin-md-desktop { margin: var(--margin-md); }
   .margin-lg-desktop { margin: var(--margin-lg); }
@@ -256,8 +254,6 @@
 /* Tablet-specific margin utilities (600px - 1023px) */
 @media (min-width: 600px) and (max-width: 1023px) {
   .margin-auto-tablet { margin: auto; }
-  .margin-x-auto-tablet { margin-left: auto; margin-right: auto; }
-  .margin-y-auto-tablet { margin-top: auto; margin-bottom: auto; }
   .margin-sm-tablet { margin: var(--margin-sm); }
   .margin-md-tablet { margin: var(--margin-md); }
   .margin-lg-tablet { margin: var(--margin-lg); }
@@ -371,6 +367,12 @@
 @media (max-width: 599px) {
   .rotate-left-phone { transform: rotate(-3deg); }
   .rotate-right-phone { transform: rotate(3deg); }
+}
+
+/* About Page Social Icons */
+.about-social-icons {
+  width: 22px;
+  height: 22px;
 }
 
 /* Shadow system */

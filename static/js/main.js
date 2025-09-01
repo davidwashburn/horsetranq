@@ -91,7 +91,7 @@ jQuery(document).ready(function($){
 	// Preload critical resources for smoother experience
 	function preloadCriticalResources() {
 		const criticalImages = [
-			'/static/img/branding/game-horsetranq-alt-large.png',
+			'/static/img/branding/legacy/game-horsetranq-alt-large.png',
 			'/static/img/games/lemondrop/promo/lemondrop-alt.png'
 		];
 		
