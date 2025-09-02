@@ -26,32 +26,38 @@
 				<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-md-tablet width-xl-phone">
 					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center gap-xxl-all">
 						<!-- WEEKLY LEADERS Column -->
-						<div id="hero-square" class="width-full-phone width-md-tablet margin-auto-phone margin-auto-tablet border-radius rotate-left-desktop shadow-green-md width-full-tablet">
+						<div id="hero-square" class="width-full-phone width-md-desktop width-md-tablet margin-auto-phone margin-auto-tablet border-radius rotate-left-desktop shadow-green-md">
 							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-all">
 								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">WEEKLY LEADERS</h3>
 								
 								<!-- Most games -->
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Most games</h4>
-									<p class="font-size-md font-weight-md color-accent-white">Horsmaster42 (78)</p>
+									<p class="font-size-md font-weight-md color-accent-white">{{ weekly_leaders.most_games.username }} ({{ weekly_leaders.most_games.games }})</p>
 								</div>
 
 								<!-- Most horses -->
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Most horses</h4>
-									<p class="font-size-md font-weight-md color-accent-white">TranqKing (2,047)</p>
+									<p class="font-size-md font-weight-md color-accent-white">{{ weekly_leaders.most_horses.username }} ({{ weekly_leaders.most_horses.horses }})</p>
 								</div>
 
 								<!-- Fastest time -->
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Fastest time</h4>
-									<p class="font-size-md font-weight-md color-accent-white">SpeedyHors (11.7s)</p>
+									<p class="font-size-md font-weight-md color-accent-white">
+										{% if weekly_leaders.fastest_time.time %}
+											{{ weekly_leaders.fastest_time.username }} ({{ "%.1f"|format(weekly_leaders.fastest_time.time) }}s)
+										{% else %}
+											{{ weekly_leaders.fastest_time.username }}
+										{% endif %}
+									</p>
 								</div>
 
 								<!-- Most improved -->
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Most improved</h4>
-									<p class="font-size-md font-weight-md color-accent-white">NewHors123 (+45%)</p>
+									<p class="font-size-md font-weight-md color-accent-white">Coming soon</p>
 								</div>
 							</div>
 						</div>
@@ -64,26 +70,32 @@
 								
 								<!-- Total games played -->
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Total games played</h4>
-									<p class="font-size-md font-weight-md color-accent-white">1,247</p>
+									<h4 class="font-size-md font-weight-xl color-accent-white">Total gams plaid</h4>
+									<p class="font-size-md font-weight-md color-accent-white">{{ aggregated_stats.total_games }}</p>
 								</div>
 
 								<!-- Total horses tranquilized -->
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Horses tranquilized</h4>
-									<p class="font-size-md font-weight-md color-accent-white">47,832</p>
+									<h4 class="font-size-md font-weight-xl color-accent-white">Hors tranquilized</h4>
+									<p class="font-size-md font-weight-md color-accent-white">{{ aggregated_stats.total_horses }}</p>
 								</div>
 
 								<!-- Best time ever -->
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Best time ever</h4>
-									<p class="font-size-md font-weight-md color-accent-white">12.3s</p>
+									<h4 class="font-size-md font-weight-xl color-accent-white">Best time evar</h4>
+									<p class="font-size-md font-weight-md color-accent-white">
+										{% if aggregated_stats.best_time_ever %}
+											{{ "%.1f"|format(aggregated_stats.best_time_ever) }}s
+										{% else %}
+											No data
+										{% endif %}
+									</p>
 								</div>
 
 								<!-- Active players -->
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Active players</h4>
-									<p class="font-size-md font-weight-md color-accent-white">89</p>
+									<p class="font-size-md font-weight-md color-accent-white">{{ aggregated_stats.active_players }}</p>
 								</div>
 							</div>
 						</div>
@@ -102,162 +114,48 @@
 									<th class="font-size-sm font-weight-xl color-accent-white text-center">#</th>
 									<th class="font-size-sm font-weight-xl color-accent-white text-left">Username</th>
 									<th class="font-size-sm font-weight-xl color-accent-white text-center">Games</th>
-									<th class="font-size-sm font-weight-xl color-accent-white text-center">Horses</th>
+									<th class="font-size-sm font-weight-xl color-accent-white text-center">All hors</th>
 									<th class="font-size-sm font-weight-xl color-accent-white text-center">Best Time</th>
 									<th class="font-size-sm font-weight-xl color-accent-white text-center">HorsPass</th>
 									<th class="font-size-sm font-weight-xl color-accent-white text-center">Subscription</th>
 								</tr>
 							</thead>
 							<tbody>
-								<!-- Rank 1 -->
-								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<td class="font-size-md font-weight-xl color-accent-gold text-center">1</td>
-									<td class="font-size-md font-weight-xl color-accent-white text-left">
-										<h4 class="font-size-md font-weight-xl color-accent-white">Horsmaster42</h4>
-									</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">892</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">15,047</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">11.2s</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">Level 47</td>
-									<td class="font-size-md font-weight-md text-center">
-										<span class="font-size-sm font-weight-xl bg-accent-gold color-accent-grey-dark" style="padding: 2px 6px; border-radius: 4px;">MAX</span>
-									</td>
-								</tr>
-
-								<!-- Rank 2 -->
-								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<td class="font-size-md font-weight-xl color-accent-grey-mid text-center">2</td>
-									<td class="font-size-md font-weight-xl color-accent-white text-left">
-										<h4 class="font-size-md font-weight-xl color-accent-white">TranqKing</h4>
-									</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">743</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">12,891</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">12.1s</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">Level 43</td>
-									<td class="font-size-md font-weight-md text-center">
-										<span class="font-size-sm font-weight-xl bg-secondary color-accent-white" style="padding: 2px 6px; border-radius: 4px;">PLUS</span>
-									</td>
-								</tr>
-
-								<!-- Rank 3 -->
-								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<td class="font-size-md font-weight-xl color-accent-grey-mid text-center">3</td>
-									<td class="font-size-md font-weight-xl color-accent-white text-left">
-										<h4 class="font-size-md font-weight-xl color-accent-white">SpeedyHors</h4>
-									</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">567</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">9,234</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">10.8s</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">Level 39</td>
-									<td class="font-size-md font-weight-md text-center">
-										<span class="font-size-sm font-weight-xl bg-success-dark color-accent-white" style="padding: 2px 6px; border-radius: 4px;">ONE</span>
-									</td>
-								</tr>
-
-								<!-- Rank 4 -->
-								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<td class="font-size-md font-weight-md color-accent-white text-center">4</td>
-									<td class="font-size-md font-weight-lg color-accent-white text-left">
-										<h4 class="font-size-md font-weight-lg color-accent-white">HorsLover99</h4>
-									</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">423</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">8,156</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">13.4s</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">Level 32</td>
-									<td class="font-size-md font-weight-md text-center">
-										<span class="font-size-sm font-weight-xl bg-accent-grey-mid color-accent-grey-dark" style="padding: 2px 6px; border-radius: 4px;">FREE</span>
-									</td>
-								</tr>
-
-								<!-- Rank 5 -->
-								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<td class="font-size-md font-weight-md color-accent-white text-center">5</td>
-									<td class="font-size-md font-weight-lg color-accent-white text-left">
-										<h4 class="font-size-md font-weight-lg color-accent-white">TranqMaster</h4>
-									</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">389</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">7,892</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">14.2s</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">Level 28</td>
-									<td class="font-size-md font-weight-md text-center">
-										<span class="font-size-sm font-weight-xl bg-secondary color-accent-white" style="padding: 2px 6px; border-radius: 4px;">PLUS</span>
-									</td>
-								</tr>
-
-								<!-- Rank 6 -->
-								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<td class="font-size-md font-weight-md color-accent-white text-center">6</td>
-									<td class="font-size-md font-weight-lg color-accent-white text-left">
-										<h4 class="font-size-md font-weight-lg color-accent-white">QuickDraw</h4>
-									</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">345</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">6,234</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">15.1s</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">Level 24</td>
-									<td class="font-size-md font-weight-md text-center">
-										<span class="font-size-sm font-weight-xl bg-success-dark color-accent-white" style="padding: 2px 6px; border-radius: 4px;">ONE</span>
-									</td>
-								</tr>
-
-								<!-- Rank 7 -->
-								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<td class="font-size-md font-weight-md color-accent-white text-center">7</td>
-									<td class="font-size-md font-weight-lg color-accent-white text-left">
-										<h4 class="font-size-md font-weight-lg color-accent-white">NewHors123</h4>
-									</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">298</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">5,567</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">16.8s</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">Level 19</td>
-									<td class="font-size-md font-weight-md text-center">
-										<span class="font-size-sm font-weight-xl bg-accent-grey-mid color-accent-grey-dark" style="padding: 2px 6px; border-radius: 4px;">FREE</span>
-									</td>
-								</tr>
-
-								<!-- Rank 8 -->
-								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<td class="font-size-md font-weight-md color-accent-white text-center">8</td>
-									<td class="font-size-md font-weight-lg color-accent-white text-left">
-										<h4 class="font-size-md font-weight-lg color-accent-white">AimTrue</h4>
-									</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">267</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">4,893</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">17.2s</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">Level 16</td>
-									<td class="font-size-md font-weight-md text-center">
-										<span class="font-size-sm font-weight-xl bg-accent-grey-mid color-accent-grey-dark" style="padding: 2px 6px; border-radius: 4px;">FREE</span>
-									</td>
-								</tr>
-
-								<!-- Rank 9 -->
-								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<td class="font-size-md font-weight-md color-accent-white text-center">9</td>
-									<td class="font-size-md font-weight-lg color-accent-white text-left">
-										<h4 class="font-size-md font-weight-lg color-accent-white">HorsWhisperer</h4>
-									</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">234</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">4,123</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">18.5s</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">Level 14</td>
-									<td class="font-size-md font-weight-md text-center">
-										<span class="font-size-sm font-weight-xl bg-success-dark color-accent-white" style="padding: 2px 6px; border-radius: 4px;">ONE</span>
-									</td>
-								</tr>
-
-								<!-- Rank 10 -->
-								<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<td class="font-size-md font-weight-md color-accent-white text-center">10</td>
-									<td class="font-size-md font-weight-lg color-accent-white text-left">
-										<h4 class="font-size-md font-weight-lg color-accent-white">FastFinger</h4>
-									</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">198</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">3,456</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">19.3s</td>
-									<td class="font-size-md font-weight-md color-accent-white text-center">Level 12</td>
-									<td class="font-size-md font-weight-md text-center">
-										<span class="font-size-sm font-weight-xl bg-accent-grey-mid color-accent-grey-dark" style="padding: 2px 6px; border-radius: 4px;">FREE</span>
-									</td>
-								</tr>
+								{% if scoreboard %}
+									{% for entry in scoreboard %}
+									<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<td class="font-size-md font-weight-xl {% if loop.index == 1 %}color-accent-gold{% elif loop.index == 2 %}color-accent-grey-mid{% else %}color-accent-white{% endif %} text-center">{{ loop.index }}</td>
+										<td class="font-size-md font-weight-xl color-accent-white text-left">
+											<h4 class="font-size-md font-weight-xl color-accent-white">{{ entry.username or 'Unknown' }}</h4>
+										</td>
+										<td class="font-size-md font-weight-md color-accent-white text-center">{{ entry.total_games or 0 }}</td>
+										<td class="font-size-md font-weight-md color-accent-white text-center">{{ entry.total_horses or 0 }}</td>
+										<td class="font-size-md font-weight-md color-accent-white text-center">
+											{% if entry.best_time_seconds %}
+												{{ "%.1f"|format(entry.best_time_seconds) }}s
+											{% else %}
+												-
+											{% endif %}
+										</td>
+										<td class="font-size-md font-weight-md color-accent-white text-center">Level {{ entry.horspass_level or 1 }}</td>
+										<td class="font-size-md font-weight-md text-center">
+											{% if entry.subscription_type == 'max' %}
+												<span class="font-size-sm font-weight-xl bg-accent-gold color-accent-grey-dark" style="padding: 2px 6px; border-radius: 4px;">MAX</span>
+											{% elif entry.subscription_type == 'plus' %}
+												<span class="font-size-sm font-weight-xl bg-secondary color-accent-white" style="padding: 2px 6px; border-radius: 4px;">PLUS</span>
+											{% elif entry.subscription_type == 'one' %}
+												<span class="font-size-sm font-weight-xl bg-success-dark color-accent-white" style="padding: 2px 6px; border-radius: 4px;">ONE</span>
+											{% else %}
+												<span class="font-size-sm font-weight-xl bg-accent-grey-mid color-accent-grey-dark" style="padding: 2px 6px; border-radius: 4px;">FREE</span>
+											{% endif %}
+										</td>
+									</tr>
+									{% endfor %}
+								{% else %}
+									<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<td colspan="7" class="font-size-md font-weight-md color-accent-white text-center">No scoreboard data available</td>
+									</tr>
+								{% endif %}
 							</tbody>
 						</table>
 						</div> <!-- end overflow-scroll -->

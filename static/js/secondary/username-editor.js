@@ -121,20 +121,28 @@ document.addEventListener('DOMContentLoaded', function() {
         usernameSaveBtn.disabled = true;
         
         try {
-            const response = await fetch('/api/update-username', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username: newUsername })
-            });
+            // Use the new game tracker API
+            let success;
+            if (!window.gameTracker) {
+                // Fallback: try direct API call if GameTracker isn't available
+                console.warn('GameTracker not available, using direct API call');
+                const response = await fetch('/api/username/update', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username: newUsername })
+                });
+                const result = await response.json();
+                success = result.success;
+            } else {
+                success = await window.gameTracker.updateUsername(newUsername);
+            }
             
-            const data = await response.json();
-            
-                               if (response.ok) {
+            if (success) {
                        // Update the profile username display (uppercase for the label)
                        usernameDisplay.textContent = newUsername.toUpperCase();
-                       showSuccess(data.message || 'Username updated successfully!');
+                       showSuccess('Username updated successfully!');
                        
                        // Update the input value for future edits
                        usernameInput.value = newUsername;
@@ -182,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function() {
                            showDisplayMode();
                        }, 2000);
                    } else {
-                       showError(data.error || 'Failed to update username');
+                       showError('Failed to update username');
                    }
         } catch (error) {
             console.error('Error updating username:', error);

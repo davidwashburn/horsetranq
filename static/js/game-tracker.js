@@ -1,151 +1,320 @@
-// Game tracking functionality for horsplay
+/**
+ * Game Tracker - Handles game session tracking and API interactions
+ * for the new database structure
+ */
+
 class GameTracker {
     constructor() {
+        this.currentSessionId = null;
         this.gameStartTime = null;
-        this.gameMode = 'freeplay'; // default
-        this.currentBackground = 'default.jpg';
-        this.currentEnemy = 'image-hors';
-        this.currentDifficulty = 'easyDifficulty';
-        this.currentHorsSpeed = '1';
-        this.currentHorsPower = '50';
-        this.currentHorsSize = '1';
-        this.horsesPopped = 0;
-        this.gameActive = false;
+        this.isTracking = false;
     }
 
-    startGame(gameMode = 'freeplay') {
-        this.gameStartTime = Date.now();
-        this.gameMode = gameMode;
-        this.horsesPopped = 0;
-        this.gameActive = true;
-        
-        // Capture current settings from the DOM
-        this.captureCurrentSettings();
-        
-        console.log(`Game started: ${gameMode} mode`);
-    }
+    /**
+     * Start tracking a new game session
+     * @param {Object} gameConfig - Game configuration
+     * @param {string} gameConfig.gameId - Game ID (default: 'horsplay')
+     * @param {string} gameConfig.gameMode - Game mode ('ranked' or 'freeplay')
+     * @param {string} gameConfig.gameDifficulty - Game difficulty ('Easy', 'Medium', 'Hard')
+     * @param {Object} gameConfig.modifiers - Game modifiers
+     * @param {Object} gameConfig.settings - Additional game settings
+     * @returns {Promise<string>} Session ID
+     */
+    async startGameSession(gameConfig = {}) {
+        try {
+            const sessionData = {
+                game_id: gameConfig.gameId || 'horsplay',
+                game_mode: gameConfig.gameMode || 'freeplay',
+                game_difficulty: gameConfig.gameDifficulty || 'Easy',
+                game_modifier_speed: gameConfig.modifiers?.speed || 1.0,
+                game_modifier_power: gameConfig.modifiers?.power || 50,
+                game_modifier_size: gameConfig.modifiers?.size || 1.0,
+                game_modifier_background: gameConfig.modifiers?.background || 'Unknown',
+                game_modifier_type: gameConfig.modifiers?.type || 'Hors',
+                settings_json: JSON.stringify(gameConfig.settings || {})
+            };
 
-    incrementHorsesPopped() {
-        if (this.gameActive) {
-            this.horsesPopped++;
-        }
-    }
+            const response = await fetch('/api/game/start', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(sessionData)
+            });
 
-    endGame() {
-        if (!this.gameActive || !this.gameStartTime) {
-            console.log('No active game to end');
-            return;
-        }
-
-        const gameDuration = Math.floor((Date.now() - this.gameStartTime) / 1000); // seconds
-        
-        const gameData = {
-            gameMode: this.gameMode,
-            duration: gameDuration,
-            horsesPopped: this.horsesPopped,
-            background: this.currentBackground,
-            enemy: this.currentEnemy,
-            difficulty: this.currentDifficulty,
-            horsSpeed: this.currentHorsSpeed,
-            horsPower: this.currentHorsPower,
-            horsSize: this.currentHorsSize
-        };
-
-        console.log('Game ended:', gameData);
-        
-        // Save game data if user is logged in
-        if (window.loggedIn && window.currentUser) {
-            this.saveGameData(gameData);
-        }
-
-        // Reset game state
-        this.gameActive = false;
-        this.gameStartTime = null;
-    }
-
-    saveGameData(gameData) {
-        fetch('/api/save-game', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(gameData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log('Game saved successfully:', data.gameId);
+            const result = await response.json();
+            
+            if (result.success) {
+                this.currentSessionId = result.session_id;
+                this.gameStartTime = Date.now();
+                this.isTracking = true;
+                console.log('Game session started:', this.currentSessionId);
+                return this.currentSessionId;
             } else {
-                console.error('Failed to save game:', data.error);
+                throw new Error(result.error || 'Failed to start game session');
             }
-        })
-        .catch(error => {
-            console.error('Error saving game:', error);
-        });
+        } catch (error) {
+            console.error('Error starting game session:', error);
+            throw error;
+        }
     }
 
-    // Capture current settings from the DOM
-    captureCurrentSettings() {
-        // Helper function to get the selected option text
-        const getSelectedOptionText = (selectorId) => {
-            const selector = document.getElementById(selectorId);
-            if (!selector) return 'Unknown';
+    /**
+     * Update the current game session with progress data
+     * @param {Object} progressData - Progress data to update
+     * @param {number} progressData.targetsPopped - Number of targets popped
+     * @param {number} progressData.score - Current score
+     * @param {string} gameId - Game ID (default: 'horsplay')
+     * @returns {Promise<boolean>} Success status
+     */
+    async updateGameSession(progressData, gameId = 'horsplay') {
+        if (!this.currentSessionId) {
+            console.warn('No active game session to update');
+            return false;
+        }
+
+        try {
+            const updateData = {
+                session_id: this.currentSessionId,
+                game_id: gameId,
+                game_targets_popped: progressData.targetsPopped || 0,
+                game_score: progressData.score || 0
+            };
+
+            const response = await fetch('/api/game/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updateData)
+            });
+
+            const result = await response.json();
             
-            const dataValue = selector.getAttribute('data-value');
-            if (!dataValue) return 'Unknown';
-            
-            // Find the option with matching data-value
-            const optionsContainer = selector.closest('.custom-select');
-            if (optionsContainer) {
-                const selectedOption = optionsContainer.querySelector(`.option[data-value="${dataValue}"]`);
-                if (selectedOption) {
-                    return selectedOption.textContent.trim();
-                }
+            if (result.success) {
+                console.log('Game session updated');
+                return true;
+            } else {
+                throw new Error(result.error || 'Failed to update game session');
             }
+        } catch (error) {
+            console.error('Error updating game session:', error);
+            return false;
+        }
+    }
+
+    /**
+     * Finish the current game session and update final stats
+     * @param {Object} finalData - Final game data
+     * @param {number} finalData.targetsPopped - Total targets popped
+     * @param {number} finalData.score - Final score
+     * @param {string} gameId - Game ID (default: 'horsplay')
+     * @returns {Promise<boolean>} Success status
+     */
+    async finishGameSession(finalData, gameId = 'horsplay') {
+        if (!this.currentSessionId) {
+            console.warn('No active game session to finish');
+            return false;
+        }
+
+        try {
+            const duration = this.gameStartTime ? Math.floor((Date.now() - this.gameStartTime) / 1000) : 0;
             
-            return 'Unknown';
+            const finishData = {
+                session_id: this.currentSessionId,
+                game_id: gameId,
+                game_duration_seconds: duration,
+                game_targets_popped: finalData.targetsPopped || 0,
+                game_score: finalData.score || 0
+            };
+
+            const response = await fetch('/api/game/finish', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(finishData)
+            });
+
+            const result = await response.json();
+            
+            if (result.success) {
+                console.log('Game session finished:', {
+                    sessionId: this.currentSessionId,
+                    duration: duration,
+                    score: finalData.score,
+                    targetsPopped: finalData.targetsPopped
+                });
+                
+                // Reset tracking state
+                this.currentSessionId = null;
+                this.gameStartTime = null;
+                this.isTracking = false;
+                
+                return true;
+            } else {
+                throw new Error(result.error || 'Failed to finish game session');
+            }
+        } catch (error) {
+            console.error('Error finishing game session:', error);
+            return false;
+        }
+    }
+
+    /**
+     * Get user stats for a specific game
+     * @param {string} gameId - Game ID (default: 'horsplay')
+     * @returns {Promise<Object>} User stats
+     */
+    async getUserStats(gameId = 'horsplay') {
+        try {
+            const response = await fetch(`/api/stats/${gameId}`);
+            const result = await response.json();
+            
+            if (result.success) {
+                return result.stats;
+            } else {
+                throw new Error(result.error || 'Failed to get user stats');
+            }
+        } catch (error) {
+            console.error('Error getting user stats:', error);
+            return {};
+        }
+    }
+
+    /**
+     * Get scoreboard for a season
+     * @param {string} seasonId - Season ID
+     * @param {number} limit - Number of entries to return (default: 100)
+     * @returns {Promise<Array>} Scoreboard data
+     */
+    async getScoreboard(seasonId, limit = 100) {
+        try {
+            const response = await fetch(`/api/scoreboard/${seasonId}?limit=${limit}`);
+            const result = await response.json();
+            
+            if (result.success) {
+                return result.scoreboard;
+            } else {
+                throw new Error(result.error || 'Failed to get scoreboard');
+            }
+        } catch (error) {
+            console.error('Error getting scoreboard:', error);
+            return [];
+        }
+    }
+
+    /**
+     * Update user's username
+     * @param {string} newUsername - New username
+     * @returns {Promise<boolean>} Success status
+     */
+    async updateUsername(newUsername) {
+        try {
+            const response = await fetch('/api/username/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username: newUsername })
+            });
+
+            const result = await response.json();
+            
+            if (result.success) {
+                console.log('Username updated successfully:', newUsername);
+                return true;
+            } else {
+                throw new Error(result.error || 'Failed to update username');
+            }
+        } catch (error) {
+            console.error('Error updating username:', error);
+            return false;
+        }
+    }
+
+    /**
+     * Initialize the database with basic structure (admin function)
+     * @returns {Promise<boolean>} Success status
+     */
+    async initializeDatabase() {
+        try {
+            const response = await fetch('/api/database/initialize', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            const result = await response.json();
+            
+            if (result.success) {
+                console.log('Database initialized successfully');
+                return true;
+            } else {
+                throw new Error(result.error || 'Failed to initialize database');
+            }
+        } catch (error) {
+            console.error('Error initializing database:', error);
+            return false;
+        }
+    }
+
+    /**
+     * Clear all data from the database (admin function - use with caution!)
+     * @returns {Promise<boolean>} Success status
+     */
+    async clearDatabase() {
+        try {
+            const response = await fetch('/api/database/clear', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            const result = await response.json();
+            
+            if (result.success) {
+                console.log('Database cleared successfully');
+                return true;
+            } else {
+                throw new Error(result.error || 'Failed to clear database');
+            }
+        } catch (error) {
+            console.error('Error clearing database:', error);
+            return false;
+        }
+    }
+
+    /**
+     * Get current session info
+     * @returns {Object} Current session information
+     */
+    getCurrentSession() {
+        return {
+            sessionId: this.currentSessionId,
+            isTracking: this.isTracking,
+            startTime: this.gameStartTime,
+            duration: this.gameStartTime ? Math.floor((Date.now() - this.gameStartTime) / 1000) : 0
         };
-        
-        // Get background (Theme) - get text from selected option
-        this.currentBackground = getSelectedOptionText('bg-selector');
-        
-        // Get enemy (Hors type) - get text from selected option
-        this.currentEnemy = getSelectedOptionText('type-selector');
-        
-        // Get difficulty - get text from selected option
-        this.currentDifficulty = getSelectedOptionText('difficulty-selector');
-        
-        // Get hors speed - get text from selected option
-        this.currentHorsSpeed = getSelectedOptionText('speed-selector');
-        
-        // Get hors power - get text from selected option
-        this.currentHorsPower = getSelectedOptionText('power-selector');
-        
-        // Get hors size - get text from selected option
-        this.currentHorsSize = getSelectedOptionText('size-selector');
-        
-        console.log('Captured settings:', {
-            background: this.currentBackground,
-            enemy: this.currentEnemy,
-            difficulty: this.currentDifficulty,
-            horsSpeed: this.currentHorsSpeed,
-            horsPower: this.currentHorsPower,
-            horsSize: this.currentHorsSize
-        });
+    }
+
+    /**
+     * Reset the current session (useful for error recovery)
+     */
+    resetSession() {
+        this.currentSessionId = null;
+        this.gameStartTime = null;
+        this.isTracking = false;
+        console.log('Game session reset');
     }
 }
 
-// Global game tracker instance
+// Create global instance
 window.gameTracker = new GameTracker();
 
-// Example integration with existing horsplay code:
-/*
-// When starting a new game (in your game select modal):
-window.gameTracker.startGame('ranked'); // or 'freeplay'
-
-// When a horse is popped:
-window.gameTracker.incrementHorsesPopped();
-
-// When the game ends (in your success modal or game over):
-window.gameTracker.endGame();
-*/
+// Export for module usage
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = GameTracker;
+}

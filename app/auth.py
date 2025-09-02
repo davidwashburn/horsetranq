@@ -6,8 +6,9 @@ import random
 import string
 import uuid
 import traceback
-from firebase_admin import db, auth
-from .utils import get_user_database_path, find_user_by_email, link_auth_method_to_user, encode_email_for_firebase, encode_oauth_id_for_firebase
+import json
+from firebase_admin import auth
+from .database_service import DatabaseService
 
 bp = Blueprint("auth", __name__)
 
@@ -38,29 +39,7 @@ def init_oauth(app):
         traceback.print_exc()
         return None
 
-def generate_unique_user_id():
-    """Generate a unique user ID using UUID4."""
-    while True:
-        user_id = str(uuid.uuid4())
-        ref = db.reference('user_ids')
-        existing_ids = ref.get()
-        
-        if existing_ids is None or user_id not in existing_ids:
-            ref.update({user_id: True})
-            return user_id
 
-def generate_unique_username():
-    """Generate a unique username in the format 'Horsey-XXXXXX'."""
-    while True:
-        random_numbers = ''.join(random.choices(string.digits, k=6))
-        username = f"Horsey-{random_numbers}"
-        
-        ref = db.reference('usernames')
-        existing_usernames = ref.get()
-        
-        if existing_usernames is None or username not in existing_usernames:
-            ref.update({username: True})
-            return username
 
 @bp.route('/callback')
 def callback_handling():
@@ -91,62 +70,63 @@ def callback_handling():
         
         print(f"=== CALLBACK: {user_email} via {auth_method.upper()} ===")
         
+        # Initialize database service
+        db_service = DatabaseService()
+        
         # Check if a user with this email already exists (for account merging)
-        existing_user_id = find_user_by_email(user_email)
+        encoded_email = db_service._encode_email(user_email)
+        email_index = db_service.db.child('email_index').child(encoded_email).get()
+        existing_user_id = email_index.get('user_id') if email_index else None
         print(f"EMAIL LOOKUP: {existing_user_id or 'NOT FOUND'}")
         
         if existing_user_id:
             # User exists with this email - link this auth method to existing account
             print(f"Found existing user {existing_user_id} with email {user_email}")
-            user_data = link_auth_method_to_user(existing_user_id, auth_method, oauth_user_id)
+            user_data = db_service.get_user(existing_user_id)
+            if user_data:
+                # Add new auth method
+                auth_methods = json.loads(user_data.get('auth_methods_json', '{}'))
+                auth_methods[auth_method] = oauth_user_id
+                user_data['auth_methods_json'] = json.dumps(auth_methods)
+                user_data['last_login_at'] = datetime.now().isoformat()
+                db_service.create_or_update_user(existing_user_id, user_data)
             unique_user_id = existing_user_id
         else:
-            # Check if this specific OAuth ID already exists (shouldn't happen, but safety check)
-            encoded_oauth_id = encode_oauth_id_for_firebase(oauth_user_id)
-            oauth_ref = db.reference(f'oauth_to_user_id/{encoded_oauth_id}')
-            existing_unique_id = oauth_ref.get()
+            # Check if this specific OAuth ID already exists
+            encoded_oauth_id = db_service._encode_oauth_id(oauth_user_id)
+            oauth_index = db_service.db.child('oauth_index').child(encoded_oauth_id).get()
+            existing_unique_id = oauth_index.get('user_id') if oauth_index else None
             print(f"DEBUG callback: OAuth ID lookup result = {existing_unique_id}")
             
             if existing_unique_id:
                 # This OAuth ID is already linked to a user
-                user_data = db.reference(get_user_database_path(existing_unique_id)).get()
+                user_data = db_service.get_user(existing_unique_id)
                 unique_user_id = existing_unique_id
                 print(f"DEBUG callback: OAuth ID {oauth_user_id} already linked to {unique_user_id}")
             else:
                 # Completely new user - create new account
                 print(f"DEBUG callback: Creating completely new user for {user_email}")
-                unique_user_id = generate_unique_user_id()
-                unique_username = generate_unique_username()
+                unique_user_id = str(uuid.uuid4())
+                unique_username = f"Horsey-{''.join(random.choices(string.digits, k=6))}"
+                
+                # Prepare user data for new schema
                 user_data = {
-                    'name': userinfo['name'],
                     'email': user_email,
-                    'picture': userinfo['picture'],
+                    'name': userinfo['name'],
+                    'picture_url': userinfo['picture'],
+                    'primary_auth_method': auth_method,
+                    'created_at': datetime.now().isoformat(),
+                    'last_login_at': datetime.now().isoformat(),
                     'subscription_type': 'free',
-                    'account_creation_date': datetime.now().isoformat(),
-                    'last_login': datetime.now().isoformat(),
                     'username': unique_username,
-                    'auth_methods': {
-                        auth_method: oauth_user_id
-                    },
-                    'primary_auth_method': auth_method
+                    'auth_methods_json': json.dumps({auth_method: oauth_user_id})
                 }
                 
-                # Save user data with unique_user_id as key
-                print(f"DEBUG callback: Saving user data to {get_user_database_path(unique_user_id)}")
-                user_ref = db.reference(get_user_database_path(unique_user_id))
-                user_ref.set(user_data)
-                
-                # Create email mapping for account merging
-                encoded_email = encode_email_for_firebase(user_email)
-                print(f"DEBUG callback: Creating email mapping: {user_email} -> {encoded_email} -> {unique_user_id}")
-                email_ref = db.reference(f'email_to_user_id/{encoded_email}')
-                email_ref.set(unique_user_id)
-                
-                # Create OAuth mapping for quick lookups
-                encoded_oauth_id = encode_oauth_id_for_firebase(oauth_user_id)
-                print(f"DEBUG callback: Creating OAuth mapping: {oauth_user_id} -> {encoded_oauth_id} -> {unique_user_id}")
-                oauth_ref = db.reference(f'oauth_to_user_id/{encoded_oauth_id}')
-                oauth_ref.set(unique_user_id)
+                # Create user using new database service
+                success = db_service.create_or_update_user(unique_user_id, user_data)
+                if not success:
+                    print("ERROR: Failed to create user")
+                    return redirect('/')
                 
                 print(f"DEBUG callback: Successfully created new user with unique ID: {unique_user_id} and username: {unique_username}")
         
@@ -160,11 +140,12 @@ def callback_handling():
         session['profile'] = {
             'user_id': oauth_user_id,  # Keep OAuth ID for backwards compatibility
             'name': user_data.get('name', userinfo['name']),
-            'picture': user_data.get('picture', userinfo['picture']),
+            'picture': user_data.get('picture_url', userinfo['picture']),
             'email': user_data.get('email', userinfo['email']),
             'subscription_type': user_data.get('subscription_type', 'free'),
             'unique_user_id': unique_user_id,  # Primary ID for all database operations
-            'username': user_data.get('username', 'Unknown')
+            'username': user_data.get('username', 'Unknown'),
+            'created_at': user_data.get('created_at')  # Add creation date to session
         }
 
         # Create Firebase token using unique_user_id as the custom user ID

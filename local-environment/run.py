@@ -8,7 +8,12 @@ app = create_app()
 # Register blueprints
 app.register_blueprint(main_bp)
 app.register_blueprint(auth_bp)  # No prefix for auth routes (callback, login, logout)
-app.register_blueprint(api_bp, url_prefix="/api")
+app.register_blueprint(api_bp)  # Remove the url_prefix="/api"
+
+# Debug: Print all registered routes
+print("=== REGISTERED ROUTES ===")
+for rule in app.url_map.iter_rules():
+    print(f"{rule.endpoint}: {rule.rule}")
 
 # Add error handler
 @app.errorhandler(500)

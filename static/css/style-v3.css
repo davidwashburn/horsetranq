@@ -35,13 +35,13 @@
 
 /* ===== Breakpoints ===== */
 @media (max-width: 599px) {
-  /* phones: shrink everything 25% */
-  :root { --type-scale: 0.75; }
+  /* phones: shrink everything */
+  :root { --type-scale: 0.65; }
 }
 
 @media (min-width: 600px) and (max-width: 1023px) {
   /* tablets: slight shrink */
-  :root { --type-scale: 0.95; }
+  :root { --type-scale: 0.80; }
 }
 
 @media (min-width: 1024px) {
@@ -381,8 +381,8 @@
 .font-size-xxl { font-size: var(--v3-font-size-xxl); }
 
 /* ===== RESPONSIVE ROTATION CLASSES ===== */
-.rotate-left {transform: rotate(-5deg);}
-.rotate-right {transform: rotate(5deg);}
+.rotate-left-all {transform: rotate(-5deg);}
+.rotate-right-all {transform: rotate(5deg);}
 
 /* Desktop Rotation Classes */
 @media (min-width: 1024px) {
@@ -464,6 +464,17 @@
 .shadow-red-xl { --d: var(--shadow-depth-xl); background: conic-gradient(at calc(100% - var(--d)) calc(100% - var(--d)), #a73b3a 37.5%, #671919 0 75%, #d54e4d 0) border-box #fff; }
 .shadow-red-xxl { --d: var(--shadow-depth-xxl); background: conic-gradient(at calc(100% - var(--d)) calc(100% - var(--d)), #a73b3a 37.5%, #671919 0 75%, #d54e4d 0) border-box #fff; }
 
+/* Border radius for bottom-left corner buttons */
+.nav-menu-item.bottom-left-radius {
+  border-bottom-left-radius: 24px;
+}
+
+/* Active state for bottom-left shadow buttons */
+.nav-menu-item.shadow-gold-md-bottom-left.active {
+  background: conic-gradient(at calc(var(--d)) calc(var(--d)), #E3BA02 37.5%, #A78B01 0 75%, #F4D633 0) border-box #E3BA02;
+  color: var(--v3-color-accent-grey-dark) !important;
+}
+
 
 /* ===== BASE STYLES ===== */
 ::-webkit-scrollbar {
@@ -540,6 +551,7 @@ input:focus {
   margin: var(--margin-sm) 0;
   width: 100%;
   transition: .1s ease-in-out;
+  z-index: 10;
 }
 .data-item:hover {
   transform: translate(2px, 2px);
@@ -612,7 +624,7 @@ input:focus {
 }
 /* Remove gaps between menu items to create seamless appearance */
 .nav-menu-item:not(:first-child) {
-  margin-left: -11px;
+  margin-left: -15px;
   z-index: 10;
 }
 .nav-menu-item:hover {
@@ -728,7 +740,7 @@ input:focus {
 #index {background-color: var(--v3-color-primary);}
 
 #hero-square {
-  padding: 10px;
+  padding: 4px;
   height: min-content;
 }
 #profile-account-option {
@@ -919,4 +931,47 @@ input:focus {
   transform: translateY(50px);
 }
 
+/* Copy button styles */
+.copy-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+}
+
+.copy-button:hover {
+  background-color: rgb(16 101 82);
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.copy-button:active {
+  transform: scale(0.95);
+}
+
+.copy-button svg {
+  opacity: 0.8;
+}
+
+.copy-button:hover svg {
+  opacity: 1;
+}
+
+/* Copy success animation */
+.copy-button.copied {
+  background-color: var(--v3-color-success-dark);
+  color: var(--v3-color-success-light);
+}
+
+.copy-button.copied svg {
+  opacity: 1;
+}
+
+.hide {display: none;}
 

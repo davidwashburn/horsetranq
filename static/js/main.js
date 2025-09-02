@@ -57,7 +57,8 @@ document.addEventListener("DOMContentLoaded", function() {
             window.location.assign('/logout');
         });
     } else {
-        console.error('Logout button not found');
+        // Logout button not found - this is normal on pages without account functionality
+        // console.log('Logout button not found (this is normal on some pages)');
     }
 });
 

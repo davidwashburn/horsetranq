@@ -22,12 +22,13 @@
 		<main id="profile" class="main-content">
 			{% include 'partials/navigation_menu.html' %}
 
-			<!-- Profile Main Section -->
-			<div id="profile" class="main-wrapper" data-animate="page-intro">
+						<!-- Profile Main Section -->
+			<div class="main-wrapper" data-animate="page-intro">
 				<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-xl-desktop width-full-tablet width-xl-phone">
 					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center gap-xxl-all">
 						<!-- ACCOUNT DETAILS Column -->
-						<div id="hero-square" class="width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet border-radius rotate-left-desktop shadow-green-md">
+						
+                        <div id="hero-square" class="width-md-desktop width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet border-radius rotate-left-desktop shadow-green-md">
 							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-desktop width-full-phone width-full-tablet padding-md-all">
 								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">
 									ACOUNT DETALES
@@ -39,7 +40,7 @@
 									<!-- Username label wrapper to maintain top-right positioning -->
 									<div class="main-label bg-accent-gold color-accent-grey-dark">
 										<div id="profile-username">
-											<span id="profile-username-display" class="font-size-md">
+											<span id="profile-username-display" class="font-size-sm">
 												{% if logged_in %}
 													{%- if username -%}
 														{{ username | upper }}
@@ -74,205 +75,262 @@
 								<!-- Name -->
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Name</h4>
-									<p class="font-size-md font-weight-md color-accent-white">
-										{% if logged_in and name %}
-											{{ name }}
-										{% else %}
-											Not logged in
-										{% endif %}
-									</p>
+									<div class="main-label bg-accent-gold color-accent-grey-dark">
+										<span class="font-size-sm">
+											{% if logged_in and name %}
+												{{ name | upper }}
+											{% else %}
+												NOT LOGGED IN
+											{% endif %}
+										</span>
+									</div>
 								</div>
 
 								<!-- Email -->
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Email</h4>
-									<p class="font-size-md font-weight-md color-accent-white">
-										{% if logged_in and email %}
-											{{ email }}
-										{% else %}
-											Not logged in
-										{% endif %}
-									</p>
+									<div class="main-label bg-accent-gold color-accent-grey-dark">
+										<span class="font-size-sm">
+											{% if logged_in and email %}
+												{{ email | upper }}
+											{% else %}
+												NOT LOGGED IN
+											{% endif %}
+										</span>
+									</div>
 								</div>
 
 								<!-- Account ID -->
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Account ID</h4>
-									<p class="font-size-md font-weight-md color-accent-white">
-										{% if logged_in and user_id %}
-											{{ user_id }}
-										{% else %}
-											Not logged in
-										{% endif %}
-									</p>
+									<div class="main-label bg-accent-gold color-accent-grey-dark">
+										<div class="flex-row-all flex-align-items-center gap-sm-all">
+											<span class="font-size-sm" id="account-id-display">
+												{% if logged_in and user_id %}
+													{{ user_id[:13] }}...
+												{% else %}
+													NOT LOGGED IN
+												{% endif %}
+											</span>
+											{% if logged_in and user_id %}
+												<button type="button" id="copy-account-id" class="copy-button" title="Copy Account ID" data-full-id="{{ user_id }}">
+													<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+														<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+														<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+													</svg>
+												</button>
+											{% endif %}
+										</div>
+									</div>
 								</div>
 
 								<!-- Member since -->
 								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Member since</h4>
-									<p class="font-size-md font-weight-md color-accent-white">
-										{% if logged_in and account_creation_date %}
-											{% set date_parts = account_creation_date.split('T')[0].split('-') %}
-											<span>{{ date_parts[1] }}</span>/<span>{{ date_parts[2] }}</span>/<span>{{ date_parts[0] }}</span>
+									<div class="main-label bg-accent-gold color-accent-grey-dark">
+										<span class="font-size-sm">
+											{% if logged_in and account_creation_date %}
+												{% set date_parts = account_creation_date.split('T')[0].split('-') %}
+												{{ date_parts[1] }}/{{ date_parts[2] }}/{{ date_parts[0] }}
+											{% else %}
+												NOT LOGGED IN
+											{% endif %}
+										</span>
+									</div>
+								</div>
+
+								<!-- Member type -->
+								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<h4 class="font-size-md font-weight-xl color-accent-white">Member type</h4>
+									{% if logged_in %}
+										{% if subscription_type == 'free' %}
+											<div class="main-label main-label-one color-accent-white">
+												<span class="font-size-sm">HORS ONE</span>
+											</div>
+										{% elif subscription_type == 'plus' %}
+											<div class="main-label main-label-plus color-accent-white">
+												<span class="font-size-sm">HORS PLUS</span>
+											</div>
+										{% elif subscription_type == 'max' %}
+											<div class="main-label main-label-max color-accent-white">
+												<span class="font-size-sm">HORS MAX</span>
+											</div>
 										{% else %}
-											Not logged in
+											<div class="main-label main-label-one color-accent-white">
+												<span class="font-size-sm">HORS ONE</span>
+											</div>
 										{% endif %}
-									</p>
+									{% else %}
+										<div class="main-label bg-accent-gold color-accent-grey-dark">
+											<span class="font-size-sm">NOT LOGGED IN</span>
+										</div>
+									{% endif %}
 								</div>
 							</div>
-							<div class="flex-row-desktop flex-column-phone flex-align-items-start flex-justify-center gap-md-all width-full-desktop padding-md-all">
-								<!-- RANKED STATS Column -->
-								<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop width-full-phone width-full-tablet">
-									<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">RANKED STATS</h3>
-									
-									<!-- Games played -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-										<h4 class="font-size-md font-weight-xl color-accent-white">Games played</h4>
-										<p class="font-size-md font-weight-md color-accent-white">
-											{% if user_stats['ranked'] and user_stats['ranked']['total_games'] %}
-												{{ user_stats['ranked']['total_games'] }}
-											{% else %}
-												0
-											{% endif %}
-										</p>
-									</div>
+                            
+					<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">ACCOUNT OPTINS</h3>
+					<div class="flex-row-desktop flex-row-phone width-full-all flex-align-items-center gap-sm-all">				
+						<button type="button" id="profile-change-username-button" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold">CHANGE USARNAME</button>
+						<button type="button" id="profile-change-hors-button" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold">CHANGE HORS</button>
+					</div>
+					<div class="flex-row-desktop flex-row-phone width-full-all flex-align-items-center gap-sm-all">								
+						{% if logged_in %}
+							{% if subscription_type == 'free' %}
+								<a href="/store" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet text-center color-accent-gold">UPGRAD PLAN</a>
+							{% else %}
+								<a href="/store" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold text-center">MANAG PLAN</a>
+							{% endif %}
+							<button type="button" id="deleteAccountBtn" class="button shadow-red-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-white">DELET ACCOUNT</button>
+						{% else %}
+							<a href="/login" class="button shadow-white-md font-weight-xl font-size-sm margin-lg-desktop margin-sm-phone margin-lg-tablet color-accent-gold">SIGN IN</a>
+						{% endif %}
+										
+						</div>
+							
+						</div>
+						
+						<div class="flex-column-all gap-xxl-all">
+							<div id="hero-square" class="width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet border-radius rotate-left-desktop shadow-green-md">
+								<div class="flex-column-desktop flex-column-phone flex-align-items-start flex-justify-center gap-md-all width-full-desktop padding-md-all">
+									<!-- RANKED STATS Column -->
+									<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-desktop width-full-phone width-full-tablet">
+										<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">RANKED STATS</h3>
+										
+										<!-- Games played -->
+										<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+											<h4 class="font-size-md font-weight-xl color-accent-white">Games played</h4>
+											<p class="font-size-md font-weight-md color-accent-white">
+												{% if user_stats['ranked'] and user_stats['ranked']['total_games'] %}
+													{{ user_stats['ranked']['total_games'] }}
+												{% else %}
+													0
+												{% endif %}
+											</p>
+										</div>
 
-									<!-- Difficulty played -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-										<h4 class="font-size-md font-weight-xl color-accent-white">Difficulty played</h4>
-										<p class="font-size-md font-weight-md color-accent-white">
-											{% if user_stats['ranked'] and user_stats['ranked']['difficulty_breakdown'] %}
-												{{ user_stats['ranked']['difficulty_breakdown']['easyDifficulty']|default(0) }} (E) / 
-												{{ user_stats['ranked']['difficulty_breakdown']['mediumDifficulty']|default(0) }} (M) / 
-												{{ user_stats['ranked']['difficulty_breakdown']['hardDifficulty']|default(0) }} (H)
-											{% else %}
-												0 (E) / 0 (M) / 0 (H)
-											{% endif %}
-										</p>
-									</div>
+										<!-- Difficulty played -->
+										<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+											<h4 class="font-size-md font-weight-xl color-accent-white">Difficulty played</h4>
+											<p class="font-size-md font-weight-md color-accent-white">
+												{% if user_stats['ranked'] and user_stats['ranked']['difficulty_breakdown'] %}
+													{{ user_stats['ranked']['difficulty_breakdown']['easyDifficulty']|default(0) }} (E) / 
+													{{ user_stats['ranked']['difficulty_breakdown']['mediumDifficulty']|default(0) }} (M) / 
+													{{ user_stats['ranked']['difficulty_breakdown']['hardDifficulty']|default(0) }} (H)
+												{% else %}
+													0 (E) / 0 (M) / 0 (H)
+												{% endif %}
+											</p>
+										</div>
 
-									<!-- Favorite enemy -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-										<h4 class="font-size-md font-weight-xl color-accent-white">Favorite enemy</h4>
-										<p class="font-size-md font-weight-md color-accent-white">
-											{% if user_stats['ranked'] and user_stats['ranked']['favorite_enemy'] and user_stats['ranked']['favorite_enemy'] != 'N/A' %}
-												{{ user_stats['ranked']['favorite_enemy'] }}
-											{% else %}
-												N/A
-											{% endif %}
-										</p>
-									</div>
+										<!-- Favorite enemy -->
+										<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+											<h4 class="font-size-md font-weight-xl color-accent-white">Favorite enemy</h4>
+											<p class="font-size-md font-weight-md color-accent-white">
+												{% if user_stats['ranked'] and user_stats['ranked']['favorite_enemy'] and user_stats['ranked']['favorite_enemy'] != 'N/A' %}
+													{{ user_stats['ranked']['favorite_enemy'] }}
+												{% else %}
+													N/A
+												{% endif %}
+											</p>
+										</div>
 
-									<!-- Favorite difficulty -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-										<h4 class="font-size-md font-weight-xl color-accent-white">Favorite difficulty</h4>
-										<p class="font-size-md font-weight-md color-accent-white">N/A</p>
-									</div>
+										<!-- Favorite difficulty -->
+										<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+											<h4 class="font-size-md font-weight-xl color-accent-white">Favorite difficulty</h4>
+											<p class="font-size-md font-weight-md color-accent-white">N/A</p>
+										</div>
 
-									<!-- Favorite background -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-										<h4 class="font-size-md font-weight-xl color-accent-white">Favorite background</h4>
-										<p class="font-size-md font-weight-md color-accent-white">
-											{% if user_stats['ranked'] and user_stats['ranked']['favorite_background'] and user_stats['ranked']['favorite_background'] != 'N/A' %}
-												{{ user_stats['ranked']['favorite_background'] }}
-											{% else %}
-												N/A
-											{% endif %}
-										</p>
+										<!-- Favorite background -->
+										<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+											<h4 class="font-size-md font-weight-xl color-accent-white">Favorite background</h4>
+											<p class="font-size-md font-weight-md color-accent-white">
+												{% if user_stats['ranked'] and user_stats['ranked']['favorite_background'] and user_stats['ranked']['favorite_background'] != 'N/A' %}
+													{{ user_stats['ranked']['favorite_background'] }}
+												{% else %}
+													N/A
+												{% endif %}
+											</p>
+										</div>
 									</div>
 								</div>
+							</div>
+							
+							<div id="hero-square" class="width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet border-radius rotate-left-desktop shadow-green-md">
+								<div class="flex-column-desktop flex-column-phone flex-align-items-start flex-justify-center gap-md-all width-full-desktop padding-md-all">
+									<!-- FREE PLAY STATS Column -->
+									<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-desktop width-full-phone width-full-tablet">
+										<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">FREE PLAY STATS</h3>
+										
+										<!-- Games played -->
+										<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+											<h4 class="font-size-md font-weight-xl color-accent-white">Games played</h4>
+											<p class="font-size-md font-weight-md color-accent-white">
+												{% if user_stats['freeplay'] and user_stats['freeplay']['total_games'] %}
+													{{ user_stats['freeplay']['total_games'] }}
+												{% else %}
+													0
+												{% endif %}
+											</p>
+										</div>
 
-								<!-- FREE PLAY STATS Column -->
-								<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop width-full-phone width-full-tablet">
-									<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">FREE PLAY STATS</h3>
-									
-									<!-- Games played -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-										<h4 class="font-size-md font-weight-xl color-accent-white">Games played</h4>
-										<p class="font-size-md font-weight-md color-accent-white">
-											{% if user_stats['freeplay'] and user_stats['freeplay']['total_games'] %}
-												{{ user_stats['freeplay']['total_games'] }}
-											{% else %}
-												0
-											{% endif %}
-										</p>
-									</div>
+										<!-- Difficulty played -->
+										<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+											<h4 class="font-size-md font-weight-xl color-accent-white">Difficulty played</h4>
+											<p class="font-size-md font-weight-md color-accent-white">
+												{% if user_stats['freeplay'] and user_stats['freeplay']['difficulty_breakdown'] %}
+													{{ user_stats['freeplay']['difficulty_breakdown']['easyDifficulty']|default(0) }} (E) / 
+													{{ user_stats['freeplay']['difficulty_breakdown']['mediumDifficulty']|default(0) }} (M) / 
+													{{ user_stats['freeplay']['difficulty_breakdown']['hardDifficulty']|default(0) }} (H)
+												{% else %}
+													0 (E) / 0 (M) / 0 (H)
+												{% endif %}
+											</p>
+										</div>
 
-									<!-- Difficulty played -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-										<h4 class="font-size-md font-weight-xl color-accent-white">Difficulty played</h4>
-										<p class="font-size-md font-weight-md color-accent-white">
-											{% if user_stats['freeplay'] and user_stats['freeplay']['difficulty_breakdown'] %}
-												{{ user_stats['freeplay']['difficulty_breakdown']['easyDifficulty']|default(0) }} (E) / 
-												{{ user_stats['freeplay']['difficulty_breakdown']['mediumDifficulty']|default(0) }} (M) / 
-												{{ user_stats['freeplay']['difficulty_breakdown']['hardDifficulty']|default(0) }} (H)
-											{% else %}
-												0 (E) / 0 (M) / 0 (H)
-											{% endif %}
-										</p>
-									</div>
+										<!-- Favorite enemy -->
+										<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+											<h4 class="font-size-md font-weight-xl color-accent-white">Favorite enemy</h4>
+											<p class="font-size-md font-weight-md color-accent-white">
+												{% if user_stats['freeplay'] and user_stats['freeplay']['favorite_enemy'] and user_stats['freeplay']['favorite_enemy'] != 'N/A' %}
+													{{ user_stats['freeplay']['favorite_enemy'] }}
+												{% else %}
+													N/A
+												{% endif %}
+											</p>
+										</div>
 
-									<!-- Favorite enemy -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-										<h4 class="font-size-md font-weight-xl color-accent-white">Favorite enemy</h4>
-										<p class="font-size-md font-weight-md color-accent-white">
-											{% if user_stats['freeplay'] and user_stats['freeplay']['favorite_enemy'] and user_stats['freeplay']['favorite_enemy'] != 'N/A' %}
-												{{ user_stats['freeplay']['favorite_enemy'] }}
-											{% else %}
-												N/A
-											{% endif %}
-										</p>
-									</div>
+										<!-- Favorite difficulty -->
+										<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+											<h4 class="font-size-md font-weight-xl color-accent-white">Favorite difficulty</h4>
+											<p class="font-size-md font-weight-md color-accent-white">N/A</p>
+										</div>
 
-									<!-- Favorite difficulty -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-										<h4 class="font-size-md font-weight-xl color-accent-white">Favorite difficulty</h4>
-										<p class="font-size-md font-weight-md color-accent-white">N/A</p>
-									</div>
-
-									<!-- Favorite background -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-										<h4 class="font-size-md font-weight-xl color-accent-white">Favorite background</h4>
-										<p class="font-size-md font-weight-md color-accent-white">
-											{% if user_stats['freeplay'] and user_stats['freeplay']['favorite_background'] and user_stats['freeplay']['favorite_background'] != 'N/A' %}
-												{{ user_stats['freeplay']['favorite_background'] }}
-											{% else %}
-												N/A
-											{% endif %}
-										</p>
+										<!-- Favorite background -->
+										<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+											<h4 class="font-size-md font-weight-xl color-accent-white">Favorite background</h4>
+											<p class="font-size-md font-weight-md color-accent-white">
+												{% if user_stats['freeplay'] and user_stats['freeplay']['favorite_background'] and user_stats['freeplay']['favorite_background'] != 'N/A' %}
+													{{ user_stats['freeplay']['favorite_background'] }}
+												{% else %}
+													N/A
+												{% endif %}
+											</p>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						
-						<div class="flex-column-desktop">
+
+					</div>
+				<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center gap-xxl-all">
+					<div class="flex-row-desktop">
 							<!-- ACCOUNT OPTIONS Column -->
-							<div id="profile-account-option" class="width-lg-phone width-lg-desktop width-full-tablet margin-auto-phone margin-auto-tablet border-radius shadow-green-md padding-md-all">
-								<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-center width-full-all">
-									<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">ACCOUNT OPTINS</h3>
-									<div class="flex-column-desktop flex-column-phone width-full-all flex-align-items-center gap-sm-all">
-										{% if logged_in %}
-											<button type="button" id="profile-change-username-button" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold rotate-left-desktop">CHANGE USARNAME</button>
-											<button type="button" id="profile-change-hors-button" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold rotate-left-desktop">CHANGE HORS</button>
-											{% if subscription_type == 'free' %}
-												<a href="/store" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet text-center color-accent-gold">UPGRAD PLAN</a>
-											{% else %}
-												<a href="/store" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold text-center rotate-right-desktop">MANAG PLAN</a>
-											{% endif %}
-											<button type="button" id="deleteAccountBtn" class="button shadow-red-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-white rotate-right-desktop">DELET ACCOUNT</button>
-										{% else %}
-											<a href="/login" class="button shadow-white-md font-weight-xl font-size-sm margin-lg-desktop margin-sm-phone margin-lg-tablet color-accent-gold rotate-right-desktop">SIGN IN</a>
-										{% endif %}
-									</div>
-								</div>
-							</div>
-							{% if logged_in %}
+								{% if logged_in %}
 								<div id="hero-square" class="width-lg-desktop width-lg-phone width-full-tablet margin-auto-phone margin-auto-tablet border-radius border-radius rotate-right-desktop shadow-green-md" style="margin-top: 3em;">
 										<div class="main-label main-label-bottom-left main-label-one color-accent-white">HORS ONE</div>
 										<img id="index-hero-img" class="width-full-all" src="/static/img/branding/horsetranq-v3.png" alt="Horsetranq">
 								</div>
-							{% else %}
-							{% endif %}
+								{% endif %}
 						</div>
 					</div>
 				</div>
@@ -300,6 +358,47 @@
 			if (deleteAccountBtn) {
 				deleteAccountBtn.addEventListener('click', function() {
 					alert('UR ACOUNT HAS BEN SUPER DALETED - YAY DADA PRIVACY');
+				});
+			}
+			
+			// Copy Account ID functionality
+			const copyAccountIdBtn = document.getElementById('copy-account-id');
+			if (copyAccountIdBtn) {
+				copyAccountIdBtn.addEventListener('click', async function() {
+					const fullId = this.getAttribute('data-full-id');
+					
+					try {
+						await navigator.clipboard.writeText(fullId);
+						
+						// Visual feedback
+						this.classList.add('copied');
+						this.title = 'Copied!';
+						
+						// Reset after 2 seconds
+						setTimeout(() => {
+							this.classList.remove('copied');
+							this.title = 'Copy Account ID';
+						}, 2000);
+						
+					} catch (err) {
+						// Fallback for older browsers
+						const textArea = document.createElement('textarea');
+						textArea.value = fullId;
+						document.body.appendChild(textArea);
+						textArea.select();
+						document.execCommand('copy');
+						document.body.removeChild(textArea);
+						
+						// Visual feedback
+						this.classList.add('copied');
+						this.title = 'Copied!';
+						
+						// Reset after 2 seconds
+						setTimeout(() => {
+							this.classList.remove('copied');
+							this.title = 'Copy Account ID';
+						}, 2000);
+					}
 				});
 			}
 		});

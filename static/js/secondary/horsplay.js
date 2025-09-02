@@ -227,9 +227,27 @@ window.onload = function() {
 			console.log('Applying all settings...');
 			applyAllSettings();
 			
-			// Start game tracker
+			// Start game tracker session
 			if (window.gameTracker) {
-				window.gameTracker.startGame(currentGameMode);
+				console.log('DEBUG: Starting game session with mode:', currentGameMode);
+				window.gameTracker.startGameSession({
+					gameId: 'horsplay',
+					gameMode: currentGameMode,
+					gameDifficulty: 'Easy',
+					modifiers: {
+						speed: parseFloat(document.getElementById('speed-selector').dataset.value || '1.0'),
+						power: parseInt(document.getElementById('power-selector').dataset.value || '50'),
+						size: parseFloat(document.getElementById('size-selector').dataset.value || '1.0'),
+						background: document.getElementById('bg-selector').dataset.value || 'Unknown',
+						type: document.getElementById('type-selector').dataset.value || 'Hors'
+					}
+				}).then(function(sessionId) {
+					console.log('DEBUG: Game session started successfully with ID:', sessionId);
+				}).catch(function(error) {
+					console.error('DEBUG: Failed to start game session:', error);
+				});
+			} else {
+				console.error('DEBUG: GameTracker not available!');
 			}
 			
 			// Start timer now that settings are configured
@@ -275,9 +293,27 @@ window.onload = function() {
             // Apply all current settings and create horses for the first time
             applyAllSettings();
             
-            // Start game tracker
+            // Start game tracker session
             if (window.gameTracker) {
-                window.gameTracker.startGame(currentGameMode);
+                console.log('DEBUG: Starting game session with mode:', currentGameMode);
+                window.gameTracker.startGameSession({
+                    gameId: 'horsplay',
+                    gameMode: currentGameMode,
+                    gameDifficulty: 'Easy',
+                    modifiers: {
+                        speed: parseFloat(document.getElementById('speed-selector').dataset.value || '1.0'),
+                        power: parseInt(document.getElementById('power-selector').dataset.value || '50'),
+                        size: parseFloat(document.getElementById('size-selector').dataset.value || '1.0'),
+                        background: document.getElementById('bg-selector').dataset.value || 'Unknown',
+                        type: document.getElementById('type-selector').dataset.value || 'Hors'
+                    }
+                }).then(function(sessionId) {
+                    console.log('DEBUG: Game session started successfully with ID:', sessionId);
+                }).catch(function(error) {
+                    console.error('DEBUG: Failed to start game session:', error);
+                });
+            } else {
+                console.error('DEBUG: GameTracker not available!');
             }
             
             // Start timer now that settings are configured
@@ -299,9 +335,27 @@ window.onload = function() {
                 // Apply all current settings and create horses for the first time
                 applyAllSettings();
                 
-                // Start game tracker
+                // Start game tracker session
                 if (window.gameTracker) {
-                    window.gameTracker.startGame(currentGameMode);
+                    console.log('DEBUG: Starting game session with mode:', currentGameMode);
+                    window.gameTracker.startGameSession({
+                        gameId: 'horsplay',
+                        gameMode: currentGameMode,
+                        gameDifficulty: 'Easy',
+                        modifiers: {
+                            speed: parseFloat(document.getElementById('speed-selector').dataset.value || '1.0'),
+                            power: parseInt(document.getElementById('power-selector').dataset.value || '50'),
+                            size: parseFloat(document.getElementById('size-selector').dataset.value || '1.0'),
+                            background: document.getElementById('bg-selector').dataset.value || 'Unknown',
+                            type: document.getElementById('type-selector').dataset.value || 'Hors'
+                        }
+                    }).then(function(sessionId) {
+                        console.log('DEBUG: Game session started successfully with ID:', sessionId);
+                    }).catch(function(error) {
+                        console.error('DEBUG: Failed to start game session:', error);
+                    });
+                } else {
+                    console.error('DEBUG: GameTracker not available!');
                 }
                 
                 // Start timer now that settings are configured
@@ -368,7 +422,9 @@ function updateTimer() {
 
 // Function to stop the timer and show success
 function stopTimer() {
+    console.log('DEBUG stopTimer: Called with timerInterval:', timerInterval, 'gameCompleted:', gameCompleted);
     if (timerInterval !== null && !gameCompleted) {
+        console.log('DEBUG stopTimer: Stopping timer and showing success modal');
         clearInterval(timerInterval);
         gameCompleted = true;
         var currentTime = new Date().getTime();
@@ -408,7 +464,9 @@ function resetTimer() {
 // Function to check if all horses are popped
 function checkGameCompletion() {
     var remainingHorses = $('.horse-logo-3x').length;
+    console.log('DEBUG checkGameCompletion: Remaining horses:', remainingHorses, 'Game started:', gameStartTime !== null, 'Game completed:', gameCompleted);
     if (remainingHorses === 0 && gameStartTime !== null && !gameCompleted) {
+        console.log('DEBUG checkGameCompletion: All horses popped! Stopping timer...');
         stopTimer();
     }
 }
@@ -516,9 +574,14 @@ $(function() {
 
 			// Increment the score when a horse is removed
 			score++;
-			// Increment game tracker
+			console.log('DEBUG handleHorse: Horse popped! Score:', score);
+			
+			// Update game tracker with current progress
 			if (window.gameTracker) {
-				window.gameTracker.incrementHorsesPopped();
+				window.gameTracker.updateGameSession({
+					targetsPopped: score,
+					score: score
+				});
 			}
 			// Update the score display
 			updateScore();
@@ -930,18 +993,22 @@ function resumeGame() {
 
 // Success Modal Functions
 function showSuccessModal(displayTime) {
+    console.log('DEBUG showSuccessModal: Called with displayTime:', displayTime);
     document.getElementById('successTime').textContent = 'Time: ' + displayTime;
     document.getElementById('successOverlay').style.display = 'block';
     document.getElementById('successModal').classList.add('filter-is-visible');
     document.body.style.overflow = 'hidden'; // Prevent scrolling
     
-    // End game tracker (this handles saving game data via our new API)
+    // Finish game session and save final stats
     if (window.gameTracker) {
-        window.gameTracker.endGame();
+        window.gameTracker.finishGameSession({
+            targetsPopped: score,
+            score: score
+        });
     }
     
-    // Note: Game data is now saved via the game tracker's endGame() method
-    // which calls our /api/save-game endpoint instead of direct Firebase calls
+    // Note: Game data is now saved via the game tracker's finishGameSession() method
+    // which calls our /api/game/finish endpoint
 }
 
 function closeSuccessModal() {
