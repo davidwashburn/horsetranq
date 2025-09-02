@@ -28,7 +28,7 @@ mock_user_data = {
     'name': 'Test User',
     'email': 'test@example.com',
     'picture': 'https://via.placeholder.com/100',
-    'subscription_type': 'one',
+    'subscription_type': 'free',
     'firebase_token': 'mock_token',
     'unique_user_id': generate_mock_unique_user_id(),
     'username': generate_mock_username(),
@@ -179,6 +179,73 @@ def profile():
 def scores():
     context = get_account_context()
     context['current_page'] = 'SCORES'
+    
+    # Add mock data for scores page
+    context['weekly_leaders'] = {
+        'most_games': {
+            'username': 'TestPlayer1',
+            'games': 42
+        },
+        'most_horses': {
+            'username': 'HorseWrangler',
+            'horses': 156
+        },
+        'fastest_time': {
+            'username': 'SpeedDemon',
+            'time': 8.3
+        }
+    }
+    
+    context['aggregated_stats'] = {
+        'total_games': 1337,
+        'total_horses': 9001,
+        'best_time_ever': 7.2,
+        'active_players': 23
+    }
+    
+    context['scoreboard'] = [
+        {
+            'username': 'TopPlayer',
+            'total_games': 50,
+            'total_horses': 200,
+            'best_time_seconds': 7.2,
+            'horspass_level': 5,
+            'subscription_type': 'max'
+        },
+        {
+            'username': 'SecondPlace',
+            'total_games': 45,
+            'total_horses': 180,
+            'best_time_seconds': 8.1,
+            'horspass_level': 4,
+            'subscription_type': 'plus'
+        },
+        {
+            'username': 'ThirdPlace',
+            'total_games': 40,
+            'total_horses': 160,
+            'best_time_seconds': 9.5,
+            'horspass_level': 3,
+            'subscription_type': 'one'
+        },
+        {
+            'username': 'FreePlayer',
+            'total_games': 25,
+            'total_horses': 100,
+            'best_time_seconds': 12.3,
+            'horspass_level': 2,
+            'subscription_type': 'free'
+        },
+        {
+            'username': 'NewPlayer',
+            'total_games': 10,
+            'total_horses': 40,
+            'best_time_seconds': 15.8,
+            'horspass_level': 1,
+            'subscription_type': 'free'
+        }
+    ]
+    
     return render_template('scores.html', **context)
 
 # Login/logout routes moved to app/auth.py blueprint
@@ -208,6 +275,97 @@ def update_hide_avatar():
         'hide_avatar': mock_user_data['hide_avatar'],
         'message': 'Avatar visibility updated successfully (mock)'
     })
+
+@app.route('/api/user-profile/<username>', methods=['GET'])
+def get_user_profile(username):
+    """Mock user profile endpoint for local testing"""
+    
+    # Mock user profiles based on the scoreboard data
+    mock_profiles = {
+        'TopPlayer': {
+            'username': 'TopPlayer',
+            'member_since': 'JAN 2023',
+            'subscription_type': 'max',
+            'total_games': 50,
+            'total_horses': 200,
+            'best_time_seconds': 7.2,
+            'horspass_level': 5
+        },
+        'SecondPlace': {
+            'username': 'SecondPlace',
+            'member_since': 'MAR 2023',
+            'subscription_type': 'plus',
+            'total_games': 45,
+            'total_horses': 180,
+            'best_time_seconds': 8.1,
+            'horspass_level': 4
+        },
+        'ThirdPlace': {
+            'username': 'ThirdPlace',
+            'member_since': 'MAY 2023',
+            'subscription_type': 'one',
+            'total_games': 40,
+            'total_horses': 160,
+            'best_time_seconds': 9.5,
+            'horspass_level': 3
+        },
+        'FreePlayer': {
+            'username': 'FreePlayer',
+            'member_since': 'JUL 2023',
+            'subscription_type': 'free',
+            'total_games': 25,
+            'total_horses': 100,
+            'best_time_seconds': 12.3,
+            'horspass_level': 2
+        },
+        'NewPlayer': {
+            'username': 'NewPlayer',
+            'member_since': 'SEP 2023',
+            'subscription_type': 'free',
+            'total_games': 10,
+            'total_horses': 40,
+            'best_time_seconds': 15.8,
+            'horspass_level': 1
+        },
+        'TestPlayer1': {
+            'username': 'TestPlayer1',
+            'member_since': 'FEB 2023',
+            'subscription_type': 'one',
+            'total_games': 42,
+            'total_horses': 120,
+            'best_time_seconds': 10.2,
+            'horspass_level': 3
+        },
+        'HorseWrangler': {
+            'username': 'HorseWrangler',
+            'member_since': 'JAN 2023',
+            'subscription_type': 'plus',
+            'total_games': 38,
+            'total_horses': 156,
+            'best_time_seconds': 9.8,
+            'horspass_level': 4
+        },
+        'SpeedDemon': {
+            'username': 'SpeedDemon',
+            'member_since': 'APR 2023',
+            'subscription_type': 'max',
+            'total_games': 35,
+            'total_horses': 140,
+            'best_time_seconds': 8.3,
+            'horspass_level': 5
+        }
+    }
+    
+    if username in mock_profiles:
+        return jsonify({
+            'success': True,
+            'user': mock_profiles[username]
+        })
+    else:
+        return jsonify({
+            'success': False,
+            'message': 'User not found'
+        }), 404
 
 @app.route('/api/update-avatar-selection', methods=['POST'])
 def update_avatar_selection():

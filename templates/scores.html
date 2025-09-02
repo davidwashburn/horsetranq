@@ -23,79 +23,86 @@
 
 			<!-- Scores Main Section -->
 			<div class="main-wrapper" data-animate="page-intro">
-				<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-md-tablet width-xl-phone">
+				<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-xl-tablet width-xl-phone">
 					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center gap-xxl-all">
 						<!-- WEEKLY LEADERS Column -->
-						<div id="hero-square" class="width-full-phone width-md-desktop width-md-tablet margin-auto-phone margin-auto-tablet border-radius rotate-left-desktop shadow-green-md">
-							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-all">
-								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">WEEKLY LEADERS</h3>
-								
-								<!-- Most games -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Most games</h4>
-									<p class="font-size-md font-weight-md color-accent-white">{{ weekly_leaders.most_games.username }} ({{ weekly_leaders.most_games.games }})</p>
-								</div>
+						<div class="flex-column-desktop">
+							<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-xl font-weight-xl color-accent-white rotate-left-desktop rotate-left-tablet">WEEKLY LEADERS</h3>
+							<div id="hero-square" class="width-full-phone width-full-desktop width-lg-tablet margin-auto-phone margin-auto-tablet border-radius rotate-left-desktop shadow-green-md">
+								<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-all">
+									
+									<!-- Most games -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Most games</h4>
+										<p class="font-size-md font-weight-md color-accent-white">
+											<span class="username-link" data-username="{{ weekly_leaders.most_games.username }}" style="cursor: pointer;">{{ weekly_leaders.most_games.username }}</span> ({{ weekly_leaders.most_games.games }})
+										</p>
+									</div>
 
-								<!-- Most horses -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Most horses</h4>
-									<p class="font-size-md font-weight-md color-accent-white">{{ weekly_leaders.most_horses.username }} ({{ weekly_leaders.most_horses.horses }})</p>
-								</div>
+									<!-- Most horses -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Most horses</h4>
+										<p class="font-size-md font-weight-md color-accent-white">
+											<span class="username-link" data-username="{{ weekly_leaders.most_horses.username }}" style="cursor: pointer;">{{ weekly_leaders.most_horses.username }}</span> ({{ weekly_leaders.most_horses.horses }})
+										</p>
+									</div>
 
-								<!-- Fastest time -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Fastest time</h4>
-									<p class="font-size-md font-weight-md color-accent-white">
-										{% if weekly_leaders.fastest_time.time %}
-											{{ weekly_leaders.fastest_time.username }} ({{ "%.1f"|format(weekly_leaders.fastest_time.time) }}s)
-										{% else %}
-											{{ weekly_leaders.fastest_time.username }}
-										{% endif %}
-									</p>
-								</div>
+									<!-- Fastest time -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Fastest time</h4>
+										<p class="font-size-md font-weight-md color-accent-white">
+											{% if weekly_leaders.fastest_time.time %}
+												<span class="username-link" data-username="{{ weekly_leaders.fastest_time.username }}" style="cursor: pointer;">{{ weekly_leaders.fastest_time.username }}</span> ({{ "%.1f"|format(weekly_leaders.fastest_time.time) }}s)
+											{% else %}
+												<span class="username-link" data-username="{{ weekly_leaders.fastest_time.username }}" style="cursor: pointer;">{{ weekly_leaders.fastest_time.username }}</span>
+											{% endif %}
+										</p>
+									</div>
 
-								<!-- Most improved -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Most improved</h4>
-									<p class="font-size-md font-weight-md color-accent-white">Coming soon</p>
+									<!-- Most improved -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Most improved</h4>
+										<p class="font-size-md font-weight-md color-accent-white">Coming soon</p>
+									</div>
 								</div>
 							</div>
 						</div>
-						
+
 						<!-- WEEKLY STATS Column -->
-						<div id="hero-square" class="width-full-phone width-md-tablet margin-auto-phone margin-auto-tablet border-radius rotate-right-desktop shadow-green-md width-full-tablet">
-							
-							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-all">
-								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">WEEKLY STATS</h3>
-								
-								<!-- Total games played -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Total gams plaid</h4>
-									<p class="font-size-md font-weight-md color-accent-white">{{ aggregated_stats.total_games }}</p>
-								</div>
+						<div class="flex-column-desktop">
+							<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-xl font-weight-xl color-accent-white rotate-right-desktop rotate-right-tablet">WEEKLY STATS</h3>
+							<div id="hero-square" class="width-full-phone width-lg-tablet margin-auto-phone margin-auto-tablet border-radius rotate-right-desktop shadow-green-md">
+								<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-all">
+									
+									<!-- Total games played -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Total gams plaid</h4>
+										<p class="font-size-md font-weight-md color-accent-white">{{ aggregated_stats.total_games }}</p>
+									</div>
 
-								<!-- Total horses tranquilized -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Hors tranquilized</h4>
-									<p class="font-size-md font-weight-md color-accent-white">{{ aggregated_stats.total_horses }}</p>
-								</div>
+									<!-- Total horses tranquilized -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Hors tranquilized</h4>
+										<p class="font-size-md font-weight-md color-accent-white">{{ aggregated_stats.total_horses }}</p>
+									</div>
 
-								<!-- Best time ever -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Best time evar</h4>
-									<p class="font-size-md font-weight-md color-accent-white">
-										{% if aggregated_stats.best_time_ever %}
-											{{ "%.1f"|format(aggregated_stats.best_time_ever) }}s
-										{% else %}
-											No data
-										{% endif %}
-									</p>
-								</div>
+									<!-- Best time ever -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Best time evar</h4>
+										<p class="font-size-md font-weight-md color-accent-white">
+											{% if aggregated_stats.best_time_ever %}
+												{{ "%.1f"|format(aggregated_stats.best_time_ever) }}s
+											{% else %}
+												No data
+											{% endif %}
+										</p>
+									</div>
 
-								<!-- Active players -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-									<h4 class="font-size-md font-weight-xl color-accent-white">Active players</h4>
-									<p class="font-size-md font-weight-md color-accent-white">{{ aggregated_stats.active_players }}</p>
+									<!-- Active players -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Active players</h4>
+										<p class="font-size-md font-weight-md color-accent-white">{{ aggregated_stats.active_players }}</p>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -123,7 +130,7 @@
 							<tbody>
 								{% if scoreboard %}
 									{% for entry in scoreboard %}
-									<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<tr class="margin-sm-desktop margin-sm-phone margin-sm-tablet username-link" data-username="{{ entry.username }}" style="cursor: pointer;">
 										<td class="font-size-md font-weight-xl {% if loop.index == 1 %}color-accent-gold{% elif loop.index == 2 %}color-accent-grey-mid{% else %}color-accent-white{% endif %} text-center">{{ loop.index }}</td>
 										<td class="font-size-md font-weight-xl color-accent-white text-left">
 											<h4 class="font-size-md font-weight-xl color-accent-white">{{ entry.username or 'Unknown' }}</h4>
@@ -139,14 +146,26 @@
 										</td>
 										<td class="font-size-md font-weight-md color-accent-white text-center">Level {{ entry.horspass_level or 1 }}</td>
 										<td class="font-size-md font-weight-md text-center">
-											{% if entry.subscription_type == 'max' %}
-												<span class="font-size-sm font-weight-xl bg-accent-gold color-accent-grey-dark" style="padding: 2px 6px; border-radius: 4px;">MAX</span>
-											{% elif entry.subscription_type == 'plus' %}
-												<span class="font-size-sm font-weight-xl bg-secondary color-accent-white" style="padding: 2px 6px; border-radius: 4px;">PLUS</span>
+											{% if entry.subscription_type == 'free' %}
+												<div class="main-label font-size-sm font-weight-xl bg-accent-grey-mid color-accent-grey-dark width-lg-all margin-auto-all padding-md-all">
+													<span class="font-size-sm">FREE</span>
+												</div>
 											{% elif entry.subscription_type == 'one' %}
-												<span class="font-size-sm font-weight-xl bg-success-dark color-accent-white" style="padding: 2px 6px; border-radius: 4px;">ONE</span>
+												<div class="main-label main-label-one color-accent-white width-lg-all margin-auto-all padding-md-all">
+													<span class="font-size-sm">HORS ONE</span>
+												</div>
+											{% elif entry.subscription_type == 'plus' %}
+												<div class="main-label main-label-plus color-accent-white width-lg-all margin-auto-all padding-md-all">
+													<span class="font-size-sm">HORS PLUS</span>
+												</div>
+											{% elif entry.subscription_type == 'max' %}
+												<div class="main-label main-label-max color-accent-white width-lg-all margin-auto-all padding-md-all">
+													<span class="font-size-sm">HORS MAX</span>
+												</div>
 											{% else %}
-												<span class="font-size-sm font-weight-xl bg-accent-grey-mid color-accent-grey-dark" style="padding: 2px 6px; border-radius: 4px;">FREE</span>
+												<div class="main-label font-size-sm font-weight-xl bg-accent-grey-mid color-accent-grey-dark width-lg-all margin-auto-all padding-md-all">
+													<span class="font-size-sm">FREE</span>
+												</div>
 											{% endif %}
 										</td>
 									</tr>
@@ -167,11 +186,208 @@
 
 		</main> <!-- main-content -->
 
+		<!-- User Profile Modal -->
+		<div id="userProfileModal" class="modal-overlay" style="display: none;">
+			<div class="modal-content">
+				<div class="modal-header flex-row-all flex-justify-space-between flex-align-items-center padding-md-all">
+					<h2 class="font-size-lg font-weight-xl color-accent-white">User Profile</h2>
+					<button id="closeProfileModal" class="button shadow-red-sm font-weight-xl font-size-sm color-accent-white">✕</button>
+				</div>
+				<div id="modalProfileContent" class="padding-md-all">
+					<!-- Profile content will be loaded here -->
+				</div>
+			</div>
+		</div>
+
 		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 		<script type="module" src="/static/js/main.js"></script> <!-- Resource jQuery -->
 		<script>
 			// Make logged in status available to JavaScript
 			window.loggedIn = {{ 'true' if logged_in else 'false' }};
+			
+			// User Profile Modal functionality
+			$(document).ready(function() {
+				// Handle username clicks
+				$('.username-link').on('click', function() {
+					const username = $(this).data('username');
+					if (username && username !== 'Unknown') {
+						loadUserProfile(username);
+					}
+				});
+				
+				// Close modal handlers
+				$('#closeProfileModal').on('click', function() {
+					$('#userProfileModal').hide();
+				});
+				
+				// Close modal when clicking overlay
+				$('#userProfileModal').on('click', function(e) {
+					if (e.target === this) {
+						$(this).hide();
+					}
+				});
+				
+				// Close modal with Escape key
+				$(document).on('keydown', function(e) {
+					if (e.key === 'Escape') {
+						$('#userProfileModal').hide();
+					}
+				});
+				
+				// Handle report player button clicks (using event delegation for dynamically created buttons)
+				$(document).on('click', '#reportPlayerBtn', function() {
+					const reportOptions = $('#reportPlayerOptions');
+					
+					// Toggle the report options visibility
+					if (reportOptions.is(':visible')) {
+						reportOptions.slideUp();
+					} else {
+						reportOptions.slideDown();
+					}
+				});
+				
+				// Handle report option button clicks
+				$(document).on('click', '.report-option-btn', function() {
+					const username = $(this).data('username');
+					const reason = $(this).data('reason');
+					
+					alert('Reporting ' + username + ' for: ' + reason + '\n\nReport functionality would be implemented here.');
+					
+					// Hide the options after selection
+					$('#reportPlayerOptions').slideUp();
+					
+					// TODO: Implement actual report functionality with reason
+				});
+			});
+			
+			function loadUserProfile(username) {
+				// Update modal header with username
+				$('#userProfileModal .modal-header h2').html('Profil for <span class="color-accent-gold">' + username.toUpperCase() + '</span>');
+				
+				// Show modal with loading state
+				$('#modalProfileContent').html('<div class="text-center padding-lg-all"><p class="color-accent-white font-size-md">Loading profile...</p></div>');
+				$('#userProfileModal').show();
+				
+				// Make API call to get user profile
+				$.ajax({
+					url: '/api/user-profile/' + encodeURIComponent(username),
+					method: 'GET',
+					success: function(data) {
+						if (data.success) {
+							renderUserProfile(data.user);
+						} else {
+							$('#modalProfileContent').html('<div class="text-center padding-lg-all"><p class="color-accent-white font-size-md">Error loading profile: ' + (data.message || 'Unknown error') + '</p></div>');
+						}
+					},
+					error: function() {
+						$('#modalProfileContent').html('<div class="text-center padding-lg-all"><p class="color-accent-white font-size-md">Error loading profile. Please try again.</p></div>');
+					}
+				});
+			}
+			
+			function renderUserProfile(user) {
+				const subscriptionBadge = getSubscriptionBadge(user.subscription_type);
+				
+				const profileHtml = `
+					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center gap-xxl-all">
+						<!-- ACCOUNT DETAILS Column -->
+						<div class="flex-column-desktop width-md-desktop width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet">
+							<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-lg font-weight-xl color-accent-white">USER PROFILE</h3>
+							<div id="hero-square" class="width-full-all margin-auto-phone margin-auto-tablet border-radius shadow-green-md">
+								<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-desktop width-full-phone width-full-tablet padding-md-all">
+									
+									<!-- Username -->
+									<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Username</h4>
+										<div class="main-label bg-accent-gold color-accent-grey-dark padding-sm-all">
+											<span class="font-size-sm">${user.username.toUpperCase()}</span>
+										</div>
+									</div>
+									
+									<!-- Member since -->
+									<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Member since</h4>
+										<div class="main-label bg-accent-gold color-accent-grey-dark padding-sm-all">
+											<span class="font-size-sm">${user.member_since || 'UNKNOWN'}</span>
+										</div>
+									</div>
+									
+									<!-- Member type -->
+									<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Member type</h4>
+										${subscriptionBadge}
+									</div>
+								</div>
+							</div>
+							
+							<!-- Report Player Section -->
+							<div class="flex-column-all flex-align-items-center width-full-all margin-md-desktop margin-sm-phone margin-md-tablet">
+								<div class="flex-row-all">
+									<button type="button" id="reportPlayerBtn" class="button shadow-red-md font-weight-xl font-size-sm color-accent-white" data-username="${user.username}">REPORT PLAYR</button>
+									<div id="reportPlayerOptions" class="flex-column-all flex-align-items-center width-full-all" style="display: none;">
+										<div class="flex-row-all gap-sm-all">
+											<button type="button" class="report-option-btn button shadow-white-sm font-weight-xl font-size-sm color-accent-gold" data-reason="CHEATIN" data-username="${user.username}">CHEATIN</button>
+											<button type="button" class="report-option-btn button shadow-white-sm font-weight-xl font-size-sm color-accent-gold" data-reason="IS A TURD" data-username="${user.username}">IS A TURD</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<!-- STATS Column -->
+						<div class="flex-column-all gap-xxl-all">
+							<div class="flex-column-desktop width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet">
+								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-lg font-weight-xl color-accent-white">GAME STATS</h3>
+								<div id="hero-square" class="width-full-all margin-auto-phone margin-auto-tablet border-radius shadow-green-md">
+									<div class="flex-column-desktop flex-column-phone flex-align-items-start flex-justify-center width-full-desktop padding-md-all">
+										
+										<!-- Games played -->
+										<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+											<h4 class="font-size-md font-weight-xl color-accent-white">Games played</h4>
+											<p class="font-size-md font-weight-md color-accent-white">${user.total_games || 0}</p>
+										</div>
+										
+										<!-- Horses tranquilized -->
+										<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+											<h4 class="font-size-md font-weight-xl color-accent-white">Horses tranquilized</h4>
+											<p class="font-size-md font-weight-md color-accent-white">${user.total_horses || 0}</p>
+										</div>
+										
+										<!-- Best time -->
+										<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+											<h4 class="font-size-md font-weight-xl color-accent-white">Best time</h4>
+											<p class="font-size-md font-weight-md color-accent-white">${user.best_time_seconds ? user.best_time_seconds.toFixed(1) + 's' : 'No data'}</p>
+										</div>
+										
+										<!-- HorsPass Level -->
+										<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+											<h4 class="font-size-md font-weight-xl color-accent-white">HorsPass Level</h4>
+											<p class="font-size-md font-weight-md color-accent-white">Level ${user.horspass_level || 1}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				`;
+				
+				$('#modalProfileContent').html(profileHtml);
+			}
+			
+			function getSubscriptionBadge(subscriptionType) {
+				switch(subscriptionType) {
+					case 'free':
+						return '<div class="main-label font-size-sm font-weight-xl bg-accent-grey-mid color-accent-grey-dark padding-sm-all"><span class="font-size-sm">FREE</span></div>';
+					case 'one':
+						return '<div class="main-label main-label-one color-accent-white padding-sm-all"><span class="font-size-sm">HORS ONE</span></div>';
+					case 'plus':
+						return '<div class="main-label main-label-plus color-accent-white padding-sm-all"><span class="font-size-sm">HORS PLUS</span></div>';
+					case 'max':
+						return '<div class="main-label main-label-max color-accent-white padding-sm-all"><span class="font-size-sm">HORS MAX</span></div>';
+					default:
+						return '<div class="main-label font-size-sm font-weight-xl bg-accent-grey-mid color-accent-grey-dark padding-sm-all"><span class="font-size-sm">FREE</span></div>';
+				}
+			}
 		</script>
 		<script src="/static/js/secondary/username-editor.js"></script> <!-- Username editing functionality -->
 		<script src="/static/js/secondary/account-button.js"></script> <!-- Account button avatar functionality -->
