@@ -46,7 +46,7 @@
 
 @media (min-width: 1024px) {
   /* desktop font scale set to 100% */
-  :root { --type-scale: 1; }
+  :root { --type-scale: .85; }
 }
 
 
@@ -269,6 +269,8 @@
   --radius-md: 0.375em;
   --radius-base: 0.5625em;
   --radius-lg: 0.75em;
+  --radius-xl: 1em;
+  --radius-xxl: 2em;
 }
 
 /* Desktop-specific margin utilities (1024px+) */
@@ -515,6 +517,7 @@ input:focus {
 
 /* Buttons and utilities */
 .button {
+  display: block;
   padding: 12px 24px;
   transition: .05s ease-in-out;
   cursor: pointer;
@@ -560,45 +563,34 @@ input:focus {
 }
 #index-hors-one {
   --d: 20px;
-  aspect-ratio: 1;
+  padding: 10px;
+  border-radius: 20px;
   box-sizing: border-box;
   border: solid #0000;
   border-width: 0 var(--d) var(--d) 0;
   clip-path: polygon(0 0, calc(100% - var(--d)) 0, 100% var(--d), 100% 100%, var(--d) 100%, 0 calc(100% - var(--d)));
   background: conic-gradient(at calc(100% - var(--d)) calc(100% - var(--d)), /* top/left highlight (slightly lighter) */ #0052a5 37.5%, /* right edge (darker) */ #0e2e4d 0 75%, /* bottom corner (deepest shadow) */ #027ffd 0) border-box #010108;
 }
-#index-hors-one > :nth-child(2) {
-  /* header space to make room for the label */
-  padding-top: 2em;
-  background: #f0f0f0;
-}
 
 #index-hors-plus {
   --d: 20px;
+  padding: 10px;
+  border-radius: 20px;
   box-sizing: border-box;
   border: solid #0000;
   border-width: 0 var(--d) var(--d) 0;
   clip-path: polygon(0 0, calc(100% - var(--d)) 0, 100% var(--d), 100% 100%, var(--d) 100%, 0 calc(100% - var(--d)));
   background: conic-gradient(at calc(100% - var(--d)) calc(100% - var(--d)), #0e375d 37.5%, /* light grey bevel */ #071e34 0 75%, /* mid grey bevel */ #144b7d 0) border-box #fff;
 }
-#index-hors-plus > :nth-child(2) {
-  /* header space to make room for the label */
-  padding-top: 2em;
-  background: #174877;
-}
 #index-hors-max {
   --d: 20px;
-  aspect-ratio: 1;
+  padding: 10px;
+  border-radius: 20px;
   box-sizing: border-box;
   border: solid #0000;
   border-width: 0 var(--d) var(--d) 0;
   clip-path: polygon(0 0, calc(100% - var(--d)) 0, 100% var(--d), 100% 100%, var(--d) 100%, 0 calc(100% - var(--d)));
   background: conic-gradient(at calc(100% - var(--d)) calc(100% - var(--d)), /* top/left highlight (base color) */ #2c0757 37.5%, /* right bevel (darker purple) */ #1c0539 0 75%, /* bottom shadow (deepest) */ #3a007c 0) border-box #360074;
-}
-#index-hors-max > :nth-child(2) {
-  /* header space to make room for the label */
-  padding-top: 2em;
-  background: #030329;
 }
 
 /* Navigation Menu Styles */
@@ -740,7 +732,7 @@ input:focus {
 #index {background-color: var(--v3-color-primary);}
 
 #hero-square {
-  padding: 4px;
+  padding: 10px;
   height: min-content;
 }
 #profile-account-option {
@@ -808,6 +800,40 @@ input:focus {
     margin: 3em auto 4em;
   }
 }
+/* Mobile responsiveness for hero section */
+@media (min-width: 600px) and (max-width: 1023px) {
+  #index .hero-section,
+  #profile .hero-section,
+  #scores .hero-section,
+  #store .hero-section,
+  #about .hero-section {
+    margin: 3em auto 4em;
+  }
+}
+
+/* Main section styles */
+.main-section {
+  padding: 8em 0;
+}
+.main-section.bg-primary-dark {
+  border-top: 2px solid var(--v3-color-primary-dark-alt);
+  border-bottom: 2px solid var(--v3-color-primary-dark-alt);
+}
+
+/* Mobile responsiveness for hero section */
+@media (max-width: 599px) {
+  .main-section {
+    padding: 4em 0;
+  }
+}
+/* Mobile responsiveness for hero section */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .main-section {
+    padding: 4em 0;
+  }
+}
+
+
 
 /* About Page Social Icons */
 .about-social-icons {
@@ -907,18 +933,12 @@ input:focus {
   padding: 4em 0
 }
 
-.main-section {
-  padding: 8em 0;
-}
-.main-section.bg-primary-dark {
-  border-top: 2px solid var(--v3-color-primary-dark-alt);
-  border-bottom: 2px solid var(--v3-color-primary-dark-alt);
-}
-
 .border-radius-sm { border-radius: var(--radius-sm); }
 .border-radius-md { border-radius: var(--radius-md); }
 .border-radius, .border-radius-base { border-radius: var(--radius-base); }
 .border-radius-lg { border-radius: var(--radius-lg); }
+.border-radius-xl { border-radius: var(--radius-xl); }
+.border-radius-xxl { border-radius: var(--radius-xxl); }
 
 .main-content {
   overflow-y: scroll;

@@ -24,7 +24,7 @@
 
 						<!-- Profile Main Section -->
 			<div class="main-wrapper" data-animate="page-intro">
-				<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-xl-desktop width-full-tablet width-xl-phone">
+				<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-xl-all">
 					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center gap-xxl-all">
 						<!-- ACCOUNT DETAILS Column -->
 						
@@ -35,7 +35,7 @@
 								</h3>
 
 								<!-- Username -->
-								<div id="profile-username-container" class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+								<div id="profile-username-container" class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Username</h4>
 									<!-- Username label wrapper to maintain top-right positioning -->
 									<div class="main-label bg-accent-gold color-accent-grey-dark">
@@ -73,7 +73,7 @@
 								</div>
 
 								<!-- Name -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+								<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Name</h4>
 									<div class="main-label bg-accent-gold color-accent-grey-dark">
 										<span class="font-size-sm">
@@ -87,7 +87,7 @@
 								</div>
 
 								<!-- Email -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+								<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Email</h4>
 									<div class="main-label bg-accent-gold color-accent-grey-dark">
 										<span class="font-size-sm">
@@ -101,7 +101,7 @@
 								</div>
 
 								<!-- Account ID -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+								<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Account ID</h4>
 									<div class="main-label bg-accent-gold color-accent-grey-dark">
 										<div class="flex-row-all flex-align-items-center gap-sm-all">
@@ -125,7 +125,7 @@
 								</div>
 
 								<!-- Member since -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+								<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Member since</h4>
 									<div class="main-label bg-accent-gold color-accent-grey-dark">
 										<span class="font-size-sm">
@@ -140,7 +140,7 @@
 								</div>
 
 								<!-- Member type -->
-								<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+								<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Member type</h4>
 									{% if logged_in %}
 										{% if subscription_type == 'free' %}
@@ -197,7 +197,7 @@
 										<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">RANKED STATS</h3>
 										
 										<!-- Games played -->
-										<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 											<h4 class="font-size-md font-weight-xl color-accent-white">Games played</h4>
 											<p class="font-size-md font-weight-md color-accent-white">
 												{% if user_stats['ranked'] and user_stats['ranked']['total_games'] %}
@@ -209,7 +209,7 @@
 										</div>
 
 										<!-- Difficulty played -->
-										<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 											<h4 class="font-size-md font-weight-xl color-accent-white">Difficulty played</h4>
 											<p class="font-size-md font-weight-md color-accent-white">
 												{% if user_stats['ranked'] and user_stats['ranked']['difficulty_breakdown'] %}
@@ -223,7 +223,7 @@
 										</div>
 
 										<!-- Favorite enemy -->
-										<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 											<h4 class="font-size-md font-weight-xl color-accent-white">Favorite enemy</h4>
 											<p class="font-size-md font-weight-md color-accent-white">
 												{% if user_stats['ranked'] and user_stats['ranked']['favorite_enemy'] and user_stats['ranked']['favorite_enemy'] != 'N/A' %}
@@ -235,13 +235,13 @@
 										</div>
 
 										<!-- Favorite difficulty -->
-										<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 											<h4 class="font-size-md font-weight-xl color-accent-white">Favorite difficulty</h4>
 											<p class="font-size-md font-weight-md color-accent-white">N/A</p>
 										</div>
 
 										<!-- Favorite background -->
-										<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 											<h4 class="font-size-md font-weight-xl color-accent-white">Favorite background</h4>
 											<p class="font-size-md font-weight-md color-accent-white">
 												{% if user_stats['ranked'] and user_stats['ranked']['favorite_background'] and user_stats['ranked']['favorite_background'] != 'N/A' %}
@@ -262,7 +262,7 @@
 										<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white">FREE PLAY STATS</h3>
 										
 										<!-- Games played -->
-										<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 											<h4 class="font-size-md font-weight-xl color-accent-white">Games played</h4>
 											<p class="font-size-md font-weight-md color-accent-white">
 												{% if user_stats['freeplay'] and user_stats['freeplay']['total_games'] %}
@@ -274,7 +274,7 @@
 										</div>
 
 										<!-- Difficulty played -->
-										<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 											<h4 class="font-size-md font-weight-xl color-accent-white">Difficulty played</h4>
 											<p class="font-size-md font-weight-md color-accent-white">
 												{% if user_stats['freeplay'] and user_stats['freeplay']['difficulty_breakdown'] %}
@@ -288,7 +288,7 @@
 										</div>
 
 										<!-- Favorite enemy -->
-										<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 											<h4 class="font-size-md font-weight-xl color-accent-white">Favorite enemy</h4>
 											<p class="font-size-md font-weight-md color-accent-white">
 												{% if user_stats['freeplay'] and user_stats['freeplay']['favorite_enemy'] and user_stats['freeplay']['favorite_enemy'] != 'N/A' %}
@@ -300,13 +300,13 @@
 										</div>
 
 										<!-- Favorite difficulty -->
-										<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 											<h4 class="font-size-md font-weight-xl color-accent-white">Favorite difficulty</h4>
 											<p class="font-size-md font-weight-md color-accent-white">N/A</p>
 										</div>
 
 										<!-- Favorite background -->
-										<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 											<h4 class="font-size-md font-weight-xl color-accent-white">Favorite background</h4>
 											<p class="font-size-md font-weight-md color-accent-white">
 												{% if user_stats['freeplay'] and user_stats['freeplay']['favorite_background'] and user_stats['freeplay']['favorite_background'] != 'N/A' %}

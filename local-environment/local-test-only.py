@@ -3,8 +3,14 @@ from datetime import datetime
 import uuid
 import random
 import string
+import os
 
-app = Flask(__name__)
+# Get the parent directory (project root) for templates and static files
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+template_dir = os.path.join(project_root, 'templates')
+static_dir = os.path.join(project_root, 'static')
+
+app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 
 def generate_mock_unique_user_id():
     """Generate a mock UUID for testing"""
