@@ -6,7 +6,7 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-		<link rel="icon" type="image/x-icon" href="/static/img/assets/ico/hors.ico">
+		<link rel="icon" type="image/x-icon" href="/static/img/ui/hors.ico">
 		<link rel="stylesheet" href="/static/css/reset.css"> <!-- CSS reset -->
 		<link rel="stylesheet" href="/static/css/style.css"> <!-- Resource style -->
 		<link rel="stylesheet" href="/static/css/variables.css"> <!-- Variables style -->
@@ -250,13 +250,41 @@
 				$(document).on('click', '.report-option-btn', function() {
 					const username = $(this).data('username');
 					const reason = $(this).data('reason');
+					const button = $(this);
 					
-					alert('Reporting ' + username + ' for: ' + reason + '\n\nReport functionality would be implemented here.');
+					// Disable button during request
+					button.prop('disabled', true).text('REPORTING...');
 					
-					// Hide the options after selection
-					$('#reportPlayerOptions').slideUp();
-					
-					// TODO: Implement actual report functionality with reason
+					// Submit report
+					$.ajax({
+						url: '/api/report-player',
+						method: 'POST',
+						contentType: 'application/json',
+						data: JSON.stringify({
+							reported_username: username,
+							report_type: reason,
+							context: 'scoreboard_modal'
+						}),
+						success: function(data) {
+							if (data.success) {
+								alert('✅ SUCCESS REPORTED! ' + username + ' for: ' + reason + '\n\nTHX for keepng teh community cleansed, HOSS!');
+							} else {
+								alert('❌ Error: ' + (data.message || data.error || 'Unknown error'));
+							}
+						},
+						error: function(xhr) {
+							let errorMsg = 'FAIL to submat repart';
+							if (xhr.responseJSON && xhr.responseJSON.error) {
+								errorMsg = xhr.responseJSON.error;
+							}
+							alert('❌ Error: ' + errorMsg);
+						},
+						complete: function() {
+							// Re-enable button and hide options
+							button.prop('disabled', false).text(reason);
+							$('#reportPlayerOptions').slideUp();
+						}
+					});
 				});
 			});
 			
@@ -316,6 +344,18 @@
 									<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 										<h4 class="font-size-md font-weight-xl color-accent-white">Member type</h4>
 										${subscriptionBadge}
+									</div>
+									
+									<!-- Reportod for cheatin -->
+									<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Reportod for cheatin</h4>
+										<p class="font-size-md font-weight-md color-accent-white">${user.cheatin_reports || 0}</p>
+									</div>
+									
+									<!-- Reportd bcuz is turd -->
+									<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Reportd bcuz is turd</h4>
+										<p class="font-size-md font-weight-md color-accent-white">${user.turd_reports || 0}</p>
 									</div>
 								</div>
 							</div>

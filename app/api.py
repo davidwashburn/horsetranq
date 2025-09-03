@@ -249,6 +249,277 @@ def update_username():
         print(f"Error updating username: {e}")
         return jsonify({'error': 'Internal server error'}), 500
 
+@bp.route('/api/user-profile/<username>', methods=['GET'])
+def get_user_profile(username):
+    """Get public user profile data by username."""
+    try:
+        db_service = DatabaseService()
+        
+        # Look up user by username
+        username_index = db_service.db.child('usernames_index').child(username).get()
+        if not username_index:
+            return jsonify({
+                'success': False,
+                'message': 'User not found'
+            }), 404
+        
+        user_id = username_index.get('user_id')
+        if not user_id:
+            return jsonify({
+                'success': False,
+                'message': 'User not found'
+            }), 404
+        
+        # Get user data
+        user_data = db_service.get_user(user_id)
+        if not user_data:
+            return jsonify({
+                'success': False,
+                'message': 'User not found'
+            }), 404
+        
+        # Get user stats
+        stats = db_service.get_user_stats(user_id, 'horsplay')
+        
+        # Get HorsPass progress (if available)
+        horspass_level = 1
+        try:
+            horspass_progress = db_service.db.child('horspass_progress').child(user_id).child('HP-S1').get()
+            if horspass_progress:
+                xp_total = horspass_progress.get('xp_total', 0)
+                # Simple level calculation - adjust as needed
+                horspass_level = min(max(1, xp_total // 100), 10)
+        except:
+            pass
+        
+        # Format member since date
+        member_since = 'UNKNOWN'
+        if user_data.get('created_at'):
+            try:
+                from datetime import datetime
+                created_date = datetime.fromisoformat(user_data['created_at'].replace('Z', '+00:00'))
+                member_since = created_date.strftime('%b %Y').upper()
+            except:
+                pass
+        
+        # Get report statistics for this user
+        report_stats = db_service.db.child('stats_user_reports').child('by_reported_user').child(user_id).get()
+        cheatin_reports = 0
+        turd_reports = 0
+        
+        if report_stats:
+            cheatin_reports = report_stats.get('cheatin_count', 0)
+            turd_reports = report_stats.get('is_a_turd_count', 0)
+        
+        # Return only public information
+        public_profile = {
+            'username': user_data.get('username', username),
+            'member_since': member_since,
+            'subscription_type': user_data.get('subscription_type', 'free'),
+            'total_games': stats.get('total_sessions', 0) if stats else 0,
+            'total_horses': stats.get('total_targets_popped', 0) if stats else 0,
+            'best_time_seconds': stats.get('best_time_seconds') if stats else None,
+            'horspass_level': horspass_level,
+            'cheatin_reports': cheatin_reports,
+            'turd_reports': turd_reports
+        }
+        
+        return jsonify({
+            'success': True,
+            'user': public_profile
+        })
+        
+    except Exception as e:
+        print(f"Error getting user profile: {e}")
+        return jsonify({
+            'success': False,
+            'message': 'Error loading profile'
+        }), 500
+
+@bp.route('/api/report-player', methods=['POST'])
+def report_player():
+    """Submit a player report for analytics tracking."""
+    try:
+        if not g.user:
+            return jsonify({'error': 'Not authenticated'}), 401
+        
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'No data provided'}), 400
+        
+        reported_username = data.get('reported_username')
+        report_type = data.get('report_type')
+        
+        if not reported_username or not report_type:
+            return jsonify({'error': 'Missing required fields'}), 400
+        
+        if report_type not in ['CHEATIN', 'IS A TURD']:
+            return jsonify({'error': 'Invalid report type'}), 400
+        
+        db_service = DatabaseService()
+        reporter_user_id = g.user.get('unique_user_id')
+        reporter_username = g.user.get('username', 'Unknown')
+        
+        if not reporter_user_id:
+            return jsonify({'error': 'Reporter user ID not found'}), 400
+        
+        # Look up reported user
+        username_index = db_service.db.child('usernames_index').child(reported_username).get()
+        if not username_index:
+            return jsonify({'error': 'Reported user not found'}), 404
+        
+        reported_user_id = username_index.get('user_id')
+        
+        # Prevent self-reporting
+        if reporter_user_id == reported_user_id:
+            return jsonify({'error': 'Cannot report yourself'}), 400
+        
+        # Create report record
+        report_id = str(uuid.uuid4())
+        report_data = {
+            'reported_user_id': reported_user_id,
+            'reported_username': reported_username,
+            'reporter_user_id': reporter_user_id,
+            'reporter_username': reporter_username,
+            'report_type': report_type,
+            'created_at': datetime.utcnow().isoformat() + 'Z',
+            'context': data.get('context', 'unknown')
+        }
+        
+        # Save report
+        db_service.db.child('user_reports').child(report_id).set(report_data)
+        
+        # Update analytics aggregations
+        _update_report_analytics(db_service, reported_user_id, reporter_user_id, report_type)
+        
+        return jsonify({
+            'success': True,
+            'message': f'Reported {reported_username} for {report_type}',
+            'report_id': report_id
+        })
+        
+    except Exception as e:
+        print(f"Error submitting report: {e}")
+        return jsonify({'error': 'Internal server error'}), 500
+
+def _update_report_analytics(db_service, reported_user_id, reporter_user_id, report_type):
+    """Update analytics aggregations for reports."""
+    try:
+        # Update reported user analytics
+        reported_analytics_ref = db_service.db.child('stats_user_reports').child('by_reported_user').child(reported_user_id)
+        reported_analytics = reported_analytics_ref.get() or {}
+        
+        reported_analytics['total_reports'] = reported_analytics.get('total_reports', 0) + 1
+        reported_analytics[f'{report_type.lower().replace(" ", "_")}_count'] = reported_analytics.get(f'{report_type.lower().replace(" ", "_")}_count', 0) + 1
+        
+        if not reported_analytics.get('first_reported'):
+            reported_analytics['first_reported'] = datetime.utcnow().isoformat() + 'Z'
+        reported_analytics['last_reported'] = datetime.utcnow().isoformat() + 'Z'
+        
+        reported_analytics_ref.set(reported_analytics)
+        
+        # Update reporter analytics
+        reporter_analytics_ref = db_service.db.child('stats_user_reports').child('by_reporter').child(reporter_user_id)
+        reporter_analytics = reporter_analytics_ref.get() or {}
+        
+        reporter_analytics['total_reports_made'] = reporter_analytics.get('total_reports_made', 0) + 1
+        reporter_analytics[f'{report_type.lower().replace(" ", "_")}_reports_made'] = reporter_analytics.get(f'{report_type.lower().replace(" ", "_")}_reports_made', 0) + 1
+        
+        if not reporter_analytics.get('first_report_made'):
+            reporter_analytics['first_report_made'] = datetime.utcnow().isoformat() + 'Z'
+        reporter_analytics['last_report_made'] = datetime.utcnow().isoformat() + 'Z'
+        
+        reporter_analytics_ref.set(reporter_analytics)
+        
+    except Exception as e:
+        print(f"Error updating report analytics: {e}")
+
+@bp.route('/api/report-analytics', methods=['GET'])
+def get_report_analytics():
+    """Get report analytics data."""
+    try:
+        db_service = DatabaseService()
+        
+        # Get query parameters
+        analytics_type = request.args.get('type', 'summary')  # summary, top_reported, top_reporters
+        limit = request.args.get('limit', 10, type=int)
+        
+        if analytics_type == 'summary':
+            # Get overall summary stats
+            all_reports = db_service.db.child('user_reports').get() or {}
+            
+            total_reports = len(all_reports)
+            cheatin_reports = sum(1 for r in all_reports.values() if r.get('report_type') == 'CHEATIN')
+            turd_reports = sum(1 for r in all_reports.values() if r.get('report_type') == 'IS A TURD')
+            
+            # Get unique users
+            reported_users = set(r.get('reported_user_id') for r in all_reports.values())
+            reporters = set(r.get('reporter_user_id') for r in all_reports.values())
+            
+            return jsonify({
+                'success': True,
+                'analytics': {
+                    'total_reports': total_reports,
+                    'cheatin_reports': cheatin_reports,
+                    'turd_reports': turd_reports,
+                    'unique_reported_users': len(reported_users),
+                    'unique_reporters': len(reporters)
+                }
+            })
+            
+        elif analytics_type == 'top_reported':
+            # Get most reported users
+            reported_analytics = db_service.db.child('stats_user_reports').child('by_reported_user').get() or {}
+            
+            top_reported = []
+            for user_id, stats in reported_analytics.items():
+                top_reported.append({
+                    'user_id': user_id,
+                    'total_reports': stats.get('total_reports', 0),
+                    'cheatin_count': stats.get('cheatin_count', 0),
+                    'is_a_turd_count': stats.get('is_a_turd_count', 0),
+                    'first_reported': stats.get('first_reported'),
+                    'last_reported': stats.get('last_reported')
+                })
+            
+            # Sort by total reports
+            top_reported.sort(key=lambda x: x['total_reports'], reverse=True)
+            
+            return jsonify({
+                'success': True,
+                'analytics': top_reported[:limit]
+            })
+            
+        elif analytics_type == 'top_reporters':
+            # Get most active reporters
+            reporter_analytics = db_service.db.child('stats_user_reports').child('by_reporter').get() or {}
+            
+            top_reporters = []
+            for user_id, stats in reporter_analytics.items():
+                top_reporters.append({
+                    'user_id': user_id,
+                    'total_reports_made': stats.get('total_reports_made', 0),
+                    'cheatin_reports_made': stats.get('cheatin_reports_made', 0),
+                    'is_a_turd_reports_made': stats.get('is_a_turd_reports_made', 0),
+                    'first_report_made': stats.get('first_report_made'),
+                    'last_report_made': stats.get('last_report_made')
+                })
+            
+            # Sort by total reports made
+            top_reporters.sort(key=lambda x: x['total_reports_made'], reverse=True)
+            
+            return jsonify({
+                'success': True,
+                'analytics': top_reporters[:limit]
+            })
+        
+        else:
+            return jsonify({'error': 'Invalid analytics type'}), 400
+            
+    except Exception as e:
+        print(f"Error getting report analytics: {e}")
+        return jsonify({'error': 'Internal server error'}), 500
+
 @bp.route('/api/database/initialize', methods=['POST'])
 def initialize_database():
     """Initialize the database with basic structure (admin only)."""
