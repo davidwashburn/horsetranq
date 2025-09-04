@@ -542,6 +542,10 @@
 }
 html {
   font-size: 62.5%;
+  overscroll-behavior: none;
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: none;
+  -webkit-overflow-scrolling: touch;
 }
 html * {
   -webkit-font-smoothing: antialiased;
@@ -553,7 +557,10 @@ body {
   font-family: 'Nunito', "Open Sans", sans-serif;
   color: var(--v3-color-primary);
   position: relative;
+  overscroll-behavior: none;
+  overscroll-behavior-x: none;
   overscroll-behavior-y: none;
+  -webkit-overflow-scrolling: touch;
   cursor: default;
   background: var(--v3-bg-primary-gradient);
 }
@@ -602,6 +609,57 @@ input:focus {
 .card {
   padding: 0 0 1em;
   max-width: 340px;
+}
+
+/* Rule Cards for BE A HERO section */
+.rule-card {
+  position: relative;
+  padding: 2rem;
+  background: var(--v3-background-overlay);
+  border-radius: var(--radius-xl);
+  border: 3px solid var(--v3-color-primary);
+  transition: .15s ease-in-out;
+  overflow: visible;
+}
+
+.rule-card:hover {
+  transform: translate(3px, 3px);
+  background: rgba(0,0,0,0.3);
+  border-color: var(--v3-color-accent-gold);
+}
+
+.rule-number-badge {
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--v3-bg-accent-gold-gradient);
+  border: 4px solid var(--v3-color-primary-dark);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  z-index: 10;
+}
+
+.rule-title {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.rule-description {
+  line-height: 1.5;
+}
+
+/* Responsive rule cards - only custom transforms */
+@media (min-width: 1024px) {
+  /* Stagger the cards slightly */
+  .rule-card:nth-child(1) { transform: rotate(-2deg); }
+  .rule-card:nth-child(2) { transform: rotate(1deg); margin-top: 20px; }
+  .rule-card:nth-child(3) { transform: rotate(-1deg); }
+  
+  .rule-card:hover {
+    transform: rotate(0deg) translate(3px, 3px);
+  }
 }
 
 /* Data/Detail item containers */
@@ -688,7 +746,10 @@ input:focus {
   position: relative;
 }
 
-#profile-dropdown {
+/* All dropdown menus - shared styles */
+#profile-dropdown,
+#stable-dropdown,
+#about-dropdown {
   position: fixed;
   display: none;
   flex-direction: column;
@@ -699,22 +760,10 @@ input:focus {
   left: 0;
 }
 
-#profile-dropdown.show {
-    display: flex;
-}
-
-#stable-dropdown {
-  position: fixed;
-  display: none;
-  flex-direction: column;
-  background: transparent;
-  min-width: 150px;
-  z-index: 10000;
-  top: 0;
-  left: 0;
-}
-
-#stable-dropdown.show {
+/* Show state for all dropdowns */
+#profile-dropdown.show,
+#stable-dropdown.show,
+#about-dropdown.show {
   display: flex;
 }
 
@@ -773,8 +822,6 @@ input:focus {
 }
 
 /* Index page styles */
-#index {}
-
 #hero-square {
   padding: 10px;
   height: min-content;
@@ -857,7 +904,8 @@ input:focus {
 #profile .hero-section,
 #scores .hero-section,
 #store .hero-section,
-#about .hero-section {
+#about .hero-section,
+#news .hero-section {
   margin: 10em auto;
 }
 #index .hero-section {
@@ -950,7 +998,6 @@ input:focus {
 /* Cells */
 .scoreboard-table th,
 .scoreboard-table td {
-  border-right: 1px solid #114a3c;
   padding: var(--margin-md);
   vertical-align: middle;
   min-height: 3.5rem;
@@ -1003,6 +1050,10 @@ input:focus {
 .main-content {
   overflow-y: scroll;
   overflow-x: visible;
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
+  overscroll-behavior-x: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Initial state for page animation - hide content by default */

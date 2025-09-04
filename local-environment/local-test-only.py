@@ -4,6 +4,23 @@ import uuid
 import random
 import string
 import os
+import sys
+
+# Add the parent directory to sys.path so we can import news_data directly
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Import news_data directly to avoid importing the full app package
+import importlib.util
+news_data_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'app', 'news_data.py')
+spec = importlib.util.spec_from_file_location("news_data", news_data_path)
+news_data = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(news_data)
+
+# Now we can use the functions
+get_latest_features = news_data.get_latest_features
+get_latest_fixes = news_data.get_latest_fixes
+get_latest_deprecated = news_data.get_latest_deprecated
+NEWS_DATA = news_data.NEWS_DATA
 
 # Get the parent directory (project root) for templates and static files
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -143,6 +160,9 @@ def get_account_context():
 def index():
     context = get_account_context()
     context['current_page'] = 'STABLE'
+    context['latest_features'] = get_latest_features(3)
+    context['latest_fixes'] = get_latest_fixes(3)
+    context['latest_deprecated'] = get_latest_deprecated(3)
     return render_template('index.html', **context)
 
 @app.route('/store')
@@ -168,6 +188,13 @@ def about():
     context = get_account_context()
     context['current_page'] = 'ABOUT'
     return render_template('about.html', **context)
+
+@app.route('/news')
+def news():
+    context = get_account_context()
+    context['current_page'] = 'NEWS'
+    context['news_data'] = NEWS_DATA
+    return render_template('news.html', **context)
 
 @app.route('/profile')
 def profile():

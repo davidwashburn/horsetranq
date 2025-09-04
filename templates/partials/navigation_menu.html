@@ -1,10 +1,10 @@
 <nav class="nav-menu">
-	<a href="/" class="nav-menu-item nav-dropdown font-size-sm font-weight-xl shadow-white-md nav-toggle-trigger color-accent-grey-dark {% if current_page == 'STABLE' or current_page == 'HORSPLAY' or current_page == 'LEMON DROP' %}active{% endif %}" id="stable-nav-item">STABL</a>
+	<a href="#" class="nav-menu-item nav-dropdown font-size-sm font-weight-xl shadow-white-md nav-toggle-trigger color-accent-grey-dark {% if current_page == 'STABLE' or current_page == 'HORSPLAY' or current_page == 'LEMON DROP' %}active{% endif %}" id="stable-nav-item">STABL</a>
 	<a href="/store" class="nav-menu-item font-size-sm font-weight-xl shadow-white-md color-accent-grey-dark {% if current_page == 'STOR' %}active{% endif %}">STOR</a>
-	<a href="/about" class="nav-menu-item font-size-sm font-weight-xl shadow-white-md color-accent-grey-dark {% if current_page == 'ABOUT' %}active{% endif %}">ABOUT</a>
+	<a href="#" class="nav-menu-item nav-dropdown font-size-sm font-weight-xl shadow-white-md nav-toggle-trigger color-accent-grey-dark {% if current_page == 'ABOUT' or current_page == 'NEWS' %}active{% endif %}" id="about-nav-item">ABOUT</a>
 	<a href="/scores" class="nav-menu-item font-size-sm font-weight-xl shadow-white-md color-accent-grey-dark {% if current_page == 'SCORES' %}active{% endif %}">SCORS</a>
 	{% if logged_in %}
-		<a href="/profile" class="nav-menu-item nav-dropdown font-size-sm font-weight-xl shadow-white-md nav-toggle-trigger color-accent-grey-dark {% if current_page == 'PROFILE' %}active{% endif %}" id="profile-nav-item" style="max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-block;">{{ username }}</a>
+		<a href="#" class="nav-menu-item nav-dropdown font-size-sm font-weight-xl shadow-white-md nav-toggle-trigger color-accent-grey-dark {% if current_page == 'PROFILE' %}active{% endif %}" id="profile-nav-item">PROFIL</a>
 	{% else %}
 		<a href="/login" class="nav-menu-item font-size-sm font-weight-xl shadow-white-md color-accent-grey-dark">SIGN IN</a>
 	{% endif %}
@@ -13,100 +13,139 @@
 <!-- Dropdown positioned outside nav structure -->
 {% if logged_in %}
 <div class="nav-dropdown-menu" id="profile-dropdown">
+	<a href="/profile" class="nav-menu-item nav-dropdown-item button shadow-white-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet color-accent-grey-dark" style="max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-block;">{{ username }}</a>
 	<a href="/logout" class="nav-menu-item nav-dropdown-item button shadow-red-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet color-accent-white">SIGN OUT</a>
 </div>
 {% endif %}
 
 <!-- STABLE Dropdown positioned outside nav structure -->
 <div class="nav-dropdown-menu" id="stable-dropdown">
+	<a href="/" class="nav-menu-item nav-dropdown-item button shadow-white-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet color-accent-grey-dark {% if current_page == 'STABLE' %}active{% endif %}">STABL</a>
 	<a href="/horsplay" class="nav-menu-item nav-dropdown-item button shadow-white-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet color-accent-grey-dark {% if current_page == 'HORSPLAY' %}active{% endif %}">PLAY HORSPLAY</a>
 	<a href="/lemondrop" class="nav-menu-item nav-dropdown-item button shadow-white-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet color-accent-grey-dark {% if current_page == 'LEMON DROP' %}active{% endif %}">PLAY LEMONDROP</a>
 </div>
 
+<!-- ABOUT Dropdown positioned outside nav structure -->
+<div class="nav-dropdown-menu" id="about-dropdown">
+	<a href="/about" class="nav-menu-item nav-dropdown-item button shadow-white-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet color-accent-grey-dark {% if current_page == 'ABOUT' %}active{% endif %}">FAQ</a>
+	<a href="/news" class="nav-menu-item nav-dropdown-item button shadow-white-md font-weight-xl font-size-sm margin-sm-desktop margin-sm-phone margin-sm-tablet color-accent-grey-dark {% if current_page == 'NEWS' %}active{% endif %}">NEWS</a>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // STABLE dropdown logic - always available
+    // Helper function to hide all dropdowns
+    function hideAllDropdowns() {
+        const dropdowns = ['stable-dropdown', 'about-dropdown', 'profile-dropdown'];
+        dropdowns.forEach(id => {
+            const dropdown = document.getElementById(id);
+            if (dropdown) {
+                dropdown.classList.remove('show');
+            }
+        });
+    }
+
+    // STABLE dropdown logic - click-based
     const stableNavItem = document.getElementById('stable-nav-item');
     const stableDropdown = document.getElementById('stable-dropdown');
     
     if (stableNavItem && stableDropdown) {
-        let stableHoverTimeout;
-        
         function showStableDropdown() {
+            hideAllDropdowns();
             const rect = stableNavItem.getBoundingClientRect();
             stableDropdown.style.top = (rect.bottom + 4) + 'px';
             stableDropdown.style.left = rect.left + 'px';
             stableDropdown.classList.add('show');
         }
         
-        function hideStableDropdown() {
-            stableDropdown.classList.remove('show');
+        function toggleStableDropdown() {
+            if (stableDropdown.classList.contains('show')) {
+                stableDropdown.classList.remove('show');
+            } else {
+                showStableDropdown();
+            }
         }
         
-        // Show dropdown on hover
-        stableNavItem.addEventListener('mouseenter', function() {
-            clearTimeout(stableHoverTimeout);
-            showStableDropdown();
-        });
-        
-        // Hide dropdown when leaving nav item
-        stableNavItem.addEventListener('mouseleave', function() {
-            stableHoverTimeout = setTimeout(hideStableDropdown, 100);
-        });
-        
-        // STABLE button now behaves as a normal link - no click interference
-        
-        // Keep dropdown open when hovering over it
-        stableDropdown.addEventListener('mouseenter', function() {
-            clearTimeout(stableHoverTimeout);
-        });
-        
-        // Hide dropdown when leaving dropdown
-        stableDropdown.addEventListener('mouseleave', function() {
-            hideStableDropdown();
+        // Show/hide dropdown on click
+        stableNavItem.addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleStableDropdown();
         });
     }
 
-    // Profile dropdown logic - only when logged in
+    // ABOUT dropdown logic - click-based
+    const aboutNavItem = document.getElementById('about-nav-item');
+    const aboutDropdown = document.getElementById('about-dropdown');
+    
+    if (aboutNavItem && aboutDropdown) {
+        function showAboutDropdown() {
+            hideAllDropdowns();
+            const rect = aboutNavItem.getBoundingClientRect();
+            aboutDropdown.style.top = (rect.bottom + 4) + 'px';
+            aboutDropdown.style.left = rect.left + 'px';
+            aboutDropdown.classList.add('show');
+        }
+        
+        function toggleAboutDropdown() {
+            if (aboutDropdown.classList.contains('show')) {
+                aboutDropdown.classList.remove('show');
+            } else {
+                showAboutDropdown();
+            }
+        }
+        
+        // Show/hide dropdown on click
+        aboutNavItem.addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleAboutDropdown();
+        });
+    }
+
+    // Profile dropdown logic - click-based, only when logged in
     const profileNavItem = document.getElementById('profile-nav-item');
     const profileDropdown = document.getElementById('profile-dropdown');
     
     if (profileNavItem && profileDropdown) {
-        let hoverTimeout;
-        
-        function showDropdown() {
+        function showProfileDropdown() {
+            hideAllDropdowns();
             const rect = profileNavItem.getBoundingClientRect();
             profileDropdown.style.top = (rect.bottom + 4) + 'px';
             profileDropdown.style.left = rect.left + 'px';
             profileDropdown.classList.add('show');
         }
         
-        function hideDropdown() {
-            profileDropdown.classList.remove('show');
+        function toggleProfileDropdown() {
+            if (profileDropdown.classList.contains('show')) {
+                profileDropdown.classList.remove('show');
+            } else {
+                showProfileDropdown();
+            }
         }
         
-        // Show dropdown on hover
-        profileNavItem.addEventListener('mouseenter', function() {
-            clearTimeout(hoverTimeout);
-            showDropdown();
-        });
-        
-        // Hide dropdown when leaving nav item
-        profileNavItem.addEventListener('mouseleave', function() {
-            hoverTimeout = setTimeout(hideDropdown, 100);
-        });
-        
-        // Profile button now behaves as a normal link - no click interference
-        
-        // Keep dropdown open when hovering over it
-        profileDropdown.addEventListener('mouseenter', function() {
-            clearTimeout(hoverTimeout);
-        });
-        
-        // Hide dropdown when leaving dropdown
-        profileDropdown.addEventListener('mouseleave', function() {
-            hideDropdown();
+        // Show/hide dropdown on click
+        profileNavItem.addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleProfileDropdown();
         });
     }
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+        const dropdownData = [
+            { dropdown: 'stable-dropdown', navItem: 'stable-nav-item' },
+            { dropdown: 'about-dropdown', navItem: 'about-nav-item' },
+            { dropdown: 'profile-dropdown', navItem: 'profile-nav-item' }
+        ];
+        
+        dropdownData.forEach(data => {
+            const dropdown = document.getElementById(data.dropdown);
+            const navItem = document.getElementById(data.navItem);
+            
+            if (dropdown && navItem && 
+                !dropdown.contains(e.target) && 
+                !navItem.contains(e.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
+    });
 });
 </script>

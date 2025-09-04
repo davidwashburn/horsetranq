@@ -176,6 +176,38 @@ if (rankedPlayBtn) {
 
 
 window.onload = function() {
+	
+	// Prevent overscroll and pull-to-refresh on mobile devices
+	document.body.style.overscrollBehavior = 'none';
+	document.documentElement.style.overscrollBehavior = 'none';
+	
+	// Prevent default touch behaviors that can cause overscroll
+	document.addEventListener('touchstart', function(e) {
+		// Allow touch events but prevent overscroll
+		if (e.touches.length > 1) {
+			e.preventDefault(); // Prevent pinch zoom
+		}
+	}, { passive: false });
+	
+	document.addEventListener('touchmove', function(e) {
+		// Prevent overscroll by stopping touch move when at boundaries
+		var target = e.target;
+		var scrollableParent = target.closest('.main-content, .cd-filter, .modal-content');
+		
+		if (!scrollableParent) {
+			// If not in a scrollable container, prevent all touch move
+			e.preventDefault();
+		} else {
+			// Check if we're at scroll boundaries
+			var atTop = scrollableParent.scrollTop <= 0;
+			var atBottom = scrollableParent.scrollTop >= (scrollableParent.scrollHeight - scrollableParent.clientHeight);
+			
+			if ((atTop && e.touches[0].clientY > e.touches[0].startY) || 
+				(atBottom && e.touches[0].clientY < e.touches[0].startY)) {
+				e.preventDefault();
+			}
+		}
+	}, { passive: false });
 
 	// Function for custom settings dropdowns with live preview //
 	document.querySelectorAll('.custom-select').forEach(select => {

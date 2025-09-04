@@ -1,11 +1,15 @@
 from flask import Blueprint, render_template, session, g
 from .database_service import DatabaseService
+from .news_data import get_latest_features, get_latest_fixes, get_latest_deprecated, NEWS_DATA
 
 bp = Blueprint("main", __name__)
 
 @bp.get("/")
 def home():
-    return render_template("index.html", current_page='STABLE')
+    latest_features = get_latest_features(3)
+    latest_fixes = get_latest_fixes(3)
+    latest_deprecated = get_latest_deprecated(3)
+    return render_template("index.html", current_page='STABLE', latest_features=latest_features, latest_fixes=latest_fixes, latest_deprecated=latest_deprecated)
 
 @bp.get("/store")
 def store():
@@ -52,7 +56,11 @@ def lemondrop():
 def about():
     return render_template("about.html", current_page='ABOUT')
 
-@bp.get("/profile")
+@bp.get("/news")
+def news():
+    return render_template("news.html", current_page='NEWS', news_data=NEWS_DATA)
+
+@bp.get("/profile") 
 def profile():
     db_service = DatabaseService()
     user_stats = {}

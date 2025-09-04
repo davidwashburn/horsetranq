@@ -2,7 +2,10 @@
 <html lang="en" class="no-js">
 	<head>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="format-detection" content="telephone=no">
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;900&display=swap" rel="stylesheet">
@@ -109,7 +112,7 @@
 				</div>
 
 				<!-- Accordion Sections Parent -->
-				<div class="main-section flex-row-desktop flex-justify-center flex-align-center">
+				<div class="main-section flex-column-desktop flex-justify-center flex-align-center">
 					<div class="flex-column-desktop flex-column-tablet flex-column-phone flex-justify-center flex-align-items-start width-md-desktop width-xl-phone width-md-tablet margin-auto-all ">
 						<div class="flex-row-desktop flex-align-items-start text-left font-size-lg">
 							<div class="main-label bg-accent-gold color-accent-grey-dark margin-lg-desktop margin-sm-phone margin-lg-tablet padding-md-all">BE A HERO - LEARN TEH RULES</div>
@@ -118,60 +121,168 @@
 							<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-md font-weight-lg color-accent-white">Horstranq is an high-powerd hybred arcade-styl <span class="color-accent-gold">hors tranqulizer mayham</span> game! Learn how to play belo.</p>
 						</div>
 					</div>
+                    <div class="rules-container flex-row-desktop flex-row-tablet flex-column-phone gap-xl-all gap-lg-tablet flex-justify-center flex-align-items-start width-full-all margin-auto-all padding-xl-all">
+						<!-- Rule 1: Tranq Everything -->
+						<div class="rule-card width-full-all width-sm-desktop width-md-tablet">
+							<div class="rule-number-badge flex-row-all flex-justify-center flex-align-items-center font-size-xl font-weight-xl color-accent-grey-dark">1</div>
+							<h3 class="rule-title font-size-lg font-weight-xl color-accent-gold margin-lg-all">TRANQ EVRYTING</h3>
+							<p class="rule-description font-size-md font-weight-md color-accent-white">
+								Shoot evry movin objct on scren until ther ar non left. Evry successfl <span class="color-accent-gold font-weight-xl">tranq</span> gets u closr to victry! No hors is saf.
+							</p>
+						</div>
+
+						<!-- Rule 2: Earn XP -->
+						<div class="rule-card width-full-all width-sm-desktop width-md-tablet">
+							<div class="rule-number-badge flex-row-all flex-justify-center flex-align-items-center font-size-xl font-weight-xl color-accent-grey-dark">2</div>
+							<h3 class="rule-title font-size-lg font-weight-xl color-accent-gold margin-lg-all">EARN XP FOR HORSPASS</h3>
+							<p class="rule-description font-size-md font-weight-md color-accent-white">
+								Everyting u tranqlize earns you <span class="color-accent-gold font-weight-xl">XP</span>. Colect XP to unlok 10 uniq HorsPass rewards an achievies. Mor tranqs = mor unloks!
+							</p>
+						</div>
+
+						<!-- Rule 3: Competitive Ranked -->
+						<div class="rule-card width-full-all width-sm-desktop width-md-tablet">
+							<div class="rule-number-badge flex-row-all flex-justify-center flex-align-items-center font-size-xl font-weight-xl color-accent-grey-dark">3</div>
+							<h3 class="rule-title font-size-lg font-weight-xl color-accent-gold margin-lg-all">PLAY COMPETIV RANK MOAD</h3>
+							<p class="rule-description font-size-md font-weight-md color-accent-white">
+								Compet against othrs playrs in <span class="color-accent-gold font-weight-xl">rankd mode</span>. Check the scorbord to see how gud you stack tehm! Climb rank an reach HorsPass lvl 999.
+							</p>
+						</div>
+					</div>
 				</div>
 
-				<!-- Game Information Sections -->
-					<div class="main-section flex-column-all gap-xxl-all">
-						<div class="flex-row-desktop flex-row-phone flex-align-center flex-justify-center margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-md-tablet width-xl-phone gap-xl-all">
-							<div class="width-sm-desktop width-lg-phone margin-auto-phone shadow-green-md border-radius-xxl">
-								<img src="/static/img/branding/horsetranq-v3.png" alt="Horsetranq">
+				<!-- Latest Updates Section -->
+				<div class="main-section bg-primary-dark-gradient width-full-all">
+					<div class="flex-column-all gap-lg-all padding-xl-all border-radius-xl">
+						<div class="flex-column-desktop flex-column-tablet flex-column-phone flex-justify-center flex-align-items-start width-md-desktop width-xl-phone width-md-tablet margin-auto-all">
+							<div class="flex-row-desktop flex-align-items-start text-left font-size-lg">
+								<div class="main-label bg-accent-gold color-accent-grey-dark margin-lg-desktop margin-sm-phone margin-lg-tablet padding-md-all">RECENT PATCHIE NOTES</div>
 							</div>
-							<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop">
-								<div class="flex-column-desktop flex-align-items-start text-left">
-									<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-md font-weight-xl color-accent-white">
-										Our HorsPass S2 offer unmatch contant and rewards. Acess <span class="color-accent-gold">10 uniq unlokable itams</span> by playin Horsplay an tranq as many horse as possable. Score based on total horsas tranqted.
-									</p>
-								</div>
-								<div class="button shadow-white-md font-weight-xl font-size-md margin-lg-desktop margin-sm-phone margin-lg-tablet">
-									<a href="/horsplay" class="color-accent-gold">
-										VIEW HORSPASS
-									</a>
-								</div>
+							<div class="flex-row-desktop flex-align-items-start text-left">
+								<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-md font-weight-lg color-accent-white">Be a studant of teh meta. Reade th latest patch fix bug noets n be rady for teh <span class="color-accent-gold font-weight-xl">MASIVE SHIFT IN META</span>! Wat a time 2 be aliv.</p>
 							</div>
+							
 						</div>
-						<div class="flex-row-desktop flex-row-reverse-phone flex-align-center flex-justify-center margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-md-tablet width-xl-phone gap-xl-all">
-							<div class="width-sm-desktop width-lg-phone margin-auto-phone shadow-green-md border-radius-xxl">
-								<img src="/static/img/branding/horsetranq-v3.png" alt="Horsetranq">
-							</div>
-							<div class=" flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop">
-								<div class="flex-row-desktop flex-align-items-start text-left">
-									<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-md font-weight-xl color-accent-white">See how ur tranqing skil stak up against other playars. Compeet for a spot on teh top 100 hundred list.</p>
+						
+						<div class="flex-row-desktop flex-row-tablet flex-column-phone flex-justify-center flex-align-items-center margin-auto-all gap-xl-all" style="display: flex; justify-content: center;">
+							<!-- New Features Card -->
+							<div class="flex-column-desktop flex-column-tablet flex-column-phone flex-justify-center flex-align-items-start width-sm-desktop width-xl-phone width-md-tablet border-radius-xl shadow-green-md">
+								<div class="flex-row-all flex-align-items-center gap-md-all">
+									<h2 class="font-size-xl font-weight-xl color-accent-white">New fetures</h2>
 								</div>
-								<div class="button shadow-white-md font-weight-xl font-size-md margin-lg-desktop margin-sm-phone margin-lg-tablet">
-									<a href="/horsplay" class="color-accent-gold">
-										VIEW TOP 100
-									</a>
+								<div class="flex-column-all gap-md-all">
+									
+									<div class="flex-row-all flex-align-items-start gap-sm-all">
+										<svg class="color-success-dark" style="width: 1em; height: 1em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+											<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"></circle>
+											<path d="M17,11H13V7a1,1,0,0,0-2,0v4H7a1,1,0,0,0,0,2h4v4a1,1,0,0,0,2,0V13h4a1,1,0,0,0,0-2Z" fill="currentColor"></path>
+										</svg>
+										<div class="flex-column-all gap-xs-all">
+											<div class="font-size-md color-accent-white">Horsplay Seasin 2 launch wit upcoming stor</div>
+											<div class="font-size-sm color-accent-grey-mid">v3.0.1 - Septembar 3, 2025</div>
+										</div>
+									</div>
+									
+									<div class="flex-row-all flex-align-items-start gap-sm-all">
+										<svg class="color-success-dark" style="width: 1em; height: 1em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+											<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"></circle>
+											<path d="M17,11H13V7a1,1,0,0,0-2,0v4H7a1,1,0,0,0,0,2h4v4a1,1,0,0,0,2,0V13h4a1,1,0,0,0,0-2Z" fill="currentColor"></path>
+										</svg>
+										<div class="flex-column-all gap-xs-all">
+											<div class="font-size-md color-accent-white">Sine in optins now allow user acount creation (no Google reqired)</div>
+											<div class="font-size-sm color-accent-grey-mid">v3.0.1 - Septembar 3, 2025</div>
+										</div>
+									</div>
+									
+									<div class="flex-row-all flex-align-items-start gap-sm-all">
+										<svg class="color-success-dark" style="width: 1em; height: 1em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+											<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"></circle>
+											<path d="M17,11H13V7a1,1,0,0,0-2,0v4H7a1,1,0,0,0,0,2h4v4a1,1,0,0,0,2,0V13h4a1,1,0,0,0,0-2Z" fill="currentColor"></path>
+										</svg>
+										<div class="flex-column-all gap-xs-all">
+											<div class="font-size-md color-accent-white">Aded hors movment on Horsplay for added difculty</div>
+											<div class="font-size-sm color-accent-grey-mid">v3.0.1 - Septembar 3, 2025</div>
+										</div>
+									</div>
+									
 								</div>
 							</div>
+							
+							<!-- Latest Fixes Card -->
+							<div class="flex-column-desktop flex-column-tablet flex-column-phone flex-justify-center flex-align-items-start width-sm-desktop width-xl-phone width-md-tablet border-radius-xl shadow-green-md">
+								<div class="flex-row-all flex-align-items-center gap-md-all">
+									<h2 class="font-size-xl font-weight-xl color-accent-white">Lates fixees</h2>
+								</div>
+								<div class="flex-column-all gap-md-all">
+									
+									<div class="flex-row-all flex-align-items-start gap-sm-all">
+										<svg class="color-primary" style="width: 1em; height: 1em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+											<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"></circle>
+											<path d="M9.5,17a1,1,0,0,1-.707-.293l-3-3a1,1,0,0,1,1.414-1.414L9.5,14.586l7.293-7.293a1,1,0,1,1,1.414,1.414l-8,8A1,1,0,0,1,9.5,17Z" fill="currentColor"></path>
+										</svg>
+										<div class="flex-column-all gap-xs-all">
+											<div class="font-size-md color-accent-white">Fixe database not updatin in some case aftar Horsplay ends</div>
+											<div class="font-size-sm color-accent-grey-mid">v3.0.1 - Septembar 3, 2025</div>
+										</div>
+									</div>
+									
+									<div class="flex-row-all flex-align-items-start gap-sm-all">
+										<svg class="color-primary" style="width: 1em; height: 1em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+											<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"></circle>
+											<path d="M9.5,17a1,1,0,0,1-.707-.293l-3-3a1,1,0,0,1,1.414-1.414L9.5,14.586l7.293-7.293a1,1,0,1,1,1.414,1.414l-8,8A1,1,0,0,1,9.5,17Z" fill="currentColor"></path>
+										</svg>
+										<div class="flex-column-all gap-xs-all">
+											<div class="font-size-md color-accent-white">Fixed bug wit navgation dropdown not opening or closng</div>
+											<div class="font-size-sm color-accent-grey-mid">v3.0.1 - Septembar 3, 2025</div>
+										</div>
+									</div>
+									
+									<div class="flex-row-all flex-align-items-start gap-sm-all">
+										<svg class="color-primary" style="width: 1em; height: 1em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+											<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"></circle>
+											<path d="M9.5,17a1,1,0,0,1-.707-.293l-3-3a1,1,0,0,1,1.414-1.414L9.5,14.586l7.293-7.293a1,1,0,1,1,1.414,1.414l-8,8A1,1,0,0,1,9.5,17Z" fill="currentColor"></path>
+										</svg>
+										<div class="flex-column-all gap-xs-all">
+											<div class="font-size-md color-accent-white">Fixe bug wit player profil not loadin on clik</div>
+											<div class="font-size-sm color-accent-grey-mid">v3.0.1 - Septembar 3, 2025</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							
+							<!-- Deprecated Features Card (only if there are any) -->
+							{% if latest_deprecated %}
+							<div class="flex-column-desktop flex-column-tablet flex-column-phone flex-justify-center flex-align-items-start width-sm-desktop width-xl-phone width-md-tablet border-radius-xl shadow-green-md">
+								<div class="flex-row-all flex-align-items-center gap-md-all">
+									<h2 class="font-size-xl font-weight-xl color-accent-white">Deprecatd</h2>
+								</div>
+								<div class="flex-column-all gap-md-all">
+									{% for deprecated in latest_deprecated %}
+									<div class="flex-row-all flex-align-items-start gap-sm-all">
+										<svg class="color-error-dark" style="width: 1em; height: 1em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+											<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"/>
+											<path d="M12,15a1,1,0,0,1-1-1V6a1,1,0,0,1,2,0v8A1,1,0,0,1,12,15Z" fill="currentColor"/><circle cx="12" cy="18" r="1" fill="currentColor"/>
+										</svg>
+										<div class="flex-column-all gap-xs-all">
+											<div class="font-size-md color-accent-white">{{ deprecated.text }}</div>
+											<div class="font-size-sm color-accent-grey-mid">{{ deprecated.version }} - {{ deprecated.date }}</div>
+										</div>
+									</div>
+									{% endfor %}
+								</div>
+							</div>
+							{% endif %}
 						</div>
-						<div class="flex-row-desktop flex-row-phone flex-align-center flex-justify-center margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-md-tablet width-xl-phone gap-xl-all">
-							<div class="width-sm-desktop width-lg-phone margin-auto-phone shadow-green-md border-radius-xxl">
-								<img src="/static/img/branding/horsetranq-v3.png" alt="Horsetranq">
-							</div>
-							<div class=" flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-md-desktop">
-								<div class="flex-row-desktop flex-align-items-start text-left">
-									<p class="margin-lg-desktop margin-sm-phone margin-lg-tablet font-size-md font-weight-xl color-accent-white">Donut b a sqare. Come play teh orignal hors tranqlizer game. Earn rwards an unlok ur dremes. Or at lest some hors memrobelia.</p>
-								</div>
-								<div class="button shadow-white-md font-weight-xl font-size-md margin-lg-desktop margin-sm-phone margin-lg-tablet">
-									<a href="/horsplay" class="color-accent-gold">
-										VIEW PASS
-									</a>
-								</div>
+						<div class="flex-column-desktop flex-column-tablet flex-column-phone flex-justify-center flex-align-items-center width-md-desktop width-xl-phone width-md-tablet margin-auto-all padding-xl-desktop padding-lg-phone padding-lg-tablet">
+							
+							
+							<div id="index-hero-button" class="button shadow-white-md font-weight-xl font-size-lg margin-lg-desktop margin-sm-phone margin-lg-tablet">
+								<a href="/news" class="color-accent-gold">VIEW PATCHIES</a>
 							</div>
 						</div>
 					</div>
-
-				<div class="main-section"></div>
+				</div>
 
 
 		</main> <!-- cd-main-content -->

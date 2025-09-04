@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+		<link rel="icon" type="image/x-icon" href="/static/img/ui/hors.ico">
+		<link rel="stylesheet" href="/static/css/reset.css"> <!-- CSS reset -->
+		<link rel="stylesheet" href="/static/css/style-v3.css"> <!-- New v3 style -->
+		<script src="/static/js/resources/modernizr.js"></script> <!-- Modernizr -->
+		<script src="https://cdn.auth0.com/js/auth0/9.18/auth0.min.js"></script>
+		<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+		<title>News - HOrstRnq</title>
+	</head>
+	<body>
+
+		<main id="news" class="main-content">
+			{% include 'partials/navigation_menu.html' %}
+
+			<!-- News Main Section -->
+			<div id="news" class="main-wrapper" data-animate="page-intro">
+				<div class="hero-section flex-column-desktop flex-column-tablet flex-column-phone margin-auto-desktop margin-auto-phone margin-auto-tablet width-md-desktop width-full-tablet width-xl-phone max-width-lg-all gap-xxl-all">
+					<section class="width-full-all">
+						<h1 class="hide">Updates</h1>
+						
+						<!-- Horsplay Season 2 Release -->
+						<article class="margin-xxl-desktop margin-lg-phone margin-xl-tablet">
+							<div class="flex-row-desktop flex-column-phone flex-column-tablet gap-xl-all flex-align-items-start">
+								<!-- metadata -->
+								<div class="width-md-desktop width-full-phone width-full-tablet">
+									<h2 class="font-size-xl font-weight-xl color-accent-white">v3.0.1</h2>
+									<time class="font-size-sm color-accent-grey-mid" datetime="2024-12-15">Septembar 3, 2025</time>
+								</div>
+								
+								<!-- content -->
+								<div class="width-lg-desktop width-full-phone width-full-tablet">
+									<div class="flex-column-all gap-lg-all">
+										<!-- new features -->
+										<div>
+											<h3 class="font-size-md color-accent-white font-weight-xl margin-md-all">New Features</h3>
+											
+											<ul class="flex-column-all gap-md-all">
+												<li class="flex-row-all flex-align-items-start gap-md-all">
+													<svg class="color-success-dark" style="width: 1.2em; height: 1.2em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+														<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"/>
+														<path d="M17,11H13V7a1,1,0,0,0-2,0v4H7a1,1,0,0,0,0,2h4v4a1,1,0,0,0,2,0V13h4a1,1,0,0,0,0-2Z" fill="currentColor"/>
+													</svg>
+													<div class="font-size-md color-accent-white">Horsplay Seasin 2 launch wit upcoming stor</div>
+												</li>
+												
+												<li class="flex-row-all flex-align-items-start gap-md-all">
+													<svg class="color-success-dark" style="width: 1.2em; height: 1.2em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+														<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"/>
+														<path d="M17,11H13V7a1,1,0,0,0-2,0v4H7a1,1,0,0,0,0,2h4v4a1,1,0,0,0,2,0V13h4a1,1,0,0,0,0-2Z" fill="currentColor"/>
+													</svg>
+													<div class="font-size-md color-accent-white">Sine in optins now allow user acount creation (no Google reqired)</div>
+												</li>
+												
+												<li class="flex-row-all flex-align-items-start gap-md-all">
+													<svg class="color-success-dark" style="width: 1.2em; height: 1.2em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+														<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"/>
+														<path d="M17,11H13V7a1,1,0,0,0-2,0v4H7a1,1,0,0,0,0,2h4v4a1,1,0,0,0,2,0V13h4a1,1,0,0,0,0-2Z" fill="currentColor"/>
+													</svg>
+													<div class="font-size-md color-accent-white">Aded hors movment on Horsplay for added difculty</div>
+												</li>
+											</ul>
+										</div>
+										
+										<!-- fixes -->
+										<div>
+											<h3 class="font-size-md color-accent-white font-weight-xl margin-md-all">Fixees</h3>
+											
+											<ul class="flex-column-all gap-md-all">
+												<li class="flex-row-all flex-align-items-start gap-md-all">
+													<svg class="color-primary" style="width: 1.2em; height: 1.2em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+														<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"/>
+														<path d="M9.5,17a1,1,0,0,1-.707-.293l-3-3a1,1,0,0,1,1.414-1.414L9.5,14.586l7.293-7.293a1,1,0,1,1,1.414,1.414l-8,8A1,1,0,0,1,9.5,17Z" fill="currentColor"/>
+													</svg>
+													<div class="font-size-md color-accent-white">Fixe database not updatin in some case aftar Horsplay ends</div>
+												</li>
+												
+												<li class="flex-row-all flex-align-items-start gap-md-all">
+													<svg class="color-primary" style="width: 1.2em; height: 1.2em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+														<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"/>
+														<path d="M9.5,17a1,1,0,0,1-.707-.293l-3-3a1,1,0,0,1,1.414-1.414L9.5,14.586l7.293-7.293a1,1,0,1,1,1.414,1.414l-8,8A1,1,0,0,1,9.5,17Z" fill="currentColor"/>
+													</svg>
+													<div class="font-size-md color-accent-white">Fixed bug wit navgation dropdown not opening or closng</div>
+												</li>
+												
+												<li class="flex-row-all flex-align-items-start gap-md-all">
+													<svg class="color-primary" style="width: 1.2em; height: 1.2em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+														<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"/>
+														<path d="M9.5,17a1,1,0,0,1-.707-.293l-3-3a1,1,0,0,1,1.414-1.414L9.5,14.586l7.293-7.293a1,1,0,1,1,1.414,1.414l-8,8A1,1,0,0,1,9.5,17Z" fill="currentColor"/>
+													</svg>
+													<div class="font-size-md color-accent-white">Fixe bug wit player profil not loadin on clik</div>
+												</li>
+												
+												<li class="flex-row-all flex-align-items-start gap-md-all">
+													<svg class="color-primary" style="width: 1.2em; height: 1.2em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+														<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"/>
+														<path d="M9.5,17a1,1,0,0,1-.707-.293l-3-3a1,1,0,0,1,1.414-1.414L9.5,14.586l7.293-7.293a1,1,0,1,1,1.414,1.414l-8,8A1,1,0,0,1,9.5,17Z" fill="currentColor"/>
+													</svg>
+													<div class="font-size-md color-accent-white">Fixed databas not properly colectin scores from Horsplay</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</article>
+						
+						<div class="bg-primary-dark-alt margin-xl-all" style="height: 1px;"></div>
+						
+						<!-- Website Redesign -->
+						<article class="margin-xxl-desktop margin-lg-phone margin-xl-tablet">
+							<div class="flex-row-desktop flex-column-phone flex-column-tablet gap-xl-all flex-align-items-start">
+								<!-- metadata -->
+								<div class="width-md-desktop width-full-phone width-full-tablet">
+									<h2 class="font-size-xl font-weight-xl color-accent-white">v3.0.0</h2>
+									<time class="font-size-sm color-accent-grey-mid" datetime="2024-11-20">Septembar 1, 2025</time>
+								</div>
+								
+								<!-- content -->
+								<div class="width-lg-desktop width-full-phone width-full-tablet">
+									<div class="flex-column-all gap-lg-all">
+										<!-- new features -->
+										<div>
+											<h3 class="font-size-md color-accent-white font-weight-xl margin-md-all">New fetures</h3>
+											
+											<ul class="flex-column-all gap-md-all">
+												<li class="flex-row-all flex-align-items-start gap-md-all">
+													<svg class="color-success-dark" style="width: 1.2em; height: 1.2em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+														<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"/>
+														<path d="M17,11H13V7a1,1,0,0,0-2,0v4H7a1,1,0,0,0,0,2h4v4a1,1,0,0,0,2,0V13h4a1,1,0,0,0,0-2Z" fill="currentColor"/>
+													</svg>
+													<div class="font-size-md color-accent-white">Aded new webcite designe wit modern UI elements</div>
+												</li>
+												
+												<li class="flex-row-all flex-align-items-start gap-md-all">
+													<svg class="color-success-dark" style="width: 1.2em; height: 1.2em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+														<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"/>
+														<path d="M17,11H13V7a1,1,0,0,0-2,0v4H7a1,1,0,0,0,0,2h4v4a1,1,0,0,0,2,0V13h4a1,1,0,0,0,0-2Z" fill="currentColor"/>
+													</svg>
+													<div class="font-size-md color-accent-white">Aded database scor and profile detales</div>
+												</li>
+												
+												<li class="flex-row-all flex-align-items-start gap-md-all">
+													<svg class="color-success-dark" style="width: 1.2em; height: 1.2em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+														<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"/>
+														<path d="M17,11H13V7a1,1,0,0,0-2,0v4H7a1,1,0,0,0,0,2h4v4a1,1,0,0,0,2,0V13h4a1,1,0,0,0,0-2Z" fill="currentColor"/>
+													</svg>
+													<div class="font-size-md color-accent-white">Adde playar reporting mechanix to track hakers</div>
+												</li>
+												
+												<li class="flex-row-all flex-align-items-start gap-md-all">
+													<svg class="color-success-dark" style="width: 1.2em; height: 1.2em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+														<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"/>
+														<path d="M17,11H13V7a1,1,0,0,0-2,0v4H7a1,1,0,0,0,0,2h4v4a1,1,0,0,0,2,0V13h4a1,1,0,0,0,0-2Z" fill="currentColor"/>
+													</svg>
+													<div class="font-size-md color-accent-white">Aded News page to trak game updates</div>
+												</li>
+											</ul>
+										</div>
+										
+										<!-- fixes -->
+										<div>
+											<h3 class="font-size-md color-accent-white font-weight-xl margin-md-all">Fixes</h3>
+											
+											<ul class="flex-column-all gap-md-all">
+												<li class="flex-row-all flex-align-items-start gap-md-all">
+													<svg class="color-primary" style="width: 1.2em; height: 1.2em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+														<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"/>
+														<path d="M9.5,17a1,1,0,0,1-.707-.293l-3-3a1,1,0,0,1,1.414-1.414L9.5,14.586l7.293-7.293a1,1,0,1,1,1.414,1.414l-8,8A1,1,0,0,1,9.5,17Z" fill="currentColor"/>
+													</svg>
+													<div class="font-size-md color-accent-white">Fixe overscrol page reload bug on Horsplay</div>
+												</li>
+												
+												<li class="flex-row-all flex-align-items-start gap-md-all">
+													<svg class="color-primary" style="width: 1.2em; height: 1.2em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+														<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"/>
+														<path d="M9.5,17a1,1,0,0,1-.707-.293l-3-3a1,1,0,0,1,1.414-1.414L9.5,14.586l7.293-7.293a1,1,0,1,1,1.414,1.414l-8,8A1,1,0,0,1,9.5,17Z" fill="currentColor"/>
+													</svg>
+													<div class="font-size-md color-accent-white">Fixd broken navgation links taht reload page</div>
+												</li>
+												
+												<li class="flex-row-all flex-align-items-start gap-md-all">
+													<svg class="color-primary" style="width: 1.2em; height: 1.2em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+														<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"/>
+														<path d="M9.5,17a1,1,0,0,1-.707-.293l-3-3a1,1,0,0,1,1.414-1.414L9.5,14.586l7.293-7.293a1,1,0,1,1,1.414,1.414l-8,8A1,1,0,0,1,9.5,17Z" fill="currentColor"/>
+													</svg>
+													<div class="font-size-md color-accent-white">Resolvd setings menu optins not saving in Horsplay</div>
+												</li>
+											</ul>
+										</div>
+										
+										<!-- deprecated features -->
+										<div>
+											<h3 class="font-size-md color-accent-white font-weight-xl margin-md-all">Deprecatd Fetures</h3>
+											
+											<ul class="flex-column-all gap-md-all">
+												<li class="flex-row-all flex-align-items-start gap-md-all">
+													<svg class="color-error-dark" style="width: 1.2em; height: 1.2em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+														<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"/>
+														<path d="M12,15a1,1,0,0,1-1-1V6a1,1,0,0,1,2,0v8A1,1,0,0,1,12,15Z" fill="currentColor"/><circle cx="12" cy="18" r="1" fill="currentColor"/>
+													</svg>
+													<div class="font-size-md color-accent-white">Remove old menu systim and navgation</div>
+												</li>
+												
+												<li class="flex-row-all flex-align-items-start gap-md-all">
+													<svg class="color-error-dark" style="width: 1.2em; height: 1.2em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
+														<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"/>
+														<path d="M12,15a1,1,0,0,1-1-1V6a1,1,0,0,1,2,0v8A1,1,0,0,1,12,15Z" fill="currentColor"/><circle cx="12" cy="18" r="1" fill="currentColor"/>
+													</svg>
+													<div class="font-size-md color-accent-white">Removd old gam refernces TrotTank n Gallop Gun</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</article>
+					</section>
+				</div>
+			</div>
+
+		</main> <!-- main-content -->
+
+		<script>
+			window.auth0UserId = '{{ user_id }}';
+			window.firebaseToken = '{{ firebase_token }}';
+		</script>
+		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+		<script type="module" src="/static/js/main.js"></script>
+		<script type="module" src="/static/js/firebase.js"></script>
+		<script>
+			// Make logged in status available to JavaScript
+			window.loggedIn = {{ 'true' if logged_in else 'false' }};
+			
+			// News page functionality - simple question expansion only
+			$(document).ready(function() {
+				// News question clicks
+				$('.news-question').on('click', function() {
+					var answer = $(this).next('.news-answer');
+					
+					// Toggle this answer
+					answer.slideToggle();
+					
+					// Toggle button state
+					$(this).toggleClass('active');
+				});
+			});
+		</script>
+		<script src="/static/js/secondary/username-editor.js"></script>
+		<script src="/static/js/secondary/account-button.js"></script>
+		<script src="/static/js/secondary/hide-avatar.js"></script>
+		<script src="/static/js/secondary/avatar-selector.js"></script>
+	</body>
+</html>
