@@ -371,17 +371,3 @@ jQuery(document).ready(function($){
     }
   );
 
-  // Index accordion functionality
-  $('#accordionToggle').on('click', function() {
-    var sections = $('#accordionSections');
-    var button = $(this);
-    
-    sections.toggleClass('open');
-    button.toggleClass('open');
-    
-    if (sections.hasClass('open')) {
-      button.text('SAY LESS FAM');
-    } else {
-      button.text('TELL ME MOAR, HOSS');
-    }
-  });
