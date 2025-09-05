@@ -664,14 +664,17 @@ input:focus {
 
 /* Data/Detail item containers */
 .data-item {
+  background: transparent;
   padding: var(--margin-md);
-  background: var(--v3-background-overlay);
-  border-radius: var(--radius-base);
-  border-bottom: 2px solid #106552;
+  border-bottom: 1px solid #3f977a;
   margin: 0;
   width: 100%;
-  transition: .1s ease-in-out;
+  transition: .1s 
+ease-in-out;
   z-index: 10;
+}
+#profile .data-item:hover {
+  background: transparent;
 }
 .data-item:hover {
   transform: translate(2px, 2px);
