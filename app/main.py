@@ -18,12 +18,26 @@ def store():
 @bp.get("/scores")
 @bp.get("/scoreboard") 
 def scores():
+    print("DEBUG: Scores route called - NEW VERSION WITH REPORT STATS")
     db_service = DatabaseService()
     
     # Get real data from database
     weekly_leaders = db_service.get_weekly_leaders('horsplay')
     aggregated_stats = db_service.get_aggregated_stats('horsplay')
     scoreboard = db_service.get_scoreboard_with_details('HP-S1', 10)
+    
+    # Get report stats with error handling
+    try:
+        report_stats = db_service.get_report_stats()
+    except Exception as e:
+        print(f"Error getting report stats: {e}")
+        # Provide fallback data
+        report_stats = {
+            'total_reports': 0,
+            'most_reported_player': None,
+            'cheat_reports': 0,
+            'turd_reports': 0
+        }
     
     return render_template("scores.html",
                          logged_in=g.user is not None,
@@ -35,7 +49,8 @@ def scores():
                          current_page='SCORES',
                          weekly_leaders=weekly_leaders,
                          aggregated_stats=aggregated_stats,
-                         scoreboard=scoreboard)
+                         scoreboard=scoreboard,
+                         report_stats=report_stats)
 
 @bp.get("/horsplay")
 def horsplay():

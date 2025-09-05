@@ -920,7 +920,8 @@ input:focus {
   #profile .hero-section,
   #scores .hero-section,
   #store .hero-section,
-  #about .hero-section {
+  #about .hero-section,
+  #news .hero-section {
     margin: 3em auto 4em;
   }
 }
@@ -930,7 +931,8 @@ input:focus {
   #profile .hero-section,
   #scores .hero-section,
   #store .hero-section,
-  #about .hero-section {
+  #about .hero-section,
+  #news .hero-section {
     margin: 3em auto 4em;
   }
 }

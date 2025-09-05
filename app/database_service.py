@@ -560,6 +560,55 @@ class DatabaseService:
             print(f"Error getting game: {e}")
             return None
     
+    def get_report_stats(self) -> Dict[str, Any]:
+        """Get report statistics for the scores page."""
+        try:
+            # Get all reports
+            all_reports = self.db.child('user_reports').get() or {}
+            
+            total_reports = len(all_reports)
+            cheat_reports = sum(1 for r in all_reports.values() if r.get('report_type') == 'CHEATIN')
+            turd_reports = sum(1 for r in all_reports.values() if r.get('report_type') == 'IS A TURD')
+            
+            # Get most reported player
+            most_reported_player = None
+            reported_analytics = self.db.child('stats_user_reports').child('by_reported_user').get() or {}
+            
+            if reported_analytics:
+                # Find user with most reports
+                max_reports = 0
+                most_reported_user_id = None
+                
+                for user_id, stats in reported_analytics.items():
+                    report_count = stats.get('total_reports', 0)
+                    if report_count > max_reports:
+                        max_reports = report_count
+                        most_reported_user_id = user_id
+                
+                # Get username for most reported player
+                if most_reported_user_id and max_reports > 0:
+                    username = self.db.child('usernames').child(most_reported_user_id).child('username').get()
+                    if username:
+                        most_reported_player = {
+                            'username': username,
+                            'report_count': max_reports
+                        }
+            
+            return {
+                'total_reports': total_reports,
+                'most_reported_player': most_reported_player,
+                'cheat_reports': cheat_reports,
+                'turd_reports': turd_reports
+            }
+        except Exception as e:
+            print(f"Error getting report stats: {e}")
+            return {
+                'total_reports': 0,
+                'most_reported_player': None,
+                'cheat_reports': 0,
+                'turd_reports': 0
+            }
+    
     # ============================================================================
     # UTILITY METHODS
     # ============================================================================

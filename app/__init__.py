@@ -116,4 +116,10 @@ def create_app():
             account_creation_date=g.user.get('account_creation_date') if g.user else None,
         )
 
+    # Register blueprints
+    from . import main, auth, api
+    app.register_blueprint(main.bp)
+    app.register_blueprint(auth.bp)
+    app.register_blueprint(api.bp)
+
     return app

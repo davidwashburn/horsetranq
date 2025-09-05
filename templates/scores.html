@@ -23,8 +23,8 @@
 
 			<!-- Scores Main Section -->
 			<div class="main-wrapper" data-animate="page-intro">
-				<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-lg-desktop width-xl-tablet width-xl-phone">
-					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center gap-xxl-all">
+				<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-xl-desktop width-xl-tablet width-xl-phone">
+					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center gap-xl-all">
 						<!-- WEEKLY LEADERS Column -->
 						<div class="flex-column-desktop">
 							<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-xl font-weight-xl color-accent-white rotate-left-desktop rotate-left-tablet">WEEKLY LEADERS</h3>
@@ -70,8 +70,8 @@
 
 						<!-- WEEKLY STATS Column -->
 						<div class="flex-column-desktop">
-							<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-xl font-weight-xl color-accent-white rotate-right-desktop rotate-right-tablet">WEEKLY STATS</h3>
-							<div id="hero-square" class="width-full-phone width-lg-tablet margin-auto-phone margin-auto-tablet border-radius rotate-right-desktop shadow-green-md">
+							<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-xl font-weight-xl color-accent-white">WEEKLY STATS</h3>
+							<div id="hero-square" class="width-full-phone width-lg-tablet margin-auto-phone margin-auto-tablet border-radius shadow-green-md">
 								<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-all">
 									
 									<!-- Total games played -->
@@ -102,6 +102,45 @@
 									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 										<h4 class="font-size-md font-weight-xl color-accent-white">Active players</h4>
 										<p class="font-size-md font-weight-md color-accent-white">{{ aggregated_stats.active_players }}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- REPORT STATS Column -->
+						<div class="flex-column-desktop">
+							<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-xl font-weight-xl color-accent-white rotate-right-desktop rotate-right-tablet">REPORT STATS</h3>
+							<div id="hero-square" class="width-full-phone width-lg-tablet margin-auto-phone margin-auto-tablet border-radius rotate-right-desktop shadow-green-md">
+								<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-all">
+									
+									<!-- Total reports -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Total reports</h4>
+										<p class="font-size-md font-weight-md color-accent-white">{{ report_stats.total_reports if report_stats else 0 }}</p>
+									</div>
+
+									<!-- Most reported player -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Most reported</h4>
+										<p class="font-size-md font-weight-md color-accent-white">
+											{% if report_stats and report_stats.most_reported_player %}
+												<span class="username-link" data-username="{{ report_stats.most_reported_player.username }}" style="cursor: pointer;">{{ report_stats.most_reported_player.username }}</span> ({{ report_stats.most_reported_player.report_count }})
+											{% else %}
+												No data
+											{% endif %}
+										</p>
+									</div>
+
+									<!-- Cheat reports -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Cheat reports</h4>
+										<p class="font-size-md font-weight-md color-accent-white">{{ report_stats.cheat_reports if report_stats else 0 }}</p>
+									</div>
+
+									<!-- Turd reports -->
+									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Turd reports</h4>
+										<p class="font-size-md font-weight-md color-accent-white">{{ report_stats.turd_reports if report_stats else 0 }}</p>
 									</div>
 								</div>
 							</div>
