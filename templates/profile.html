@@ -25,22 +25,36 @@
 						<!-- Profile Main Section -->
 			<div class="main-wrapper" data-animate="page-intro">
 				<div class="hero-section margin-auto-desktop margin-auto-phone margin-auto-tablet width-xl-all">
-					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center gap-xxl-all">
+					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center gap-xxl-desktop gap-xl-tablet gap-xl-phone">
 						<!-- ACCOUNT DETAILS Column -->
-						<div class="flex-column-desktop width-md-desktop width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet rotate-left-desktop">
-							<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-xl font-weight-xl color-accent-white" >
-								ACOUNT DETALES
-							</h3>
+						<div class="flex-column-desktop width-md-desktop width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet">
+							<!-- Header with title and edit controls -->
+							<div class="flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-md-desktop margin-sm-phone margin-md-tablet">
+								<h3 class="font-size-xl font-weight-xl color-accent-white">
+									ACOUNT DETALES
+								</h3>
+								<!-- Username edit controls - positioned in top-right corner -->
+								<div id="profile-username-edit-controls" class="flex-row-all gap-sm-all" style="display: none;">
+									<button type="button" id="profile-username-save-button" class="button shadow-white-sm font-weight-xl font-size-sm" style="padding: 4px 8px; min-width: 60px;">
+										<span class="color-accent-gold">SAVE</span>
+									</button>
+									<button type="button" id="profile-username-cancel-button" class="button shadow-red-sm font-weight-xl font-size-sm" style="padding: 4px 8px; min-width: 60px;">
+										<span class="color-accent-white">CANCEL</span>
+									</button>
+								</div>
+							</div>
+							<!-- Messages container for username editing -->
+							<div id="usernameMessages" class="width-full-all shadow-green-alt-none margin-sm-desktop margin-sm-phone margin-sm-tablet text-center" style="display: none;"></div>
 							<div id="hero-square" class="width-full-all margin-auto-phone margin-auto-tablet border-radius shadow-green-md">
 								<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-desktop width-full-phone width-full-tablet padding-md-all">
 
 								<!-- Username -->
 								<div id="profile-username-container" class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Username</h4>
-									<!-- Username label wrapper to maintain top-right positioning -->
+									<!-- Username label wrapper -->
 									<div class="main-label bg-accent-gold color-accent-grey-dark padding-sm-all">
 										<div id="profile-username">
-											<span id="profile-username-display" class="font-size-sm">
+											<span id="profile-username-display" class="font-size-sm font-weight-lg">
 												{% if logged_in %}
 													{%- if username -%}
 														{{ username | upper }}
@@ -55,20 +69,6 @@
 											</span>
 											<input type="text" id="profile-username-input" style="display: none; background: transparent; border: none; color: inherit; font: inherit; text-align: center; width: 100%;" maxlength="20" value="{{ username }}">
 										</div>
-										<!-- Username edit controls - positioned directly below the username label -->
-										<div id="profile-username-edit-controls" class="flex-column-all flex-align-items-center width-xl-all" style="display: none;">
-											<!-- Buttons container -->
-											<div id="profile-username-buttons" class="flex-row-all gap-sm-all">
-												<button type="button" id="profile-username-save-button" class="button shadow-white-sm font-weight-xl font-size-sm" style="padding: 4px 8px; min-width: 60px;">
-													<span class="color-accent-gold">SAVE</span>
-												</button>
-												<button type="button" id="profile-username-cancel-button" class="button shadow-red-sm font-weight-xl font-size-sm" style="padding: 4px 8px; min-width: 60px;">
-													<span class="color-accent-white">CANCEL</span>
-												</button>
-											</div>
-											<!-- Messages container -->
-											<div id="usernameMessages" class="width-full-all shadow-green-alt-none margin-sm-desktop margin-sm-phone margin-sm-tablet text-center"></div>
-										</div>
 									</div>
 								</div>
 
@@ -76,7 +76,7 @@
 								<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Name</h4>
 									<div class="main-label bg-accent-gold color-accent-grey-dark padding-sm-all">
-										<span class="font-size-sm">
+										<span class="font-size-sm font-weight-lg">
 											{% if logged_in and name %}
 												{{ name | upper }}
 											{% else %}
@@ -90,7 +90,7 @@
 								<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Email</h4>
 									<div class="main-label bg-accent-gold color-accent-grey-dark padding-sm-all">
-										<span class="font-size-sm">
+										<span class="font-size-sm font-weight-lg">
 											{% if logged_in and email %}
 												{{ email | upper }}
 											{% else %}
@@ -105,7 +105,7 @@
 									<h4 class="font-size-md font-weight-xl color-accent-white">Account ID</h4>
 									<div class="main-label bg-accent-gold color-accent-grey-dark padding-sm-all">
 										<div class="flex-row-all flex-align-items-center gap-sm-all">
-											<span class="font-size-sm" id="account-id-display">
+											<span class="font-size-sm font-weight-lg" id="account-id-display">
 												{% if logged_in and user_id %}
 													{{ user_id[:13] }}...
 												{% else %}
@@ -128,7 +128,7 @@
 								<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 									<h4 class="font-size-md font-weight-xl color-accent-white">Member since</h4>
 									<div class="main-label bg-accent-gold color-accent-grey-dark padding-sm-all">
-										<span class="font-size-sm">
+										<span class="font-size-sm font-weight-lg">
 											{% if logged_in and account_creation_date %}
 												{% set date_parts = account_creation_date.split('T')[0].split('-') %}
 												{{ date_parts[1] }}/{{ date_parts[2] }}/{{ date_parts[0] }}
@@ -145,23 +145,23 @@
 									{% if logged_in %}
 										{% if subscription_type == 'free' %}
 											<div class="main-label font-size-sm font-weight-xl bg-accent-grey-mid color-accent-grey-dark padding-sm-all">
-												<span class="font-size-sm">FREE</span>
+												<span class="font-size-sm font-weight-lg">FREE</span>
 											</div>
 										{% elif subscription_type == 'one' %}
 											<div class="main-label main-label-one color-accent-white padding-sm-all">
-												<span class="font-size-sm">HORS ONE</span>
+												<span class="font-size-sm font-weight-lg">HORS ONE</span>
 											</div>
 										{% elif subscription_type == 'plus' %}
 											<div class="main-label main-label-plus color-accent-white padding-sm-all">
-												<span class="font-size-sm">HORS PLUS</span>
+												<span class="font-size-sm font-weight-lg">HORS PLUS</span>
 											</div>
 										{% elif subscription_type == 'max' %}
 											<div class="main-label main-label-max color-accent-white padding-sm-all">
-												<span class="font-size-sm">HORS MAX</span>
+												<span class="font-size-sm font-weight-lg">HORS MAX</span>
 											</div>
 										{% else %}
 											<div class="main-label font-size-sm font-weight-xl bg-accent-grey-mid color-accent-grey-dark padding-sm-all">
-												<span class="font-size-sm">FREE</span>
+												<span class="font-size-sm font-weight-lg">FREE</span>
 											</div>
 										{% endif %}
 									{% else %}
@@ -174,8 +174,8 @@
 							
 							<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-md font-weight-xl color-accent-white" >ACCOUNT OPTINS</h3>
 							<div class="flex-row-desktop flex-row-phone width-full-all flex-align-items-center gap-sm-all">				
-								<button type="button" id="profile-change-username-button" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold">CHANGE USARNAME</button>
-								<button type="button" id="profile-change-hors-button" class="button shadow-white-md font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold">CHANGE HORS</button>
+								<button type="button" id="profile-change-username-button" class="button shadow-white-sm font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold">CHANGE USARNAME</button>
+								<button type="button" id="profile-change-hors-button" class="button shadow-white-sm font-weight-xl font-size-sm margin-md-desktop margin-sm-phone margin-md-tablet color-accent-gold">CHANGE HORS</button>
 							</div>
 							<div class="flex-row-desktop flex-row-phone width-full-all flex-align-items-center gap-sm-all">								
 								{% if logged_in %}
@@ -194,8 +194,8 @@
 						</div>
 						
 						<div class="flex-column-all gap-xxl-all">
-							<div class="flex-column-desktop flex-column-phone flex-column-tablet width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet rotate-left-desktop gap-xl-all">
-								<div class="flex-column-desktop width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet rotate-left-desktop">
+							<div class="flex-column-desktop flex-column-phone flex-column-tablet width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet gap-xl-all">
+								<div class="flex-column-desktop width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet">
 									<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-xl font-weight-xl color-accent-white" >RANKED STATS</h3>
 									<div id="hero-square" class="width-full-all margin-auto-phone margin-auto-tablet border-radius shadow-green-md">
 										<div class="flex-column-desktop flex-column-phone flex-align-items-start flex-justify-center gap-md-all width-full-desktop padding-md-all">
@@ -262,7 +262,7 @@
 								</div>
 							</div>
 							
-							<div class="flex-column-desktop width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet rotate-left-desktop">
+							<div class="flex-column-desktop width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet">
 								<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-xl font-weight-xl color-accent-white" >FREE PLAY STATS</h3>
 								<div id="hero-square" class="width-full-all margin-auto-phone margin-auto-tablet border-radius shadow-green-md">
 									<div class="flex-column-desktop flex-column-phone flex-align-items-start flex-justify-center gap-md-all width-full-desktop padding-md-all">
@@ -334,7 +334,7 @@
 					<div class="flex-row-desktop">
 							<!-- ACCOUNT OPTIONS Column -->
 								{% if logged_in %}
-								<div id="hero-square" class="width-lg-desktop width-lg-phone width-full-tablet margin-auto-phone margin-auto-tablet border-radius border-radius rotate-right-desktop shadow-green-md" style="margin-top: 3em;">
+								<div id="hero-square" class="width-lg-desktop width-lg-phone width-full-tablet margin-auto-phone margin-auto-tablet border-radius border-radius shadow-green-md" style="margin-top: 3em;">
 										<div class="main-label main-label-bottom-left main-label-one color-accent-white padding-md-all">HORS ONE</div>
 										<img id="index-hero-img" class="width-full-all" src="/static/img/branding/horsetranq-v3.png" alt="Horsetranq">
 								</div>

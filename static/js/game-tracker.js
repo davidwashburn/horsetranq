@@ -118,12 +118,14 @@ class GameTracker {
         }
 
         try {
-            const duration = this.gameStartTime ? Math.floor((Date.now() - this.gameStartTime) / 1000) : 0;
+            const durationMs = this.gameStartTime ? Math.floor(Date.now() - this.gameStartTime) : 0;
+            const durationSeconds = Math.floor(durationMs / 1000);
             
             const finishData = {
                 session_id: this.currentSessionId,
                 game_id: gameId,
-                game_duration_seconds: duration,
+                game_duration_seconds: durationSeconds, // Keep for backward compatibility
+                game_duration_ms: durationMs, // New millisecond precision field
                 game_targets_popped: finalData.targetsPopped || 0,
                 game_score: finalData.score || 0
             };
@@ -141,7 +143,8 @@ class GameTracker {
             if (result.success) {
                 console.log('Game session finished:', {
                     sessionId: this.currentSessionId,
-                    duration: duration,
+                    durationMs: durationMs,
+                    durationSeconds: durationSeconds,
                     score: finalData.score,
                     targetsPopped: finalData.targetsPopped
                 });

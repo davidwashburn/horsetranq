@@ -1,3 +1,9 @@
+import sys
+import os
+
+# Add the parent directory to Python path so we can import the app module
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from app import create_app
 from app.main import bp as main_bp
 from app.auth import bp as auth_bp
@@ -8,7 +14,7 @@ app = create_app()
 # Register blueprints
 app.register_blueprint(main_bp)
 app.register_blueprint(auth_bp)  # No prefix for auth routes (callback, login, logout)
-app.register_blueprint(api_bp)  # Remove the url_prefix="/api"
+app.register_blueprint(api_bp, url_prefix="/api")
 
 # Debug: Print all registered routes
 print("=== REGISTERED ROUTES ===")

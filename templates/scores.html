@@ -32,35 +32,40 @@
 								<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-all">
 									
 									<!-- Most games -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<div class="data-item username-link flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet" data-username="{{ weekly_leaders.most_games.username }}" style="cursor: pointer;">
 										<h4 class="font-size-md font-weight-xl color-accent-white">Most games</h4>
 										<p class="font-size-md font-weight-md color-accent-white">
-											<span class="username-link" data-username="{{ weekly_leaders.most_games.username }}" style="cursor: pointer;">{{ weekly_leaders.most_games.username }}</span> ({{ weekly_leaders.most_games.games }})
+											{{ weekly_leaders.most_games.username }} ({{ weekly_leaders.most_games.games }})
 										</p>
 									</div>
 
 									<!-- Most horses -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<div class="data-item username-link flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet" data-username="{{ weekly_leaders.most_horses.username }}" style="cursor: pointer;">
 										<h4 class="font-size-md font-weight-xl color-accent-white">Most horses</h4>
 										<p class="font-size-md font-weight-md color-accent-white">
-											<span class="username-link" data-username="{{ weekly_leaders.most_horses.username }}" style="cursor: pointer;">{{ weekly_leaders.most_horses.username }}</span> ({{ weekly_leaders.most_horses.horses }})
+											{{ weekly_leaders.most_horses.username }} ({{ weekly_leaders.most_horses.horses }})
 										</p>
 									</div>
 
 									<!-- Fastest time -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<div class="data-item username-link flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet" data-username="{{ weekly_leaders.fastest_time.username }}" style="cursor: pointer;">
 										<h4 class="font-size-md font-weight-xl color-accent-white">Fastest time</h4>
 										<p class="font-size-md font-weight-md color-accent-white">
-											{% if weekly_leaders.fastest_time.time %}
-												<span class="username-link" data-username="{{ weekly_leaders.fastest_time.username }}" style="cursor: pointer;">{{ weekly_leaders.fastest_time.username }}</span> ({{ "%.1f"|format(weekly_leaders.fastest_time.time) }}s)
+											{% if weekly_leaders.fastest_time.time_ms %}
+												{% set seconds = (weekly_leaders.fastest_time.time_ms / 1000)|int %}
+												{% set centiseconds = (weekly_leaders.fastest_time.time_ms % 1000) // 10 %}
+												{% set tenths = (weekly_leaders.fastest_time.time_ms % 10) %}
+												{{ weekly_leaders.fastest_time.username }} ({{ seconds }}.{{ "%02d"|format(centiseconds) }}{{ tenths }}s)
+											{% elif weekly_leaders.fastest_time.time %}
+												{{ weekly_leaders.fastest_time.username }} ({{ "%.1f"|format(weekly_leaders.fastest_time.time) }}s)
 											{% else %}
-												<span class="username-link" data-username="{{ weekly_leaders.fastest_time.username }}" style="cursor: pointer;">{{ weekly_leaders.fastest_time.username }}</span>
+												{{ weekly_leaders.fastest_time.username }}
 											{% endif %}
 										</p>
 									</div>
 
-									<!-- Most improved -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+																				<!-- Most improved -->
+											<div class="data-item data-item-disabled flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 										<h4 class="font-size-md font-weight-xl color-accent-white">Most improved</h4>
 										<p class="font-size-md font-weight-md color-accent-white">Coming soon</p>
 									</div>
@@ -74,23 +79,28 @@
 							<div id="hero-square" class="width-full-phone width-lg-tablet margin-auto-phone margin-auto-tablet border-radius shadow-green-md">
 								<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-all">
 									
-									<!-- Total games played -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+																				<!-- Total games played -->
+											<div class="data-item data-item-disabled flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 										<h4 class="font-size-md font-weight-xl color-accent-white">Total gams plaid</h4>
 										<p class="font-size-md font-weight-md color-accent-white">{{ aggregated_stats.total_games }}</p>
 									</div>
 
-									<!-- Total horses tranquilized -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+																				<!-- Total horses tranquilized -->
+											<div class="data-item data-item-disabled flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 										<h4 class="font-size-md font-weight-xl color-accent-white">Hors tranquilized</h4>
 										<p class="font-size-md font-weight-md color-accent-white">{{ aggregated_stats.total_horses }}</p>
 									</div>
 
-									<!-- Best time ever -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+																				<!-- Best time ever -->
+											<div class="data-item data-item-disabled flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 										<h4 class="font-size-md font-weight-xl color-accent-white">Best time evar</h4>
 										<p class="font-size-md font-weight-md color-accent-white">
-											{% if aggregated_stats.best_time_ever %}
+											{% if aggregated_stats.best_time_ever_ms %}
+												{% set seconds = (aggregated_stats.best_time_ever_ms / 1000)|int %}
+												{% set centiseconds = (aggregated_stats.best_time_ever_ms % 1000) // 10 %}
+												{% set tenths = (aggregated_stats.best_time_ever_ms % 10) %}
+												{{ seconds }}.{{ "%02d"|format(centiseconds) }}{{ tenths }}s
+											{% elif aggregated_stats.best_time_ever %}
 												{{ "%.1f"|format(aggregated_stats.best_time_ever) }}s
 											{% else %}
 												No data
@@ -98,8 +108,8 @@
 										</p>
 									</div>
 
-									<!-- Active players -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+																				<!-- Active players -->
+											<div class="data-item data-item-disabled flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 										<h4 class="font-size-md font-weight-xl color-accent-white">Active players</h4>
 										<p class="font-size-md font-weight-md color-accent-white">{{ aggregated_stats.active_players }}</p>
 									</div>
@@ -109,38 +119,44 @@
 
 						<!-- REPORT STATS Column -->
 						<div class="flex-column-desktop">
-							<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-xl font-weight-xl color-accent-white rotate-right-desktop rotate-right-tablet">REPORT STATS</h3>
+							<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-xl font-weight-xl color-accent-white rotate-right-desktop rotate-right-tablet">CRIME REPORTS</h3>
 							<div id="hero-square" class="width-full-phone width-lg-tablet margin-auto-phone margin-auto-tablet border-radius rotate-right-desktop shadow-green-md">
 								<div class="flex-column-desktop flex-column-phone flex-justify-center flex-align-items-start width-full-all">
 									
-									<!-- Total reports -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-										<h4 class="font-size-md font-weight-xl color-accent-white">Total reports</h4>
-										<p class="font-size-md font-weight-md color-accent-white">{{ report_stats.total_reports if report_stats else 0 }}</p>
-									</div>
-
 									<!-- Most reported player -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+									<div class="data-item username-link flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet" {% if report_stats and report_stats.most_reported_player %}data-username="{{ report_stats.most_reported_player.username }}" style="cursor: pointer;"{% endif %}>
 										<h4 class="font-size-md font-weight-xl color-accent-white">Most reported</h4>
 										<p class="font-size-md font-weight-md color-accent-white">
 											{% if report_stats and report_stats.most_reported_player %}
-												<span class="username-link" data-username="{{ report_stats.most_reported_player.username }}" style="cursor: pointer;">{{ report_stats.most_reported_player.username }}</span> ({{ report_stats.most_reported_player.report_count }})
+												{{ report_stats.most_reported_player.username }} ({{ report_stats.most_reported_player.report_count }})
 											{% else %}
 												No data
 											{% endif %}
 										</p>
 									</div>
 
-									<!-- Cheat reports -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-										<h4 class="font-size-md font-weight-xl color-accent-white">Cheat reports</h4>
-										<p class="font-size-md font-weight-md color-accent-white">{{ report_stats.cheat_reports if report_stats else 0 }}</p>
+									<!-- Top reportar -->
+									<div class="data-item username-link flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet" {% if report_stats and report_stats.top_reporter %}data-username="{{ report_stats.top_reporter.username }}" style="cursor: pointer;"{% endif %}>
+										<h4 class="font-size-md font-weight-xl color-accent-white">Top reportar</h4>
+										<p class="font-size-md font-weight-md color-accent-white">
+											{% if report_stats and report_stats.top_reporter %}
+												{{ report_stats.top_reporter.username }} ({{ report_stats.top_reporter.reports_made }})
+											{% else %}
+												No data
+											{% endif %}
+										</p>
+									</div>
+									
+																				<!-- Total reports -->
+											<div class="data-item data-item-disabled flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Total reports</h4>
+										<p class="font-size-md font-weight-md color-accent-white">{{ report_stats.total_reports if report_stats else 0 }}</p>
 									</div>
 
-									<!-- Turd reports -->
-									<div class="data-item flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
-										<h4 class="font-size-md font-weight-xl color-accent-white">Turd reports</h4>
-										<p class="font-size-md font-weight-md color-accent-white">{{ report_stats.turd_reports if report_stats else 0 }}</p>
+																													<!-- Cheat / Turd reports -->
+									<div class="data-item data-item-disabled flex-row-desktop flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+										<h4 class="font-size-md font-weight-xl color-accent-white">Cheats or turds</h4>
+										<p class="font-size-md font-weight-md color-accent-white">{{ report_stats.cheat_reports if report_stats else 0 }} / {{ report_stats.turd_reports if report_stats else 0 }}</p>
 									</div>
 								</div>
 							</div>
@@ -177,7 +193,12 @@
 										<td class="font-size-md font-weight-md color-accent-white text-center">{{ entry.total_games or 0 }}</td>
 										<td class="font-size-md font-weight-md color-accent-white text-center">{{ entry.total_horses or 0 }}</td>
 										<td class="font-size-md font-weight-md color-accent-white text-center">
-											{% if entry.best_time_seconds %}
+											{% if entry.best_time_ms %}
+												{% set seconds = (entry.best_time_ms / 1000)|int %}
+												{% set centiseconds = (entry.best_time_ms % 1000) // 10 %}
+												{% set tenths = (entry.best_time_ms % 10) %}
+												{{ seconds }}.{{ "%02d"|format(centiseconds) }}{{ tenths }}s
+											{% elif entry.best_time_seconds %}
 												{{ "%.1f"|format(entry.best_time_seconds) }}s
 											{% else %}
 												-
@@ -277,11 +298,11 @@
 				$(document).on('click', '#reportPlayerBtn', function() {
 					const reportOptions = $('#reportPlayerOptions');
 					
-					// Toggle the report options visibility
+					// Toggle the report options visibility with 2x faster animation
 					if (reportOptions.is(':visible')) {
-						reportOptions.slideUp();
+						reportOptions.slideUp(150); // Default is 400ms, now 150ms (2.67x faster)
 					} else {
-						reportOptions.slideDown();
+						reportOptions.slideDown(150); // Default is 400ms, now 150ms (2.67x faster)
 					}
 				});
 				
@@ -321,7 +342,7 @@
 						complete: function() {
 							// Re-enable button and hide options
 							button.prop('disabled', false).text(reason);
-							$('#reportPlayerOptions').slideUp();
+							$('#reportPlayerOptions').slideUp(150);
 						}
 					});
 				});
@@ -335,28 +356,41 @@
 				$('#modalProfileContent').html('<div class="text-center padding-lg-all"><p class="color-accent-white font-size-md">Loading profile...</p></div>');
 				$('#userProfileModal').show();
 				
-				// Make API call to get user profile
-				$.ajax({
-					url: '/api/user-profile/' + encodeURIComponent(username),
-					method: 'GET',
-					success: function(data) {
-						if (data.success) {
-							renderUserProfile(data.user);
-						} else {
-							$('#modalProfileContent').html('<div class="text-center padding-lg-all"><p class="color-accent-white font-size-md">Error loading profile: ' + (data.message || 'Unknown error') + '</p></div>');
-						}
-					},
-					error: function() {
-						$('#modalProfileContent').html('<div class="text-center padding-lg-all"><p class="color-accent-white font-size-md">Error loading profile. Please try again.</p></div>');
+				// Make parallel API calls to get user profile and sessions
+				$.when(
+					$.ajax({
+						url: '/api/user-profile/' + encodeURIComponent(username),
+						method: 'GET'
+					}),
+					$.ajax({
+						url: '/api/user-sessions/' + encodeURIComponent(username),
+						method: 'GET'
+					}).fail(function(xhr, status, error) {
+						console.error('Sessions API Error:', status, error, xhr.responseText);
+						// Return empty sessions array if sessions endpoint fails
+						return { success: true, sessions: [] };
+					})
+				).done(function(profileResponse, sessionsResponse) {
+					const profileData = profileResponse[0];
+					const sessionsData = sessionsResponse[0];
+					
+					if (profileData.success) {
+						renderUserProfile(profileData.user, sessionsData.success ? sessionsData.sessions : []);
+					} else {
+						$('#modalProfileContent').html('<div class="text-center padding-lg-all"><p class="color-accent-white font-size-md">Error loading profile: ' + (profileData.message || 'Unknown error') + '</p></div>');
 					}
+				}).fail(function(xhr, status, error) {
+					console.error('Profile API Error:', status, error, xhr.responseText);
+					$('#modalProfileContent').html('<div class="text-center padding-lg-all"><p class="color-accent-white font-size-md">Error loading profile. Please try again.</p></div>');
 				});
 			}
 			
-			function renderUserProfile(user) {
+			function renderUserProfile(user, sessions = []) {
 				const subscriptionBadge = getSubscriptionBadge(user.subscription_type);
 				
 				const profileHtml = `
-					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-center gap-xxl-all">
+					<!-- First Row: USER PROFILE and GAME STATS -->
+					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-space-between gap-xl-all">
 						<!-- ACCOUNT DETAILS Column -->
 						<div class="flex-column-desktop width-md-desktop width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet">
 							<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-lg font-weight-xl color-accent-white">USER PROFILE</h3>
@@ -402,9 +436,9 @@
 							<!-- Report Player Section -->
 							<div class="flex-column-all flex-align-items-center width-full-all margin-md-desktop margin-sm-phone margin-md-tablet">
 								<div class="flex-row-all">
-									<button type="button" id="reportPlayerBtn" class="button shadow-red-md font-weight-xl font-size-sm color-accent-white" data-username="${user.username}">REPORT PLAYR</button>
+									<button type="button" id="reportPlayerBtn" class="button shadow-red-sm font-weight-xl font-size-sm color-accent-white" data-username="${user.username}">REPORT PLAYR</button>
 									<div id="reportPlayerOptions" class="flex-column-all flex-align-items-center width-full-all" style="display: none;">
-										<div class="flex-row-all gap-sm-all">
+										<div class="flex-row-all">
 											<button type="button" class="report-option-btn button shadow-white-sm font-weight-xl font-size-sm color-accent-gold" data-reason="CHEATIN" data-username="${user.username}">CHEATIN</button>
 											<button type="button" class="report-option-btn button shadow-white-sm font-weight-xl font-size-sm color-accent-gold" data-reason="IS A TURD" data-username="${user.username}">IS A TURD</button>
 										</div>
@@ -435,7 +469,7 @@
 										<!-- Best time -->
 										<div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
 											<h4 class="font-size-md font-weight-xl color-accent-white">Best time</h4>
-											<p class="font-size-md font-weight-md color-accent-white">${user.best_time_seconds ? user.best_time_seconds.toFixed(1) + 's' : 'No data'}</p>
+											<p class="font-size-md font-weight-md color-accent-white">${user.best_time_ms ? (Math.floor(user.best_time_ms / 1000) + '.' + Math.floor((user.best_time_ms % 1000) / 10).toString().padStart(2, '0') + Math.floor((user.best_time_ms % 10)).toString() + 's') : (user.best_time_seconds ? user.best_time_seconds.toFixed(1) + 's' : 'No data')}</p>
 										</div>
 										
 										<!-- HorsPass Level -->
@@ -448,10 +482,117 @@
 							</div>
 						</div>
 					</div>
+					
+					<!-- Second Row: RECENT GAMES -->
+					<div class="flex-row-desktop flex-column-phone flex-align-center flex-justify-space-between gap-xl-all" style="margin-top: 2em;">
+						<div class="flex-column-desktop width-full-desktop width-full-phone width-full-tablet margin-auto-phone margin-auto-tablet">
+							<h3 class="margin-md-desktop margin-sm-phone margin-md-tablet font-size-lg font-weight-xl color-accent-white">RECENT GAMES</h3>
+							${sessions.length > 0 ? generateRecentGamesBoxes(sessions) : '<p class="color-accent-white font-size-md text-center width-full-all">No recent games found</p>'}
+						</div>
+					</div>
 				`;
 				
 				$('#modalProfileContent').html(profileHtml);
 			}
+			
+			        function generateRecentGamesBoxes(sessions) {
+            // Take only the latest 2 games
+            const recentGames = sessions.slice(0, 2);
+            
+            const gameBoxes = recentGames.map((session, index) => {
+                                                const date = new Date(session.created_at);
+                                const formattedDate = date.toLocaleDateString();
+                                
+                                // Format duration with centisecond precision if available
+                                let duration = 'N/A';
+                                if (session.game_duration_ms && session.game_duration_ms > 0) {
+                                    const seconds = Math.floor(session.game_duration_ms / 1000);
+                                    const milliseconds = session.game_duration_ms % 1000;
+                                    duration = seconds + '.' + Math.floor(milliseconds / 10).toString().padStart(2, '0') + Math.floor((milliseconds % 10)).toString() + 's';
+                                } else if (session.game_duration_seconds && session.game_duration_seconds > 0) {
+                                    duration = session.game_duration_seconds.toFixed(1) + 's';
+                                }
+                const targets = session.game_targets_popped || 0;
+                const score = session.game_score || 0;
+                const difficulty = session.game_difficulty || 'Unknown';
+                const mode = session.game_mode || 'Unknown';
+                const speed = session.game_modifier_speed || 1.0;
+                const power = session.game_modifier_power || 50;
+                const background = session.game_modifier_background || 'Unknown';
+
+                return `
+                    <!-- Game ${index + 1} Box -->
+                    <div class="flex-column-desktop width-full-phone width-md-desktop width-full-tablet margin-auto-phone margin-auto-tablet">
+                        <div id="hero-square" class="width-full-all margin-auto-phone margin-auto-tablet border-radius shadow-green-md">
+                            <div class="flex-column-desktop flex-column-phone flex-align-items-start flex-justify-center width-full-desktop padding-md-all">
+                                
+                                <!-- Game Date -->
+                                <div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+                                    <h4 class="font-size-md font-weight-xl color-accent-white">Game date</h4>
+                                    <p class="font-size-md font-weight-md color-accent-white">${formattedDate}</p>
+                                </div>
+                                
+                                <!-- Game Time -->
+                                <div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+                                    <h4 class="font-size-md font-weight-xl color-accent-white">Game time</h4>
+                                    <p class="font-size-md font-weight-md color-accent-white">${duration}</p>
+                                </div>
+                                
+                                <!-- Score -->
+                                <div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+                                    <h4 class="font-size-md font-weight-xl color-accent-white">Score</h4>
+                                    <p class="font-size-md font-weight-md color-accent-white">${score}</p>
+                                </div>
+                                
+                                <!-- Targets -->
+                                <div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+                                    <h4 class="font-size-md font-weight-xl color-accent-white">Targets</h4>
+                                    <p class="font-size-md font-weight-md color-accent-white">${targets}</p>
+                                </div>
+                                
+                                <!-- Difficulty -->
+                                <div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+                                    <h4 class="font-size-md font-weight-xl color-accent-white">Difficulty</h4>
+                                    <p class="font-size-md font-weight-md color-accent-white">${difficulty}</p>
+                                </div>
+                                
+                                <!-- Mode -->
+                                <div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+                                    <h4 class="font-size-md font-weight-xl color-accent-white">Mode</h4>
+                                    <p class="font-size-md font-weight-md color-accent-white">${mode}</p>
+                                </div>
+                                
+                                <!-- Speed -->
+                                <div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+                                    <h4 class="font-size-md font-weight-xl color-accent-white">Speed</h4>
+                                    <p class="font-size-md font-weight-md color-accent-white">${speed}x</p>
+                                </div>
+                                
+                                <!-- Power -->
+                                <div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+                                    <h4 class="font-size-md font-weight-xl color-accent-white">Power</h4>
+                                    <p class="font-size-md font-weight-md color-accent-white">${power}%</p>
+                                </div>
+                                
+                                <!-- Background -->
+                                <div class="data-item flex-row-desktop flex-row-tablet flex-row-phone flex-justify-space-between flex-align-items-center margin-sm-desktop margin-sm-phone margin-sm-tablet">
+                                    <h4 class="font-size-md font-weight-xl color-accent-white">Background</h4>
+                                    <p class="font-size-md font-weight-md color-accent-white">${background}</p>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            return `
+                <div class="flex-row-desktop flex-column-tablet flex-column-phone flex-justify-space-between flex-align-items-start gap-xl-all">
+                    ${gameBoxes}
+                </div>
+            `;
+        }
+			
 			
 			function getSubscriptionBadge(subscriptionType) {
 				switch(subscriptionType) {
@@ -470,6 +611,5 @@
 		</script>
 		<script src="/static/js/secondary/username-editor.js"></script> <!-- Username editing functionality -->
 		<script src="/static/js/secondary/account-button.js"></script> <!-- Account button avatar functionality -->
-		<script src="/static/js/secondary/hide-avatar.js"></script> <!-- Hide avatar checkbox functionality -->
 	</body>
 </html>

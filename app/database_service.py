@@ -1,7 +1,8 @@
 from firebase_admin import db
-from datetime import datetime
+from datetime import datetime, timedelta
 import uuid
 import json
+import time
 from typing import Dict, Any, Optional, List
 
 class DatabaseService:
@@ -9,6 +10,9 @@ class DatabaseService:
     
     def __init__(self):
         self.db = db.reference()
+        # Simple in-memory cache for scoreboard data
+        self._scoreboard_cache = {}
+        self._cache_duration = 300  # 5 minutes in seconds
     
     # ============================================================================
     # USER MANAGEMENT
@@ -159,6 +163,27 @@ class DatabaseService:
             print(f"Error finalizing game session: {e}")
             return False
     
+    def get_user_sessions(self, user_id: str, game_id: str = 'horsplay', limit: int = 5) -> List[Dict[str, Any]]:
+        """Get recent game sessions for a user."""
+        try:
+            sessions_ref = self.db.child('game_sessions_by_user').child(user_id)
+            all_sessions = sessions_ref.get() or {}
+            
+            # Filter by game_id and sort by created_at (most recent first)
+            filtered_sessions = []
+            for session_id, session_data in all_sessions.items():
+                if session_data.get('game_id') == game_id and session_data.get('game_completed', False):
+                    filtered_sessions.append(session_data)
+            
+            # Sort by created_at (most recent first)
+            filtered_sessions.sort(key=lambda x: x.get('created_at', ''), reverse=True)
+            
+            # Return limited results
+            return filtered_sessions[:limit]
+        except Exception as e:
+            print(f"Error getting user sessions: {e}")
+            return []
+    
     # ============================================================================
     # STATS MANAGEMENT
     # ============================================================================
@@ -173,12 +198,21 @@ class DatabaseService:
             current_stats['total_sessions'] = current_stats.get('total_sessions', 0) + 1
             current_stats['total_targets_popped'] = current_stats.get('total_targets_popped', 0) + session_data.get('game_targets_popped', 0)
             
-            # Update best time
-            current_time = session_data.get('game_duration_seconds', 0)
-            if current_time > 0:
-                best_time = current_stats.get('best_time_seconds', float('inf'))
-                if current_time < best_time:
-                    current_stats['best_time_seconds'] = current_time
+            # Update best time (use milliseconds if available, fallback to seconds)
+            current_time_ms = session_data.get('game_duration_ms', 0)
+            current_time_seconds = session_data.get('game_duration_seconds', 0)
+            
+            if current_time_ms > 0:
+                # Use millisecond precision for best time
+                best_time_ms = current_stats.get('best_time_ms', float('inf'))
+                if current_time_ms < best_time_ms:
+                    current_stats['best_time_ms'] = current_time_ms
+                    current_stats['best_time_seconds'] = current_time_seconds  # Keep for backward compatibility
+            elif current_time_seconds > 0:
+                # Fallback to second precision
+                best_time_seconds = current_stats.get('best_time_seconds', float('inf'))
+                if current_time_seconds < best_time_seconds:
+                    current_stats['best_time_seconds'] = current_time_seconds
             
             # Update favorites (simplified - you might want more sophisticated logic)
             current_stats['favorite_difficulty'] = session_data.get('game_difficulty', 'Unknown')
@@ -306,29 +340,44 @@ class DatabaseService:
             scoreboard_ref = self.db.child('scoreboards').child(season_id).child('best_score').child(user_id)
             current_best = scoreboard_ref.get() or {}
             
-            # Update if this session is better
+            # Update if this session is better (use millisecond precision if available)
             current_score = session_data.get('game_score', 0)
-            current_time = session_data.get('game_duration_seconds', float('inf'))
+            current_time_ms = session_data.get('game_duration_ms', 0)
+            current_time_seconds = session_data.get('game_duration_seconds', float('inf'))
             
             best_score = current_best.get('best_score', 0)
-            best_time = current_best.get('best_time_seconds', float('inf'))
+            best_time_ms = current_best.get('best_time_ms', float('inf'))
+            best_time_seconds = current_best.get('best_time_seconds', float('inf'))
             
             should_update = False
             if current_score > best_score:
                 should_update = True
-            elif current_score == best_score and current_time < best_time:
-                should_update = True
+            elif current_score == best_score:
+                # Use millisecond precision for tie-breaking if available
+                if current_time_ms > 0 and best_time_ms < float('inf'):
+                    if current_time_ms < best_time_ms:
+                        should_update = True
+                elif current_time_seconds < best_time_seconds:
+                    should_update = True
             
             if should_update:
                 # Get username for cache
                 username = self.db.child('usernames').child(user_id).child('username').get() or 'Unknown'
                 
-                scoreboard_ref.set({
+                update_data = {
                     'best_score': max(best_score, current_score),
-                    'best_time_seconds': min(best_time, current_time) if current_time > 0 else best_time,
                     'username_cache': username,
                     'updated_at': datetime.now().isoformat()
-                })
+                }
+                
+                # Update time fields based on what's available
+                if current_time_ms > 0:
+                    update_data['best_time_ms'] = min(best_time_ms, current_time_ms) if best_time_ms < float('inf') else current_time_ms
+                    update_data['best_time_seconds'] = current_time_seconds  # Keep for backward compatibility
+                elif current_time_seconds > 0:
+                    update_data['best_time_seconds'] = min(best_time_seconds, current_time_seconds) if best_time_seconds < float('inf') else current_time_seconds
+                
+                scoreboard_ref.set(update_data)
             
             return True
         except Exception as e:
@@ -346,7 +395,11 @@ class DatabaseService:
                 data['user_id'] = user_id
                 scoreboard_list.append(data)
             
-            scoreboard_list.sort(key=lambda x: (-x.get('best_score', 0), x.get('best_time_seconds', float('inf'))))
+            # Sort by score (descending), then by time (ascending) using millisecond precision if available
+            scoreboard_list.sort(key=lambda x: (
+                -x.get('best_score', 0), 
+                x.get('best_time_ms', x.get('best_time_seconds', float('inf')) * 1000)
+            ))
             
             return scoreboard_list[:limit]
         except Exception as e:
@@ -362,6 +415,7 @@ class DatabaseService:
             total_games = 0
             total_horses = 0
             best_time_ever = float('inf')
+            best_time_ever_ms = float('inf')
             active_players = 0
             
             for user_id, user_games in all_stats.items():
@@ -370,10 +424,16 @@ class DatabaseService:
                     total_games += game_stats.get('total_sessions', 0)
                     total_horses += game_stats.get('total_targets_popped', 0)
                     
-                    # Track best time ever
-                    user_best_time = game_stats.get('best_time_seconds', float('inf'))
-                    if user_best_time < best_time_ever:
-                        best_time_ever = user_best_time
+                    # Track best time ever (use millisecond precision if available)
+                    user_best_time_ms = game_stats.get('best_time_ms', float('inf'))
+                    user_best_time_seconds = game_stats.get('best_time_seconds', float('inf'))
+                    
+                    if user_best_time_ms < best_time_ever_ms:
+                        best_time_ever_ms = user_best_time_ms
+                        best_time_ever = user_best_time_seconds
+                    elif user_best_time_ms == float('inf') and user_best_time_seconds < best_time_ever:
+                        best_time_ever = user_best_time_seconds
+                        best_time_ever_ms = user_best_time_seconds * 1000
                     
                     # Count active players (played in last 7 days)
                     if game_stats.get('updated_at'):
@@ -383,28 +443,30 @@ class DatabaseService:
                 'total_games': total_games,
                 'total_horses': total_horses,
                 'best_time_ever': best_time_ever if best_time_ever != float('inf') else None,
+                'best_time_ever_ms': best_time_ever_ms if best_time_ever_ms != float('inf') else None,
                 'active_players': active_players
             }
         except Exception as e:
             print(f"Error getting aggregated stats: {e}")
-            return {'total_games': 0, 'total_horses': 0, 'best_time_ever': None, 'active_players': 0}
+            return {'total_games': 0, 'total_horses': 0, 'best_time_ever': None, 'best_time_ever_ms': None, 'active_players': 0}
     
     def get_weekly_leaders(self, game_id: str = 'horsplay') -> Dict[str, Any]:
         """Get weekly leader statistics."""
         try:
-            # Get all user stats
+            # Get all user stats and usernames in batch
             all_stats = self.db.child('stats').get() or {}
+            all_usernames = self.db.child('usernames').get() or {}
             
             most_games_user = {'username': 'No data', 'games': 0}
             most_horses_user = {'username': 'No data', 'horses': 0}
-            fastest_time_user = {'username': 'No data', 'time': float('inf')}
+            fastest_time_user = {'username': 'No data', 'time': float('inf'), 'time_ms': float('inf')}
             
             for user_id, user_games in all_stats.items():
                 if game_id in user_games:
                     game_stats = user_games[game_id]
                     
-                    # Get username
-                    username = self.db.child('usernames').child(user_id).child('username').get() or 'Unknown'
+                    # Get username from batch data
+                    username = all_usernames.get(user_id, {}).get('username', 'Unknown')
                     
                     # Most games
                     games = game_stats.get('total_sessions', 0)
@@ -416,15 +478,19 @@ class DatabaseService:
                     if horses > most_horses_user['horses']:
                         most_horses_user = {'username': username, 'horses': horses}
                     
-                    # Fastest time
-                    time = game_stats.get('best_time_seconds', float('inf'))
-                    if time < fastest_time_user['time']:
-                        fastest_time_user = {'username': username, 'time': time}
+                    # Fastest time (use millisecond precision if available)
+                    time_ms = game_stats.get('best_time_ms', float('inf'))
+                    time_seconds = game_stats.get('best_time_seconds', float('inf'))
+                    
+                    if time_ms < fastest_time_user['time_ms']:
+                        fastest_time_user = {'username': username, 'time': time_seconds, 'time_ms': time_ms}
+                    elif time_ms == float('inf') and time_seconds < fastest_time_user['time']:
+                        fastest_time_user = {'username': username, 'time': time_seconds, 'time_ms': time_seconds * 1000}
             
             return {
                 'most_games': most_games_user,
                 'most_horses': most_horses_user,
-                'fastest_time': fastest_time_user if fastest_time_user['time'] != float('inf') else {'username': 'No data', 'time': None}
+                'fastest_time': fastest_time_user if fastest_time_user['time'] != float('inf') else {'username': 'No data', 'time': None, 'time_ms': None}
             }
         except Exception as e:
             print(f"Error getting weekly leaders: {e}")
@@ -437,30 +503,74 @@ class DatabaseService:
     def get_scoreboard_with_details(self, season_id: str, limit: int = 10) -> List[Dict[str, Any]]:
         """Get scoreboard with full user details for display."""
         try:
+            # Check cache first
+            cache_key = f"{season_id}_{limit}"
+            current_time = time.time()
+            
+            if cache_key in self._scoreboard_cache:
+                cached_data, cache_time = self._scoreboard_cache[cache_key]
+                if current_time - cache_time < self._cache_duration:
+                    print(f"DEBUG: Returning cached scoreboard data for {season_id}")
+                    return cached_data
+            
             scoreboard = self.get_scoreboard(season_id, limit)
             
-            # Enhance each entry with user details
+            if not scoreboard:
+                return []
+            
+            # Collect all user IDs for batch operations
+            user_ids = [entry.get('user_id') for entry in scoreboard if entry.get('user_id')]
+            
+            if not user_ids:
+                return scoreboard
+            
+            # Batch fetch all usernames in one call
+            usernames_data = self.db.child('usernames').get() or {}
+            usernames = {user_id: data.get('username', 'Unknown') for user_id, data in usernames_data.items() if user_id in user_ids}
+            
+            # Batch fetch all user data in one call
+            users_data = self.db.child('users').get() or {}
+            users = {user_id: data for user_id, data in users_data.items() if user_id in user_ids}
+            
+            # Batch fetch all user stats in one call
+            stats_data = self.db.child('stats').get() or {}
+            user_stats = {}
+            for user_id in user_ids:
+                if user_id in stats_data and 'horsplay' in stats_data[user_id]:
+                    user_stats[user_id] = stats_data[user_id]['horsplay']
+            
+            # Batch fetch all HorsPass progress in one call
+            horspass_data = self.db.child('horspass_progress').get() or {}
+            horspass_progress = {}
+            for user_id in user_ids:
+                if user_id in horspass_data and season_id in horspass_data[user_id]:
+                    horspass_progress[user_id] = horspass_data[user_id][season_id]
+            
+            # Enhance each entry with batched data
             for entry in scoreboard:
                 user_id = entry.get('user_id')
                 if user_id:
-                    # Get current username (not the cached one from when score was achieved)
-                    current_username = self.db.child('usernames').child(user_id).child('username').get() or 'Unknown'
-                    entry['username'] = current_username
+                    # Get current username from batch data
+                    entry['username'] = usernames.get(user_id, 'Unknown')
                     
-                    # Get user stats
-                    user_stats = self.get_user_stats(user_id, 'horsplay')
-                    entry['total_games'] = user_stats.get('total_sessions', 0)
-                    entry['total_horses'] = user_stats.get('total_targets_popped', 0)
+                    # Get user stats from batch data
+                    stats = user_stats.get(user_id, {})
+                    entry['total_games'] = stats.get('total_sessions', 0)
+                    entry['total_horses'] = stats.get('total_targets_popped', 0)
                     
-                    # Get user subscription
-                    user_data = self.get_user(user_id)
-                    entry['subscription_type'] = user_data.get('subscription_type', 'free') if user_data else 'free'
+                    # Get user subscription from batch data
+                    user_data = users.get(user_id, {})
+                    entry['subscription_type'] = user_data.get('subscription_type', 'free')
                     
-                    # Get HorsPass level
-                    horspass_progress = self.db.child('horspass_progress').child(user_id).child(season_id).get() or {}
-                    xp_total = horspass_progress.get('xp_total', 0)
+                    # Get HorsPass level from batch data
+                    progress = horspass_progress.get(user_id, {})
+                    xp_total = progress.get('xp_total', 0)
                     # Calculate level (simplified - every 100 XP = 1 level)
                     entry['horspass_level'] = max(1, xp_total // 100)
+            
+            # Cache the result
+            self._scoreboard_cache[cache_key] = (scoreboard, current_time)
+            print(f"DEBUG: Cached scoreboard data for {season_id}")
             
             return scoreboard
         except Exception as e:
@@ -563,8 +673,11 @@ class DatabaseService:
     def get_report_stats(self) -> Dict[str, Any]:
         """Get report statistics for the scores page."""
         try:
-            # Get all reports
+            # Get all reports and analytics in batch
             all_reports = self.db.child('user_reports').get() or {}
+            reported_analytics = self.db.child('stats_user_reports').child('by_reported_user').get() or {}
+            reporter_analytics = self.db.child('stats_user_reports').child('by_reporter').get() or {}
+            all_usernames = self.db.child('usernames').get() or {}
             
             total_reports = len(all_reports)
             cheat_reports = sum(1 for r in all_reports.values() if r.get('report_type') == 'CHEATIN')
@@ -572,7 +685,6 @@ class DatabaseService:
             
             # Get most reported player
             most_reported_player = None
-            reported_analytics = self.db.child('stats_user_reports').child('by_reported_user').get() or {}
             
             if reported_analytics:
                 # Find user with most reports
@@ -585,18 +697,42 @@ class DatabaseService:
                         max_reports = report_count
                         most_reported_user_id = user_id
                 
-                # Get username for most reported player
+                # Get username for most reported player from batch data
                 if most_reported_user_id and max_reports > 0:
-                    username = self.db.child('usernames').child(most_reported_user_id).child('username').get()
+                    username = all_usernames.get(most_reported_user_id, {}).get('username')
                     if username:
                         most_reported_player = {
                             'username': username,
                             'report_count': max_reports
                         }
             
+            # Get top reporter
+            top_reporter = None
+            
+            if reporter_analytics:
+                # Find user who made most reports
+                max_reports_made = 0
+                top_reporter_user_id = None
+                
+                for user_id, stats in reporter_analytics.items():
+                    reports_made = stats.get('total_reports_made', 0)
+                    if reports_made > max_reports_made:
+                        max_reports_made = reports_made
+                        top_reporter_user_id = user_id
+                
+                # Get username for top reporter from batch data
+                if top_reporter_user_id and max_reports_made > 0:
+                    username = all_usernames.get(top_reporter_user_id, {}).get('username')
+                    if username:
+                        top_reporter = {
+                            'username': username,
+                            'reports_made': max_reports_made
+                        }
+            
             return {
                 'total_reports': total_reports,
                 'most_reported_player': most_reported_player,
+                'top_reporter': top_reporter,
                 'cheat_reports': cheat_reports,
                 'turd_reports': turd_reports
             }

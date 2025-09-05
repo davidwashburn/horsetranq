@@ -5,7 +5,7 @@ from datetime import datetime
 
 bp = Blueprint("api", __name__)
 
-@bp.route('/api/game/start', methods=['POST'])
+@bp.route('/game/start', methods=['POST'])
 def start_game_session():
     """Start a new game session."""
     try:
@@ -60,7 +60,7 @@ def start_game_session():
         print(f"Error starting game session: {e}")
         return jsonify({'error': 'Internal server error'}), 500
 
-@bp.route('/api/game/update', methods=['POST'])
+@bp.route('/game/update', methods=['POST'])
 def update_game_session():
     """Update an ongoing game session."""
     try:
@@ -77,7 +77,7 @@ def update_game_session():
         
         # Prepare update data
         update_data = {}
-        for field in ['game_duration_seconds', 'game_targets_popped', 'game_score']:
+        for field in ['game_duration_seconds', 'game_duration_ms', 'game_targets_popped', 'game_score']:
             if field in data:
                 update_data[field] = data[field]
         
@@ -106,7 +106,7 @@ def update_game_session():
         print(f"Error updating game session: {e}")
         return jsonify({'error': 'Internal server error'}), 500
 
-@bp.route('/api/game/finish', methods=['POST'])
+@bp.route('/game/finish', methods=['POST'])
 def finish_game_session():
     """Finish a game session and update stats."""
     try:
@@ -124,6 +124,7 @@ def finish_game_session():
         # Prepare final data
         final_data = {
             'game_duration_seconds': data.get('game_duration_seconds', 0),
+            'game_duration_ms': data.get('game_duration_ms', 0),  # New millisecond precision field
             'game_targets_popped': data.get('game_targets_popped', 0),
             'game_score': data.get('game_score', 0),
             'game_completed': True
@@ -151,7 +152,7 @@ def finish_game_session():
         print(f"Error finishing game session: {e}")
         return jsonify({'error': 'Internal server error'}), 500
 
-@bp.route('/api/stats/<game_id>', methods=['GET'])
+@bp.route('/stats/<game_id>', methods=['GET'])
 def get_user_stats(game_id):
     """Get user stats for a specific game."""
     try:
@@ -175,7 +176,7 @@ def get_user_stats(game_id):
         print(f"Error getting user stats: {e}")
         return jsonify({'error': 'Internal server error'}), 500
 
-@bp.route('/api/scoreboard/<season_id>', methods=['GET'])
+@bp.route('/scoreboard/<season_id>', methods=['GET'])
 def get_scoreboard(season_id):
     """Get scoreboard for a season."""
     try:
@@ -193,7 +194,7 @@ def get_scoreboard(season_id):
         print(f"Error getting scoreboard: {e}")
         return jsonify({'error': 'Internal server error'}), 500
 
-@bp.route('/api/username/update', methods=['POST'])
+@bp.route('/username/update', methods=['POST'])
 def update_username():
     """Update user's username."""
     try:
@@ -249,7 +250,7 @@ def update_username():
         print(f"Error updating username: {e}")
         return jsonify({'error': 'Internal server error'}), 500
 
-@bp.route('/api/user-profile/<username>', methods=['GET'])
+@bp.route('/user-profile/<username>', methods=['GET'])
 def get_user_profile(username):
     """Get public user profile data by username."""
     try:
@@ -336,7 +337,43 @@ def get_user_profile(username):
             'message': 'Error loading profile'
         }), 500
 
-@bp.route('/api/report-player', methods=['POST'])
+@bp.route('/user-sessions/<username>', methods=['GET'])
+def get_user_sessions(username):
+    """Get recent game sessions for a user by username."""
+    try:
+        db_service = DatabaseService()
+        
+        # Look up user by username
+        username_index = db_service.db.child('usernames_index').child(username).get()
+        if not username_index:
+            return jsonify({
+                'success': False,
+                'message': 'User not found'
+            }), 404
+        
+        user_id = username_index.get('user_id')
+        if not user_id:
+            return jsonify({
+                'success': False,
+                'message': 'User not found'
+            }), 404
+        
+        # Get recent sessions
+        sessions = db_service.get_user_sessions(user_id, 'horsplay', 5)
+        
+        return jsonify({
+            'success': True,
+            'sessions': sessions
+        })
+        
+    except Exception as e:
+        print(f"Error getting user sessions: {e}")
+        return jsonify({
+            'success': False,
+            'message': 'Error loading sessions'
+        }), 500
+
+@bp.route('/report-player', methods=['POST'])
 def report_player():
     """Submit a player report for analytics tracking."""
     try:
@@ -434,7 +471,7 @@ def _update_report_analytics(db_service, reported_user_id, reporter_user_id, rep
     except Exception as e:
         print(f"Error updating report analytics: {e}")
 
-@bp.route('/api/report-analytics', methods=['GET'])
+@bp.route('/report-analytics', methods=['GET'])
 def get_report_analytics():
     """Get report analytics data."""
     try:
@@ -520,7 +557,7 @@ def get_report_analytics():
         print(f"Error getting report analytics: {e}")
         return jsonify({'error': 'Internal server error'}), 500
 
-@bp.route('/api/database/initialize', methods=['POST'])
+@bp.route('/database/initialize', methods=['POST'])
 def initialize_database():
     """Initialize the database with basic structure (admin only)."""
     try:
@@ -542,7 +579,7 @@ def initialize_database():
         print(f"Error initializing database: {e}")
         return jsonify({'error': 'Internal server error'}), 500
 
-@bp.route('/api/database/clear', methods=['POST'])
+@bp.route('/database/clear', methods=['POST'])
 def clear_database():
     """Clear all data from the database (use with caution!)."""
     try:
@@ -568,7 +605,7 @@ def clear_database():
 # TESTING ENDPOINTS (Bypass authentication for fake data creation)
 # ============================================================================
 
-@bp.route('/api/database/create_session', methods=['POST'])
+@bp.route('/database/create_session', methods=['POST'])
 def create_test_session():
     """Create a game session directly for testing (bypasses auth)."""
     try:
@@ -592,7 +629,7 @@ def create_test_session():
         print(f"Error creating test session: {e}")
         return jsonify({'error': 'Internal server error'}), 500
 
-@bp.route('/api/database/create_stats', methods=['POST'])
+@bp.route('/database/create_stats', methods=['POST'])
 def create_test_stats():
     """Create stats directly for testing (bypasses auth)."""
     try:
@@ -616,7 +653,7 @@ def create_test_stats():
         print(f"Error creating test stats: {e}")
         return jsonify({'error': 'Internal server error'}), 500
 
-@bp.route('/api/database/create_scoreboard_entry', methods=['POST'])
+@bp.route('/database/create_scoreboard_entry', methods=['POST'])
 def create_test_scoreboard_entry():
     """Create scoreboard entry directly for testing (bypasses auth)."""
     try:
@@ -640,7 +677,7 @@ def create_test_scoreboard_entry():
         print(f"Error creating test scoreboard entry: {e}")
         return jsonify({'error': 'Internal server error'}), 500
 
-@bp.route('/api/database/create_horspass_progress', methods=['POST'])
+@bp.route('/database/create_horspass_progress', methods=['POST'])
 def create_test_horspass_progress():
     """Create HorsPass progress directly for testing (bypasses auth)."""
     try:
@@ -664,7 +701,7 @@ def create_test_horspass_progress():
         print(f"Error creating test HorsPass progress: {e}")
         return jsonify({'error': 'Internal server error'}), 500
 
-@bp.route('/api/database/create_user', methods=['POST'])
+@bp.route('/database/create_user', methods=['POST'])
 def create_test_user():
     """Create a user directly for testing (bypasses auth)."""
     try:

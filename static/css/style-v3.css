@@ -662,6 +662,29 @@ input:focus {
   }
 }
 
+/* Scores page stat box hover effects - straighten rotation on hover */
+.rotate-left-desktop:hover,
+.rotate-right-desktop:hover {
+  transform: rotate(0deg) !important;
+  transition: transform .15s ease-in-out;
+}
+
+@media (min-width: 600px) and (max-width: 1023px) {
+  .rotate-left-tablet:hover,
+  .rotate-right-tablet:hover {
+    transform: rotate(0deg) !important;
+    transition: transform .15s ease-in-out;
+  }
+}
+
+@media (max-width: 599px) {
+  .rotate-left-phone:hover,
+  .rotate-right-phone:hover {
+    transform: rotate(0deg) !important;
+    transition: transform .15s ease-in-out;
+  }
+}
+
 /* Data/Detail item containers */
 .data-item {
   background: transparent;
@@ -680,6 +703,15 @@ ease-in-out;
   transform: translate(2px, 2px);
   transition: .1s ease-in-out;
   background: rgba(0,0,0,0.25);
+}
+.data-item:hover:not(.data-item-disabled) p {
+  color: var(--v3-color-accent-gold);
+}
+/* Disabled data items - no hover background but keep transform */
+.data-item.data-item-disabled:hover {
+  transform: translate(2px, 2px);
+  transition: .1s ease-in-out;
+  background: transparent;
 }
 #index-hors-one {
   background: linear-gradient(90deg, rgba(46, 122, 105, 1) 0%, rgba(64, 155, 124, 1) 50%, rgba(110, 200, 95, 1) 100%);
@@ -883,7 +915,7 @@ ease-in-out;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: var(--v3-color-accent-black);
   z-index: 1000;
   display: flex;
   justify-content: center;
@@ -1034,14 +1066,9 @@ ease-in-out;
 }
 #profile-username-edit-controls {
   display: flex;
-  position: absolute;
-  right: 20px;
-  margin-top: 20px;
-  z-index: 1000;
-  flex-direction: row-reverse;
-}
-#profile-username-container:hover {
-  transform: none;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 
@@ -1110,4 +1137,5 @@ ease-in-out;
 }
 
 .hide {display: none;}
+
 

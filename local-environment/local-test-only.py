@@ -163,6 +163,12 @@ def index():
     context['latest_features'] = get_latest_features(3)
     context['latest_fixes'] = get_latest_fixes(3)
     context['latest_deprecated'] = get_latest_deprecated(3)
+    
+    # Debug output
+    print("DEBUG: latest_features count:", len(context['latest_features']))
+    print("DEBUG: latest_fixes count:", len(context['latest_fixes']))
+    print("DEBUG: latest_deprecated count:", len(context['latest_deprecated']))
+    
     return render_template('index.html', **context)
 
 @app.route('/store')
@@ -219,14 +225,16 @@ def scores():
         },
         'fastest_time': {
             'username': 'SpeedDemon',
-            'time': 8.3
+            'time': 8.3,
+            'time_ms': 8300  # 8.300s in milliseconds
         }
     }
     
     context['aggregated_stats'] = {
         'total_games': 1337,
         'total_horses': 9001,
-        'best_time_ever': 7.2,
+        'best_time_ever': 7,
+        'best_time_ever_ms': 7200,  # 7.200s in milliseconds
         'active_players': 23
     }
     
@@ -235,7 +243,8 @@ def scores():
             'username': 'TopPlayer',
             'total_games': 50,
             'total_horses': 200,
-            'best_time_seconds': 7.2,
+            'best_time_seconds': 7,
+            'best_time_ms': 7200,  # 7.200s in milliseconds
             'horspass_level': 5,
             'subscription_type': 'max'
         },
@@ -243,7 +252,8 @@ def scores():
             'username': 'SecondPlace',
             'total_games': 45,
             'total_horses': 180,
-            'best_time_seconds': 8.1,
+            'best_time_seconds': 8,
+            'best_time_ms': 8100,  # 8.100s in milliseconds
             'horspass_level': 4,
             'subscription_type': 'plus'
         },
@@ -251,7 +261,8 @@ def scores():
             'username': 'ThirdPlace',
             'total_games': 40,
             'total_horses': 160,
-            'best_time_seconds': 9.5,
+            'best_time_seconds': 9,
+            'best_time_ms': 9500,  # 9.500s in milliseconds
             'horspass_level': 3,
             'subscription_type': 'one'
         },
@@ -259,7 +270,8 @@ def scores():
             'username': 'FreePlayer',
             'total_games': 25,
             'total_horses': 100,
-            'best_time_seconds': 12.3,
+            'best_time_seconds': 12,
+            'best_time_ms': 12300,  # 12.300s in milliseconds
             'horspass_level': 2,
             'subscription_type': 'free'
         },
@@ -267,7 +279,8 @@ def scores():
             'username': 'NewPlayer',
             'total_games': 10,
             'total_horses': 40,
-            'best_time_seconds': 15.8,
+            'best_time_seconds': 15,
+            'best_time_ms': 15800,  # 15.800s in milliseconds
             'horspass_level': 1,
             'subscription_type': 'free'
         }
@@ -315,7 +328,8 @@ def get_user_profile(username):
             'subscription_type': 'max',
             'total_games': 50,
             'total_horses': 200,
-            'best_time_seconds': 7.2,
+            'best_time_seconds': 7,
+            'best_time_ms': 7200,  # 7.200s in milliseconds
             'horspass_level': 5
         },
         'SecondPlace': {
@@ -393,6 +407,127 @@ def get_user_profile(username):
             'success': False,
             'message': 'User not found'
         }), 404
+
+@app.route('/api/user-sessions/<username>', methods=['GET'])
+def get_user_sessions(username):
+    """Mock user sessions endpoint for local testing"""
+    
+    # Mock session data for testing
+    mock_sessions = {
+        'TopPlayer': [
+            {
+                'created_at': '2024-01-15T10:30:00.000Z',
+                'game_duration_seconds': 7,
+                'game_duration_ms': 7200,
+                'game_targets_popped': 25,
+                'game_score': 1250,
+                'game_difficulty': 'Hard',
+                'game_mode': 'freeplay',
+                'game_modifier_speed': 2.0,
+                'game_modifier_power': 100,
+                'game_modifier_background': 'Moody Moon'
+            },
+            {
+                'created_at': '2024-01-14T15:45:00.000Z',
+                'game_duration_seconds': 8,
+                'game_duration_ms': 8100,
+                'game_targets_popped': 22,
+                'game_score': 1100,
+                'game_difficulty': 'Medium',
+                'game_mode': 'freeplay',
+                'game_modifier_speed': 1.5,
+                'game_modifier_power': 75,
+                'game_modifier_background': 'Sunset Valley'
+            },
+            {
+                'created_at': '2024-01-13T09:20:00.000Z',
+                'game_duration_seconds': 9,
+                'game_duration_ms': 9500,
+                'game_targets_popped': 20,
+                'game_score': 950,
+                'game_difficulty': 'Easy',
+                'game_mode': 'freeplay',
+                'game_modifier_speed': 1.0,
+                'game_modifier_power': 50,
+                'game_modifier_background': 'Forest Mist'
+            }
+        ],
+        'SpeedDemon': [
+            {
+                'created_at': '2024-01-15T14:20:00.000Z',
+                'game_duration_seconds': 8,
+                'game_duration_ms': 8300,
+                'game_targets_popped': 30,
+                'game_score': 1500,
+                'game_difficulty': 'Hard',
+                'game_mode': 'freeplay',
+                'game_modifier_speed': 3.0,
+                'game_modifier_power': 100,
+                'game_modifier_background': 'Moody Moon'
+            },
+            {
+                'created_at': '2024-01-14T11:15:00.000Z',
+                'game_duration_seconds': 9,
+                'game_duration_ms': 9100,
+                'game_targets_popped': 28,
+                'game_score': 1400,
+                'game_difficulty': 'Medium',
+                'game_mode': 'freeplay',
+                'game_modifier_speed': 2.5,
+                'game_modifier_power': 75,
+                'game_modifier_background': 'Sunset Valley'
+            }
+        ],
+        'HorseWrangler': [
+            {
+                'created_at': '2024-01-15T16:30:00.000Z',
+                'game_duration_seconds': 9,
+                'game_duration_ms': 9800,
+                'game_targets_popped': 35,
+                'game_score': 1750,
+                'game_difficulty': 'Hard',
+                'game_mode': 'freeplay',
+                'game_modifier_speed': 1.0,
+                'game_modifier_power': 50,
+                'game_modifier_background': 'Forest Mist'
+            },
+            {
+                'created_at': '2024-01-14T13:45:00.000Z',
+                'game_duration_seconds': 11,
+                'game_duration_ms': 11200,
+                'game_targets_popped': 32,
+                'game_score': 1600,
+                'game_difficulty': 'Medium',
+                'game_mode': 'freeplay',
+                'game_modifier_speed': 1.5,
+                'game_modifier_power': 75,
+                'game_modifier_background': 'Moody Moon'
+            },
+            {
+                'created_at': '2024-01-13T10:20:00.000Z',
+                'game_duration_seconds': 12,
+                'game_duration_ms': 12500,
+                'game_targets_popped': 30,
+                'game_score': 1500,
+                'game_difficulty': 'Easy',
+                'game_mode': 'freeplay',
+                'game_modifier_speed': 1.0,
+                'game_modifier_power': 50,
+                'game_modifier_background': 'Sunset Valley'
+            }
+        ]
+    }
+    
+    if username in mock_sessions:
+        return jsonify({
+            'success': True,
+            'sessions': mock_sessions[username]
+        })
+    else:
+        return jsonify({
+            'success': True,
+            'sessions': []
+        })
 
 @app.route('/api/update-avatar-selection', methods=['POST'])
 def update_avatar_selection():

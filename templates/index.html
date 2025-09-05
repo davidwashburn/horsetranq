@@ -171,40 +171,18 @@
 									<h2 class="font-size-xl font-weight-xl color-accent-white">New fetures</h2>
 								</div>
 								<div class="flex-column-all gap-md-all">
-									
+									{% for feature in latest_features %}
 									<div class="flex-row-all flex-align-items-start gap-sm-all">
 										<svg class="color-success-dark" style="width: 1em; height: 1em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
 											<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"></circle>
 											<path d="M17,11H13V7a1,1,0,0,0-2,0v4H7a1,1,0,0,0,0,2h4v4a1,1,0,0,0,2,0V13h4a1,1,0,0,0,0-2Z" fill="currentColor"></path>
 										</svg>
 										<div class="flex-column-all gap-xs-all">
-											<div class="font-size-md color-accent-white">Horsplay Seasin 2 launch wit upcoming stor</div>
-											<div class="font-size-sm color-accent-grey-mid">v3.0.1 - Septembar 3, 2025</div>
+											<div class="font-size-md color-accent-white">{{ feature.text }}</div>
+											<div class="font-size-sm color-accent-grey-mid">{{ feature.version }} - {{ feature.date }}</div>
 										</div>
 									</div>
-									
-									<div class="flex-row-all flex-align-items-start gap-sm-all">
-										<svg class="color-success-dark" style="width: 1em; height: 1em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
-											<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"></circle>
-											<path d="M17,11H13V7a1,1,0,0,0-2,0v4H7a1,1,0,0,0,0,2h4v4a1,1,0,0,0,2,0V13h4a1,1,0,0,0,0-2Z" fill="currentColor"></path>
-										</svg>
-										<div class="flex-column-all gap-xs-all">
-											<div class="font-size-md color-accent-white">Sine in optins now allow user acount creation (no Google reqired)</div>
-											<div class="font-size-sm color-accent-grey-mid">v3.0.1 - Septembar 3, 2025</div>
-										</div>
-									</div>
-									
-									<div class="flex-row-all flex-align-items-start gap-sm-all">
-										<svg class="color-success-dark" style="width: 1em; height: 1em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
-											<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"></circle>
-											<path d="M17,11H13V7a1,1,0,0,0-2,0v4H7a1,1,0,0,0,0,2h4v4a1,1,0,0,0,2,0V13h4a1,1,0,0,0,0-2Z" fill="currentColor"></path>
-										</svg>
-										<div class="flex-column-all gap-xs-all">
-											<div class="font-size-md color-accent-white">Aded hors movment on Horsplay for added difculty</div>
-											<div class="font-size-sm color-accent-grey-mid">v3.0.1 - Septembar 3, 2025</div>
-										</div>
-									</div>
-									
+									{% endfor %}
 								</div>
 							</div>
 							
@@ -214,40 +192,18 @@
 									<h2 class="font-size-xl font-weight-xl color-accent-white">Lates fixees</h2>
 								</div>
 								<div class="flex-column-all gap-md-all">
-									
+									{% for fix in latest_fixes %}
 									<div class="flex-row-all flex-align-items-start gap-sm-all">
 										<svg class="color-primary" style="width: 1em; height: 1em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
 											<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"></circle>
 											<path d="M9.5,17a1,1,0,0,1-.707-.293l-3-3a1,1,0,0,1,1.414-1.414L9.5,14.586l7.293-7.293a1,1,0,1,1,1.414,1.414l-8,8A1,1,0,0,1,9.5,17Z" fill="currentColor"></path>
 										</svg>
 										<div class="flex-column-all gap-xs-all">
-											<div class="font-size-md color-accent-white">Fixe database not updatin in some case aftar Horsplay ends</div>
-											<div class="font-size-sm color-accent-grey-mid">v3.0.1 - Septembar 3, 2025</div>
+											<div class="font-size-md color-accent-white">{{ fix.text }}</div>
+											<div class="font-size-sm color-accent-grey-mid">{{ fix.version }} - {{ fix.date }}</div>
 										</div>
 									</div>
-									
-									<div class="flex-row-all flex-align-items-start gap-sm-all">
-										<svg class="color-primary" style="width: 1em; height: 1em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
-											<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"></circle>
-											<path d="M9.5,17a1,1,0,0,1-.707-.293l-3-3a1,1,0,0,1,1.414-1.414L9.5,14.586l7.293-7.293a1,1,0,1,1,1.414,1.414l-8,8A1,1,0,0,1,9.5,17Z" fill="currentColor"></path>
-										</svg>
-										<div class="flex-column-all gap-xs-all">
-											<div class="font-size-md color-accent-white">Fixed bug wit navgation dropdown not opening or closng</div>
-											<div class="font-size-sm color-accent-grey-mid">v3.0.1 - Septembar 3, 2025</div>
-										</div>
-									</div>
-									
-									<div class="flex-row-all flex-align-items-start gap-sm-all">
-										<svg class="color-primary" style="width: 1em; height: 1em; flex-shrink: 0; margin-top: 0.2em;" viewBox="0 0 24 24" aria-hidden="true">
-											<circle cx="12" cy="12" r="12" opacity="0.2" fill="currentColor"></circle>
-											<path d="M9.5,17a1,1,0,0,1-.707-.293l-3-3a1,1,0,0,1,1.414-1.414L9.5,14.586l7.293-7.293a1,1,0,1,1,1.414,1.414l-8,8A1,1,0,0,1,9.5,17Z" fill="currentColor"></path>
-										</svg>
-										<div class="flex-column-all gap-xs-all">
-											<div class="font-size-md color-accent-white">Fixe bug wit player profil not loadin on clik</div>
-											<div class="font-size-sm color-accent-grey-mid">v3.0.1 - Septembar 3, 2025</div>
-										</div>
-									</div>
-									
+									{% endfor %}
 								</div>
 							</div>
 							
@@ -301,7 +257,6 @@
 	</script>
 	<script src="/static/js/secondary/username-editor.js"></script> <!-- Username editing functionality -->
 	<script src="/static/js/secondary/account-button.js"></script> <!-- Account button avatar functionality -->
-	<script src="/static/js/secondary/hide-avatar.js"></script> <!-- Hide avatar checkbox functionality -->
 	<script src="/static/js/secondary/avatar-selector.js"></script> <!-- Avatar selection dropdown functionality -->
 	
 	<script src="/static/js/resources/jquery-ui.js"></script> <!-- Added for the draggable UI -->

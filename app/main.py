@@ -24,7 +24,7 @@ def scores():
     # Get real data from database
     weekly_leaders = db_service.get_weekly_leaders('horsplay')
     aggregated_stats = db_service.get_aggregated_stats('horsplay')
-    scoreboard = db_service.get_scoreboard_with_details('HP-S1', 10)
+    scoreboard = db_service.get_scoreboard_with_details('HP-S1', 15)
     
     # Get report stats with error handling
     try:
@@ -35,6 +35,7 @@ def scores():
         report_stats = {
             'total_reports': 0,
             'most_reported_player': None,
+            'top_reporter': None,
             'cheat_reports': 0,
             'turd_reports': 0
         }

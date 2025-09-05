@@ -435,6 +435,7 @@ function updateTimer() {
         var currentTime = new Date().getTime();
         var elapsedTime = currentTime - gameStartTime;
         var totalSeconds = Math.floor(elapsedTime / 1000);
+        var totalMilliseconds = Math.floor(elapsedTime); // Store full milliseconds for precision
         
         var displayTime;
         if (totalSeconds >= 120) { // Over 2 minutes
@@ -443,8 +444,9 @@ function updateTimer() {
             var minutes = Math.floor(totalSeconds / 60);
             var remainingSeconds = totalSeconds % 60;
             displayTime = minutes + "m " + remainingSeconds + "s";
-        } else { // Under 1 minute
-            displayTime = totalSeconds + "s";
+        } else { // Under 1 minute - show centiseconds for competitive timing
+            var milliseconds = elapsedTime % 1000;
+            displayTime = totalSeconds + "." + Math.floor(milliseconds / 10).toString().padStart(2, '0') + Math.floor((milliseconds % 10)).toString() + "s";
         }
         
         // Update score display to include timer with clock icon (no pipe separator)
@@ -462,6 +464,7 @@ function stopTimer() {
         var currentTime = new Date().getTime();
         var elapsedTime = currentTime - gameStartTime;
         var totalSeconds = Math.floor(elapsedTime / 1000);
+        var totalMilliseconds = Math.floor(elapsedTime); // Store full milliseconds for precision
         
         var displayTime;
         if (totalSeconds >= 120) {
@@ -471,7 +474,9 @@ function stopTimer() {
             var remainingSeconds = totalSeconds % 60;
             displayTime = minutes + "m " + remainingSeconds + "s";
         } else {
-            displayTime = totalSeconds + "s";
+            // Show centiseconds for competitive timing
+            var milliseconds = elapsedTime % 1000;
+            displayTime = totalSeconds + "." + Math.floor(milliseconds / 10).toString().padStart(2, '0') + Math.floor((milliseconds % 10)).toString() + "s";
         }
         
         // Show success modal instead of alert

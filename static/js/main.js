@@ -89,21 +89,6 @@ $("#accountDeleteBtn").click(function() {
 // DOCUMENT READY FUNCTIONS AND ONLOAD SCRIPTS //
 jQuery(document).ready(function($){
 
-	// Preload critical resources for smoother experience
-	function preloadCriticalResources() {
-		const criticalImages = [
-			'/static/img/branding/legacy/game-horsetranq-alt-large.png',
-			'/static/img/games/lemondrop/promo/lemondrop-alt.png'
-		];
-		
-		criticalImages.forEach(src => {
-			const img = new Image();
-			img.src = src;
-		});
-	}
-	
-	// Start preloading immediately
-	preloadCriticalResources();
 	
 	// Page intro animation - using native jQuery
 	$(document).ready(function() {
